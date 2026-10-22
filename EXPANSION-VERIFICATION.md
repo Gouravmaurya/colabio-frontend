@@ -1,3 +1,15 @@
+# v1.4.0 component-research verification
+
+Verified locally on 2026-10-22 before publication.
+
+- All 31 automated tests passed, including new Vue/Svelte versus React GSAP routing and scoped, read-only component research checks.
+- The official skills@1.7.4 CLI copied all 496 skill files correctly for both Claude Code and Codex in an isolated project.
+- Full React builds select shadcn/ui, Vengeance UI, and Skiper UI for research. Selection still reports not-yet-used; it does not install registry source or claim runtime use.
+- The guidance now requires relevant catalog comparisons, source review of finalists, concrete omission reasons, and a product-specific working composition.
+- Source pins, licenses, 43-route inventory, and dependency installation helper are unchanged. This is a skill revision, not a new rendered storefront test.
+
+The following notes describe earlier releases.
+
 # v1.3.0 automatic-selection verification
 
 Verified locally on 2026-10-22 before publication.

@@ -59,6 +59,14 @@ Skiper UI, and Motion. Choose components that fit the project; automatically add
 needed source components and local dependencies during authorized implementation.
 Preserve existing styling and inspect registry changes before writing.
 
+For full creative React builds, component research across shadcn/ui, Vengeance UI,
+and Skiper UI is a selected phase, not an optional afterthought. Inspect relevant
+mechanisms and source before deciding what to integrate. A single unsuitable demo
+does not justify dismissing a library. Prioritize compatible components explicitly
+requested by the user; document concrete constraints when they cannot be used.
+Follow the discovery and creative-composition checks in the component-libraries
+reference. Research selection never means automatic bulk installation.
+
 For the expanded design, image, prototype, motion, scroll, and WebGL modules,
 read [the module router](references/module-router.md). Load only the guidance
 relevant to this task. Duplicate Taste installations resolve to the bundled

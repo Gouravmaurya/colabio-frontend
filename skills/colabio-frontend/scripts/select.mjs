@@ -56,8 +56,8 @@ export function selectModules({ project, surface, task = 'build', features: requ
         if (site || flags.has('scroll-story')) add('gsap-scrolltrigger', 'motion-implementation', 'Coordinate the planned scroll-linked sequence with the chosen scroll owner.');
         if (react) {
           add('gsap-react', 'motion-implementation', 'Scope GSAP to React lifecycle and clean up on unmount.');
-          add('gsap-frameworks', 'motion-implementation', 'Respect framework rendering and client/server boundaries.');
         }
+        if (dependencies.vue || dependencies.svelte) add('gsap-frameworks', 'motion-implementation', 'Apply Vue/Svelte lifecycle and cleanup guidance for the detected framework.');
       }
       if (react) add(dependencies.motion && !dependencies['framer-motion'] ? 'motion-dev-animations' : 'framer-motion', 'interaction-implementation', 'Use the compatible React Motion package for purposeful state changes; avoid duplicate runtimes.');
     }
@@ -79,10 +79,12 @@ export function selectModules({ project, surface, task = 'build', features: requ
     add('review-animations', 'motion-review', 'Review existing motion within the authorized scope.');
   }
   if (react) {
-    consider('shadcn-ui', 'Assess controls/primitives against existing components, framework, and brand before copying source.');
-    if ((site && full) || flags.has('source-components')) {
-      consider('vengeance-ui', 'Assess individual mechanisms for the signature component; do not copy a page template.');
-      consider('skiper-ui', 'Assess individual expressive components against purpose, source terms, and accessibility.');
+    if (full || flags.has('source-components')) {
+      add('shadcn-ui', 'component-research', 'Research suitable accessible foundations against existing controls; source copying is a separate implementation decision.');
+      add('vengeance-ui', 'component-research', 'Inspect multiple relevant catalog mechanisms and source before choosing an original composition or recording a concrete omission.');
+      add('skiper-ui', 'component-research', 'Inspect multiple relevant expressive mechanisms and source; adapt suitable behavior into the project-specific component.');
+    } else {
+      consider('shadcn-ui', 'Assess controls/primitives against existing components, framework, and brand before copying source.');
     }
     if (animate) add('motion', 'interaction-implementation', 'Consult shared package/source-component integration rules; reuse the chosen Motion runtime.');
   }

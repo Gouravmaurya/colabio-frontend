@@ -23,6 +23,48 @@ Do not migrate a non-React app merely to use these React-oriented components.
 
 ## Install selected source components
 
+### Research before accepting or rejecting a library
+
+For a substantial creative React build, inspect the current shadcn/ui, Vengeance
+UI, and Skiper UI catalogs as part of component research. For each applicable
+source, compare two or three relevant mechanisms when the catalog offers them.
+Choose candidates against the actual content and interaction needs; do not browse
+random effects to meet a count. Inspect the demo, source, dependencies, license,
+responsive behavior, and keyboard/reduced-motion implications of finalists.
+For a narrow task, research only what can improve that task.
+
+Do not reject an entire library after seeing one unsuitable image list, background,
+or hover effect. A library may contribute a useful primitive, navigation mechanism,
+state transition, spatial composition, or part of the signature interaction.
+When the user explicitly requests a library, prioritize a compatible contribution
+to the working result. If none fits, explain the concrete compatibility, access,
+accessibility, or product constraint after this research and identify the alternative.
+Unavailable catalogs must be reported as unavailable, not reviewed and rejected.
+
+Record source URLs, candidates inspected, the selected mechanism, and its intended
+component role. Distinguish catalog research, source inspected, source adapted,
+package installed, runtime used, and browser verified. Only claim the level reached.
+Researching Vengeance does not mean Vengeance code ships in the page.
+
+### Compose an original component
+
+Start from a product-specific interaction contract: what changes, what the visitor
+learns or accomplishes, and which real content drives it. Adapt suitable library
+mechanisms into that contract using the project's anatomy, typography, assets,
+states, and mobile composition. Preserve source attribution where required.
+Use shadcn for sound foundations, Vengeance or Skiper for suitable expressive
+mechanisms, Motion for React state transitions, and the relevant bundled GSAP
+skills for choreography. They are complementary options, not quotas.
+
+Before expanding the page, inspect the working signature component and adjoining
+scene. Ask whether its information model, composition, and behavior belong to this
+product. If removing the logo makes it interchangeable with another demo, revise
+the underlying relationship or interaction. A reskinned catalog block, extra
+animation, or more installed packages does not pass this check. Keep navigation
+familiar and practical; originality must not make buying, reading, or operating harder.
+
+## Integrate the chosen components
+
 During authorized implementation, inspect the actual app package, lock file,
 framework, Tailwind version, aliases, global CSS, and existing components.json.
 Keep its primitive family and customized components. Initialize shadcn only if

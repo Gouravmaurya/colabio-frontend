@@ -21,7 +21,11 @@ test('React landing covers specialist phases, every inventory entry, and actual 
   const inventory = JSON.parse(fs.readFileSync(new URL('../skills/colabio-frontend/modules.json', import.meta.url)));
   assert.deepEqual(plan.modules.map(item => item.id), inventory.modules.map(item => item.id));
   assert.ok(plan.modules.every(item => item.reason && item.evidence === 'not-yet-used'));
-  assert.equal(plan.modules.find(item => item.id === 'skiper-ui').status, 'candidate');
+  for (const id of ['shadcn-ui', 'vengeance-ui', 'skiper-ui']) {
+    assert.equal(plan.modules.find(item => item.id === id).phase, 'component-research');
+    assert.ok(selected(plan).includes(id));
+  }
+  assert.equal(selected(plan).includes('gsap-frameworks'), false);
   assert.equal(selected(plan).includes('motion-dev-animations'), false);
   assert.equal(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), before);
   assert.deepEqual(fs.readdirSync(root), ['package.json']);
@@ -59,4 +63,26 @@ test('specialist needs compose deliberately without silently enabling unrelated 
   assert.throws(() => selectModules({ project: plan.project, surface: 'landing', features: ['static', 'scroll-story'] }), /conflict/);
   assert.throws(() => selectModules({ project: plan.project, surface: 'landing', features: ['unknown'] }), /Unknown feature/);
   assert.throws(() => selectModules({ project: plan.project, surface: 'landing', include: ['fake-skill'] }), /Unknown module/);
+});
+
+test('GSAP framework guidance follows Vue/Svelte rather than React', t => {
+  for (const framework of ['vue', 'svelte']) {
+    const plan = selectModules({ project: project(t, { [framework]: '*' }), surface: 'landing' });
+    assert.ok(selected(plan).includes('gsap-frameworks'));
+    assert.equal(selected(plan).includes('gsap-react'), false);
+    assert.equal(selected(plan).includes('vengeance-ui'), false);
+  }
+});
+
+test('explicit component research stays read-only and respects small review scope', t => {
+  const root = project(t, { react: '^19', motion: '^12' });
+  const before = fs.readFileSync(path.join(root, 'package.json'), 'utf8');
+  const review = selectModules({ project: root, surface: 'component', task: 'review' });
+  assert.equal(selected(review).includes('vengeance-ui'), false);
+  const research = selectModules({ project: root, surface: 'component', task: 'review', features: ['source-components'] });
+  for (const id of ['shadcn-ui', 'vengeance-ui', 'skiper-ui']) assert.ok(selected(research).includes(id));
+  assert.equal(research.libraries.gsap, false);
+  assert.equal(research.libraries.reactMotion, false);
+  assert.deepEqual(fs.readdirSync(root), ['package.json']);
+  assert.equal(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), before);
 });

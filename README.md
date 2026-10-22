@@ -37,7 +37,7 @@ Requires Git and Node.js 22+. Use a separate checkout from your website.
 The public repository can be downloaded without organization authentication.
 
 ```sh
-git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.3.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
+git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.4.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
 cd colabio-bundle
 node scripts/install.mjs --verify-only
 node scripts/install.mjs --project "/absolute/path/to/your/project"

@@ -61,6 +61,14 @@ with a reason. Reassess source-library candidates even when the script cannot
 detect the stack, including an authorized new React project. Do not introduce
 React merely to qualify for a component library.
 
+Full React builds select shadcn/ui, Vengeance UI, and Skiper UI as component-research
+routes. Read the discovery protocol in component-libraries.md, inspect several
+relevant mechanisms where available, then make an implementation decision.
+Do not confuse a selected research route with shipped source or a runtime package.
+Use --include for explicitly named module IDs when the helper cannot infer them;
+user requests take priority over its default plan. GSAP React guidance applies to
+React; the bundled GSAP frameworks guide applies to Vue/Svelte.
+
 Read selected entrypoints and applicable references at the phase that needs
 them. Identify a concrete application: component anatomy, token decision,
 interaction behavior, animation ownership, responsive change, or review check.

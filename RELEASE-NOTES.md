@@ -1,23 +1,15 @@
-# Colabio Frontend v1.3.0
+# Colabio Frontend v1.4.0
 
-Adds automatic project-specific selection across the full 43-route inventory.
-Colabio now combines relevant art direction, architecture, craft, responsive,
-component, motion, and review guidance rather than defaulting to core companions.
+Full creative React builds now select shadcn/ui, Vengeance UI, and Skiper UI as explicit component-research routes. The agent inspects relevant mechanisms before deciding which source to adapt, rather than dismissing a library after one unsuitable demo.
 
-- Includes a read-only selector that inspects the actual application's declared
-  stack and assesses every bundled module with a phase and reason.
-- Resolves UI-library candidates against real component needs; preserves one
-  project-specific concept and token system across overlapping recommendations.
-- Distinguishes selected guides from guidance actually applied, commands run,
-  installed dependencies, and observed verification.
-- Keeps small tasks scoped, static projects static, native projects native,
-  and website dependencies local. No global runtime packages or hidden hooks.
-- Adds selection behavior tests for React/vanilla websites, app Motion reuse,
-  native and review scope, specialist combinations, and read-only behavior.
+- Prioritizes compatible libraries named by the user and records concrete constraints for omissions.
+- Requires product-specific composition and working interaction before expanding a signature component across a page.
+- Separates research, inspected source, adapted source, installed packages, runtime usage, and rendered verification.
+- Retains relevant official GSAP skills and compatible Motion guidance; fixes GSAP framework routing so React uses the React guide and Vue/Svelte use the frameworks guide.
+- Preserves narrow review scope and read-only selection. No automatic bulk installs or global frontend runtime packages.
 
-Install or update for both assistants:
+Update globally for Claude Code and Codex:
 
     npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 
-Global scope applies to instructions and resources. More selected guides are
-not evidence of design quality; Colabio must still inspect the working result.
+Omit -g for project-local installation. Library research is required where applicable; actual integration remains tied to useful behavior and verified compatibility. This release changes the skill, not the Haven or LAYR website.
