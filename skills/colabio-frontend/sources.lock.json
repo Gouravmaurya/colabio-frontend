@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-22",
+  "sources": [
+    {
+      "id": "taste",
+      "repository": "https://github.com/Leonxlnx/taste-skill",
+      "commit": "6010f91a9935f1c167dfc500fb1a475681892e6b",
+      "sourcePath": "skills/taste-skill",
+      "license": "MIT",
+      "files": 38
+    },
+    {
+      "id": "hallmark",
+      "repository": "https://github.com/Nutlope/hallmark",
+      "commit": "13ac0ec7e148655948100b6396439e481361d690",
+      "sourcePath": "skills/hallmark",
+      "license": "MIT",
+      "files": 107,
+      "linkRepairs": [
+        {
+          "path": "docs/recipes.md",
+          "originalSha256": "f7c732c49c698c103035fb0450a15385170a2db2c23075180890757524b5ee2c",
+          "bundledSha256": "36b81dc15b5c86f009fcbd5eef87e8c85e44a4f2637ae9318c4cc4d7ec4467c6",
+          "reason": "Repair existing upstream relative Markdown links for the preserved repository layout."
+        },
+        {
+          "path": "docs/study-examples.md",
+          "originalSha256": "3cbbbc1e1515114e0e1cee6eb8534793539342f33ed074b0917ff378aac91616",
+          "bundledSha256": "d900fe2442334a93261642e93e9cb98e53a9c6cb92a6d4ce615b415bb54dc5be",
+          "reason": "Repair existing upstream relative Markdown links for the preserved repository layout."
+        }
+      ]
+    },
+    {
+      "id": "impeccable",
+      "repository": "https://github.com/pbakaus/impeccable",
+      "commit": "2fd24e3a9887e9fc009408ffbbb486e74998694e",
+      "sourcePath": ".agents/skills/impeccable",
+      "license": "Apache-2.0",
+      "files": 62
+    }
+  ],
+  "packaging": {
+    "companionEntrypoint": "GUIDE.md",
+    "reason": "Keep upstream instructions bundled without separate agent skill discovery.",
+    "renames": [
+      {
+        "from": "companions/taste/SKILL.md",
+        "to": "companions/taste/GUIDE.md"
+      },
+      {
+        "from": "companions/impeccable/SKILL.md",
+        "to": "companions/impeccable/GUIDE.md"
+      },
+      {
+        "from": "companions/hallmark/skills/hallmark/SKILL.md",
+        "to": "companions/hallmark/skills/hallmark/GUIDE.md"
+      }
+    ],
+    "relativeLinkRepairs": [
+      "companions/hallmark/skills/hallmark/references/anti-patterns.md",
+      "companions/hallmark/skills/hallmark/references/copy.md",
+      "companions/hallmark/skills/hallmark/references/custom-theme.md",
+      "companions/hallmark/skills/hallmark/references/design-md.md",
+      "companions/hallmark/skills/hallmark/references/export-formats.md",
+      "companions/hallmark/skills/hallmark/references/hero-enrichment.md",
+      "companions/hallmark/skills/hallmark/references/imagery-kit.md",
+      "companions/hallmark/skills/hallmark/references/microinteractions.md",
+      "companions/hallmark/skills/hallmark/references/slop-test.md"
+    ]
+  }
+}

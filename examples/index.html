@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#202d35">
+  <meta name="description" content="Haven Field Study: follow a fictional property from first impression to rental assumptions and the questions worth asking.">
+  <title>Haven — There’s more to a home.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23202d35'/%3E%3Cpath d='M16 44V27l16-12 16 12v17M25 44V30h14v14' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="vendor/lenis.css"><link rel="stylesheet" href="field.css">
+  <script defer src="vendor/gsap.min.js"></script><script defer src="vendor/ScrollTrigger.min.js"></script>
+  <script type="module" src="field.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
+  <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="diagonal" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+    <symbol id="house" viewBox="0 0 32 32"><path d="M5 27V13L16 5l11 8v14M12 27V16h8v11"/></symbol>
+    <symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></symbol>
+  </svg>
+  <div class="shell utility"><span>SCOUTHAVENS / AN INDEPENDENT DESIGN STUDY</span><div class="motion-tools"><button id="motion-toggle" aria-pressed="true">Motion on</button><button id="replay-motion">Replay entrance ↺</button></div></div>
+  <header class="shell"><a class="logo" href="#" aria-label="Haven home"><svg class="icon" aria-hidden="true"><use href="#house"/></svg>haven<span class="dot">.</span></a><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">+</span></button><nav id="navigation" aria-label="Main navigation"><a class="nav-link" href="#study">The property</a><a class="nav-link" href="#review">The open questions</a><a class="button" href="#numbers">Follow the numbers <svg class="icon" aria-hidden="true"><use href="#diagonal"/></svg></a></nav></header>
+
+  <main id="main">
+    <section class="intro shell" aria-labelledby="page-title"><div><p class="eyebrow">Property intelligence. A different kind of perspective.</p><h1 id="page-title"><span class="title-mask"><span class="title-line">A home is only</span></span><span class="title-mask"><span class="title-line dim">half the story.</span></span></h1></div><div class="intro-aside"><p>The listing gets your attention. Haven helps you explore the assumptions, the rental numbers, and the questions behind it.</p><a href="#study">Start with one place <svg class="icon" aria-hidden="true"><use href="#diagonal"/></svg></a></div></section>
+
+    <section id="study" class="study shell" aria-label="Interactive property field study">
+      <div class="study-toolbar"><span class="study-id mono">FIELD STUDY / 001</span><div class="view-switch" role="group" aria-label="Property representation"><button data-view="photo" aria-pressed="true">Photograph</button><button data-view="plan" aria-pressed="false">Concept plan</button></div></div>
+      <div class="inspection">
+        <div class="visual-pane">
+          <div class="photo-scene" id="photo-scene"><img src="assets/garden-house.webp" width="640" height="640" alt="Illustrative timber-clad home with broad windows, a terrace, and a garden" fetchpriority="high"></div>
+          <div class="plan-scene" id="plan-scene" hidden>
+            <svg viewBox="0 0 800 550" role="img" aria-labelledby="plan-title plan-desc"><title id="plan-title">Conceptual two-bedroom garden home</title><desc id="plan-desc">An original schematic showing living space, two bedrooms, a kitchen, and a terrace. Not to scale and not a plan of the photographed home.</desc><defs><pattern id="plan-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0v25" fill="none" stroke="#d5dfe4" stroke-width=".6"/></pattern></defs><rect width="800" height="550" fill="url(#plan-grid)"/><g fill="none" stroke="#405b6e" stroke-width="3"><path d="M115 130H665V397H115Z"/><path d="M330 130v267M510 130v125H665M510 255v142M330 255h180"/><path d="M115 397v55H665v-55" stroke-width="1.3"/><path d="M150 130h130m90 0h90m80 0h95M150 397h130m90 0h100m75 0h90" stroke="#e9eef0" stroke-width="7"/><path d="M150 130h130m90 0h90m80 0h95M150 397h130m90 0h100m75 0h90" stroke-width="1"/><path d="M330 323v47M510 180v48" stroke="#e9eef0" stroke-width="6"/><path d="M330 323a47 47 0 0 1 47 47h-47M510 180a48 48 0 0 0-48 48h48" stroke-width="1"/><path d="M160 168h120v67H160Zm-8 0v67m136-67v67M373 166h91v49h-91Zm0 144h90v48h-90ZM541 281h90v72h-90Z" stroke-width="1.2"/><path d="M130 95h520m-520-7v14m520-14v14M78 130v267m-7-267h14m-14 267h14" stroke-width=".8"/></g><g fill="#405b6e" font-family="Arial,sans-serif" font-size="12" text-anchor="middle"><text x="220" y="288">Living / dining</text><text x="420" y="238">Kitchen</text><text x="420" y="285">Bathroom</text><text x="585" y="242">Bedroom 01</text><text x="585" y="380">Bedroom 02</text><text x="390" y="434" letter-spacing="3">GARDEN TERRACE</text><text x="392" y="81" font-size="9" letter-spacing="2">CONCEPT DRAWING · NOT TO SCALE</text></g><path d="M724 138V94l-7 13m7-13 7 13" stroke="#405b6e" fill="none"/><text x="724" y="85" fill="#405b6e" text-anchor="middle" font-family="Arial" font-size="10">N</text></svg>
+          </div>
+          <span class="corner corner-tl" aria-hidden="true"></span><span class="corner corner-br" aria-hidden="true"></span>
+          <button class="hotspot" data-lens="asset" aria-pressed="true" aria-label="Inspect the asset"><span class="pin">01</span><span class="hotspot-label">The asset</span></button>
+          <button class="hotspot" data-lens="income" aria-pressed="false" aria-label="Inspect the income"><span class="pin">02</span><span class="hotspot-label">The income</span></button>
+          <button class="hotspot" data-lens="questions" aria-pressed="false" aria-label="Inspect the open questions"><span class="pin">03</span><span class="hotspot-label">The unknowns</span></button>
+          <div class="visual-title" id="visual-title"><span class="eyebrow">An illustrative property. A real way to think.</span><strong>The garden home study.</strong></div>
+        </div>
+        <aside class="inspection-sheet" aria-label="Selected inspection lens"><div class="sheet-header"><span id="lens-index">01</span><span class="mono">SELECT A POINT OF VIEW ↗</span></div><div class="sheet-content" id="lens-content" aria-live="polite"><p class="eyebrow" id="lens-eyebrow">THE ASSET / A STARTING POINT</p><h2 id="lens-title">What you see.<br>What you pay.</h2><strong class="readout" id="lens-value">$485,000</strong><p class="sheet-description" id="lens-description">A fictional purchase price for this example. The photograph shows a home, not its condition, ownership history, or total cost.</p><div class="sheet-facts" id="lens-facts"><span>Fictional case</span><span>Illustrative photo</span><span>Unverified condition</span></div></div><a class="sheet-link" id="lens-action" href="#numbers">Put the price to work <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside>
+      </div>
+      <div class="study-bottom"><div class="lens-navigation" role="group" aria-label="Inspection lenses"><button data-lens="asset" aria-pressed="true">01 / The asset</button><button data-lens="income" aria-pressed="false">02 / Income</button><button data-lens="questions" aria-pressed="false">03 / Due diligence</button></div><p>Demo data · Photography and concept plan do not describe a live listing.</p></div>
+    </section>
+
+    <section class="bridge shell" aria-labelledby="bridge-title"><div><span class="chapter">02</span><span class="eyebrow">Beyond the first impression</span></div><h2 id="bridge-title">A beautiful place.<br><span>A more complicated picture.</span></h2><p>A price is a starting point. Rent is an assumption. Costs take their share. Follow the same property into a scenario you can actually change.</p></section>
+
+    <section id="numbers" class="lab shell" aria-labelledby="numbers-title">
+      <div class="section-topline"><span class="eyebrow">The rental experiment</span><span class="case-label mono">SAME PROPERTY / NEXT QUESTION</span></div>
+      <div class="lab-layout">
+        <div class="lab-summary"><h2 id="numbers-title">What does<br><span>the rent leave?</span></h2><div class="mini-subject"><img src="assets/garden-house.webp" width="65" height="65" loading="lazy" alt="The same illustrative garden home"><div><strong>Field study 001</strong><span>The garden home · fictional case</span></div></div><div class="result-block" id="result-block"><span class="eyebrow">Illustrative monthly remainder</span><div class="monthly-result"><output id="case-result" aria-live="polite">—</output><span>/ month</span></div><p class="result-explanation" id="case-explanation">The remainder is rent less the mortgage and costs shown.</p></div><p class="scenario-note" id="case-note">Change the inputs. The waterfall and property notes follow the same scenario.</p></div>
+        <div class="experiment">
+          <div class="experiment-header"><h3>Every dollar has a destination.</h3><span class="mono">MONTHLY / ILLUSTRATIVE USD</span></div>
+          <svg id="waterfall" class="waterfall" viewBox="0 0 870 335" aria-hidden="true"></svg>
+          <div class="mobile-cost-flow" id="mobile-cost-flow" aria-hidden="true"></div>
+          <div class="sensitivity" role="group" aria-label="Sensitivity scenario"><span>Give the assumptions a nudge.</span><button data-stress="base" aria-pressed="true">Base case</button><button data-stress="rent" aria-pressed="false">Rent −10%</button><button data-stress="repairs" aria-pressed="false">Extra $150 / mo</button></div>
+          <form class="inputs" id="case-form">
+            <div class="input-group"><label for="case-price">Purchase price</label><output id="price-display" for="case-price">$485,000</output><input id="case-price" type="range" min="200000" max="1000000" step="5000" value="485000"><div class="input-limits"><span>$200k</span><span>$1m</span></div></div>
+            <div class="input-group"><label for="case-down">Down payment</label><output id="down-display" for="case-down">30%</output><input id="case-down" type="range" min="20" max="100" step="5" value="30"><div class="input-limits"><span>20%</span><span>100%</span></div></div>
+            <div class="input-group"><label for="case-rent">Monthly rent</label><output id="rent-display" for="case-rent">$3,600</output><input id="case-rent" type="range" min="1000" max="8000" step="100" value="3600"><div class="input-limits"><span>$1k</span><span>$8k</span></div></div>
+          </form>
+          <div class="experiment-actions"><button class="text-button" id="reset-case">Reset this experiment ↺</button><p>Local inputs. No account or request sent.</p></div>
+          <details class="cost-ledger"><summary>Read the costs and assumptions <span aria-hidden="true">+</span></summary><dl aria-label="Monthly cost breakdown"><div><dt>Effective monthly rent</dt><dd id="ledger-rent">—</dd></div><div><dt>Mortgage · 30 years, 6.5% fixed</dt><dd id="ledger-mortgage">—</dd></div><div><dt>Property tax · 1.2% of price / year</dt><dd id="ledger-tax">—</dd></div><div><dt>Insurance · monthly</dt><dd id="ledger-insurance">—</dd></div><div><dt>Vacancy + maintenance · 13% of effective rent</dt><dd id="ledger-reserves">—</dd></div><div><dt>Additional monthly buffer</dt><dd id="ledger-buffer">—</dd></div><div><dt>Cash down payment · not a monthly cost</dt><dd id="ledger-down">—</dd></div></dl><p>All figures are sample assumptions. This simplified model excludes closing costs, management, HOA fees, utilities, capital improvements, and income taxes. The extra $150 scenario is an additional monthly cost, not a property-specific repair estimate. Actual costs and returns vary. This is a demonstration, not financial advice.</p></details>
+          <noscript><p class="empty-chart">Enable JavaScript to adjust the scenario and see the calculated breakdown. All sample assumptions are described above.</p></noscript>
+        </div>
+      </div>
+    </section>
+
+    <section id="review" class="review" aria-labelledby="review-title"><div class="shell"><div class="review-heading"><p class="eyebrow"><span class="chapter">03</span> / THE OPEN QUESTIONS</p><h2 id="review-title">Good research<br>leaves questions.</h2><p>This is where a scenario meets due diligence. The example is not a risk assessment or a prediction of a property’s performance.</p></div><div class="review-list"><details><summary><span><span class="review-index">01</span>Is the rent assumption supported?</span><span aria-hidden="true">+</span></summary><p>Compare local, recent rental evidence and verify the property’s rentable condition. This demo’s rent is fictional, not a market estimate.</p></details><details><summary><span><span class="review-index">02</span>What does the simplified model leave out?</span><span aria-hidden="true">+</span></summary><p>Verify closing costs, management, HOA fees, utilities, capital work, local taxes, and legal requirements. A fixed maintenance allowance cannot establish a building’s condition.</p></details><details><summary><span><span class="review-index">03</span>Which facts still need verification?</span><span aria-hidden="true">+</span></summary><p>Review title, permits, inspection findings, insurance availability, and local hazards with suitable sources and qualified professionals. No property records are queried in this standalone demo.</p></details></div></div></section>
+    <section class="handoff shell" aria-labelledby="handoff-title"><div><p class="eyebrow">Good decisions leave a paper trail.</p><h2 id="handoff-title">Keep the numbers.<br><span>Keep the questions.</span></h2><p>Take the current scenario and its assumptions with you. A starting point for your research, not an answer in disguise.</p></div><div class="handoff-actions"><button class="button" id="download-notes">Download case notes <svg class="icon" aria-hidden="true"><use href="#download"/></svg></button><a class="text-button" href="#study">Revisit the property ↑</a><div class="download-status" id="download-status" role="status"></div></div></section>
+  </main>
+  <footer class="footer shell"><a class="logo" href="#" aria-label="Haven home"><svg class="icon" aria-hidden="true"><use href="#house"/></svg>haven<span class="dot">.</span></a><p>Haven by ScoutHavens · Standalone design exploration<br>Fictional scenario. No live listing or backend connection.</p></footer>
+</body>
+</html>
