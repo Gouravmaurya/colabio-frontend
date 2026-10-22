@@ -7,6 +7,8 @@ description: >
   or requests to avoid a generic AI-generated look. Derives typography, font
   details, and theme colors from the project before styling. Uses GSAP and Lenis for
   expressive landing pages and Framer Motion for React interactions.
+  Routes design, image, prototype, native, scroll, GSAP, and WebGL modules;
+  installs needed runtime dependencies locally during authorized implementation.
   Apply to frontend work, not unrelated backend tasks.
 ---
 
@@ -31,11 +33,19 @@ Apply these instructions throughout the requested frontend task and its follow-u
 Explicit user choices take precedence over aesthetic defaults here.
 For a small fix, match the existing interface and keep the change local.
 For a redesign, establish direction before changing components.
-Do not turn a component request into a site redesign or install tools globally.
+Do not turn a component request into a site redesign. Never install website
+runtime libraries globally. The skill bundle itself may be installed globally
+when requested; generated work and dependency changes still belong to the target project.
 This distribution includes reviewed companion instructions and resources;
 no paid service or separate skill installation is required.
 
 ### Design sources and companion skills
+
+For the expanded design, image, prototype, motion, scroll, and WebGL modules,
+read [the module router](references/module-router.md). Load only the guidance
+relevant to this task. Duplicate Taste installations resolve to the bundled
+current version; v1 is an explicit compatibility option. Style-specific guides
+inform a chosen direction rather than imposing their palettes on every project.
 
 For substantial new UI, creative redesigns, or a request naming these sources,
 read [the coordinated workflow](references/coordinated-workflow.md) before
@@ -248,6 +258,37 @@ user's problem. Explain distinctive choices through content and interaction,
 not decorative novelty. Never sacrifice comprehension to avoid familiarity.
 
 ## 4. Use GSAP, Lenis, and Framer Motion with clear ownership
+
+### Install needed libraries automatically in the implementation project
+
+When implementing a requested interface, installing the libraries needed for
+that implementation is part of this workflow. Inspect the actual application
+package, existing dependencies, package manager, and lock file first. Add only
+missing required packages locally and update the existing lock file. Reuse a
+compatible installed `framer-motion` or `motion` package; do not install both.
+Do not require a separate routine permission question when installation is
+already within the requested build, but honor host approvals and explicit
+dependency restrictions. Planning, review, and installing this skill do not
+trigger website package installation.
+
+For GSAP choreography and smooth scrolling, install missing `gsap` and `lenis`.
+For a meaningful React component transition, install missing `framer-motion`,
+or reuse `motion` with `motion/react` if the project already uses it. For vanilla
+HTML or non-React frameworks, omit React Motion and keep the existing framework.
+Check current APIs and peer compatibility; do not force an upgrade to React.
+
+Use the bundled helper after identifying the target implementation package:
+`node <colabio>/scripts/dependencies.mjs --project <absolute-app-folder> --gsap --lenis --react-motion --install`.
+Omit flags for tools the task does not need. Without `--install` it only reports
+the plan. It supports npm, pnpm, Yarn, and Bun, reuses existing dependencies, and
+keeps installation in the specified package. Never run it against the skill's
+own distribution, a global npm prefix, or an unrelated production application.
+
+For required WebGL/Three.js or native Expo work, follow the selected module's
+current framework requirements and add its necessary dependencies locally using
+the same principle. Do not install a 3D engine, React Native, or an image service
+merely because its guide is bundled. If installation fails, retain useful UI,
+report the cause, and do not claim the requested toolkit was delivered.
 
 The standard motion toolkit is GSAP, Lenis, and Framer Motion / Motion for React.
 For a new expressive marketing or landing page, implement GSAP choreography

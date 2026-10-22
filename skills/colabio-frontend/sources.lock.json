@@ -69,5 +69,347 @@
       "companions/hallmark/skills/hallmark/references/microinteractions.md",
       "companions/hallmark/skills/hallmark/references/slop-test.md"
     ]
-  }
+  },
+  "modules": [
+    {
+      "id": "design-taste-frontend-v1",
+      "category": "design",
+      "guide": "modules/design-taste-frontend-v1/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/taste-skill-v1",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "high-end-visual-design",
+      "category": "design",
+      "guide": "modules/high-end-visual-design/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/soft-skill",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gpt-taste",
+      "category": "design",
+      "guide": "modules/gpt-taste/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/gpt-tasteskill",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "minimalist-ui",
+      "category": "style",
+      "guide": "modules/minimalist-ui/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/minimalist-skill",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "industrial-brutalist-ui",
+      "category": "style",
+      "guide": "modules/industrial-brutalist-ui/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/brutalist-skill",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "stitch-design-taste",
+      "category": "concept",
+      "guide": "modules/stitch-design-taste/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/taste-skill-classics",
+      "commit": "5e08c9383dc4ad7fc0df70e1ac8cfa09ec356305",
+      "sourcePath": "skills/stitch-skill",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "image-to-code",
+      "category": "concept",
+      "guide": "modules/image-to-code/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/imagegen-skills",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "sourcePath": "skills/image-to-code",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "imagegen-frontend-web",
+      "category": "concept",
+      "guide": "modules/imagegen-frontend-web/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/imagegen-skills",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "sourcePath": "skills/imagegen-frontend-web",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "imagegen-frontend-mobile",
+      "category": "concept",
+      "guide": "modules/imagegen-frontend-mobile/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/imagegen-skills",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "sourcePath": "skills/imagegen-frontend-mobile",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "brandkit",
+      "category": "concept",
+      "guide": "modules/brandkit/GUIDE.md",
+      "repository": "https://github.com/Leonxlnx/imagegen-skills",
+      "commit": "beb16b0d0f4dae9a6f5cb04ea41e97b93a54ab8e",
+      "sourcePath": "skills/brandkit",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "apple-design",
+      "category": "style",
+      "guide": "modules/apple-design/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/apple-design",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "emil-design-eng",
+      "category": "improve",
+      "guide": "modules/emil-design-eng/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/emil-design-eng",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "mobile-native",
+      "category": "improve",
+      "guide": "modules/mobile-native/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/mobile-native",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "prototype",
+      "category": "concept",
+      "guide": "modules/prototype/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/prototype",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "animate",
+      "category": "animation",
+      "guide": "modules/animate/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/animate",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "animate-expo",
+      "category": "animation",
+      "guide": "modules/animate-expo/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/animate-expo",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "animation-vocabulary",
+      "category": "animation",
+      "guide": "modules/animation-vocabulary/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/animation-vocabulary",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "find-animation-opportunities",
+      "category": "animation",
+      "guide": "modules/find-animation-opportunities/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/find-animation-opportunities",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "improve-animations",
+      "category": "animation",
+      "guide": "modules/improve-animations/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/improve-animations",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "review-animations",
+      "category": "animation",
+      "guide": "modules/review-animations/GUIDE.md",
+      "repository": "https://github.com/emilkowalski/skills",
+      "commit": "2d228630ba1446365f614a108cb8252f1feda202",
+      "sourcePath": "skills/review-animations",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "category": "design",
+      "guide": "modules/ui-ux-pro-max/GUIDE.md",
+      "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "commit": "623a9a9037d006ea727f8213f084d02a6b6f11b5",
+      "sourcePath": ".claude/skills/ui-ux-pro-max",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "framer-motion",
+      "category": "animation",
+      "guide": "modules/framer-motion/GUIDE.md",
+      "repository": "https://github.com/mindrally/skills",
+      "commit": "7682ca77710e0971eab4e0ae5dddfa281aea0ba5",
+      "sourcePath": "framer-motion",
+      "license": "Apache-2.0",
+      "kind": "bundled"
+    },
+    {
+      "id": "motion-dev-animations",
+      "category": "animation",
+      "guide": "modules/motion-dev-animations/GUIDE.md",
+      "repository": "https://github.com/199-biotechnologies/motion-dev-animations-skill",
+      "commit": "3feedfb4dba8adae40fc9a5f9a23e3dda2121205",
+      "sourcePath": ".",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "design-motion-principles",
+      "category": "animation",
+      "guide": "modules/design-motion-principles/GUIDE.md",
+      "repository": "https://github.com/kylezantos/design-motion-principles",
+      "commit": "4a9ca879f24a361f4dca4174fe2da0f67b5ddee3",
+      "sourcePath": "skills/design-motion-principles",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "scroll-craft",
+      "category": "scroll",
+      "guide": "modules/scroll-craft/GUIDE.md",
+      "repository": "https://github.com/nateherkai/scroll-craft",
+      "commit": "75d81f74e83692add18cd7a8a8e078b8a887a579",
+      "sourcePath": "plugins/nateherk-design/skills/scroll-craft",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "threejs-webgl",
+      "category": "webgl",
+      "guide": "modules/threejs-webgl/GUIDE.md",
+      "repository": "https://github.com/Emmraan/agent-skills",
+      "commit": "95a01649c7804ad87c591592923e14b795b25d6a",
+      "sourcePath": "skills/animation-webgl/threejs-webgl",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-core",
+      "category": "gsap",
+      "guide": "modules/gsap-core/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-core",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-frameworks",
+      "category": "gsap",
+      "guide": "modules/gsap-frameworks/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-frameworks",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-performance",
+      "category": "gsap",
+      "guide": "modules/gsap-performance/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-performance",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-plugins",
+      "category": "gsap",
+      "guide": "modules/gsap-plugins/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-plugins",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-react",
+      "category": "gsap",
+      "guide": "modules/gsap-react/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-react",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-scrolltrigger",
+      "category": "gsap",
+      "guide": "modules/gsap-scrolltrigger/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-scrolltrigger",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-timeline",
+      "category": "gsap",
+      "guide": "modules/gsap-timeline/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-timeline",
+      "license": "MIT",
+      "kind": "bundled"
+    },
+    {
+      "id": "gsap-utils",
+      "category": "gsap",
+      "guide": "modules/gsap-utils/GUIDE.md",
+      "repository": "https://github.com/greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "sourcePath": "skills/gsap-utils",
+      "license": "MIT",
+      "kind": "bundled"
+    }
+  ]
 }

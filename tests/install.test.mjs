@@ -34,7 +34,7 @@ function fixture(t) {
 }
 
 test('real release manifest and all bundled file hashes verify', () => {
-  const result = verifyBundle(); assert.equal(result.version, '1.0.0'); assert.ok(result.files.length > 200);
+  const result = verifyBundle(); assert.equal(result.version, JSON.parse(fs.readFileSync(path.join(bundleRoot, 'package.json'))).version); assert.ok(result.files.length > 200);
 });
 
 test('clean install verifies both providers; identical reinstall preserves mtimes', (t) => {
@@ -133,9 +133,9 @@ test('tagged repository bootstrap uses the same verified installation engine', a
   };
   run('init'); run('add', '.');
   run('-c', 'user.name=Colabio Test', '-c', 'user.email=colabio-test@example.invalid', 'commit', '-m', 'fixture'); run('tag', 'v1.0.0');
-  const result = await bootstrap({ project: f.project, repository: f.source });
+  const result = await bootstrap({ project: f.project, repository: f.source, version: 'v1.0.0' });
   assert.equal(result.status, 'installed'); assert.equal(result.targets.length, 2);
-  const repeat = await bootstrap({ project: f.project, repository: f.source }); assert.equal(repeat.status, 'unchanged');
+  const repeat = await bootstrap({ project: f.project, repository: f.source, version: 'v1.0.0' }); assert.equal(repeat.status, 'unchanged');
   await assert.rejects(bootstrap({ project: f.project, repository: f.source, version: 'v9.0.0' }), /Download failed/);
 });
 
@@ -168,7 +168,7 @@ test('all relative Markdown links in the installed skill bundle resolve', () => 
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const file = path.join(dir, entry.name);
       if (entry.isDirectory()) scan(file);
-      else if (entry.name.endsWith('.md')) for (const match of fs.readFileSync(file, 'utf8').matchAll(/\]\(([^\s)]+)\)/g)) {
+      else if (entry.name.endsWith('.md')) for (const match of fs.readFileSync(file, 'utf8').replace(/```[\s\S]*?```/g, '').matchAll(/\]\(([^\s)]+)\)/g)) {
         const ref = match[1].split('#')[0];
         if (!ref || /^(https?:|mailto:|data:)/.test(ref) || ref.includes('<')) continue;
         assert.ok(fs.existsSync(path.resolve(path.dirname(file), ref)), `${path.relative(root, file)}: ${ref}`);

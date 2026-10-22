@@ -1,5 +1,9 @@
 # Third-party notices
 
+Additional design, image, motion, GSAP, Scroll Craft, and WebGL modules are
+listed in [MODULE-NOTICES.md](MODULE-NOTICES.md), with exact pins and license
+files retained in each module. See the skill's modules.json for adapter routes.
+
 Colabio's coordinator and installers are distributed by Gouravmaurya. The bundled
 upstream files remain under their respective licenses and copyright notices.
 The exact commit, repository, and source path are recorded in sources.lock.json.

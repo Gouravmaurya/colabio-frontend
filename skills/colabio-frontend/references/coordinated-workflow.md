@@ -4,6 +4,9 @@ All paths below are relative to the installed Colabio skill directory. Companion
 are bundled supporting resources, not separately activated top-level skills.
 Read the referenced upstream files when their phase applies. Do not merely list
 them in a delivery report. Do not load every companion reference in advance.
+For additional design, mobile, image, motion, scroll, and 3D work, use the
+[module router](module-router.md). During implementation, apply SKILL.md's local
+dependency installation step before importing missing runtime packages.
 
 ## Authority and compatibility
 

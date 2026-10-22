@@ -1,17 +1,22 @@
-# Colabio Frontend v1.0.0 — public personal repository
+# Colabio Frontend v1.1.0
 
-Install in a project for Claude Code and Codex:
+Install once for Claude Code and Codex across projects:
 
 ```sh
-npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -y
+npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 ```
 
-The public repository includes the full coordinator, pinned Impeccable/Taste
-Skill/Hallmark resources and notices, Awesome DESIGN.md reference routing,
-standalone examples, and optional verified installers. Companions are supporting
-GUIDE.md files, leaving only one discoverable SKILL.md.
+- Adds 34 pinned design, image, prototype, mobile, motion, scroll, GSAP, and
+  Three.js/WebGL modules, retaining the existing three core companions.
+- Provides 39 primary/module/adapter routes with one discoverable Colabio skill.
+- Deduplicates Taste; v1 and style-specific guides remain task-specific options.
+- Adds automatic, local installation of needed animation libraries during
+  authorized implementation, with a tested package-manager-aware helper.
+- Supports npm, pnpm, Yarn, and Bun; reuses existing Motion dependencies and
+  omits React Motion in non-React projects.
+- Global scope applies to the skill bundle; website dependencies stay local.
+- Includes module source pins, licenses, attribution, and truthful adapter notes.
 
-Requires Node.js 22.20+ and Git. No global installation or private-repository
-access is needed. Run `/colabio-frontend <task>` in Claude Code or
-`$colabio-frontend <task>` in Codex. See README.md for npm CLI versus custom
-installer behavior and examples/REPORT.md for observed UI checks and limitations.
+Requires Node.js 22.20+ and Git. Optional image/native/media/3D capabilities depend
+on the host. No paid account setup, global website packages, hooks, automatic
+brand replacement, or unmeasured award/performance claims are introduced.

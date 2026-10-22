@@ -1,28 +1,27 @@
-# Paste into Claude Code or Codex with your project open
+# Paste into Claude Code or Codex
 
-Install Colabio Frontend in the current project using the official npm skills
-CLI. This request authorizes downloading the public Gouravmaurya/colabio-frontend
-repository and installing its complete Colabio skill, including the bundled
-Impeccable, Taste Skill, and Hallmark supporting guides.
+Install Colabio Frontend globally for my user account, for both Claude Code and
+Codex, using the official npm skills CLI. This request authorizes writing the
+user-level assistant skill directories and downloading the public
+Gouravmaurya/colabio-frontend bundle with its pinned supporting modules.
 
-1. Identify the current project folder. Ask only if no single project is clear.
-2. Check Node.js 22.20+ and Git. Do not install anything globally or request tokens.
-3. Preserve any existing custom edits before replacing an installed Colabio skill.
-4. Run this from the project folder:
+1. Check Node.js 22.20+ and Git. Never request or print credentials.
+2. Preserve existing custom Colabio edits before replacement if applicable.
+3. Run:
 
-   `npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -y`
+   `npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y`
 
-5. Verify both `.agents/skills/colabio-frontend/SKILL.md` and
-   `.claude/skills/colabio-frontend/SKILL.md`, their referenced companion GUIDE.md
-   files, and the required references/scripts exist. Run `npx skills list` to
-   confirm discovery. Report actual results; never claim a failed install worked.
-6. Show usage:
+4. Verify both assistants' installed Colabio SKILL.md, modules.json, referenced
+   GUIDE.md files, scripts, and resources. Run `npx skills list -g` and report
+   actual installed paths. Do not claim a failed installation worked.
+5. Show usage:
    Claude Code: `/colabio-frontend <frontend task>`
    Codex: `$colabio-frontend <frontend task>`
-   Start a new session if the host needs to refresh its skill catalog.
+   Start a new session if required for skill discovery.
 
-Use the user's project only. Do not add a global flag, change AGENTS.md/CLAUDE.md,
-install website dependencies, add hooks, deploy, or start building the website
-during installation. Follow host permissions. The repository is public; GitHub
-organization membership is not required. The npm CLI performs its own install;
-it does not invoke Colabio's optional custom backup/checksum installer.
+Install only the skill bundle globally. Do not install GSAP, Lenis, Framer Motion,
+Three.js, or website packages globally. During a later authorized build, Colabio
+adds only needed missing runtime libraries locally in the target application,
+using its package manager and lock file. Skill installation does not start a
+website build, add hooks, edit AGENTS.md/CLAUDE.md, or create paid service accounts.
+Follow host permission requirements. For a project-only installation, omit `-g`.

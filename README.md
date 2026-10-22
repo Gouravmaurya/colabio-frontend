@@ -2,21 +2,22 @@
 
 One project-local skill coordinates subject-specific art direction, distinctive
 page architecture, working components, motion, and rendered craft review.
-The bundle includes pinned Impeccable, Taste Skill, and Hallmark resources.
+The bundle includes pinned Impeccable, Taste Skill, Hallmark, and 34 additional
+design/image/motion/scroll/WebGL modules, with 39 primary/module/adapter routes.
 Awesome DESIGN.md is used as a curated research index, not an executable skill.
 
 ## Install with npm skills
 
-Run this in your website project's folder:
+Install once for your user account, for Claude Code and Codex across projects:
 
 ```sh
-npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -y
+npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 ```
 
 This installs the complete Colabio skill and its bundled companion guides for
-both Claude Code and Codex, locally in the current project. Requires Node.js
+both Claude Code and Codex in your user-level skill directories. Requires Node.js
 22.20+ and Git. The repository is public; private-repository access is unnecessary.
-No global flag is used. Use `/colabio-frontend <task>` in Claude Code or
+For project-only installation, omit `-g`. Use `/colabio-frontend <task>` in Claude Code or
 `$colabio-frontend <task>` in Codex afterward. Start a new session if needed.
 
 The standard `skills/colabio-frontend/` folder contains the full package.
@@ -36,7 +37,7 @@ Requires Git and Node.js 22+. Use a separate checkout from your website.
 The public repository can be downloaded without organization authentication.
 
 ```sh
-git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.0.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
+git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.1.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
 cd colabio-bundle
 node scripts/install.mjs --verify-only
 node scripts/install.mjs --project "/absolute/path/to/your/project"
@@ -66,15 +67,37 @@ Claude Code: /colabio-frontend Build a distinctive landing page for <brief>
 Codex:       $colabio-frontend Build a distinctive landing page for <brief>
 ```
 
-The installer writes `.agents/skills/colabio-frontend/` and
+The optional custom installer writes `.agents/skills/colabio-frontend/` and
 `.claude/skills/colabio-frontend/`. Companions remain nested supporting resources;
 they are not installed as separate top-level skills. Reload the assistant or
 start a new session if it does not discover the new skill automatically.
 
-No global installation, hooks, AGENTS.md changes, or frontend packages are added.
+The npm command's `-g` affects only skill installation. No hooks, AGENTS.md changes,
+or frontend packages are added during skill installation.
 Upstream optional engines, browser tools, network research, and website animation
 dependencies are separate runtime capabilities. Colabio reports unavailable tools
 and uses permitted alternatives; it does not pretend that every upstream tool ran.
+
+## Build with the coordinated toolbox
+
+Colabio selects relevant modules for web/native interfaces, bespoke components,
+visual concepts, redesign, polish, purposeful motion, immersive scrolling, and
+3D/WebGL. The [module router](skills/colabio-frontend/references/module-router.md)
+lists all guides. Duplicate Taste installations are deduplicated. Classic styles
+and v1 compatibility are optional; one direction and token system governs a build.
+Redesign-existing-projects routes to maintained Taste guidance. Web interface
+guidelines link to Vercel's current source instead of redistributing unlicensed text.
+
+During authorized implementation, Colabio automatically installs missing GSAP,
+Lenis, and Framer Motion/Motion packages in the target application when needed.
+It respects npm/pnpm/Yarn/Bun, existing dependencies and lock files, and skips
+React Motion for non-React pages. It does not install all libraries into every
+project, install website dependencies globally, or add them during a review/plan.
+The bundled dependency helper supports preview and execution and is tested.
+
+Image generation, paid video services, native toolchains, Python, FFmpeg, and
+GPU/browser capabilities remain host-dependent. Optional tools are not silently
+installed globally. No skill can guarantee quality across every possible brief.
 
 ## Updates, verification, and restore
 
