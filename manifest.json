@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "name": "colabio-frontend",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "files": [
     {
       "path": ".gitattributes",
@@ -17,7 +17,7 @@
     },
     {
       "path": "EXPANSION-VERIFICATION.md",
-      "sha256": "32653e6c346418998a0a34e3a227f9f344c9cc30212b2834776ead7ab05cbcf6"
+      "sha256": "e93e54b1a51bc167fb284cef4bd7bf79ee5acc2220cccf568e0e2fb6c60f3b24"
     },
     {
       "path": "MODULE-NOTICES.md",
@@ -33,11 +33,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "51fdb78c28f13b70c81929def27add02150d571bf873fd5b2c1b056a5fced00a"
+      "sha256": "3562026412dad694538d144a15d22a3ee6795d5aa1558aed1b6224ff7303b2f7"
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "46d4e3a285e9a5ee51fbd7d5d107787e068897750d4a09db4bc782216436756f"
+      "sha256": "178ec787416c9dc31f968a41441ce9793aa6fe5ed64fd0ad842e631849654df4"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -193,11 +193,11 @@
     },
     {
       "path": "package.json",
-      "sha256": "82f74ac9101dd10d0dfe731a488127660e5ca81645ed693087d95e348bb66774"
+      "sha256": "90e0d2982011311a9d5c95973aa372f6f6d911ff996820f010c89576cebb7b44"
     },
     {
       "path": "scripts/bootstrap.mjs",
-      "sha256": "959bfd14f88650168dfb51905224fb2d918a0c2525e8b81a24de1f8006dde049"
+      "sha256": "03832eb1e7da543aebabe2119be243aabb95f8e91f6657af02a53aab03eb0eb0"
     },
     {
       "path": "scripts/build.mjs",
@@ -217,7 +217,7 @@
     },
     {
       "path": "skills/colabio-frontend/SKILL.md",
-      "sha256": "b9fcfd9ddf4c23c6d79edab72f28298ad388936f5426a091e54be3e589751b10"
+      "sha256": "ee2063b64e3b5d3b38dd9ba68a3ce97b2beac6712815e170e0495ba979d1a7ae"
     },
     {
       "path": "skills/colabio-frontend/companions/hallmark/LICENSE",
@@ -1201,7 +1201,7 @@
     },
     {
       "path": "skills/colabio-frontend/modules.json",
-      "sha256": "50d80ad0c0b025fd87236ca84f36b7d587e5339d54d93c743976184889e61014"
+      "sha256": "2b31261a7791f6b6ebcf0a1d6a65ca2036902ce9022c4cac4416f310bf96ee93"
     },
     {
       "path": "skills/colabio-frontend/modules/animate-expo/GUIDE.md",
@@ -2148,6 +2148,10 @@
       "sha256": "0a40f854159a855133d08e73795abf94a8cb30f84c02f4d6e1d1c7a62225b2b6"
     },
     {
+      "path": "skills/colabio-frontend/references/component-libraries.md",
+      "sha256": "d08da67306d45c252220adc553e0f07e419dccf8d68a62bf333a46098a651b53"
+    },
+    {
       "path": "skills/colabio-frontend/references/coordinated-workflow.md",
       "sha256": "6da8dd6f41694d10b51a1e9e25b020a30b4f527ee208d0d73e42de0548771224"
     },
@@ -2165,7 +2169,7 @@
     },
     {
       "path": "skills/colabio-frontend/references/module-router.md",
-      "sha256": "011c0a076c2008fdf1d2993f5afb2cb8d10cff717db75a29d22b6798d2f9e9f1"
+      "sha256": "c255715b8570ada7e90961bdb7f69bb2ed271f385d44b41e3c4b1d46d79dff7d"
     },
     {
       "path": "skills/colabio-frontend/references/redesign-adapter.md",

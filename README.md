@@ -37,7 +37,7 @@ Requires Git and Node.js 22+. Use a separate checkout from your website.
 The public repository can be downloaded without organization authentication.
 
 ```sh
-git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.1.1 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
+git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.2.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
 cd colabio-bundle
 node scripts/install.mjs --verify-only
 node scripts/install.mjs --project "/absolute/path/to/your/project"
@@ -94,6 +94,12 @@ It respects npm/pnpm/Yarn/Bun, existing dependencies and lock files, and skips
 React Motion for non-React pages. It does not install all libraries into every
 project, install website dependencies globally, or add them during a review/plan.
 The bundled dependency helper supports preview and execution and is tested.
+
+The [component-library guide](skills/colabio-frontend/references/component-libraries.md)
+adds shadcn/ui, Vengeance UI, Skiper UI, and Motion selection and installation
+routes. Colabio installs selected source components when needed, preserves the
+project theme, and previews registry changes. The skill does not globally install
+these libraries or include paid component access.
 
 Image generation, paid video services, native toolchains, Python, FFmpeg, and
 GPU/browser capabilities remain host-dependent. Optional tools are not silently

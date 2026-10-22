@@ -375,6 +375,38 @@
       "sourcePath": "skills/gsap-utils",
       "license": "MIT",
       "kind": "bundled"
+    },
+    {
+      "id": "shadcn-ui",
+      "category": "component-library",
+      "guide": "references/component-libraries.md",
+      "kind": "integration",
+      "documentation": "https://ui.shadcn.com/docs/cli",
+      "note": "Original Colabio selection and project-local installation guidance; external component sources are not vendored."
+    },
+    {
+      "id": "vengeance-ui",
+      "category": "component-library",
+      "guide": "references/component-libraries.md",
+      "kind": "integration",
+      "documentation": "https://www.vengenceui.com/docs/cli",
+      "note": "Original Colabio selection and project-local installation guidance; external component sources are not vendored."
+    },
+    {
+      "id": "skiper-ui",
+      "category": "component-library",
+      "guide": "references/component-libraries.md",
+      "kind": "integration",
+      "documentation": "https://www.skiper-ui.com/docs/quick-start",
+      "note": "Original Colabio selection and project-local installation guidance; external component sources are not vendored."
+    },
+    {
+      "id": "motion",
+      "category": "component-library",
+      "guide": "references/component-libraries.md",
+      "kind": "integration",
+      "documentation": "https://motion.dev/docs/react-installation",
+      "note": "Original Colabio selection and project-local installation guidance; external component sources are not vendored."
     }
   ]
 }

@@ -41,6 +41,12 @@ no paid service or separate skill installation is required.
 
 ### Design sources and companion skills
 
+For reusable controls or expressive component mechanisms, read
+[component libraries](references/component-libraries.md): shadcn/ui, Vengeance UI,
+Skiper UI, and Motion. Choose components that fit the project; automatically add
+needed source components and local dependencies during authorized implementation.
+Preserve existing styling and inspect registry changes before writing.
+
 For the expanded design, image, prototype, motion, scroll, and WebGL modules,
 read [the module router](references/module-router.md). Load only the guidance
 relevant to this task. Duplicate Taste installations resolve to the bundled

@@ -8,6 +8,11 @@ examples; use the host's available, permitted tools.
 
 ## Choose by the requested surface
 
+- **Component libraries:** use [the integration guide](component-libraries.md)
+  for shadcn/ui foundations, Vengeance UI or Skiper UI expressive components,
+  and Motion interactions. These routes contain installation and selection
+  guidance; the global skill does not bundle every library's component source.
+
 - **New website:** use the coordinated workflow, current Taste Skill, and UI/UX
   Pro Max for targeted design-system questions. Consult premium-detail guidance
   after a project-specific concept and content architecture exist.
@@ -117,3 +122,7 @@ its relevant references, then return to Colabio's single implementation plan.
 | gsap-scrolltrigger | gsap | [Read](../modules/gsap-scrolltrigger/GUIDE.md) |
 | gsap-timeline | gsap | [Read](../modules/gsap-timeline/GUIDE.md) |
 | gsap-utils | gsap | [Read](../modules/gsap-utils/GUIDE.md) |
+| shadcn-ui | Component-library integration | [Guide](../references/component-libraries.md) |
+| vengeance-ui | Component-library integration | [Guide](../references/component-libraries.md) |
+| skiper-ui | Component-library integration | [Guide](../references/component-libraries.md) |
+| motion | Component-library integration | [Guide](../references/component-libraries.md) |
