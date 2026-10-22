@@ -1,4 +1,4 @@
-# v1.1.0 toolbox verification
+# v1.1.1 toolbox verification
 
 Verified locally on 2026-10-22 before release publication.
 

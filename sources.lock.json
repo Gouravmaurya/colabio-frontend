@@ -68,7 +68,8 @@
       "companions/hallmark/skills/hallmark/references/imagery-kit.md",
       "companions/hallmark/skills/hallmark/references/microinteractions.md",
       "companions/hallmark/skills/hallmark/references/slop-test.md"
-    ]
+    ],
+    "shellLineEndings": "LF, matching .gitattributes, normalized before manifest hashing"
   },
   "modules": [
     {

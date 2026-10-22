@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "name": "colabio-frontend",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "files": [
     {
       "path": ".gitattributes",
@@ -17,7 +17,7 @@
     },
     {
       "path": "EXPANSION-VERIFICATION.md",
-      "sha256": "6cda01d47ea26ad78d2e42b6975f51d72aef210ccb5ba7c9d96bb2ac3b82bd72"
+      "sha256": "32653e6c346418998a0a34e3a227f9f344c9cc30212b2834776ead7ab05cbcf6"
     },
     {
       "path": "MODULE-NOTICES.md",
@@ -33,11 +33,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "a495585600ec2fb46f9c151ce31585b90f68c866b9046a61216fce7624b732fe"
+      "sha256": "51fdb78c28f13b70c81929def27add02150d571bf873fd5b2c1b056a5fced00a"
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "51ef0d8b713d8d5f9d1834dd46fec441601fa0d02b51eb2c43bc47152891f5fb"
+      "sha256": "46d4e3a285e9a5ee51fbd7d5d107787e068897750d4a09db4bc782216436756f"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -193,15 +193,15 @@
     },
     {
       "path": "package.json",
-      "sha256": "1589aec1f1356f4376490bfc6044df9e93f3ebc68818ca393561b3be210196f5"
+      "sha256": "82f74ac9101dd10d0dfe731a488127660e5ca81645ed693087d95e348bb66774"
     },
     {
       "path": "scripts/bootstrap.mjs",
-      "sha256": "e2cd9f2571497b0008bde5cc221373f914a797848a82aa268cb12cb6c61c8e34"
+      "sha256": "959bfd14f88650168dfb51905224fb2d918a0c2525e8b81a24de1f8006dde049"
     },
     {
       "path": "scripts/build.mjs",
-      "sha256": "62e1d0d16f689817159201bff517149ba7ed79608f5ce13618539a09ef3a8f7f"
+      "sha256": "8395ffcbddccff33301a9f6ca807878a00fd80767396578c092e00e1383bbf77"
     },
     {
       "path": "scripts/install.mjs",
@@ -1689,7 +1689,7 @@
     },
     {
       "path": "skills/colabio-frontend/modules/scroll-craft/scripts/encode.sh",
-      "sha256": "1bc6f0345aead9f4e3cd42e8e0f4c48c2420794b4fb901a85431b5a69947bac6"
+      "sha256": "01eedead388130fdce1052f4ed2e99a7420d4fffcde8621587c840b40a325d79"
     },
     {
       "path": "skills/colabio-frontend/modules/scroll-craft/scripts/kie.mjs",
@@ -2185,11 +2185,11 @@
     },
     {
       "path": "skills/colabio-frontend/sources.lock.json",
-      "sha256": "b6371f2369ccb37bfffe8d359c7943546964d81a894d3e07860d6efd999a5c84"
+      "sha256": "6a4f2dcee09a8ffda85e2b68e0f42c4d102a0a1302624e06fe248109298c8cad"
     },
     {
       "path": "sources.lock.json",
-      "sha256": "b6371f2369ccb37bfffe8d359c7943546964d81a894d3e07860d6efd999a5c84"
+      "sha256": "6a4f2dcee09a8ffda85e2b68e0f42c4d102a0a1302624e06fe248109298c8cad"
     },
     {
       "path": "tests/dependencies.test.mjs",

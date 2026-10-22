@@ -1,4 +1,4 @@
-# Colabio Frontend v1.1.0
+# Colabio Frontend v1.1.1
 
 Install once for Claude Code and Codex across projects:
 

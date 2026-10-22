@@ -15,7 +15,16 @@ function walk(dir, prefix = '') {
 }
 const sha = (bytes) => crypto.createHash('sha256').update(bytes).digest('hex');
 const version = JSON.parse(fs.readFileSync(path.join(root, 'package.json'))).version;
-const files = walk(root).sort().map((file) => ({ path: file, sha256: sha(fs.readFileSync(path.join(root, file))) }));
+const files = walk(root).sort().map((file) => {
+  const target = path.join(root, file);
+  let bytes = fs.readFileSync(target);
+  // Match .gitattributes so Git cannot change shell-script bytes after hashing.
+  if (file.endsWith('.sh')) {
+    const normalized = Buffer.from(bytes.toString('utf8').replaceAll('\r\n', '\n'));
+    if (!bytes.equals(normalized)) { fs.writeFileSync(target, normalized); bytes = normalized; }
+  }
+  return { path: file, sha256: sha(bytes) };
+});
 const manifest = JSON.stringify({ schemaVersion: 1, name: 'colabio-frontend', version, files }, null, 2) + '\n';
 fs.writeFileSync(path.join(root, 'manifest.json'), manifest);
 fs.writeFileSync(path.join(root, 'manifest.sha256'), sha(manifest) + '\n');
