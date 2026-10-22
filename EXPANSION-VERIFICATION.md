@@ -1,3 +1,23 @@
+# v1.3.0 automatic-selection verification
+
+Verified locally on 2026-10-22 before publication.
+
+- All 29 automated tests passed: 24 existing packaging/dependency tests plus
+  five selector tests covering full React and static vanilla sites, Motion app
+  reuse, native/small-review boundaries, specialist composition, and no writes.
+- The official skills@1.7.4 CLI copied all 496 skill files correctly for both
+  Claude Code and Codex in an isolated project.
+- The new read-only selector assessed all 43 routes for the actual Haven testing
+  package. Its landing/redesign profile selected 21 guidance routes and three
+  UI-library candidates, retaining GSAP/Lenis/Framer Motion and omitting WebGL.
+- This is a selection-plan test, not another rendered Haven rebuild or proof
+  that the 21 planned guides were executed. Every route retains not-yet-used
+  evidence until actual application is recorded in a frontend task.
+- Existing upstream source pins, licenses, and 43-route inventory are unchanged.
+  New selector and coordination instructions are original Colabio code/guidance.
+
+The following notes describe earlier releases.
+
 # v1.2.0 component-library integration verification
 
 Verified locally on 2026-10-22 before publication.

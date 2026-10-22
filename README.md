@@ -37,7 +37,7 @@ Requires Git and Node.js 22+. Use a separate checkout from your website.
 The public repository can be downloaded without organization authentication.
 
 ```sh
-git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.2.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
+git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.3.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
 cd colabio-bundle
 node scripts/install.mjs --verify-only
 node scripts/install.mjs --project "/absolute/path/to/your/project"
@@ -104,6 +104,24 @@ these libraries or include paid component access.
 Image generation, paid video services, native toolchains, Python, FFmpeg, and
 GPU/browser capabilities remain host-dependent. Optional tools are not silently
 installed globally. No skill can guarantee quality across every possible brief.
+
+## Automatic skill selection
+
+For each substantial project, Colabio assesses all 43 routes against the brief,
+actual stack, existing components, assets, and scope. It combines relevant design,
+component-craft, responsive, motion, and review guides rather than stopping at
+three core companions. There is no fixed skill-count target.
+
+The bundled read-only selector produces selected/candidate/not-needed decisions
+for the entire inventory. Colabio resolves library candidates, consults selected
+guides phase by phase, and records actual applications separately from the plan.
+It preserves one concept and token system, avoids incompatible theme generators,
+and adds runtime dependencies only when required by an authorized implementation.
+
+See [automatic selection](skills/colabio-frontend/references/automatic-selection.md).
+The selector supports small scoped tasks as well as full websites, app screens,
+and native targets. It is a planning aid, not an autonomous renderer or an award
+guarantee. All prior invocation and installation commands still work.
 
 ## Updates, verification, and restore
 

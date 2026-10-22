@@ -8,6 +8,12 @@ examples; use the host's available, permitted tools.
 
 ## Choose by the requested surface
 
+Start substantial work with [automatic project-specific selection](automatic-selection.md).
+The read-only scripts/select.mjs helper assesses every inventory entry and the
+target package stack. Validate its suggestions against the brief, resolve all
+library candidates, and load relevant guides at their implementation phase.
+This directory is not limited to the three core companions or a fixed skill count.
+
 - **Component libraries:** use [the integration guide](component-libraries.md)
   for shadcn/ui foundations, Vengeance UI or Skiper UI expressive components,
   and Motion interactions. These routes contain installation and selection

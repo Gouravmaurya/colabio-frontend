@@ -25,6 +25,11 @@ Never run an upstream installer as part of ordinary frontend work.
 
 ## 1. Understand: Impeccable context model
 
+First apply [automatic selection](automatic-selection.md) against the full
+inventory. The named core companions below define phase responsibilities, not
+an exclusive list. Combine the additional selected craft, responsive, motion,
+component, and review guides within those phases and record their concrete use.
+
 Read [Impeccable's entrypoint](../companions/impeccable/GUIDE.md) and its
 [new-work guidance](../companions/impeccable/reference/new-work.md) for a new
 surface or replacement visual world. For a narrow refinement, select the named

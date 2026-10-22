@@ -7,7 +7,8 @@ description: >
   or requests to avoid a generic AI-generated look. Derives typography, font
   details, and theme colors from the project before styling. Uses GSAP and Lenis for
   expressive landing pages and Framer Motion for React interactions.
-  Routes design, image, prototype, native, scroll, GSAP, and WebGL modules;
+  Automatically assesses and combines relevant bundled design, craft, review,
+  image, prototype, native, scroll, GSAP, and WebGL modules for the actual project;
   installs needed runtime dependencies locally during authorized implementation.
   Apply to frontend work, not unrelated backend tasks.
 ---
@@ -40,6 +41,17 @@ This distribution includes reviewed companion instructions and resources;
 no paid service or separate skill installation is required.
 
 ### Design sources and companion skills
+
+Before a substantial build or redesign, apply
+[automatic project-specific selection](references/automatic-selection.md).
+Assess the full modules.json inventory, inspect the project stack, and select
+all modules with concrete contributions across direction, architecture, craft,
+components, responsiveness, motion, and review. Do not stop at the core companions
+or impose a fixed skill count. Use the read-only scripts/select.mjs helper,
+validate its plan against the brief, and consult selected guides phase by phase.
+Resolve library candidates into specific useful components or justified omissions.
+Record actual applications and checks; selection alone is not evidence of use.
+For a small change, perform this assessment proportionately and retain its scope.
 
 For reusable controls or expressive component mechanisms, read
 [component libraries](references/component-libraries.md): shadcn/ui, Vengeance UI,

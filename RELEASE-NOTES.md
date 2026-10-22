@@ -1,20 +1,23 @@
-# Colabio Frontend v1.2.0
+# Colabio Frontend v1.3.0
 
-Adds shadcn/ui, Vengeance UI, Skiper UI, and Motion integration guidance to the
-existing coordinated design, scroll, GSAP, and WebGL toolbox. There are now 43
-routes behind one discoverable skill.
+Adds automatic project-specific selection across the full 43-route inventory.
+Colabio now combines relevant art direction, architecture, craft, responsive,
+component, motion, and review guidance rather than defaulting to core companions.
 
-- Select components for the project's content and interaction needs.
-- Install selected registry source components and dependencies locally during
-  authorized implementation; preview changes and preserve existing brand tokens.
-- Reuse compatible Framer Motion/Motion packages and assign animation ownership.
-- Keep paid collections optional and avoid automatic MCP/agent configuration.
+- Includes a read-only selector that inspects the actual application's declared
+  stack and assesses every bundled module with a phase and reason.
+- Resolves UI-library candidates against real component needs; preserves one
+  project-specific concept and token system across overlapping recommendations.
+- Distinguishes selected guides from guidance actually applied, commands run,
+  installed dependencies, and observed verification.
+- Keeps small tasks scoped, static projects static, native projects native,
+  and website dependencies local. No global runtime packages or hidden hooks.
+- Adds selection behavior tests for React/vanilla websites, app Motion reuse,
+  native and review scope, specialist combinations, and read-only behavior.
 
-The new integrations are original Colabio guides linking official documentation,
-not vendored component libraries or a claim that paid access is included.
-
-Install or update globally for Claude Code and Codex:
+Install or update for both assistants:
 
     npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 
-Omit -g for project-only installation. Website dependencies remain local.
+Global scope applies to instructions and resources. More selected guides are
+not evidence of design quality; Colabio must still inspect the working result.
