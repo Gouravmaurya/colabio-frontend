@@ -37,11 +37,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "25cca3e32693a3e5c0a6ca2965468f6c035a281348aa6adf2937a7d88f68d063"
+      "sha256": "c5525e04437180e15118626aa4f5ee1894d658840ffb589a2141fbebc15952f4"
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "e7d54ec612569d8afab5f0a10376fdff3818af4bae15033d6f42b621724e7106"
+      "sha256": "eed102a9978e4acc000e2fb4205f65da6fd9bf02b4ae578cfaee96ee1c8f5f45"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -225,11 +225,11 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "ddb44b1dc79584f7351817eb4278f8de6c9d248e7ab83728d45b9f8512e397c4"
+      "sha256": "76759f593abca0ad26a356850c43afc430817e31675826a78af2efe2fa9d744a"
     },
     {
       "path": "skills/colabio-frontend/SKILL.md",
-      "sha256": "a5becc1aafc3a04b4b59d81b8b47a8481460cc554842400ea33daeb01db65899"
+      "sha256": "c6bb171d8a070f9964325aa2ac68e7c912e831f7b5f69a9d8909091a42a2154d"
     },
     {
       "path": "skills/colabio-frontend/companions/hallmark/LICENSE",
@@ -2192,6 +2192,10 @@
       "sha256": "b389e9e1c1731529d2da4be7c478ab3c1c9d4c47d97e981cb0f438c5fda8aefe"
     },
     {
+      "path": "skills/colabio-frontend/references/existing-site-comparison.md",
+      "sha256": "4865eb6d2053e9b5fedb10e6136f70bfa747d2809ea49392c5d2ba843f10a1c1"
+    },
+    {
       "path": "skills/colabio-frontend/references/high-craft.md",
       "sha256": "c64eadc2fab2196194500872756914bd4a46f2dc1cccc2a47b8537439aae7891"
     },
@@ -2209,7 +2213,7 @@
     },
     {
       "path": "skills/colabio-frontend/references/quality-gates.md",
-      "sha256": "c0ceab34a8fb20824b4ce5b287758bf99c6d6ab680feb3e174d95212064e51e4"
+      "sha256": "06ce3ac316bad6c5349a30f83c613470e4343f1c5febe0a5cd7cc1920b12d1f8"
     },
     {
       "path": "skills/colabio-frontend/references/redesign-adapter.md",

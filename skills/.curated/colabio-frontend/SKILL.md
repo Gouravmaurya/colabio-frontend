@@ -137,6 +137,8 @@ information architectures. Vary the visitor's journey, dominant object, content
 relationships, or interaction model, rather than recoloring the same wireframe.
 Choose against the product goals without requiring approval for routine choices.
 Compare the options with the baseline's strengths as well as its weaknesses.
+For a redesign, name concrete task-level improvements before building and
+compare the complete visitor journey rather than only the opening screen.
 Do not build multiple complete sites unless requested.
 
 State the central idea using the project's subject rather than adjectives such

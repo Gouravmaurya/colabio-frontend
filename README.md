@@ -1,91 +1,209 @@
 # Colabio Frontend
 
-Product-specific art direction, original page architecture, working signature
-components, typography, purposeful motion, and rendered review in one `SKILL.md`.
-Colabio installs only missing specialists with a concrete contribution to the task.
+A frontend skill for Claude Code and Codex: product-specific design, deliberate
+typography, working interfaces, purposeful motion, and rendered review.
 
-## Install the Markdown-only core
+**Install one `SKILL.md`. Add specialist skills only when the task needs them.**
+Existing brands, useful features, and all 43 specialist routes remain preserved.
+Large builds use a design council; small fixes stay single-agent.
 
-Install for both Claude Code and Codex across projects:
+[Read the skill](skills/.curated/colabio-frontend/SKILL.md) ·
+[Copy-paste setup prompt](PASTE-INSTALL.md) ·
+[Preserved full-bundle documentation](BUNDLE-README.md)
+
+## Install
+
+Requires **Node.js 22.20+**, **Git**, and Claude Code or Codex with local skill
+support. Run the commands in a terminal, not in the assistant's chat input.
+The source is public; no GitHub token is needed.
+
+### Both Claude Code and Codex
+
+Install for your user account, available across projects:
 
 ```sh
 npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 ```
 
-The selected skill folder contains exactly one file: `SKILL.md`. Requires the
-[Skills CLI](https://github.com/vercel-labs/skills) prerequisites (currently
-Node.js 22.20+ and Git). Omit `-g` for project scope, or select only the agent
-you use. The CLI can also discover the new core from the repository shorthand;
-the explicit folder URL makes the one-file source unambiguous.
+For this project only, run from its root and omit `-g`:
 
-```text
-Claude Code: /colabio-frontend <frontend task>
-Codex:       $colabio-frontend <frontend task>
+```sh
+npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -y
 ```
 
-Colabio works from its own instructions without sibling scripts or references.
-No application dependencies or specialist skills are installed merely by adding
-Colabio. During an authorized build, it reuses installed skills and installs only
-selected missing specialists within the user's chosen scope and agent targets.
-Host permissions, network access, and runtime prerequisites still apply.
+### Only one assistant
 
-## What changed
+Claude Code across projects:
 
-- Core design decisions remain: understand the product, compare meaningful
-  architectures, build a signature component, define exact type/color systems,
-  implement usable behavior, and inspect the rendered result.
-- Added interface-copy consistency, meaningful structural decoration, stronger
-  restraint, and a critique of the plan before implementation.
-- Redesigns establish a rendered baseline, retain recognizable brand strengths,
-  and keep the actual product clear. Early slices and final comparisons check
-  product recognition, credible evidence, visual craft, and usability; a cleaner
-  appearance alone does not establish an upgrade.
-- Added pinned routes to Anthropic Frontend Design and Vercel React performance
-  guidance. Awesome Frontend Skills is a discovery index; Colabio never tries to
-  install the directory itself.
-- All 43 existing module routes remain available through preserved source pins.
-  Image, prototype, native, style, motion, GSAP, scroll, and WebGL guidance can
-  still be selected when relevant. No existing guide or resource was removed.
-- GSAP, Lenis, Motion, and 3D are chosen for an actual mechanism rather than
-  required as a set. Runtime packages belong in the target application.
-- Big builds and substantial creative redesigns use a design council when the
-  host supports delegation. A lead manages skill scouting, design, font research,
-  typography, engineering, and UX critique, with an optional second craft judge.
-  Contributors discuss concrete disagreements, then the lead decides one shared
-  direction. Small fixes remain single-agent; host limits determine work waves.
+```sh
+npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a claude-code --copy -g -y
+```
 
-Read the complete [standalone skill](skills/.curated/colabio-frontend/SKILL.md).
-Only Colabio's own package is Markdown-only: selected upstream skills can require
-their own scripts, references, or assets, and must be installed intact.
+Codex across projects:
 
-## Upgrade an existing installation
+```sh
+npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a codex --copy -g -y
+```
 
-Preserve custom edits outside your assistant's scanned skill directories before
-replacing an older installation. Install the new core with the command above
-and verify that each installed `colabio-frontend` directory contains only
-`SKILL.md`. Check project-local copies too: they can shadow user-global copies.
-Refresh skill discovery or start a new session if the host does not pick up the
-replacement. Existing specialists are reused rather than repeatedly upgraded.
+`-a` selects assistants, `--copy` copies the files, `-g` selects user scope,
+and `-y` accepts the installer's prompts. Back up customized Colabio files
+before running a replacement install.
 
-## Preserved full bundle
+### What gets installed
 
-The original `skills/colabio-frontend/` tree, all companion/module guides,
-licenses, source pins, examples, and helper scripts remain in this repository.
-Its original entrypoint is marked `metadata.internal` for Skills CLI discovery,
-so the normal repository installation selects the one-file core. This CLI
-metadata does not disable a full bundle already installed in Claude or Codex.
+The selected source folder contains exactly:
 
-The optional `scripts/install.mjs`, shell/PowerShell wrappers, and tagged
-bootstrap remain full-bundle installation routes. They do not install the new
-standalone core. The original documentation is preserved in
-[BUNDLE-README.md](BUNDLE-README.md); its full-bundle npm shorthand now requires
-the legacy folder plus `INSTALL_INTERNAL_SKILLS=1`, or the original v1.5.0 tag.
-Use the explicit standalone command above for the lighter default.
+```text
+colabio-frontend/
+└── SKILL.md
+```
 
-Preserving all source material keeps the repository available as a research and
-offline library; the default installed payload is what becomes smaller.
+The Skills CLI writes this folder to these locations:
 
-## Validation
+| Assistant | User install (`-g`) | Project install |
+| --- | --- | --- |
+| Claude Code | `~/.claude/skills/colabio-frontend/` | `.claude/skills/colabio-frontend/` |
+| Codex | `~/.agents/skills/colabio-frontend/` | `.agents/skills/colabio-frontend/` |
+
+`~` means your user home directory, including on Windows. The CLI may maintain
+its own installation metadata outside this folder. Installing Colabio does not
+install website packages, hooks, a browser, or every specialist.
+
+Prefer a manual install? Download only the [standalone SKILL.md](https://raw.githubusercontent.com/Gouravmaurya/colabio-frontend/main/skills/.curated/colabio-frontend/SKILL.md),
+create the appropriate folder above, and save it as `SKILL.md`. No repository
+clone is required. Refresh skill discovery or restart the assistant if needed.
+
+## Use
+
+Open your actual website or application project in the assistant. Invoke Colabio
+explicitly for a predictable starting point.
+
+**Claude Code — type in chat:**
+
+```text
+/colabio-frontend Redesign our landing page. Inspect the current live site first, preserve our logo and brand, and make our product clearer. Build and verify the responsive result.
+```
+
+**Codex — type in chat:**
+
+```text
+$colabio-frontend Build a garment operations dashboard with orders, production, inventory, and retail flows. Reuse the existing stack and APIs. Make any sample data explicit and test the working interactions.
+```
+
+For a small task:
+
+```text
+/colabio-frontend Fix the mobile navigation overlap. Keep the current design and work single-agent.
+```
+
+Use `$colabio-frontend` instead of `/colabio-frontend` for that prompt in Codex.
+Automatic selection is also possible when the request matches the skill's
+description. If it is missing, inspect the installed skills list: `/skills` in
+Codex, or ask Claude Code what skills are available. Start a new session if the
+installation is not picked up.
+
+### Give it the right brief
+
+Include the product and audience, the pages or components to build, the main
+user task, the current site or screenshots when relevant, and constraints such
+as the existing framework, brand, available APIs, or single-agent preference.
+For example: “Improve the checkout only; preserve its behavior and our colors.”
+
+For substantial work, Colabio should inspect the project, compare meaningful
+directions, implement one coherent interface, and review it rendered. A redesign
+compares the original and result across product clarity, brand recognition,
+feature discovery, visual craft, and usability. Cleaner spacing alone does not
+establish an upgrade. Unavailable checks and simulated behavior are disclosed.
+
+## Design council
+
+Large builds and substantial redesigns coordinate these responsibilities:
+
+| Role | Responsibility |
+| --- | --- |
+| Lead / manager | Owns the brief, assignments, integration, and final decision. |
+| Skill scout | Reuses installed guidance and selects only needed missing specialists. |
+| Designer | Chooses the product concept, page architecture, composition, and imagery. |
+| Font researcher | Checks suitable families, licensing, weights, glyphs, and loading cost. |
+| Typographer | Sets type roles, hierarchy, measure, wrapping, and responsive scale. |
+| Engineer | Checks stack compatibility, implementation, interactions, and performance. |
+| UX critic | Judges task clarity, product positioning, accessibility, and regressions. |
+| Optional craft judge | Reviews originality, coherence, and rendered visual detail. |
+
+Contributors discuss concrete disagreements; one lead decides. Roles can combine
+or run in waves to fit the host's agent limit. Colabio uses the host's real
+delegation tools rather than installing an agent framework. If delegation is
+unavailable, it performs the passes sequentially and says so. Small fixes and
+focused reviews stay single-agent; your explicit preference takes precedence.
+
+## Specialists on demand
+
+The core works by itself. During an authorized build, the agent:
+
+1. Finds a concrete gap, such as React rendering performance or motion craft.
+2. Reuses a compatible installed skill when available.
+3. Reads the selected upstream instructions and requirements at a pinned revision.
+4. Installs only that missing specialist, within the authorized scope and assistant targets.
+5. Applies the relevant guidance and verifies the actual result.
+
+Anthropic Frontend Design, Vercel React guidance, and the preserved Colabio
+routes are available sources. Awesome Frontend Skills is a discovery directory,
+not an executable skill to install.
+
+For user-wide specialist setup in both assistants, state once:
+
+```text
+When this build needs a missing specialist, install only that selected skill globally for Claude Code and Codex. Reuse existing copies and preserve customized instructions.
+```
+
+Otherwise, missing specialists default to the current project and requested
+assistant. Existing authorization is reused; host tool approvals, network access,
+and prerequisites still apply. A Markdown link cannot install a skill on its own,
+and a review or plan does not silently authorize persistent installation.
+
+Only Colabio's core is guaranteed to be one file. Selected upstream skills may
+need their own references or scripts. Application libraries belong in the target
+application when needed; adding Colabio does not install them globally.
+
+## Update and troubleshoot
+
+Inspect installed skills:
+
+```sh
+npx skills list -g
+npx skills list
+```
+
+Back up custom edits outside all scanned skill directories, then rerun the same
+explicit install command and scope. Verify that the installed Colabio folder
+contains exactly `SKILL.md`. Existing specialist skills are preserved and reused.
+
+If the old bundle still loads, check both user and project installations and
+any legacy/custom locations your host lists. A project copy can override a
+personal copy in Claude Code; Codex can expose multiple same-named skills.
+Update the intended copy, then refresh discovery or restart. Do not keep a
+backup containing `SKILL.md` inside a scanned skills folder: it may be discovered
+as another skill.
+
+If `npx` is unavailable, install Node.js and Git or use the manual Markdown route.
+If a specialist or browser tool is unavailable, Colabio reports the limitation
+and continues with the core where possible. Quality and conversion gains are
+not guaranteed by installation or test counts.
+
+## Preserved source library
+
+All 43 original routes, companion/module guides, licenses, source pins, examples,
+and helpers remain in this repository. The original `skills/colabio-frontend/`
+bundle is retained, with `metadata.internal` for Skills CLI discovery. The default
+installed payload is smaller; preserving the research library keeps the source
+repository larger.
+
+The original verified installer, shell/PowerShell wrappers, and tagged bootstrap
+continue to install the full bundle. They do not install the standalone core.
+See [BUNDLE-README.md](BUNDLE-README.md) for that workflow and its backup/restore
+behavior. The existing `v1.5.0` tag remains unchanged.
+
+## Maintainer checks
 
 ```sh
 npm run build
@@ -95,7 +213,14 @@ npm run test:standalone
 npm run test:npx
 ```
 
-The standalone integration check installs the core for both agents in an isolated
-temporary project and verifies an upgrade from the full bundle leaves exactly
-`SKILL.md`. The existing bundle checks remain available. These checks establish
-packaging behavior, not visual quality or guaranteed frontend outcomes.
+The standalone integration check covers fresh installation, repository discovery,
+upgrade from the full bundle, and reinstall for both assistants, with exactly
+one installed file. The preserved-bundle integration check verifies its complete
+payload. Regenerate manifests after source edits. These checks establish packaging
+and reported invariants; rendered frontend evaluation remains a separate task.
+
+Installation commands are checked with Skills CLI `1.7.4`. See the
+[Skills CLI reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md),
+[agent installation paths](https://github.com/vercel-labs/skills/blob/main/docs/agents.md),
+[Claude Code skills](https://code.claude.com/docs/en/skills), and
+[Codex skills](https://learn.chatgpt.com/docs/build-skills) for host behavior.
