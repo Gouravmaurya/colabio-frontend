@@ -14,3 +14,7 @@ Install/update for Claude Code and Codex:
     npx skills add Gouravmaurya/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 
 Omit -g for project-local installation. This release updates the skill and verification workflow; it does not rebuild websites. Three-brief rendered evaluation of v1.5.0 is not yet completed and must not be inferred from packaging tests.
+
+## Pending: incumbent comparison gate
+
+Substantial redesigns now inspect the rendered incumbent, preserve product identity, define concrete advances, and compare the final result at equivalent viewports. Tests, dependency counts, and completed records cannot establish visual superiority. No new published tag is implied by this working-copy update.

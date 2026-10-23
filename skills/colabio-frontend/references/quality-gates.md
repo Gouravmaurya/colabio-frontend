@@ -88,3 +88,7 @@ fit, working controls, responsive behavior, OS reduced-motion changes, and recov
 including WebGL failure when used. Preserve screenshot/evidence records separately
 per brief and version. Installer/unit tests do not count as rendered brief results.
 Label a release's cross-brief visual evaluation incomplete until those runs exist.
+
+## Existing-product comparison
+
+For substantial redesigns, include the observed baseline and final comparison from [existing-site comparison](existing-site-comparison.md) in product-fit evidence. Report specific advances and remaining regressions, not an unsupported overall superiority score. Missing baseline access keeps that comparison explicitly unverified.

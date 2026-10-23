@@ -87,6 +87,10 @@ upstream phases rather than invoking all upstream workflows end to end.
 Keep one coherent direction grounded in this project, including the motion
 requirements below; do not combine incompatible presets or clone another brand.
 
+## Existing-site improvement gate
+
+For substantial redesigns, follow [the incumbent comparison gate](references/existing-site-comparison.md) before concept selection and at rendered review. Preserve product identity, record baseline strengths, define concrete advances, and correct material regressions. Technical checks and library usage cannot establish visual superiority.
+
 ## 1. Read the product before drawing the page
 
 For substantial creative work, follow [product-led design decisions](references/design-decisions.md).
