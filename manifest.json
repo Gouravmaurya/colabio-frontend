@@ -37,7 +37,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "ef2935c85a8d7c23e114bfb7c2ec067c06e7e4df20975eef2f9d0158fe855b40"
+      "sha256": "25cca3e32693a3e5c0a6ca2965468f6c035a281348aa6adf2937a7d88f68d063"
     },
     {
       "path": "RELEASE-NOTES.md",
@@ -225,7 +225,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "db8c49df41d90db92e1c9244126e0cec78b5e828b6ef870920ae592da0e8d704"
+      "sha256": "ddb44b1dc79584f7351817eb4278f8de6c9d248e7ab83728d45b9f8512e397c4"
     },
     {
       "path": "skills/colabio-frontend/SKILL.md",

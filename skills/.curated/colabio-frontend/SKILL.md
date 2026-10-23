@@ -16,6 +16,8 @@ Build a complete, working interface with an identity that belongs to its product
 Preserve the user's brief, existing brand, behavior, framework, and conventions.
 One concept and token system govern the result. Quality is demonstrated by the
 rendered interface and observed behavior, never by a skill count or self-rating.
+Judge an upgrade against the product's actual needs and the existing experience,
+not against a preference for a quieter or more fashionable visual style.
 
 This installation is this Markdown file alone. No bundled helper, asset, module
 inventory, or adjacent reference is required to perform the core workflow below.
@@ -29,6 +31,26 @@ and relevant content. Establish the audience, primary task, content density,
 verified capabilities, brand constraints, supported languages, accessibility,
 and performance needs before choosing a visual style. Distinguish working
 product behavior from a demonstration or planned feature.
+
+For a substantial redesign, inspect the existing page and any supplied live site
+or reference rendered on desktop and mobile. Record a compact baseline: what the
+visitor understands first, how the product proves its value, the main action,
+recognizable brand elements, and strengths to retain. Source code or extracted
+copy alone does not establish visual quality. If the page cannot be rendered,
+state the limitation and use the available evidence without inventing a review.
+
+Keep the existing logo, recognizable colors, and established type roles by default.
+A request for a better interface does not itself request a new brand. Change an
+identity element when the user asks or a concrete problem justifies it; explain
+the tradeoff. Preserve important capabilities, navigation paths, and content
+discovery when simplifying the page. Less content is not inherently clearer.
+
+For a landing page, establish what the product is, whom it serves, and the useful
+outcome before choosing its dominant image or headline. Visitors should recognize
+the product category from the first screen. A broad industry photograph or an
+emotional slogan cannot carry that explanation alone. For example, an investment
+research platform needs its research or analysis value to remain apparent rather
+than relying on a beautiful property photograph to explain the business.
 
 Keep a component fix local. A review stays read-only unless fixes are requested.
 For substantial creative work, ask one focused discovery round only when an
@@ -59,11 +81,11 @@ not a fixed headcount. Keep these responsibilities explicit:
 | Role | Owns | Returns to the lead |
 | --- | --- | --- |
 | Skill scout | Available skills, task gaps, source pins, stack compatibility, and duplicate guidance | A small justified selection with reuse/install/read decisions; no bulk installs. |
-| Designer | Product concept, visitor journey, composition, palette/assets direction, and signature component | Two meaningful architecture options when direction is open, then a recommended composition tied to the brief. |
+| Designer | Product concept, visitor journey, composition, palette/assets direction, and signature component | Two meaningful architecture options when direction is open, then a recommended composition tied to the brief and strengths retained from the baseline. |
 | Font researcher | Candidate families, licensed sources, glyphs, available weights, fallbacks, and loading cost | Suitable font options with verified constraints and representative text; no font chosen only for prestige. |
 | Typographer | Type hierarchy, role assignment, responsive scale, line height, spacing, measure, wrapping, and numeric alignment | A type system using the font candidates and real content, coordinated with the designer's composition. |
 | Engineer | Existing stack/components, interaction states, motion ownership, implementation feasibility, and performance | A feasible implementation plan, needed local dependencies, and concrete technical constraints. |
-| UX critic / first judge | Task clarity, content order, action wording, accessibility, keyboard/touch behavior, and responsive usability | Independent findings tied to user tasks, their consequence, and a proposed correction. |
+| UX critic / first judge | Product positioning, brand recognition, task clarity, content order, action wording, accessibility, keyboard/touch behavior, and responsive usability | Independent findings tied to user tasks, baseline regressions, their consequence, and a proposed correction. |
 | Craft judge / optional second judge | Cross-role coherence, originality, typography, optical detail, and rendered evidence | A second critique when the breadth of the redesign warrants it; do not repeat the first judge's checklist. |
 
 Add a focused imagery, motion, native, or component specialist only when its work
@@ -88,7 +110,8 @@ Run the council as a short working discussion:
    relevant. One exchange and revision pass is the default. Judges assess the
    actual proposals or render, not a summary engineered to obtain agreement.
 4. The lead decides one direction against the brief, usability, accessibility,
-   brand fit, feasibility, and performance. Record accepted choices, rejected
+   brand fit, product recognition, retained baseline strengths, feasibility, and
+   performance. Record accepted choices, rejected
    alternatives with reasons, shared tokens, selected skills, and unresolved risks
    in compact task notes. A vote or aesthetic preference cannot waive a known
    broken interaction or explicit user requirement. Do not ask the user to manage
@@ -113,6 +136,7 @@ For a new full page or substantial redesign, consider two genuinely different
 information architectures. Vary the visitor's journey, dominant object, content
 relationships, or interaction model, rather than recoloring the same wireframe.
 Choose against the product goals without requiring approval for routine choices.
+Compare the options with the baseline's strengths as well as its weaknesses.
 Do not build multiple complete sites unless requested.
 
 State the central idea using the project's subject rather than adjectives such
@@ -131,10 +155,20 @@ object, scenario instrument, contextual map, or product demonstration. Derive
 its information model from this brief. A generic card, badge, marquee, or
 floating screenshot does not establish originality by itself.
 
+For software, make the actual workflow, relevant interface, or credible interactive
+demonstration prominent enough to explain the product early in the journey.
+For other products, choose evidence appropriate to the offer, such as the object,
+work, process, or service outcome. A useful secondary tool does not compensate for
+obscuring the main offer. Label sample data and simulated actions; demonstrate
+the mechanism without inventing customers, results, or capabilities.
+
 Define its hierarchy, real content, interaction states, keyboard/touch behavior,
 mobile recomposition, motion ownership, and reduced-motion or static equivalent.
 Build that component and its adjoining transition as a vertical slice; inspect
-it rendered before extending the composition across the complete deliverable.
+it rendered alongside the opening screen before extending the composition across
+the complete deliverable. For a redesign, compare this slice with the baseline:
+is the product at least as recognizable, and is its value easier to understand?
+Correct a category or brand regression here rather than polishing the wrong idea.
 If it is interchangeable with a stock block, improve its anatomy or behavior.
 Continue through all requested pages, secondary routes, and the footer in scope.
 
@@ -169,6 +203,13 @@ and remove ornament without a purpose. Borders, labels, dividers, and numbering
 must express information; sequence numbers belong to an actual sequence.
 Eyebrows, all-caps labels, accent words, monospace metadata, and arrows are choices
 to justify rather than automatic decoration.
+
+Restraint does not mean visual timidity. Preserve a reference's useful ambition:
+expressive type, product detail, custom composition, imagery, or motion when they
+serve the brief. Improve the hierarchy around that character rather than reducing
+every project to large sans-serif headings, muted surfaces, and image/text rows.
+Learn the reference's mechanisms and why they work; do not copy its styling as a
+universal preset or claim that matching its palette achieves comparable quality.
 
 Question habitual green-and-cream, serif editorial, dark neon, glass, gradients,
 bento grids, giant whitespace, repeated cards, and unnecessary motion. These are
@@ -325,6 +366,17 @@ unchanged, improve the central idea or signature component. Turn off animation
 and confirm structure still works. Check optical details such as baselines,
 type wrapping, icon weight, control spacing, borders, and interrupted transitions.
 Fix the weakest consequential dimension before adding ornament.
+
+For a redesign, compare the baseline and result at matching desktop and mobile
+viewport sizes, with motion settled and zoom accounted for. Assess product and
+audience recognition, brand continuity, strength of evidence, action clarity,
+feature discovery, visual craft, and usability separately. Name concrete gains,
+regressions, and intentional tradeoffs; do not average them into an unsupported
+quality score. Correct unintended losses of product identity, essential paths,
+or brand recognition before calling the result an upgrade. If a tradeoff remains,
+report it plainly instead of treating cleaner spacing as proof of a better page.
+Visual inspection can support a design judgment; conversion and performance
+claims require their own measurements.
 
 For React/Next.js changes, consider relevant request waterfalls, server/client
 boundaries, serialization, unnecessary rerenders, deferred heavy code, and media

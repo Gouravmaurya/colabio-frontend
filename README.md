@@ -36,6 +36,10 @@ Host permissions, network access, and runtime prerequisites still apply.
   implement usable behavior, and inspect the rendered result.
 - Added interface-copy consistency, meaningful structural decoration, stronger
   restraint, and a critique of the plan before implementation.
+- Redesigns establish a rendered baseline, retain recognizable brand strengths,
+  and keep the actual product clear. Early slices and final comparisons check
+  product recognition, credible evidence, visual craft, and usability; a cleaner
+  appearance alone does not establish an upgrade.
 - Added pinned routes to Anthropic Frontend Design and Vercel React performance
   guidance. Awesome Frontend Skills is a discovery index; Colabio never tries to
   install the directory itself.
