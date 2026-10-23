@@ -4,10 +4,10 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 
-export async function bootstrap({ project, repository = 'https://github.com/Gouravmaurya/colabio-frontend.git', version = 'v1.4.0', git = spawnSync } = {}) {
+export async function bootstrap({ project, repository = 'https://github.com/Gouravmaurya/colabio-frontend.git', version = 'v1.5.0', git = spawnSync } = {}) {
   if (Number(process.versions.node.split('.')[0]) < 22) throw new Error('Node.js 22+ is required.');
   if (!project || !fs.existsSync(project) || !fs.statSync(project).isDirectory()) throw new Error('Specify an existing project with --project <folder>.');
-  if (!/^v\d+\.\d+\.\d+$/.test(version)) throw new Error('Use a tagged version such as v1.4.0.');
+  if (!/^v\d+\.\d+\.\d+$/.test(version)) throw new Error('Use a tagged version such as v1.5.0.');
   if (/^https?:/.test(repository)) {
     const url = new URL(repository);
     if (url.protocol !== 'https:' || url.hostname !== 'github.com' || url.username || url.password || url.search || url.hash) throw new Error('Use a credential-free HTTPS GitHub repository URL.');
@@ -34,7 +34,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const args = process.argv.slice(2), options = {};
     for (let i = 0; i < args.length; i += 2) {
       const flag = args[i], value = args[i + 1];
-      if (!['--project', '--repository', '--version'].includes(flag) || !value || value.startsWith('--') || options[flag.slice(2)]) throw new Error('Usage: node scripts/bootstrap.mjs --project <folder> [--version v1.4.0]');
+      if (!['--project', '--repository', '--version'].includes(flag) || !value || value.startsWith('--') || options[flag.slice(2)]) throw new Error('Usage: node scripts/bootstrap.mjs --project <folder> [--version v1.5.0]');
       options[flag.slice(2)] = value;
     }
     console.log(JSON.stringify(await bootstrap(options), null, 2));

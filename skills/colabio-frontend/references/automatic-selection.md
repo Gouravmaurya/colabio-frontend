@@ -1,5 +1,17 @@
 # Automatic project-specific composition
 
+Before broad module selection, apply [product-led design decisions](design-decisions.md).
+Inspect the brief and ask one focused discovery round when material preferences
+remain unknown. Record the chosen direction before reading overlapping style guides.
+The selector is a starting plan, not a substitute for product judgment.
+
+Load phase-specific sections and references, not every manual. Treat the classic
+High-end Visual Design style lens as a candidate rather than a universal default.
+Use UI/UX Pro Max for targeted questions; do not rerun a theme generator. Record
+conflicts and the project-specific resolution once. Complete the evidence checks
+in [quality gates](quality-gates.md); library count is not a quality gate.
+
+
 Colabio is the entrypoint, not a fixed four-skill pipeline. Assess the full
 modules.json inventory for every substantial frontend project. Select every
 module with a concrete contribution to the requested result. There is no quota

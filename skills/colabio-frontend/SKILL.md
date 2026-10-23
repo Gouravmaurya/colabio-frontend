@@ -10,6 +10,8 @@ description: >
   Automatically assesses and combines relevant bundled design, craft, review,
   image, prototype, native, scroll, GSAP, and WebGL modules for the actual project;
   installs needed runtime dependencies locally during authorized implementation.
+  Compares product-led design directions and asks focused discovery questions
+  when meaningful choices remain; records verification and performance evidence.
   Apply to frontend work, not unrelated backend tasks.
 ---
 
@@ -86,6 +88,14 @@ Keep one coherent direction grounded in this project, including the motion
 requirements below; do not combine incompatible presets or clone another brand.
 
 ## 1. Read the product before drawing the page
+
+For substantial creative work, follow [product-led design decisions](references/design-decisions.md).
+Inspect first, ask one useful discovery round when material choices remain,
+compare two or three directions and plausible palettes, and choose component
+anatomy from the visitor's task. Explain the choice briefly. Quiet minimal,
+editorial premium, and expressive flagship are different characters, not quality
+tiers. Price language such as "$1,000+" signals ambition, not a valuation guarantee.
+Reuse settled answers; respect users who delegate choices or ask for no questions.
 
 Inspect the existing UI, framework, reusable components, tokens, dependencies,
 and available assets. Understand the audience, primary task, content density,
@@ -504,6 +514,13 @@ override an aesthetic default; it does not make broken behavior acceptable.
   unavailable previews, missing integrations, and remaining limitations plainly.
 
 ## Completion
+
+For substantial work, follow [quality gates](references/quality-gates.md), preserve
+findings and rechecks, and validate the evidence record with scripts/verify-evidence.mjs.
+Its result checks completeness only; it is not an independent visual or performance
+assessment. Record failed and unavailable checks honestly. Consult the original
+[local mechanism analyses](references/mechanism-analyses.md) when external reference
+content is unavailable. Separate cross-brief workflow evaluation from project tests.
 
 Deliver the working result in the requested format. Briefly report the chosen
 direction, implemented behavior, completed validation, and material limitations.

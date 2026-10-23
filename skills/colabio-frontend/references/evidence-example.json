@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "scope": "substantial",
+  "motion": false,
+  "webgl": false,
+  "checks": {
+    "scope": { "status": "unverified", "note": "Record the target boundaries and observed change scope.", "evidence": [] },
+    "product-fit": { "status": "unverified", "note": "Record product facts, discovery answers or assumptions, and selected design rationale.", "evidence": [] },
+    "component-depth": { "status": "unverified", "note": "Record the working signature component, real states, and product-specific information model.", "evidence": [] },
+    "responsive": { "status": "unverified", "note": "Record actual viewport widths, screenshots, findings, and rechecks.", "evidence": [] },
+    "interaction": { "status": "unverified", "note": "Exercise the primary task, keyboard controls, and relevant recovery states.", "evidence": [] },
+    "accessibility": { "status": "unverified", "note": "Record actual focus, labeling, contrast, keyboard, and reduced-motion checks; state limits.", "evidence": [] },
+    "motion": { "status": "not-applicable", "note": "This template assumes static work; set motion true and check the implemented behavior when animations exist.", "evidence": [] },
+    "performance": { "status": "unverified", "note": "Measure the actual output and record the method, scope, and justified budget.", "evidence": [] },
+    "webgl": { "status": "not-applicable", "note": "This template assumes no WebGL; set webgl true and verify disposal and fallback when used.", "evidence": [] }
+  },
+  "viewports": [],
+  "measurements": []
+}

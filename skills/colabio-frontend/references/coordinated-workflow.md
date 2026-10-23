@@ -1,5 +1,13 @@
 # One command, coordinated workflow
 
+For substantial open briefs, use [product-led design decisions](design-decisions.md)
+before direction draws or component research. Ask only unresolved, consequential
+questions, then coordinate one chosen concept. Apply [quality gates](quality-gates.md)
+at delivery. Its evidence verifier checks record completeness, not factual truth.
+These phase-specific integrations do not invoke independent upstream critique,
+scoring, theme, or orchestration workflows automatically.
+
+
 All paths below are relative to the installed Colabio skill directory. Companions
 are bundled supporting resources, not separately activated top-level skills.
 Read the referenced upstream files when their phase applies. Do not merely list

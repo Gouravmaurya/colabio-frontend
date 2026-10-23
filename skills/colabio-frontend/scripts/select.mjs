@@ -30,14 +30,14 @@ export function selectModules({ project, surface, task = 'build', features: requ
   const animate = !flags.has('static') && (flags.has('motion') || flags.has('scroll-story') || task === 'animation' || full);
   const selected = new Map(), candidates = new Map();
   const add = (id, phase, reason) => selected.set(id, { phase, reason });
-  const consider = (id, reason) => candidates.set(id, { phase: 'components', reason });
+  const consider = (id, reason, phase = 'components') => candidates.set(id, { phase, reason });
 
   add('impeccable', 'understand-and-review', 'Load product context and apply the craft/review guidance appropriate to this task.');
   if (full) {
     add('design-taste-frontend', 'direction', 'Derive the concept, typography, and palette from this product.');
     add('hallmark', 'architecture', 'Challenge structural sameness and define a working signature component.');
     add('ui-ux-pro-max', 'design-system', 'Resolve targeted typography, color, density, and platform questions; do not run a second theme generator.');
-    add('high-end-visual-design', 'craft', 'Apply optical/component detail within the chosen project-specific tokens.');
+    consider('high-end-visual-design', 'Optional classic visual-style lens: apply when the user requests it or the chosen direction needs it, rather than imposing another aesthetic.', 'craft');
   }
   if (!native) {
     add('emil-design-eng', 'interaction-and-polish', 'Review component states, focus, interruptions, and fine interface behavior within scope.');
@@ -93,7 +93,7 @@ export function selectModules({ project, surface, task = 'build', features: requ
     const plan = selected.get(item.id) || candidates.get(item.id);
     return { id: item.id, guide: item.guide, kind: item.kind, status: selected.has(item.id) ? 'selected' : candidates.has(item.id) ? 'candidate' : 'not-needed', phase: plan?.phase || null, reason: plan?.reason || 'No matching need in this task profile; reassess if the brief or implementation reveals one.', evidence: 'not-yet-used' };
   });
-  return { schemaVersion: 1, project: root, surface, task, stack: { react, native, declaredDependencies: Object.keys(dependencies).sort() }, motion: animate, modules, libraries: { policy: 'Plan only. Reuse compatible packages; install missing required dependencies only during authorized implementation.', gsap: modules.some(item => item.id === 'gsap-core' && item.status === 'selected'), lenis: animate && site && !native, reactMotion: animate && react, webgl: flags.has('webgl') }, next: 'Validate all decisions against the actual brief. Read selected guides phase by phase, resolve candidates, and record concrete application and observed checks separately.' };
+  return { schemaVersion: 1, project: root, surface, task, stack: { react, native, declaredDependencies: Object.keys(dependencies).sort() }, motion: animate, workflow: { decisions: 'references/design-decisions.md', questions: full ? 'Inspect first; ask one focused round when material choices remain unresolved.' : 'Preserve narrow scope and settled choices.', evidence: 'references/quality-gates.md', verifier: 'scripts/verify-evidence.mjs', evaluation: 'references/evaluation-briefs.md' }, modules, libraries: { policy: 'Plan only. Reuse compatible packages; install missing required dependencies only during authorized implementation.', gsap: modules.some(item => item.id === 'gsap-core' && item.status === 'selected'), lenis: animate && site && !native, reactMotion: animate && react, webgl: flags.has('webgl') }, next: 'Validate all decisions against the actual brief. Read selected guides phase by phase, resolve candidates, and record concrete application and observed checks separately.' };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

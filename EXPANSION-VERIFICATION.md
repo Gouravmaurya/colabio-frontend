@@ -1,3 +1,11 @@
+# v1.5.0 verification scope
+
+This release adds product-led design decisions, focused discovery questions, component-depth gates, original MIT-licensed local mechanism analyses, three distinct evaluation briefs, and a read-only evidence validator. The validator checks submitted records and file presence; it does not establish visual quality or independently measure reported performance.
+
+Cross-brief rendered evaluation of v1.5.0 is not completed. The earlier LAYR v1.4.0 retest informs the original object-shop analysis, but it does not count as a new v1.5.0 run. Service and app mechanism notes are explicitly labeled design hypotheses.
+
+Verified on 2026-10-23: all 39 automated tests passed, including new evidence-gate validation, path/symlink boundaries, CLI failure modes, and marketing/service/app routing boundaries. Official skills@1.7.4 copied all 503 skill files correctly for Claude Code and Codex in an isolated project. The deliberately unverified example returned incomplete status as expected. Relative bundle links and single-entrypoint discovery passed.
+
 # v1.4.0 component-research verification
 
 Verified locally on 2026-10-22 before publication.

@@ -37,7 +37,7 @@ Requires Git and Node.js 22+. Use a separate checkout from your website.
 The public repository can be downloaded without organization authentication.
 
 ```sh
-git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.4.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
+git -c core.autocrlf=false clone --depth 1 --single-branch --branch v1.5.0 https://github.com/Gouravmaurya/colabio-frontend.git colabio-bundle
 cd colabio-bundle
 node scripts/install.mjs --verify-only
 node scripts/install.mjs --project "/absolute/path/to/your/project"
@@ -152,3 +152,9 @@ No award or outcome is guaranteed. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTI
 and each companion's license for redistribution terms. Linked design analyses
 and photographs have their own rights; a repository license does not license a
 third party's brand or imagery.
+
+## Product-led decisions and verification
+
+Version 1.5 adds a focused discovery round for unresolved creative choices, product-specific direction/component/palette comparisons, offline original mechanism analyses, and repeatable evidence checks. Minimal, editorial premium, and expressive flagship describe character; none implies a guaranteed monetary valuation.
+
+The read-only evidence helper validates reported gate records, local artifact paths, responsive screenshot entries, and performance budgets. It does not run browser tests or independently judge quality. Cross-brief rendered evaluation remains separate from installer/unit tests; see EXPANSION-VERIFICATION.md for release-specific limits.

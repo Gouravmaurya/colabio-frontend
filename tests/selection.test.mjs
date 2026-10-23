@@ -17,7 +17,10 @@ test('React landing covers specialist phases, every inventory entry, and actual 
   const root = project(t, { react: '^19', 'framer-motion': '^14' });
   const before = fs.readFileSync(path.join(root, 'package.json'), 'utf8');
   const plan = selectModules({ project: root, surface: 'landing', task: 'redesign' });
-  for (const id of ['high-end-visual-design', 'ui-ux-pro-max', 'emil-design-eng', 'mobile-native', 'animate', 'design-motion-principles', 'gsap-react', 'gsap-scrolltrigger', 'framer-motion', 'review-animations', 'redesign-existing-projects']) assert.ok(selected(plan).includes(id), id);
+  for (const id of ['ui-ux-pro-max', 'emil-design-eng', 'mobile-native', 'animate', 'design-motion-principles', 'gsap-react', 'gsap-scrolltrigger', 'framer-motion', 'review-animations', 'redesign-existing-projects']) assert.ok(selected(plan).includes(id), id);
+  assert.equal(plan.modules.find(item => item.id === 'high-end-visual-design').status, 'candidate');
+  assert.equal(plan.workflow.decisions, 'references/design-decisions.md');
+  assert.equal(plan.workflow.verifier, 'scripts/verify-evidence.mjs');
   const inventory = JSON.parse(fs.readFileSync(new URL('../skills/colabio-frontend/modules.json', import.meta.url)));
   assert.deepEqual(plan.modules.map(item => item.id), inventory.modules.map(item => item.id));
   assert.ok(plan.modules.every(item => item.reason && item.evidence === 'not-yet-used'));
@@ -85,4 +88,18 @@ test('explicit component research stays read-only and respects small review scop
   assert.equal(research.libraries.reactMotion, false);
   assert.deepEqual(fs.readdirSync(root), ['package.json']);
   assert.equal(fs.readFileSync(path.join(root, 'package.json'), 'utf8'), before);
+});
+
+test('classic style lens remains explicit while marketing, service, and app plans keep their task boundaries', t => {
+  const root = project(t, { react: '^19' });
+  for (const surface of ['landing', 'website', 'app']) {
+    const plan = selectModules({ project: root, surface });
+    assert.match(plan.workflow.questions, /focused round/);
+    assert.equal(selected(plan).includes('high-end-visual-design'), false);
+    assert.equal(plan.libraries.lenis, surface !== 'app');
+  }
+  const explicit = selectModules({ project: root, surface: 'website', include: ['high-end-visual-design'] });
+  assert.ok(selected(explicit).includes('high-end-visual-design'));
+  const small = selectModules({ project: root, surface: 'component', task: 'polish' });
+  assert.match(small.workflow.questions, /narrow scope/);
 });

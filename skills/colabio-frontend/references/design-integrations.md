@@ -1,5 +1,12 @@
 # Design reference index
 
+For offline use, consult [original local mechanism analyses](mechanism-analyses.md).
+They include explicit observation limits and an adjacent redistribution license.
+A URL, catalog summary, or failed download does not count as reading an external
+analysis. Record what content was actually available; never silently substitute
+metadata for a full reference or copy another brand identity into this project.
+
+
 Reviewed: 2026-10-22. The installed Colabio bundle includes complete pinned
 companion folders for [Impeccable](https://github.com/pbakaus/impeccable),
 [Taste Skill](https://github.com/Leonxlnx/taste-skill), and

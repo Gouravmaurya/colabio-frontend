@@ -19,6 +19,10 @@ Reuse existing components first. Evaluate these libraries when their mechanism
 fits the brief; do not install all four or assemble a page from unchanged demo
 blocks. Adapt content, typography, palette, dimensions, and behavior to the
 project. A catalog effect does not replace a useful domain-specific component.
+Distinguish foundations, minor polish, and signature behavior in the usage report.
+A borrowed underline or hover link may be good polish, but cannot satisfy the
+signature-component requirement. Judge product-specific information and behavior,
+not the number of component sources listed. Use the depth check in quality-gates.md.
 Do not migrate a non-React app merely to use these React-oriented components.
 
 ## Install selected source components
