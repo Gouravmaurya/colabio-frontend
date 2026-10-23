@@ -128,3 +128,39 @@ Adapt imported components to that ownership. Check keyboard, touch, focus,
 reduced motion, mobile layout, cleanup, hydration, and bundle cost. Remove demo
 cursor effects, shaders, or perpetual motion when they weaken the product.
 Report the components actually installed, libraries reused, and checks run.
+
+## Library websites to mine for a premium build
+
+Added 2026-10-23. Catalogs change; open the site, read the current install
+instructions and license, and report unavailable ones as unavailable.
+
+| Need | Sites |
+| --- | --- |
+| Accessible foundations, registry directory | ui.shadcn.com (docs/directory lists community registries) |
+| Community components with copyable prompts/source | 21st.dev |
+| Animated marketing blocks, backgrounds, text effects | magicui.design, ui.aceternity.com, reactbits.dev, animate-ui.com |
+| Motion-first React primitives | motion-primitives.com, cult-ui.com, motion.dev |
+| Expressive registries already in this skill | vengenceui.com, skiper-ui.com |
+| CSS-only elements and loaders | uiverse.io |
+| WebGL, GSAP, scroll and transition techniques with source | tympanus.net/codrops (tutorials and demos) |
+| Scroll and animation engines | gsap.com/docs, lenis.darkroom.engineering |
+| 3D and interactive runtime | threejs.org, spline.design, rive.app, lottiefiles.com |
+| Fonts | fonts.google.com, fontshare.com, fontsource.org |
+| Structure and craft research only (never copy) | awwwards.com, godly.website, land-book.com, siteinspire.com |
+
+### Mining protocol (full builds)
+
+1. From the scene list in the design spec, write the mechanism each scene needs
+   (e.g. "pinned text scrub", "spotlight card hover", "marquee of real logos").
+2. Search 2-4 of the sites above for that mechanism; open the demo and the
+   source. Shortlist 3-6 across the page, from at least two different catalogs
+   when React is in use. Check dependencies, license, bundle cost, touch,
+   keyboard, reduced motion, SSR/hydration.
+3. Preview the install (`npx shadcn@latest add <item> --dry-run`, or copy the
+   source into `components/` for sites without a registry). Install finalists only.
+4. **Transform before shipping**: replace content with real content, retoken
+   colors/type/radii, retime easing to the spec, remove demo cursor/noise/glow
+   that the concept does not need, and wire it to the motion ownership map.
+5. Cap: library pieces support scenes; the signature component stays original.
+   No page may be mostly unchanged catalog blocks. Record source URL, item,
+   adaptation and verification in the selection record.

@@ -130,6 +130,63 @@ that limitation, and continue. Do not claim multiple agents discussed or approve
 the result unless those agents actually ran. The council creates no extra files
 in the installed skill package and does not remove any existing skill.
 
+## Premium one-pass build (new premium sites and substantial redesigns)
+
+Run these phases in one response unless the user asked for questions; state
+assumptions up front. This section is self-contained.
+
+1. **Lock the idea**: one sentence in the product's own nouns (no "premium",
+   "immersive"). Visitor, single action, proof needed.
+2. **Choose by decision, not mood**: pick ONE style character (editorial print,
+   swiss precision, industrial brutal, Apple-fluid, cinematic 3D, atmospheric
+   soft, playful kinetic, GSAP-experimental) and at most two supporting influences.
+   Mixed style guides average into a template. Brand and brief override all
+   defaults. When the brief is open, vary the result from the usual
+   Inter/dark/purple-glow: starting font pairs (Google/Fontshare) include
+   Bricolage Grotesque + Instrument Sans, Instrument Serif + Geist, Syne + DM Sans,
+   Cabinet Grotesk + Satoshi, Clash Display + General Sans, Newsreader + Public Sans,
+   Big Shoulders Display + Barlow, Schibsted Grotesk + JetBrains Mono. Name exact
+   weights, fallbacks, and loading.
+3. **Spec before code**: tokens (bg, surface, text, muted, accent, border with
+   contrast ratios: text 7:1, muted 4.5:1), fluid type with `clamp()`
+   (display line-height 0.92-1.05, tracking -0.02 to -0.05em, `text-wrap: balance`,
+   tabular numerals), a 4px spacing base with section padding that varies by role,
+   radius by role, motion tokens, scene list, mobile recomposition, and a budget
+   (LCP < 2.5s with a 1.5s target, CLS < 0.05, INP < 200ms, 60fps on a mid phone).
+4. **Assets and copy before layout**: reuse repo assets; build real-data UI frames
+   and custom SVG in code; generate hero art with an image tool (crop, light, focal
+   point stated; real alt text); lazy 3D only for a single owned object; stock is
+   last resort and never the hero. No gray boxes or placeholder hosts. Copy comes
+   from real facts: headline with a noun or number; ban unlock, elevate, seamless,
+   supercharge, revolutionize, next-gen, cutting-edge, empower, streamline,
+   effortless; outcome-named buttons; proof beside every claim, never invented;
+   written empty/error/loading states.
+5. **Vertical slice first**: hero + signature component + next transition with real
+   content, rendered at 1440 and 390 and critiqued before building the rest. The
+   signature component is original to this product (configurator, scrubbable
+   before/after, annotated object explorer, case narrative, scenario calculator,
+   morphing sticky stack, document-to-result transformer, and similar).
+6. **Mine component library sites**, then transform: shadcn directory, 21st.dev,
+   Magic UI, Aceternity UI, React Bits, Motion Primitives, Animate UI, Cult UI,
+   Skiper UI, Vengeance UI, Codrops demos, Uiverse. Shortlist 3-6 mechanisms
+   against the scene list, check license/deps/touch/keyboard/reduced motion,
+   preview with `npx shadcn@latest add <item> --dry-run`, install finalists only,
+   then replace content, tokens, easing and ownership. Never ship an unchanged demo.
+7. **Build with one animation clock**: Lenis driven by the GSAP ticker; WebGL loops
+   share it, mount in view, pause off-screen, cap pixel ratio at 2, dynamic-import,
+   and keep a static fallback. Animate transform/opacity/clip-path. Vary reveal
+   grammar by scene (mask wipe, scrub, split line, number roll); no blanket
+   fade-up. Skip long intro loaders. Reduced-motion path throughout.
+8. **Critique loop (required, 2+ rounds)**: render at 1440/1024/768/390 plus a
+   full-page capture. Score 1-5 and fix anything below 4: Design (hierarchy,
+   type scale, color, micro-detail), Usability (clarity in 3 seconds, no layout
+   shift, mobile composed on its own, keyboard), Creativity (swap the logo: does
+   more than the copy change?), Content (real copy and assets). Scan source for
+   template tells: gradient headline text, Inter-only, indigo/purple defaults,
+   rounded-2xl everywhere, repeated 3-up icon-tile cards, glow blobs, identical
+   section padding, uniform fade-ups, emoji icons, filler copy, no imagery.
+   Fix them or justify. Report only what was observed; never claim an award.
+
 ## 2. Choose the experience before its decoration
 
 For a new full page or substantial redesign, consider two genuinely different

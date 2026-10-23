@@ -48,10 +48,10 @@ no paid service or separate skill installation is required.
 
 Before a substantial build or redesign, apply
 [automatic project-specific selection](references/automatic-selection.md).
-Assess the full modules.json inventory, inspect the project stack, and select
-all modules with concrete contributions across direction, architecture, craft,
-components, responsiveness, motion, and review. Do not stop at the core companions
-or impose a fixed skill count. Use the read-only scripts/select.mjs helper,
+Assess the full modules.json inventory and inspect the project stack. Commit to
+one primary style guide and at most two supporting style guides; add craft,
+component, responsiveness, motion, and review modules only where they have a
+concrete job. Use the read-only scripts/select.mjs helper,
 validate its plan against the brief, and consult selected guides phase by phase.
 Resolve library candidates into specific useful components or justified omissions.
 Record actual applications and checks; selection alone is not evidence of use.
@@ -88,6 +88,29 @@ Colabio owns the final decisions. Its adapters deliberately compose selected
 upstream phases rather than invoking all upstream workflows end to end.
 Keep one coherent direction grounded in this project, including the motion
 requirements below; do not combine incompatible presets or clone another brand.
+
+## One-pass premium build (default for new premium sites)
+
+For a new premium site or substantial redesign, run
+[the agency playbook](references/agency-playbook.md) end to end in one response:
+brief lock, seeded direction (`scripts/pick-direction.mjs` with the
+[design kit](references/design-kit.json): curated font pairs, palettes,
+signature mechanisms), spec, assets, vertical slice, library mining, full build,
+then a required screenshot-critique loop and `scripts/slop-lint.mjs`.
+Rules that make the difference:
+
+- **One primary style guide, at most two supporting.** Mixed style guides average
+  into a template. Everything else in the inventory is "not needed this build".
+- **Assets and copy before layout.** Follow [asset and copy gate](references/asset-and-copy.md).
+  No gray boxes, stock heroes, filler verbs, or invented proof.
+- **Decided numbers, not defaults.** Start from [craft defaults](references/craft-defaults.md).
+- **Mine the component library sites** in [component libraries](references/component-libraries.md)
+  (shadcn directory, 21st.dev, Magic UI, Aceternity, React Bits, Motion Primitives,
+  Codrops and more), then transform each piece to the spec. The signature
+  component stays original.
+- **Critique is not optional.** Render at 1440/1024/768/390, score Design,
+  Usability, Creativity and Content, fix, and re-render at least twice.
+  Fix or justify every high slop-lint finding.
 
 ## Existing-site improvement gate
 
@@ -411,8 +434,10 @@ content. Avoid shipping large animation or 3D dependencies for trivial effects.
 
 ## 6. Review the result, not just the source
 
-Use available browser or preview tools to inspect the rendered interface at
-representative narrow and wide viewports. Exercise the main action, navigation,
+Use browser or preview tools to inspect the rendered interface at 1440, 1024,
+768 and 390 wide, and run `scripts/slop-lint.mjs` on the source. For a premium
+build this loop is required (playbook Phase 7), not optional; if no browser tool
+exists, say so and do the source-level checks. Exercise the main action, navigation,
 keyboard flow, relevant states, and reduced-motion behavior.
 
 Review hierarchy, typography, alignment, spacing rhythm, asset relevance, and

@@ -28,3 +28,11 @@ journey. The README documents user/project installation, individual assistant
 targets, manual installation, invocation, specialist scope, and updates.
 All original skills and the full-bundle installer remain available. No existing
 tag is changed and no new release tag is created by this merge.
+
+## Unreleased: one-pass premium build
+
+- Adds `references/agency-playbook.md`: brief lock, seeded direction, spec, assets, vertical slice, library mining, build, and a required screenshot-critique loop scored on Design/Usability/Creativity/Content.
+- Adds `references/design-kit.json` (8 styles, 14 font pairs, 11 contrast-checked palettes, signature mechanisms, hero compositions) and `scripts/pick-direction.mjs` to force variety on open briefs.
+- Adds `scripts/slop-lint.mjs` to flag template tells in source, `references/asset-and-copy.md`, and `references/craft-defaults.md`.
+- Caps style guides at one primary plus two supporting; adds a library-website mining protocol (shadcn directory, 21st.dev, Magic UI, Aceternity, React Bits, Motion Primitives, Codrops and more).
+- The standalone curated `SKILL.md` carries a self-contained "Premium one-pass build" section.

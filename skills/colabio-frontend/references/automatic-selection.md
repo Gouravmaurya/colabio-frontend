@@ -12,10 +12,13 @@ conflicts and the project-specific resolution once. Complete the evidence checks
 in [quality gates](quality-gates.md); library count is not a quality gate.
 
 
-Colabio is the entrypoint, not a fixed four-skill pipeline. Assess the full
-modules.json inventory for every substantial frontend project. Select every
-module with a concrete contribution to the requested result. There is no quota
-or four-skill limit. Do not activate every module merely because it exists.
+Colabio is the entrypoint. Assess the full modules.json inventory for every
+substantial frontend project, then **commit to one primary style guide and at most
+two supporting style guides** (see [agency playbook](agency-playbook.md) Phase 1
+and `scripts/pick-direction.mjs`). Style guides conflict (brutalist vs minimalist
+vs soft luxury); loading several averages them into a generic result. Craft,
+motion, scroll, library and review modules with a concrete job are additive and
+not capped. Do not activate every module merely because it exists.
 
 ## Build the project profile
 

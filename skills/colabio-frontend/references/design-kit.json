@@ -1,0 +1,69 @@
+{
+  "reviewed": "2026-10-23",
+  "note": "Curated starting options. Pick by brief fit; a project's own brand always wins. Verify fonts load and licenses before shipping.",
+  "styles": [
+    { "id": "editorial-print", "guide": "companions/hallmark/skills/hallmark/references/genres/editorial.md", "supporting": ["emil-design-eng", "high-end-visual-design"], "fits": "publishing, culture, studios, finance with a voice", "traits": "huge type, hairline rules, asymmetric columns, captions, restrained color" },
+    { "id": "swiss-precision", "guide": "modules/minimalist-ui/GUIDE.md", "supporting": ["emil-design-eng", "apple-design"], "fits": "developer tools, B2B, fintech, infrastructure", "traits": "strict grid, one accent, mono details, dense honest data, almost no decoration" },
+    { "id": "industrial-brutal", "guide": "modules/industrial-brutalist-ui/GUIDE.md", "supporting": ["design-motion-principles", "gpt-taste"], "fits": "creative tools, music, fashion, youth products, anti-corporate brands", "traits": "thick borders, raw type, hard shadows, exposed structure, loud accent" },
+    { "id": "apple-fluid", "guide": "modules/apple-design/GUIDE.md", "supporting": ["emil-design-eng", "animate"], "fits": "hardware, consumer apps, premium physical products", "traits": "product as hero, spring physics, depth, optical type, long calm scroll sequences" },
+    { "id": "cinematic-immersive", "guide": "modules/threejs-webgl/GUIDE.md", "supporting": ["scroll-craft", "gsap-scrolltrigger"], "fits": "launches, entertainment, spatial or physical products, brand flagships", "traits": "one 3D or shader hero object, pinned scroll scenes, restraint everywhere else" },
+    { "id": "atmospheric-soft", "guide": "companions/hallmark/skills/hallmark/references/genres/atmospheric.md", "supporting": ["high-end-visual-design", "animate"], "fits": "wellness, hospitality, travel, lifestyle, AI products with a human tone", "traits": "photographic fields, soft light, generous space, quiet motion" },
+    { "id": "playful-kinetic", "guide": "companions/hallmark/skills/hallmark/references/genres/playful.md", "supporting": ["gpt-taste", "design-motion-principles"], "fits": "consumer, education, games, community", "traits": "saturated color, big shapes, physical hover feedback, character" },
+    { "id": "gsap-experimental", "guide": "modules/gpt-taste/GUIDE.md", "supporting": ["gsap-scrolltrigger", "scroll-craft"], "fits": "agencies, portfolios, campaign pages", "traits": "pinned stacking, scrubbed type, wide editorial layouts, inline micro-images" }
+  ],
+  "fontPairs": [
+    { "id": "bricolage-instrument", "display": "Bricolage Grotesque", "body": "Instrument Sans", "source": "Google Fonts", "weights": "display 500-800, body 400-600", "mood": ["expressive", "modern", "friendly"] },
+    { "id": "instrument-geist", "display": "Instrument Serif", "body": "Geist", "mono": "Geist Mono", "source": "Google Fonts", "weights": "display 400 (+italic), body 400-600", "mood": ["editorial", "refined", "tech-literate"] },
+    { "id": "syne-dm", "display": "Syne", "body": "DM Sans", "source": "Google Fonts", "weights": "display 600-800, body 400-500", "mood": ["art", "bold", "culture"] },
+    { "id": "unbounded-onest", "display": "Unbounded", "body": "Onest", "source": "Google Fonts", "weights": "display 500-700, body 400-600", "mood": ["futuristic", "crypto", "gaming"] },
+    { "id": "bigshoulders-barlow", "display": "Big Shoulders Display", "body": "Barlow", "source": "Google Fonts", "weights": "display 700-900, body 400-600", "mood": ["industrial", "sport", "logistics"] },
+    { "id": "newsreader-public", "display": "Newsreader", "body": "Public Sans", "source": "Google Fonts", "weights": "display 400-600 (+italic), body 400-600", "mood": ["editorial", "trust", "civic"] },
+    { "id": "cabinet-satoshi", "display": "Cabinet Grotesk", "body": "Satoshi", "source": "Fontshare", "weights": "display 700-800, body 400-700", "mood": ["product", "startup", "confident"] },
+    { "id": "clash-general", "display": "Clash Display", "body": "General Sans", "source": "Fontshare", "weights": "display 500-700, body 400-600", "mood": ["expressive", "agency", "fashion"] },
+    { "id": "gambarino-switzer", "display": "Gambarino", "body": "Switzer", "source": "Fontshare", "weights": "display 400, body 400-600", "mood": ["warm", "editorial", "hospitality"] },
+    { "id": "boska-satoshi", "display": "Boska", "body": "Satoshi", "source": "Fontshare", "weights": "display 400-700 (+italic), body 400-700", "mood": ["literary", "premium", "slow"] },
+    { "id": "schibsted-jetbrains", "display": "Schibsted Grotesk", "body": "Schibsted Grotesk", "mono": "JetBrains Mono", "source": "Google Fonts", "weights": "400-800, mono 400-600", "mood": ["developer", "technical", "honest"] },
+    { "id": "hanken-fragment", "display": "Hanken Grotesk", "body": "Hanken Grotesk", "mono": "Fragment Mono", "source": "Google Fonts", "weights": "500-800, mono 400", "mood": ["neutral", "swiss", "data"] },
+    { "id": "gloock-rethink", "display": "Gloock", "body": "Rethink Sans", "source": "Google Fonts", "weights": "display 400, body 400-700", "mood": ["playful", "high-contrast", "consumer"] },
+    { "id": "chillax-sentient", "display": "Chillax", "body": "Sentient", "source": "Fontshare", "weights": "display 500-700, body 400-600", "mood": ["friendly", "creative", "community"] }
+  ],
+  "palettes": [
+    { "id": "chalk-signal", "bg": "#F4F1EA", "surface": "#FFFFFF", "text": "#14130F", "muted": "#5E5A50", "accent": "#FF4A1C", "accent2": "#1B3BFF", "border": "#D9D3C4", "mood": ["editorial", "playful", "studio"] },
+    { "id": "ink-night", "bg": "#0B0C10", "surface": "#14161C", "text": "#ECEDEF", "muted": "#9AA0AC", "accent": "#C6FF3D", "accent2": "#3DD6FF", "border": "#262A33", "mood": ["technical", "developer", "cinematic"] },
+    { "id": "cobalt-paper", "bg": "#F7F8FB", "surface": "#FFFFFF", "text": "#0A1030", "muted": "#566080", "accent": "#2B45FF", "accent2": "#FFB800", "border": "#DDE1EE", "mood": ["fintech", "b2b", "swiss"] },
+    { "id": "oxblood-gallery", "bg": "#F2EDE8", "surface": "#FBF8F5", "text": "#1C0F0F", "muted": "#6B5A57", "accent": "#7A1F2B", "accent2": "#C9A227", "border": "#DCD0C8", "mood": ["premium", "culture", "hospitality"] },
+    { "id": "deep-teal", "bg": "#06201F", "surface": "#0C2D2B", "text": "#E6F4F1", "muted": "#8DB5AF", "accent": "#FF8A4C", "accent2": "#F2D16B", "border": "#174441", "mood": ["calm", "wellness", "climate"] },
+    { "id": "citrus-pop", "bg": "#FFF8E7", "surface": "#FFFFFF", "text": "#1A1A1A", "muted": "#5C5C5C", "accent": "#FF5C00", "accent2": "#007A4D", "border": "#1A1A1A", "mood": ["brutal", "playful", "consumer"] },
+    { "id": "mono-brutal", "bg": "#E9E9E4", "surface": "#FFFFFF", "text": "#000000", "muted": "#444444", "accent": "#FF2E00", "accent2": "#0038FF", "border": "#000000", "mood": ["brutal", "industrial", "fashion"] },
+    { "id": "plum-editorial", "bg": "#1A0F1F", "surface": "#24152B", "text": "#F6EEF8", "muted": "#B9A6C0", "accent": "#FF7AC6", "accent2": "#FFD166", "border": "#3A2542", "mood": ["culture", "nightlife", "creative"] },
+    { "id": "glacier", "bg": "#EEF4F7", "surface": "#FFFFFF", "text": "#0E1E27", "muted": "#4F6672", "accent": "#0077B6", "accent2": "#FF6B35", "border": "#CFDDE5", "mood": ["health", "science", "trust"] },
+    { "id": "terracotta-clay", "bg": "#F6EDE3", "surface": "#FFF9F2", "text": "#2A1810", "muted": "#7A5C4D", "accent": "#C2410C", "accent2": "#264653", "border": "#E3D2C0", "mood": ["warm", "craft", "food"] },
+    { "id": "graphite-gold", "bg": "#111111", "surface": "#1A1A1A", "text": "#F2F0EA", "muted": "#A8A59C", "accent": "#D4A24C", "accent2": "#E8E3D3", "border": "#2C2C2C", "mood": ["luxury", "automotive", "finance"] }
+  ],
+  "signatureMechanisms": [
+    "live configurator that changes the product or result as the visitor chooses",
+    "scrubbable before/after or time-lapse tied to the product's real outcome",
+    "annotated object explorer with hotspots and a detail rail",
+    "case narrative that unfolds one real example across the scroll",
+    "map or spatial view with data layers the visitor can switch",
+    "command or terminal playground that runs the product's real vocabulary",
+    "scenario calculator that shows tradeoffs, not just a total",
+    "sticky scroll stack where one object morphs between states",
+    "document-to-result transformer: input on the left becomes output on the right",
+    "comparison matrix with filters that re-sort and highlight differences",
+    "3D object turntable with state-linked camera moves",
+    "live data board built from the product's own numbers",
+    "draggable canvas or board the visitor arranges and keeps",
+    "audio or waveform instrument that the page itself plays"
+  ],
+  "heroCompositions": [
+    "oversized type cropped by the viewport edge with one precise object breaking the grid",
+    "split diptych: claim on one side, working product state on the other",
+    "full-bleed media with a caption rail and an index of what follows",
+    "index-list hero: the first screen is the navigation, as a typographic list",
+    "product-in-situ: real UI or object placed in its environment, overlapping the headline",
+    "single huge sentence set as the hero with inline media words",
+    "pinned scene: the hero object transforms through the first 2-3 scroll lengths",
+    "dense spec-sheet hero for expert audiences, answer above the fold"
+  ]
+}
