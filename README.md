@@ -44,6 +44,11 @@ Host permissions, network access, and runtime prerequisites still apply.
   still be selected when relevant. No existing guide or resource was removed.
 - GSAP, Lenis, Motion, and 3D are chosen for an actual mechanism rather than
   required as a set. Runtime packages belong in the target application.
+- Big builds and substantial creative redesigns use a design council when the
+  host supports delegation. A lead manages skill scouting, design, font research,
+  typography, engineering, and UX critique, with an optional second craft judge.
+  Contributors discuss concrete disagreements, then the lead decides one shared
+  direction. Small fixes remain single-agent; host limits determine work waves.
 
 Read the complete [standalone skill](skills/.curated/colabio-frontend/SKILL.md).
 Only Colabio's own package is Markdown-only: selected upstream skills can require

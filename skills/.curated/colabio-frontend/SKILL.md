@@ -5,8 +5,9 @@ description: >
   product, audience, and existing brand. Use for websites, landing pages,
   dashboards, components, redesigns, and visual polish. Combines original
   composition, typography, usable interactions, purposeful motion, and rendered
-  review; installs only missing specialists needed for the actual task in
-  Claude Code and Codex. Keep small fixes local; exclude unrelated backend work.
+  review; coordinates a specialist design council for big builds and redesigns,
+  and installs only missing skills needed in Claude Code and Codex. Keep small
+  fixes single-agent and local; exclude unrelated backend work.
 ---
 
 # Colabio Frontend
@@ -39,6 +40,72 @@ Write a brief rationale connecting product needs to composition, typography,
 color, content, and interaction. An industry stereotype is not evidence for a
 palette. Quiet minimal, editorial, playful, technical, and expressive are visual
 characters, not quality tiers or guarantees of monetary value.
+
+### Design council for big builds and redesigns
+
+Use a council for a substantial new interface or creative redesign that needs
+coordinated decisions across concept, page architecture, visual system, and
+implementation. An isolated component, small bug fix, styling adjustment, or
+focused review stays single-agent unless the user requests a council. Respect
+an explicit single-agent preference or cost limit. A long file alone is not a
+reason to delegate.
+
+The main agent is the **lead and manager**. It owns the brief, scope, work queue,
+agent assignments, shared direction, integration, and final decision. Give every
+worker a bounded question, relevant project facts and selected guidance, expected
+output, and permitted files/actions. Choose contributors for real decisions,
+not a fixed headcount. Keep these responsibilities explicit:
+
+| Role | Owns | Returns to the lead |
+| --- | --- | --- |
+| Skill scout | Available skills, task gaps, source pins, stack compatibility, and duplicate guidance | A small justified selection with reuse/install/read decisions; no bulk installs. |
+| Designer | Product concept, visitor journey, composition, palette/assets direction, and signature component | Two meaningful architecture options when direction is open, then a recommended composition tied to the brief. |
+| Font researcher | Candidate families, licensed sources, glyphs, available weights, fallbacks, and loading cost | Suitable font options with verified constraints and representative text; no font chosen only for prestige. |
+| Typographer | Type hierarchy, role assignment, responsive scale, line height, spacing, measure, wrapping, and numeric alignment | A type system using the font candidates and real content, coordinated with the designer's composition. |
+| Engineer | Existing stack/components, interaction states, motion ownership, implementation feasibility, and performance | A feasible implementation plan, needed local dependencies, and concrete technical constraints. |
+| UX critic / first judge | Task clarity, content order, action wording, accessibility, keyboard/touch behavior, and responsive usability | Independent findings tied to user tasks, their consequence, and a proposed correction. |
+| Craft judge / optional second judge | Cross-role coherence, originality, typography, optical detail, and rendered evidence | A second critique when the breadth of the redesign warrants it; do not repeat the first judge's checklist. |
+
+Add a focused imagery, motion, native, or component specialist only when its work
+is substantial and distinct. Keep font research and typography coordinated:
+families and loading constraints inform the type system; final choices belong
+to the lead's shared direction. Roles can be combined or scheduled in waves to
+fit host concurrency and budget. Never present one agent's self-review as an
+independent judge, and do not make every role write a competing design system.
+
+Run the council as a short working discussion:
+
+1. The lead inspects the product, sets the common brief and constraints, and
+   assigns the decisions above. The skill scout resolves needed guidance first;
+   the lead serializes any authorized installations so workers do not race on
+   shared skill folders, package files, or lock files. Selection follows Section 6.
+2. Contributors produce compact proposals with evidence, tradeoffs, assumptions,
+   and recommendations. Independent questions can run in parallel; dependent
+   work receives prior results, such as font options before the final type scale.
+   Proposal work is read-only unless the lead explicitly assigns implementation.
+3. The lead shares the proposals. The designer, UX critic, and engineer directly
+   address material disagreements, with font/typography specialists joining where
+   relevant. One exchange and revision pass is the default. Judges assess the
+   actual proposals or render, not a summary engineered to obtain agreement.
+4. The lead decides one direction against the brief, usability, accessibility,
+   brand fit, feasibility, and performance. Record accepted choices, rejected
+   alternatives with reasons, shared tokens, selected skills, and unresolved risks
+   in compact task notes. A vote or aesthetic preference cannot waive a known
+   broken interaction or explicit user requirement. Do not ask the user to manage
+   agents or resolve routine design disagreements.
+5. Implement the chosen direction with clear file ownership and one integration
+   owner. The UX critic, and craft judge when assigned, review the rendered focal
+   slice and completed interface. The lead fixes consequential findings and
+   reports observed checks. Reopen discussion only for material new evidence,
+   a failed requirement, or a changed brief; do not run endless review cycles.
+
+Use the host's actual permitted delegation tools. Reuse workers where useful;
+do not open separate user-owned chats, launch other AI clients, or install an
+agent framework just to simulate this workflow. If delegation is unavailable,
+perform the same decision/critique passes sequentially in one agent, disclose
+that limitation, and continue. Do not claim multiple agents discussed or approved
+the result unless those agents actually ran. The council creates no extra files
+in the installed skill package and does not remove any existing skill.
 
 ## 2. Choose the experience before its decoration
 
