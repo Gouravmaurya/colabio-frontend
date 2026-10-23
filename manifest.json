@@ -9,11 +9,15 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "sha256": "42e26c05c806c2b1bc7932d4e71a0bbf0d405d77688ec72ef1820d0b566d694f"
+      "sha256": "7ac6194f053a9be7183d16cc04997bccab33f2ee7fa08974493ca02581e78861"
     },
     {
       "path": ".gitignore",
       "sha256": "f8dfe110d42319d1f6c07282ada1d9e2f2ca8464525b3eedca6e84d1a60fdb9b"
+    },
+    {
+      "path": "BUNDLE-README.md",
+      "sha256": "f1a91d390245e54f1b7eef406e279aa1e78a41f829673db11b5aabdd878ae3ce"
     },
     {
       "path": "EXPANSION-VERIFICATION.md",
@@ -25,15 +29,15 @@
     },
     {
       "path": "NPM-INSTALL.md",
-      "sha256": "9e3590001c82180c744717418ffc65cc1160e193c54efabb933283a48a1becc8"
+      "sha256": "4a714fcf998eefbac8119b8579e43fb3ff74891b7a53b997a9a6f2739f2f872e"
     },
     {
       "path": "PASTE-INSTALL.md",
-      "sha256": "1d64e87fe9ad78197a3920b899ee2ffdb39bc611f955c2610f238f3a75ce94a7"
+      "sha256": "49735022ecbdecac9f06b87417cdd3bee65cb833310e5569e452333db8f61a4c"
     },
     {
       "path": "README.md",
-      "sha256": "c38160c4ff389882e34c103fb61c0f17671c8521360aca04e75ccffcba54eebb"
+      "sha256": "41f20865ce55e7d5f9413e7ac2067053467b09d96fdfdb2a762ca9dc308c855e"
     },
     {
       "path": "RELEASE-NOTES.md",
@@ -193,7 +197,7 @@
     },
     {
       "path": "package.json",
-      "sha256": "32db81287a5614561e9328d3af12da8a03052cd066597142d3c5cc93a1090460"
+      "sha256": "f376f44b7f09a849e8b8883ef78c334be88be36069523d496c00e6caf6481fed"
     },
     {
       "path": "scripts/bootstrap.mjs",
@@ -213,11 +217,19 @@
     },
     {
       "path": "scripts/test-npm.mjs",
-      "sha256": "0f276844f15662b966573e7268caecf8baacb98d957bc6a1c0a153b1eea3cf96"
+      "sha256": "b2dffc7377395ae5eb10d50955f0c5b25a2c0d04c393853c6906eacb5a9c5138"
+    },
+    {
+      "path": "scripts/test-standalone.mjs",
+      "sha256": "0f749dcebdab773c8e459661bb1b5276d66ac4943e5d9165f4f7e0feb389df8c"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/SKILL.md",
+      "sha256": "4283ef0100d01b4c345f3c191a5378d4a8d8b6eff05371872a2a8e69fb8a6f34"
     },
     {
       "path": "skills/colabio-frontend/SKILL.md",
-      "sha256": "a9aa62c903b76a82d9e386072d80b464579a2b4ffa6416a44dc7fadb242518e4"
+      "sha256": "a5becc1aafc3a04b4b59d81b8b47a8481460cc554842400ea33daeb01db65899"
     },
     {
       "path": "skills/colabio-frontend/companions/hallmark/LICENSE",
@@ -2241,7 +2253,7 @@
     },
     {
       "path": "tests/install.test.mjs",
-      "sha256": "3263757582314e5f128e97569afd1a9bd2d773e858d5cd4f547f8d8f90a9f69f"
+      "sha256": "b9a5aebdcf778764976e582dee5734ef64b33410c4996726511008a328aa835a"
     },
     {
       "path": "tests/selection.test.mjs",

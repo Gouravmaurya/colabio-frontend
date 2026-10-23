@@ -10,9 +10,9 @@ const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'colabio-npm-test-'));
 try {
   if (!process.env.npm_execpath) throw new Error('Run this check through npm run test:npx.');
   const result = spawnSync(process.execPath, [process.env.npm_execpath, 'exec', '--yes', '--package=skills@1.7.4', '--',
-    'skills', 'add', root, '--skill', 'colabio-frontend', '-a', 'claude-code', '-a', 'codex', '--copy', '-y'], {
+    'skills', 'add', path.join(root, 'skills/colabio-frontend'), '--skill', 'colabio-frontend', '-a', 'claude-code', '-a', 'codex', '--copy', '-y'], {
     cwd: temporary, encoding: 'utf8', timeout: 120000,
-    env: { ...process.env, DISABLE_TELEMETRY: '1', DO_NOT_TRACK: '1' }
+    env: { ...process.env, INSTALL_INTERNAL_SKILLS: '1', DISABLE_TELEMETRY: '1', DO_NOT_TRACK: '1' }
   });
   if (result.status !== 0) throw new Error('npm skills installation failed: ' + (result.stderr || result.error?.message || result.stdout));
   const prefix = 'skills/colabio-frontend/';

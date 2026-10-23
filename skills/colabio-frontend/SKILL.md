@@ -1,5 +1,7 @@
 ---
 name: colabio-frontend
+metadata:
+  internal: true
 description: >
   Art-direct and build distinctive, premium websites with project-specific
   page architecture, bespoke components, and meaningful interaction.

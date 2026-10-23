@@ -178,16 +178,16 @@ test('all relative Markdown links in the installed skill bundle resolve', () => 
   scan(root);
 });
 
-test('only Colabio exposes a discoverable SKILL.md entrypoint', () => {
+test('only the standalone core exposes a public SKILL.md entrypoint', () => {
   const root = path.join(bundleRoot, 'skills');
   const found = [];
   function scan(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const file = path.join(dir, e.name);
       if (e.isDirectory()) scan(file);
-      else if (e.name === 'SKILL.md') found.push(path.relative(root, file).replaceAll('\\', '/'));
+      else if (e.name === 'SKILL.md' && !/^  internal: true$/m.test(fs.readFileSync(file, 'utf8'))) found.push(path.relative(root, file).replaceAll('\\', '/'));
     }
   }
   scan(root);
-  assert.deepEqual(found, ['colabio-frontend/SKILL.md']);
+  assert.deepEqual(found, ['.curated/colabio-frontend/SKILL.md']);
 });

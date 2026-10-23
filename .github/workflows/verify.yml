@@ -13,4 +13,5 @@ jobs:
           node-version: 22
       - run: npm run verify
       - run: npm test
+      - run: npm run test:standalone
       - run: npm run test:npx
