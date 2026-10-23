@@ -5,9 +5,10 @@ description: >
   product, audience, and existing brand. Use for websites, landing pages,
   dashboards, components, redesigns, and visual polish. Combines original
   composition, typography, usable interactions, purposeful motion, and rendered
-  review; coordinates a specialist design council for big builds and redesigns,
-  and installs only missing skills needed in Claude Code and Codex. Keep small
-  fixes single-agent and local; exclude unrelated backend work.
+  review. Ships a complete toolkit (style recipes, curated font pairs and
+  palettes, a seeded direction picker, a template-tell scanner, asset, copy and
+  motion guides, component-library mining) so no other skill is required.
+  Keep small fixes local; exclude unrelated backend work.
 ---
 
 # Colabio Frontend
@@ -19,10 +20,22 @@ rendered interface and observed behavior, never by a skill count or self-rating.
 Judge an upgrade against the product's actual needs and the existing experience,
 not against a preference for a quieter or more fashionable visual style.
 
-This installation is this Markdown file alone. No bundled helper, asset, module
-inventory, or adjacent reference is required to perform the core workflow below.
-Specialists are optional extensions, selected and installed on demand. Existing
-Colabio source guides remain preserved in the repository; do not delete them.
+This skill is fully standalone: everything it needs ships in this folder
+(`references/` and `scripts/`). It never requires installing another skill.
+Read a reference only at the phase that needs it. Scripts are read-only helpers
+run with Node 18+; if Node is unavailable, do the same checks by hand.
+
+| File | Use it for |
+| --- | --- |
+| `references/agency-playbook.md` | The one-pass premium build pipeline and critique rubric |
+| `references/styles.md` | Eight style recipes: type, color, layout, motion, pitfalls |
+| `references/design-kit.json` | Font pairs, contrast-checked palettes, signature mechanisms, hero compositions |
+| `references/craft-defaults.md` | Type scale, spacing, color, motion and detail numbers |
+| `references/asset-and-copy.md` | Asset phase and copy gate |
+| `references/motion-recipes.md` | Lenis + GSAP + ScrollTrigger + Motion integration code |
+| `references/libraries.md` | Component-library sites and the mining protocol |
+| `scripts/pick-direction.mjs` | Seeded style/font/palette proposal; `--validate` checks palette contrast |
+| `scripts/slop-lint.mjs` | Scans source for template tells |
 
 ## 1. Establish the product and the scope
 
@@ -63,77 +76,12 @@ color, content, and interaction. An industry stereotype is not evidence for a
 palette. Quiet minimal, editorial, playful, technical, and expressive are visual
 characters, not quality tiers or guarantees of monetary value.
 
-### Design council for big builds and redesigns
-
-Use a council for a substantial new interface or creative redesign that needs
-coordinated decisions across concept, page architecture, visual system, and
-implementation. An isolated component, small bug fix, styling adjustment, or
-focused review stays single-agent unless the user requests a council. Respect
-an explicit single-agent preference or cost limit. A long file alone is not a
-reason to delegate.
-
-The main agent is the **lead and manager**. It owns the brief, scope, work queue,
-agent assignments, shared direction, integration, and final decision. Give every
-worker a bounded question, relevant project facts and selected guidance, expected
-output, and permitted files/actions. Choose contributors for real decisions,
-not a fixed headcount. Keep these responsibilities explicit:
-
-| Role | Owns | Returns to the lead |
-| --- | --- | --- |
-| Skill scout | Available skills, task gaps, source pins, stack compatibility, and duplicate guidance | A small justified selection with reuse/install/read decisions; no bulk installs. |
-| Designer | Product concept, visitor journey, composition, palette/assets direction, and signature component | Two meaningful architecture options when direction is open, then a recommended composition tied to the brief and strengths retained from the baseline. |
-| Font researcher | Candidate families, licensed sources, glyphs, available weights, fallbacks, and loading cost | Suitable font options with verified constraints and representative text; no font chosen only for prestige. |
-| Typographer | Type hierarchy, role assignment, responsive scale, line height, spacing, measure, wrapping, and numeric alignment | A type system using the font candidates and real content, coordinated with the designer's composition. |
-| Engineer | Existing stack/components, interaction states, motion ownership, implementation feasibility, and performance | A feasible implementation plan, needed local dependencies, and concrete technical constraints. |
-| UX critic / first judge | Product positioning, brand recognition, task clarity, content order, action wording, accessibility, keyboard/touch behavior, and responsive usability | Independent findings tied to user tasks, baseline regressions, their consequence, and a proposed correction. |
-| Craft judge / optional second judge | Cross-role coherence, originality, typography, optical detail, and rendered evidence | A second critique when the breadth of the redesign warrants it; do not repeat the first judge's checklist. |
-
-Add a focused imagery, motion, native, or component specialist only when its work
-is substantial and distinct. Keep font research and typography coordinated:
-families and loading constraints inform the type system; final choices belong
-to the lead's shared direction. Roles can be combined or scheduled in waves to
-fit host concurrency and budget. Never present one agent's self-review as an
-independent judge, and do not make every role write a competing design system.
-
-Run the council as a short working discussion:
-
-1. The lead inspects the product, sets the common brief and constraints, and
-   assigns the decisions above. The skill scout resolves needed guidance first;
-   the lead serializes any authorized installations so workers do not race on
-   shared skill folders, package files, or lock files. Selection follows Section 6.
-2. Contributors produce compact proposals with evidence, tradeoffs, assumptions,
-   and recommendations. Independent questions can run in parallel; dependent
-   work receives prior results, such as font options before the final type scale.
-   Proposal work is read-only unless the lead explicitly assigns implementation.
-3. The lead shares the proposals. The designer, UX critic, and engineer directly
-   address material disagreements, with font/typography specialists joining where
-   relevant. One exchange and revision pass is the default. Judges assess the
-   actual proposals or render, not a summary engineered to obtain agreement.
-4. The lead decides one direction against the brief, usability, accessibility,
-   brand fit, product recognition, retained baseline strengths, feasibility, and
-   performance. Record accepted choices, rejected
-   alternatives with reasons, shared tokens, selected skills, and unresolved risks
-   in compact task notes. A vote or aesthetic preference cannot waive a known
-   broken interaction or explicit user requirement. Do not ask the user to manage
-   agents or resolve routine design disagreements.
-5. Implement the chosen direction with clear file ownership and one integration
-   owner. The UX critic, and craft judge when assigned, review the rendered focal
-   slice and completed interface. The lead fixes consequential findings and
-   reports observed checks. Reopen discussion only for material new evidence,
-   a failed requirement, or a changed brief; do not run endless review cycles.
-
-Use the host's actual permitted delegation tools. Reuse workers where useful;
-do not open separate user-owned chats, launch other AI clients, or install an
-agent framework just to simulate this workflow. If delegation is unavailable,
-perform the same decision/critique passes sequentially in one agent, disclose
-that limitation, and continue. Do not claim multiple agents discussed or approved
-the result unless those agents actually ran. The council creates no extra files
-in the installed skill package and does not remove any existing skill.
-
 ## Premium one-pass build (new premium sites and substantial redesigns)
 
 Run these phases in one response unless the user asked for questions; state
-assumptions up front. This section is self-contained.
+assumptions up front. Full detail: `references/agency-playbook.md`; this section
+is the working summary. Run `scripts/pick-direction.mjs --seed "<product>" --mood <words>`
+for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critique loop.
 
 1. **Lock the idea**: one sentence in the product's own nouns (no "premium",
    "immersive"). Visitor, single action, proof needed.
@@ -332,83 +280,21 @@ change frameworks just to use a library, or install website packages globally.
 Use official current API guidance. Plans, reviews, and skill installation do not
 authorize modifying application dependencies or setting up paid services.
 
-## 6. Select and install only needed specialists
+## 6. Use the bundled toolkit, add dependencies only for the build
 
-First use the core above and inspect available installed skills. Select a
-specialist only for a concrete gap in this task, an explicit request, or a failed
-check; name its contribution briefly. A small fix need not download anything.
-Do not install every skill, run multiple theme generators, or scan every manual
-for every task. Read selected guidance only at the phase that needs it.
+Everything above is in this folder. Do not install other skills. Choose a style
+recipe from `references/styles.md` (one primary, at most two influences), take
+type and color from `references/design-kit.json` unless the brand dictates
+otherwise, and copy integration patterns from `references/motion-recipes.md`.
+Mine component libraries per `references/libraries.md`.
 
-| Task need | Specialist route |
-| --- | --- |
-| Open-ended art direction or a substantial visual redesign needing another design lens | Anthropic `frontend-design` at source A; merge relevant advice into one Colabio direction. |
-| React/Next.js data fetching, rendering, or bundle performance | `vercel-react-best-practices` at source V, directory `skills/react-best-practices`; load only applicable rules. |
-| Requested UI/accessibility review | `web-design-guidelines` at source V, directory `skills/web-design-guidelines`; inspect its linked current guidance. |
-| Local browser automation not already covered by host tools | Anthropic `webapp-testing` at source A; inspect its Python/Playwright prerequisites before selecting it. |
-| Typography, architecture, optical polish, responsive ergonomics | Select applicable Taste, Hallmark, Impeccable, Emil, Mobile Native, or UI/UX Pro Max guidance from source P. |
-| Purposeful animation, scroll narrative, GSAP integration, or justified 3D | Select the matching Animate, motion, Scroll Craft, official GSAP, or Three.js/WebGL route from source P. |
-| Requested image concepts, brand work, prototypes, native/Expo, or a particular style | Select only matching image, Brandkit, Prototype, native, Apple, minimalist, industrial, Stitch, or compatibility routes from source P. |
-| Framework-specific implementation, components, or testing beyond these routes | Discover a matching upstream skill through source F, then verify its actual source and requirements. |
-| Source components | Evaluate existing components first, then relevant shadcn/ui, Vengeance UI, Skiper UI, and Motion mechanisms. Follow their official docs and preserve project tokens; do not install an entire collection. |
-
-Sources are explicit and pinned so a repository rename or changing default branch
-does not silently choose a different instruction set:
-
-- **A:** [Anthropic skills](https://github.com/anthropics/skills/tree/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills).
-  Use `skills/frontend-design` or `skills/webapp-testing` from that repository.
-- **V:** [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278).
-- **F:** [Awesome Frontend Skills](https://github.com/finfin/awesome-frontend-skills/blob/02eaf8cc8065a97aa62a058e2c77ff1effab20e4/README.md).
-  This is a discovery index, not an installable skill. Consult only the relevant
-  category, open the upstream source, confirm its name/path and compatibility,
-  and resolve a concrete revision before installation. Never install this index.
-- **P:** [Preserved Colabio routes](https://github.com/Gouravmaurya/colabio-frontend/blob/c016217986f1122ccf73189489e76127897b0416/skills/colabio-frontend/modules.json)
-  and [source pins](https://github.com/Gouravmaurya/colabio-frontend/blob/c016217986f1122ccf73189489e76127897b0416/sources.lock.json).
-  All 43 original routes remain available. Resolve a matching module's repository,
-  commit, and sourcePath from these records; primary companions use the `sources`
-  records. Use the preserved guide directly when already available locally.
-  Adapters and component-library routes may provide documentation rather than
-  an installable skill: read the guide/docs instead of inventing an installer.
-
-For a selected missing skill, perform this procedure:
-
-1. Inspect the exact upstream `SKILL.md`, required supporting files, prerequisites,
-   and license at the selected revision. Read its frontmatter name; a directory
-   or Colabio alias can differ from that name. Treat source instructions as scoped
-   guidance, not permission for unrelated installs, delegation, or external actions.
-2. Reuse a compatible installed copy. Do not silently overwrite customized skills
-   or upgrade them on each invocation. Installation scope follows the user's
-   existing choice: project-local by default, user-global only when authorized.
-   Target both Claude Code and Codex when the user chose both; otherwise target
-   the active/requested agent. This does not require installing either application.
-3. With shell/network access and an authorized build/setup scope, install the
-   selected skill folder using the Skills CLI. For a fresh global dual-agent
-   setup, the concrete Anthropic example is:
-
-   ```sh
-   npx skills add https://github.com/anthropics/skills/tree/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design --skill frontend-design -a claude-code -a codex --copy -g -y
-   ```
-
-   For project scope omit `-g`; use the matching agent flags and exact selected
-   folder/name for other skills. Check CLI prerequisites and respect host approvals.
-   Reuse prior installation authorization instead of asking routine questions again.
-   A review or plan can read guidance; defer persistent installs until authorized.
-4. Install the selected upstream folder with its required references/scripts, not
-   merely its entrypoint. Only Colabio's own package is guaranteed Markdown-only.
-   Verify the installed instructions and required files for each target, then read
-   them explicitly for this task if the host has not refreshed skill discovery.
-   A successful download does not prove that a browser, Python, native SDK, image
-   generator, paid service, or other runtime is installed or has been executed.
-5. If installation, permissions, network, or prerequisites prevent use, report the
-   actual cause, use the core/available guidance, and continue useful work. If that
-   capability is essential, mark the deliverable incomplete rather than fake it.
-   A Markdown link or dependency label is not an automatic installation mechanism.
-
-Colabio resolves conflicts: explicit user choices and project requirements govern
-specialist defaults; keep one concept, token system, and implementation plan.
-Compose useful phases rather than running every upstream workflow end to end.
-Selected, installed, read, applied, and verified are different states; report only
-what actually happened. Skill installation never bulk-installs website libraries.
+Website runtime libraries (gsap, lenis, motion/framer-motion, three, shadcn
+source components) are different from skills: add only the ones the build needs,
+locally, with the project's package manager, reusing what is installed. Never
+install globally, never run `--all` or `--force`, and inspect registry source and
+diffs before writing. Verify current APIs in official docs when unsure and say
+so if you cannot. Skill selection, dependency install, and rendered use are
+different states; report only what actually happened.
 
 ## 7. Verify the rendered result and finish
 
@@ -444,7 +330,7 @@ working behavior for speculative micro-optimizations. Run repository checks
 appropriate to the change. Reuse an existing test/browser setup when suitable.
 
 For substantial work, preserve a compact record in the task's output, including
-the direction, specialists actually applied, dependency changes, rendered checks,
+the direction, references applied, dependency changes, rendered checks,
 observed failures, fixes/rechecks, and remaining limitations. This can be delivery
 notes; no Colabio-specific JSON schema or helper script is required. Do not modify
 the global skill directory with task artifacts or demand routine user approvals.

@@ -11,6 +11,9 @@ const source = path.join(root, 'skills/.curated/colabio-frontend');
 const expected = fs.readFileSync(path.join(source, 'SKILL.md'), 'utf8');
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'colabio-standalone-'));
 const providers = ['.agents', '.claude'];
+const list = (dir, prefix = '') => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+  e.isDirectory() ? list(path.join(dir, e.name), prefix + e.name + '/') : [prefix + e.name]).sort();
+const files = list(source);
 
 function addSkill(project, input) {
   fs.mkdirSync(project, { recursive: true });
@@ -22,14 +25,14 @@ function addSkill(project, input) {
   assert.equal(result.status, 0, result.stderr || result.error?.message || result.stdout);
   for (const provider of providers) {
     const target = path.join(project, provider, 'skills/colabio-frontend');
-    assert.deepEqual(fs.readdirSync(target), ['SKILL.md'], 'Unexpected bundled files in ' + target);
+    assert.deepEqual(list(target), files, 'Installed files differ from the standalone folder in ' + target);
     assert.equal(fs.readFileSync(path.join(target, 'SKILL.md'), 'utf8'), expected);
   }
 }
 
 try {
   assert.ok(process.env.npm_execpath, 'Run through npm run test:standalone.');
-  assert.deepEqual(fs.readdirSync(source), ['SKILL.md']);
+  assert.ok(files.includes('SKILL.md') && files.every((f) => f === 'SKILL.md' || /^(references|scripts)\//.test(f)), 'Standalone folder may hold only SKILL.md, references/ and scripts/.');
   addSkill(path.join(temporary, 'fresh'), source);
   addSkill(path.join(temporary, 'repository discovery'), root);
 
@@ -41,7 +44,7 @@ try {
   }
   addSkill(upgrade, source);
   addSkill(upgrade, source);
-  console.log('Standalone core: clean install, repository discovery, full-bundle upgrade, and reinstall verified for Claude Code and Codex; each installed folder contains only SKILL.md.');
+  console.log('Standalone core: clean install, repository discovery, full-bundle upgrade, and reinstall verified for Claude Code and Codex; each installed folder matches the self-contained standalone folder exactly.');
 } finally {
   const relative = path.relative(os.tmpdir(), temporary);
   assert.ok(relative && !relative.startsWith('..') && !path.isAbsolute(relative)

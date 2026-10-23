@@ -3,9 +3,11 @@
 A frontend skill for Claude Code and Codex: product-specific design, deliberate
 typography, working interfaces, purposeful motion, and rendered review.
 
-**Install one `SKILL.md`. Add specialist skills only when the task needs them.**
-Existing brands, useful features, and all 43 specialist routes remain preserved.
-Large builds use a design council; small fixes stay single-agent.
+**One self-contained skill: no other skill to install.** `SKILL.md` plus bundled
+style recipes, curated fonts and palettes, a seeded direction picker, a
+template-tell scanner, motion recipes, asset/copy gates and component-library
+mining. Existing brands are preserved; small fixes stay local. The larger
+43-route bundle remains available separately.
 
 [Read the skill](skills/.curated/colabio-frontend/SKILL.md) ·
 [Copy-paste setup prompt](PASTE-INSTALL.md) ·
@@ -67,11 +69,10 @@ The Skills CLI writes this folder to these locations:
 
 `~` means your user home directory, including on Windows. The CLI may maintain
 its own installation metadata outside this folder. Installing Colabio does not
-install website packages, hooks, a browser, or every specialist.
+install website packages, hooks, a browser, or other skills.
 
-Prefer a manual install? Download only the [standalone SKILL.md](https://raw.githubusercontent.com/Gouravmaurya/colabio-frontend/main/skills/.curated/colabio-frontend/SKILL.md),
-create the appropriate folder above, and save it as `SKILL.md`. No repository
-clone is required. Refresh skill discovery or restart the assistant if needed.
+Prefer a manual install? Copy the [standalone folder](skills/.curated/colabio-frontend)
+(`SKILL.md`, `references/`, `scripts/`) into the appropriate skills folder above. Refresh skill discovery or restart the assistant if needed.
 
 ## Use
 
@@ -115,55 +116,16 @@ compares the original and result across product clarity, brand recognition,
 feature discovery, visual craft, and usability. Cleaner spacing alone does not
 establish an upgrade. Unavailable checks and simulated behavior are disclosed.
 
-## Design council
+## Built in
 
-Large builds and substantial redesigns coordinate these responsibilities:
+Everything is in the skill folder: `references/agency-playbook.md` (one-pass
+build and critique rubric), `styles.md`, `design-kit.json`, `craft-defaults.md`,
+`asset-and-copy.md`, `motion-recipes.md`, `libraries.md`, and the scripts
+`pick-direction.mjs` and `slop-lint.mjs`. It never installs other skills.
 
-| Role | Responsibility |
-| --- | --- |
-| Lead / manager | Owns the brief, assignments, integration, and final decision. |
-| Skill scout | Reuses installed guidance and selects only needed missing specialists. |
-| Designer | Chooses the product concept, page architecture, composition, and imagery. |
-| Font researcher | Checks suitable families, licensing, weights, glyphs, and loading cost. |
-| Typographer | Sets type roles, hierarchy, measure, wrapping, and responsive scale. |
-| Engineer | Checks stack compatibility, implementation, interactions, and performance. |
-| UX critic | Judges task clarity, product positioning, accessibility, and regressions. |
-| Optional craft judge | Reviews originality, coherence, and rendered visual detail. |
-
-Contributors discuss concrete disagreements; one lead decides. Roles can combine
-or run in waves to fit the host's agent limit. Colabio uses the host's real
-delegation tools rather than installing an agent framework. If delegation is
-unavailable, it performs the passes sequentially and says so. Small fixes and
-focused reviews stay single-agent; your explicit preference takes precedence.
-
-## Specialists on demand
-
-The core works by itself. During an authorized build, the agent:
-
-1. Finds a concrete gap, such as React rendering performance or motion craft.
-2. Reuses a compatible installed skill when available.
-3. Reads the selected upstream instructions and requirements at a pinned revision.
-4. Installs only that missing specialist, within the authorized scope and assistant targets.
-5. Applies the relevant guidance and verifies the actual result.
-
-Anthropic Frontend Design, Vercel React guidance, and the preserved Colabio
-routes are available sources. Awesome Frontend Skills is a discovery directory,
-not an executable skill to install.
-
-For user-wide specialist setup in both assistants, state once:
-
-```text
-When this build needs a missing specialist, install only that selected skill globally for Claude Code and Codex. Reuse existing copies and preserve customized instructions.
-```
-
-Otherwise, missing specialists default to the current project and requested
-assistant. Existing authorization is reused; host tool approvals, network access,
-and prerequisites still apply. A Markdown link cannot install a skill on its own,
-and a review or plan does not silently authorize persistent installation.
-
-Only Colabio's core is guaranteed to be one file. Selected upstream skills may
-need their own references or scripts. Application libraries belong in the target
-application when needed; adding Colabio does not install them globally.
+Application libraries (gsap, lenis, motion, shadcn source components) belong in
+the target project when a build needs them; adding Colabio never installs them
+globally.
 
 ## Update and troubleshoot
 
@@ -176,7 +138,7 @@ npx skills list
 
 Back up custom edits outside all scanned skill directories, then rerun the same
 explicit install command and scope. Verify that the installed Colabio folder
-contains exactly `SKILL.md`. Existing specialist skills are preserved and reused.
+is the self-contained standalone folder (SKILL.md, references/, scripts/).
 
 If the old bundle still loads, check both user and project installations and
 any legacy/custom locations your host lists. A project copy can override a

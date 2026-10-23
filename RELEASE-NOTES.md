@@ -36,3 +36,4 @@ tag is changed and no new release tag is created by this merge.
 - Adds `scripts/slop-lint.mjs` to flag template tells in source, `references/asset-and-copy.md`, and `references/craft-defaults.md`.
 - Caps style guides at one primary plus two supporting; adds a library-website mining protocol (shadcn directory, 21st.dev, Magic UI, Aceternity, React Bits, Motion Primitives, Codrops and more).
 - The standalone curated `SKILL.md` carries a self-contained "Premium one-pass build" section.
+- The default curated skill is now fully standalone: it ships `references/` (playbook, style recipes, design kit, craft defaults, asset/copy gate, motion recipes, library mining) and `scripts/` (pick-direction, slop-lint). The design council and the install-other-skills section were removed.
