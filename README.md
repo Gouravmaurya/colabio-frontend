@@ -145,8 +145,8 @@ One skill, one entry point. Everything is in the skill folder:
 
 - **Pipeline and decisions:** understanding sheet, Cinematic Design Prompt, build selector, domain-grounded palette lab, anti-clone rule, rendered gates, finish gate.
 - **Commands:** new, shape, redesign, critique, audit, polish, harden, distill, bolder, quieter, typeset, layout, colorize, animate, onboard, clarify, adapt, optimize.
-- **:** reviewed upstream guides bundled with their licenses and routed by  (Impeccable playbooks, Hallmark components and page structures, Taste anti-slop references, UI/UX Pro Max decision data, Emil Kowalski's guides, GSAP official skills, Motion, Scroll Craft, Three.js rules). See  and .
-- **Starters and scripts:** four working templates, , , , , , , .
+- **`library/`:** reviewed upstream guides bundled with their licenses and routed by `library/INDEX.md` (Impeccable playbooks, Hallmark components and page structures, Taste anti-slop references, UI/UX Pro Max decision data, Emil Kowalski's guides, GSAP official skills, Motion, Scroll Craft, Three.js rules). See `library/NOTICE.md` and `references/sources.md`.
+- **Starters and scripts:** four working templates, `select-build`, `palette-lab`, `finish-gate`, `slop-lint`, `check-contrast`, `serve`, `scaffold`.
 
 It never installs another skill. If Impeccable, Taste or Hallmark are also installed, disable them so they do not double-trigger.
 
