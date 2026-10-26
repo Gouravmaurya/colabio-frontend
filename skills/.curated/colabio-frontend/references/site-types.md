@@ -47,11 +47,9 @@ Visitor judges taste and fit, then makes contact.
 - Hero: single huge sentence with inline media words, or index list.
 - Copy: specific verbs of what was made; no "we craft digital experiences".
 - Mobile: work index becomes a vertical list with one image per row.
-- Benchmark and starter: `portfolio-benchmark.md` (teardown of a strong portfolio) and
-  `templates/editorial-portfolio/`. Pattern: two-word name hero with the portrait
-  layered between, floating dock, pinned horizontal work track with a vertical
-  fallback, numbered hairline sections, dark-section morph, circular contact CTA.
-  Add per-project case narratives (problem, role, decision, result) to go beyond it.
+- Level and starter: `craft-bar.md` (the quality bar and a mechanism menu; build the same
+  level, never the same design) and `templates/portfolio-index/` (mechanisms and safety only).
+  Add per-project case narratives (problem, role, decision, result) for depth.
 
 ## Game or entertainment
 

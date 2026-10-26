@@ -225,7 +225,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "340796c2534388511a76d573df461f0f4265b43ce207cbd0bcf7374068d4b8d3"
+      "sha256": "e781f3959baa991a70e4e846c81ba38199ad88b384f58b09659798dd54d18a64"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/intake-evals.md",
@@ -252,12 +252,16 @@
       "sha256": "9a5178273dc779c63bd099a717e589d0ff976136e5e8d1be085df090b5b72493"
     },
     {
+      "path": "skills/.curated/colabio-frontend/references/craft-bar.md",
+      "sha256": "9aabecf099855d070bcbaf145f3312a9cd4f3febfbd4a04f8f48619cffb720cb"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/references/craft-defaults.md",
       "sha256": "963d34d45b376918dddcf6a9b8fd33fedeacff68b80efb444698726da95ce99d"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/design-kit.json",
-      "sha256": "d7f49d00e6f39d8e29c7c398557658b9c5fb95b8ac3598249b7bc5799bf250b5"
+      "sha256": "e1c73a58829f6f5edc963bde1f38ca3e85ed66f6208386df11b2a7002564d4e4"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/libraries.md",
@@ -268,12 +272,8 @@
       "sha256": "abafb0e88607ff5814aa8330be0fd307d2ad000acfed888b3d16dfabcbf99dc9"
     },
     {
-      "path": "skills/.curated/colabio-frontend/references/portfolio-benchmark.md",
-      "sha256": "c8be6249d59324edbb04f1893a0588ca9bec3905125b38c1f279660ef5b11619"
-    },
-    {
       "path": "skills/.curated/colabio-frontend/references/site-types.md",
-      "sha256": "b93f6e81e03caf27034daf72ace8725311384e3984ebd963c9b0555fcde0c24e"
+      "sha256": "670e1c15d24f7a3cc92e4e7a4352ec46be9061a14a2ca743f631a743c6bcbaf3"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/studies/editorial-portfolio.md",
@@ -305,7 +305,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/scaffold.mjs",
-      "sha256": "e54efecb8e30944de9b5bd5178930afd349f5513c04434214d6ba4156e5f98de"
+      "sha256": "d2abc1fb1e87a48dded582d01ac9a2553f000fa7b2c8e89627065979c46b358a"
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/serve.mjs",
@@ -321,15 +321,15 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/README.md",
-      "sha256": "87837a3c948742702efddaa40246520cc036070eb41c47d3cebfc160f00e6280"
+      "sha256": "f3702eebb0e6165974ed3ce16d29236ea166202d13c3434b2422fac70ff8a3bb"
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/cinematic-product-shop/index.html",
       "sha256": "6f87fe665b8a2c7a53dbec39a7cec60698cc14d932cf84620a310e64480adb8c"
     },
     {
-      "path": "skills/.curated/colabio-frontend/templates/editorial-portfolio/index.html",
-      "sha256": "abe047606cf52e67ed7e6ff22c34a14a090f4c40ea1c8b5dbf09cb19bb0dcef4"
+      "path": "skills/.curated/colabio-frontend/templates/portfolio-index/index.html",
+      "sha256": "4c8f7953faaad9f2752df75acd6a020313c588a2d1895d4b717be44d44b744f7"
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/precision-service/design-spec.md",

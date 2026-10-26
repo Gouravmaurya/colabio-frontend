@@ -15,7 +15,7 @@ brand, rewrite every sentence, replace the sample products, and re-run the check
 | `cinematic-product-shop/` | A physical product the visitor would buy or customise: ceramics, bottles, lamps, candles, glassware, vessels, jars, any round object. Also the base for any shop that should feel like a film | Real 3D lathe-turned object lit like a product photograph, drag to turn, live configurator (shape, finish, size -> dimensions, capacity, price), scroll-scrubbed making sequence, baked 3D catalogue tiles, cart drawer, dark/cream section themes | three 0.160 (importmap), gsap + ScrollTrigger, lenis, Fontshare, no build step |
 | `scroll-stage-game/` | A studio, game, app or interactive product where the mechanic itself is the hero | One fixed WebGL stage directed by scroll (slot rectangles), pinned scrubbed demo where scroll is the clock, playable prototype in the hero, isometric diorama | three, gsap, lenis, Google Fonts |
 | `precision-service/` | A service or tool that sells on a trade-off the visitor can compute: printing, fabrication, logistics, repair, quotes | Live estimator with a magnified cross-section, materials table with data bars, honest quote form | no libraries, canvas + CSS |
-| `editorial-portfolio/` | A person or studio portfolio, or any editorial page with a strong personal voice | Name-and-portrait hero with layered overlap, floating dock, intro with skip, pinned horizontal work track with vertical fallback, IO reveals, dark-section colour morph, fail-open and reduced-motion paths. Teardown in `references/portfolio-benchmark.md` | gsap + ScrollTrigger, lenis, Google Fonts, no build step |
+| `portfolio-index/` | A person or studio portfolio, or any page where a sticky stage should follow a scrolling index | Sticky stage that swaps by the active project, one-sentence hero with inline media chips, top bar with live local time, scroll-drawn method line, letter-roll contact, fail-open and reduced-motion paths. A mechanisms-and-safety starter: change type, palette, hero, nav and signature (see `references/craft-bar.md` anti-clone rule) | gsap + ScrollTrigger, lenis, Google Fonts, no build step |
 
 ## Choosing
 
@@ -27,7 +27,7 @@ brand, rewrite every sentence, replace the sample products, and re-run the check
    - **photographed or generated stills** on the same layout if no model exists (parallax layers instead of 3D).
 3. Studio, game, interactive tool -> `scroll-stage-game`.
 4. Service with a computable trade-off -> `precision-service`.
-4b. Portfolio, personal site or studio statement page -> `editorial-portfolio` (read `portfolio-benchmark.md` first; change the font trio, palette and layout details so it is not a clone).
+4b. Portfolio, personal site or studio statement page -> `portfolio-index`, after reading `craft-bar.md`; replace the identity, do not ship its look.
 5. Software product: keep the stage and scroll structure of `scroll-stage-game`, replace the 3D room with
    real UI states built in code (see site-types.md).
 

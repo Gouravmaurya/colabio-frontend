@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" class="intro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ines Calder — Motion & Interface Designer</title>
+<meta name="description" content="Sample portfolio starter: a fictional motion designer. All names, work and numbers are placeholders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- @CONFIG:fonts display + body + mono. Swap the link and the three vars together; do not keep the sample pairing for a real site. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* Fail-open: release the hidden intro state if scripts never run, the page is already scrolled, or motion is reduced. */
+(function(){var r=document.documentElement;
+if(scrollY>0||matchMedia('(prefers-reduced-motion: reduce)').matches){r.classList.remove('intro');return}
+setTimeout(function(){r.classList.remove('intro')},5000)})();
+</script>
+<style>
+/* @CONFIG:tokens — a dark and a light surface, one warm accent per surface. Recheck with scripts/check-contrast.mjs. */
+:root{
+  --d-bg:#0b1f1e; --d-surf:#112b29; --d-text:#e8f2ee; --d-muted:#9db8b1; --d-line:#24423f; --d-acc:#ff7a3d;
+  --l-bg:#efebe0; --l-text:#12201e; --l-muted:#586663; --l-line:#cfc9b8; --l-acc:#b93a0b;
+  --display:'Bricolage Grotesque','Arial Narrow',sans-serif; --sans:'Instrument Sans',Arial,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1); --pad:max(5vw,24px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--d-bg);color:var(--d-text);font:400 17px/1.55 var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--d-acc);outline-offset:3px}
+.light :focus-visible{outline-color:var(--l-acc)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--d-acc);color:#111;padding:10px 14px}.skip:focus{top:12px}
+.mono{font:500 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.light{background:var(--l-bg);color:var(--l-text)}
+.light .muted{color:var(--l-muted)}.muted{color:var(--d-muted)}
+.acc{color:var(--d-acc)}.light .acc{color:var(--l-acc)}
+section{position:relative}
+
+/* top bar: wordmark, numbered links, live local time */
+.bar{position:fixed;inset:var(--note,0px) 0 auto 0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--pad);mix-blend-mode:difference;color:#fff}
+.bar nav{display:flex;gap:26px}
+.bar a{opacity:.75;transition:opacity .25s}.bar a:hover,.bar a.on{opacity:1}
+.bar .mark{font:700 18px var(--display);letter-spacing:-.01em}
+.sample-note{position:relative;z-index:85;background:var(--d-acc);color:#111;padding:8px var(--pad);font:500 12px var(--mono);letter-spacing:.04em;text-align:center}
+
+/* hero: one huge sentence with inline media chips */
+.hero{min-height:100vh;min-height:100svh;padding:110px var(--pad) 36px;display:flex;flex-direction:column;justify-content:space-between}
+.hero h1{font:700 clamp(46px,8.4vw,150px)/.98 var(--display);letter-spacing:-.035em;max-width:16ch;text-wrap:balance}
+.hero h1 .w{display:inline-block}
+.chip{display:inline-block;vertical-align:-.08em;height:.78em;width:1.5em;border-radius:.4em;overflow:hidden;margin:0 .06em}
+.chip svg{width:100%;height:100%}
+.hero h1 em{font-style:normal;color:var(--d-acc)}
+.hero-foot{display:grid;grid-template-columns:1.3fr 1fr auto;gap:28px;align-items:end;border-top:1px solid var(--d-line);padding-top:20px}
+.hero-foot p{max-width:42ch;color:var(--d-muted)}
+.status{display:inline-flex;align-items:center;gap:10px}
+.status i{width:9px;height:9px;border-radius:50%;background:var(--d-acc);box-shadow:0 0 0 0 rgba(255,122,61,.6);animation:ping 2.2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(255,122,61,0)}100%{box-shadow:0 0 0 0 rgba(255,122,61,0)}}
+html.intro .hero h1 .w,html.intro .hero-foot,html.intro .bar{opacity:0}
+
+/* work: sticky stage + scrolling index. The active project drives the stage. */
+.work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--l-line)}
+.layer{position:absolute;inset:0}
+.layer svg{width:100%;height:100%}
+.stage .count{position:absolute;left:var(--pad);bottom:22px;z-index:99;color:#fff;mix-blend-mode:difference}
+.index{padding:0 var(--pad) 0 5vw}
+.index header{padding:120px 0 40px}
+.index h2{font:700 clamp(36px,4.4vw,76px)/.98 var(--display);letter-spacing:-.03em}
+.proj{min-height:84vh;min-height:84svh;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--l-line);padding:40px 0;opacity:.35;transition:opacity .5s}
+.proj.on{opacity:1}
+.proj .no{font:500 14px var(--mono);color:var(--l-acc)}
+.proj h3{font:700 clamp(36px,4.2vw,68px)/1 var(--display);letter-spacing:-.03em;margin:10px 0 14px}
+.proj p{max-width:44ch;color:var(--l-muted)}
+.proj dl{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;margin-top:22px;max-width:44ch}
+.proj dt{font:500 12px var(--mono);text-transform:uppercase;color:var(--l-muted);padding-top:3px}
+.proj a.go{display:inline-flex;margin-top:22px;border-bottom:1px solid currentColor;padding-bottom:3px;align-self:flex-start;min-height:44px;align-items:flex-end}
+.proj .inline-art{display:none}
+
+/* method: scroll-drawn line, steps light up as they pass */
+.method{padding:140px var(--pad);display:grid;grid-template-columns:5fr 7fr;gap:6vw}
+.method h2{font:700 clamp(44px,6vw,100px)/.95 var(--display);letter-spacing:-.03em;position:sticky;top:110px;align-self:start}
+.steps{position:relative;padding-left:44px;list-style:none}
+.steps::before,.steps .draw{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--d-line)}
+.steps .draw{background:var(--d-acc);transform-origin:top;transform:scaleY(0)}
+.step{padding:0 0 70px;position:relative;opacity:.4;transition:opacity .4s}
+.step.on{opacity:1}
+.step::before{content:"";position:absolute;left:-44px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--d-bg);border:2px solid var(--d-line);transition:background .3s,border-color .3s}
+.step.on::before{background:var(--d-acc);border-color:var(--d-acc)}
+.step h3{font:600 clamp(26px,2.6vw,38px)/1.1 var(--display);letter-spacing:-.02em;margin-bottom:8px}
+.step p{color:var(--d-muted);max-width:50ch}
+
+/* notes: typographic index */
+.notes{padding:120px var(--pad)}
+.notes h2{font:700 clamp(40px,5vw,84px)/.95 var(--display);letter-spacing:-.03em;margin-bottom:48px}
+.row{display:grid;grid-template-columns:90px 1fr auto;gap:20px;align-items:baseline;padding:22px 0;border-top:1px solid var(--l-line);transition:padding .4s var(--ease),color .3s}
+.row:last-of-type{border-bottom:1px solid var(--l-line)}
+.row:hover{padding-left:18px;color:var(--l-acc)}
+.row h3{font:600 clamp(22px,2.4vw,36px)/1.15 var(--display);letter-spacing:-.02em}
+.row .y,.row .k{color:var(--l-muted)}
+
+/* contact */
+.contact{min-height:100vh;min-height:100svh;padding:120px var(--pad) 28px;display:flex;flex-direction:column;justify-content:space-between}
+.contact p.lead{max-width:34ch;font:500 clamp(22px,2.4vw,36px)/1.25 var(--display);letter-spacing:-.02em}
+.roll{display:inline-block;font:700 clamp(40px,10.5vw,190px)/1 var(--display);letter-spacing:-.04em;margin:46px 0;word-break:break-all}
+.roll span{display:inline-block;transition:transform .55s var(--ease),color .3s;transition-delay:calc(var(--i)*18ms)}
+.roll:hover span,.roll:focus-visible span{transform:translateY(-.12em);color:var(--d-acc)}
+.contact-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--d-line);padding-top:20px}
+.contact-bottom a,.contact-bottom button{border-bottom:1px solid currentColor;padding:10px 0 4px;min-height:44px}
+
+@media (max-width:900px){
+  .bar nav{display:none}
+  .hero-foot{grid-template-columns:1fr}
+  .work{display:block}.stage{display:none}
+  .index{padding:0 var(--pad)}.proj{min-height:0;opacity:1;padding:48px 0}
+  .proj .inline-art{display:block;aspect-ratio:16/11;overflow:hidden;margin-bottom:22px}
+  .proj .inline-art svg{width:100%;height:100%}
+  .method{grid-template-columns:1fr;padding:90px var(--pad)}.method h2{position:static;margin-bottom:34px}
+  .row{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="sample-note" role="note">Sample starter — Ines Calder is fictional. Every name, project and number is a placeholder.</div>
+
+<header class="bar">
+  <a class="mark" href="#top">Ines Calder</a>
+  <nav class="mono" aria-label="Sections">
+    <a href="#work" data-s="work">01 Work</a><a href="#method" data-s="method">02 Method</a><a href="#notes" data-s="notes">03 Notes</a><a href="#contact" data-s="contact">04 Contact</a>
+  </nav>
+  <span class="mono" id="clock">Porto</span>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <!-- @COPY:hero — one sentence in the product's own nouns. Chips are inline art; swap for real thumbnails. -->
+  <h1><span class="w">Motion</span> <span class="chip" aria-hidden="true"><svg viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><rect width="120" height="60" fill="#ff7a3d"/><circle cx="40" cy="30" r="22" fill="#0b1f1e"/><circle cx="82" cy="30" r="22" fill="none" stroke="#0b1f1e" stroke-width="4"/></svg></span>
+    <span class="w">for</span> <span class="w">products</span> <span class="w">that</span> <span class="w">have</span> <span class="w">to</span> <em class="w">explain</em> <span class="chip" aria-hidden="true"><svg viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><rect width="120" height="60" fill="#e8f2ee"/><path d="M0 44 C 30 10, 60 54, 120 16 V60 H0Z" fill="#0b1f1e"/></svg></span>
+    <em class="w">themselves.</em></h1>
+  <div class="hero-foot">
+    <p>Ines Calder designs the moving parts of software: onboarding, state changes, charts that earn their attention. Sample studio of one, Porto.</p>
+    <p class="status mono"><i aria-hidden="true"></i> Booking two projects for spring</p>
+    <a class="mono" href="#work">Selected work ↓</a>
+  </div>
+</section>
+
+<section class="work light" id="work" aria-labelledby="work-h">
+  <div class="stage" aria-hidden="true">
+    <div class="layer"></div><div class="layer"></div><div class="layer"></div><div class="layer"></div>
+    <span class="count mono" id="count">01 / 04</span>
+  </div>
+  <div class="index">
+    <header><p class="mono acc">01 — Selected work</p><h2 id="work-h">Four sample projects, each with one measurable change.</h2></header>
+    <!-- @COPY:projects — data-art picks the stage artwork (orbit|ledger|tide|folio). Replace metrics with real, defensible ones. -->
+    <article class="proj" data-art="orbit">
+      <div class="inline-art" aria-hidden="true"></div>
+      <span class="no">01</span><h3>Orbit Onboarding</h3>
+      <p>A first-run flow that teaches a scheduling product by letting people move one real event. Sample result: setup completed in under 3 minutes.</p>
+      <dl><dt>Role</dt><dd>Motion lead</dd><dt>Year</dt><dd>2025 (sample)</dd><dt>Stack</dt><dd>React, Rive, Framer Motion</dd></dl>
+      <a class="go" href="#contact">Discuss a similar flow ↗</a>
+    </article>
+    <article class="proj" data-art="ledger">
+      <div class="inline-art" aria-hidden="true"></div>
+      <span class="no">02</span><h3>Ledger Transitions</h3>
+      <p>Number and chart transitions for a finance dashboard so the eye follows what changed. Sample result: 31% fewer “what moved?” support tickets.</p>
+      <dl><dt>Role</dt><dd>Interaction design</dd><dt>Year</dt><dd>2025 (sample)</dd><dt>Stack</dt><dd>D3, GSAP, TypeScript</dd></dl>
+      <a class="go" href="#contact">Discuss a similar system ↗</a>
+    </article>
+    <article class="proj" data-art="tide">
+      <div class="inline-art" aria-hidden="true"></div>
+      <span class="no">03</span><h3>Tide Reader</h3>
+      <p>A calm, offline-first tide and swell display for small-boat sailors, built around one gesture.</p>
+      <dl><dt>Role</dt><dd>Design and build</dd><dt>Year</dt><dd>2024 (sample)</dd><dt>Stack</dt><dd>PWA, Canvas</dd></dl>
+      <a class="go" href="#contact">Read the case study ↗</a>
+    </article>
+    <article class="proj" data-art="folio">
+      <div class="inline-art" aria-hidden="true"></div>
+      <span class="no">04</span><h3>Folio Reader</h3>
+      <p>Page-turn physics for a long-form reading app that respects reduced motion by changing the interaction, not removing it.</p>
+      <dl><dt>Role</dt><dd>Prototype and spec</dd><dt>Year</dt><dd>2024 (sample)</dd><dt>Stack</dt><dd>SwiftUI, Lottie</dd></dl>
+      <a class="go" href="#contact">Read the case study ↗</a>
+    </article>
+  </div>
+</section>
+
+<section class="method" id="method" aria-labelledby="method-h">
+  <h2 id="method-h">How a motion brief becomes a system.</h2>
+  <ol class="steps">
+    <span class="draw" aria-hidden="true"></span>
+    <li class="step"><h3>Name the change</h3><p>One sentence on what the interface must make obvious. If it cannot be said in a line, it cannot be animated in a second.</p></li>
+    <li class="step"><h3>Prototype the timing</h3><p>Rough curves in the real product within two days, because timing is judged by feel, not by mockups.</p></li>
+    <li class="step"><h3>Write the rules</h3><p>Durations, easings and distances become tokens, with a reduced-motion version of every pattern.</p></li>
+    <li class="step"><h3>Hand over and measure</h3><p>Specs, code and a short review a month after launch against the one measurable change.</p></li>
+  </ol>
+</section>
+
+<section class="notes light" id="notes" aria-labelledby="notes-h">
+  <h2 id="notes-h">Notes, talks and teardown threads.</h2>
+  <!-- @COPY:notes — list only real writing and talks, with links. -->
+  <a class="row" href="#contact"><span class="y mono">2025</span><h3>Easing is a unit of trust</h3><span class="k mono">Essay</span></a>
+  <a class="row" href="#contact"><span class="y mono">2025</span><h3>Reduced motion is a design brief</h3><span class="k mono">Talk</span></a>
+  <a class="row" href="#contact"><span class="y mono">2024</span><h3>Teardown: why that onboarding feels fast</h3><span class="k mono">Thread</span></a>
+  <a class="row" href="#contact"><span class="y mono">2024</span><h3>Springs without the physics degree</h3><span class="k mono">Workshop</span></a>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <p class="lead" id="contact-h">Have a product that needs to explain itself? Send two sentences and a link.</p>
+  <a class="roll" id="mail" href="mailto:hello@example.com" aria-label="Email hello@example.com">hello@example.com</a>
+  <div class="contact-bottom mono">
+    <button type="button" id="copy">Copy email ↗</button><span id="copy-msg" class="sr-only" role="status"></span>
+    <a href="#">Dribbble ↗</a><a href="#">LinkedIn ↗</a><a href="#top">Back to top ↑</a><span class="muted">© 2026 Ines Calder (sample)</span>
+  </div>
+</section>
+</main>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const root = document.documentElement;
+const { gsap, ScrollTrigger, Lenis } = window;
+const MOTION_OK = '(not (prefers-reduced-motion: reduce))', REDUCED = '(prefers-reduced-motion: reduce)';
+
+/* ---- original generative artwork, one grammar per project (@CONFIG:art) ---- */
+const ART = {
+  orbit: () => `<svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice"><rect width="800" height="900" fill="#0b1f1e"/>${[0,1,2,3,4].map(i=>`<circle cx="400" cy="450" r="${90+i*70}" fill="none" stroke="#24423f" stroke-width="2"/>`).join('')}<circle cx="400" cy="450" r="34" fill="#ff7a3d"/><circle cx="560" cy="360" r="14" fill="#e8f2ee"/><circle cx="170" cy="570" r="20" fill="#9db8b1"/><circle cx="490" cy="750" r="10" fill="#e8f2ee"/></svg>`,
+  ledger: () => `<svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice"><rect width="800" height="900" fill="#efebe0"/>${[320,240,500,420,640,380,560].map((h,i)=>`<rect x="${90+i*92}" y="${760-h}" width="60" height="${h}" fill="${i===4?'#b93a0b':'#12201e'}"/>`).join('')}<path d="M90 760 H730" stroke="#12201e" stroke-width="2"/><path d="M120 470 L212 530 L304 330 L396 400 L488 190 L580 370 L672 240" fill="none" stroke="#ff7a3d" stroke-width="5"/></svg>`,
+  tide: () => `<svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice"><rect width="800" height="900" fill="#cfdde0"/>${[0,1,2,3,4,5,6,7].map(i=>`<path d="M0 ${250+i*70} C 160 ${200+i*70}, 280 ${320+i*70}, 400 ${250+i*70} S 660 ${190+i*70}, 800 ${250+i*70}" fill="none" stroke="#0b1f1e" stroke-width="${i===4?4:1.5}"/>`).join('')}<circle cx="590" cy="170" r="46" fill="#ff7a3d"/></svg>`,
+  folio: () => `<svg viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice"><rect width="800" height="900" fill="#112b29"/><path d="M400 150 C 300 150 200 180 150 220 V 700 C 200 670 300 650 400 660 Z" fill="#e8f2ee"/><path d="M400 150 C 500 150 600 180 650 220 V 700 C 600 670 500 650 400 660 Z" fill="#cfd9d4"/>${Array.from({length:9},(_,i)=>`<rect x="200" y="${270+i*38}" width="${i%4===3?120:170}" height="7" fill="#0b1f1e" opacity=".7"/>`).join('')}<path d="M650 220 C 600 330 560 420 520 520" fill="none" stroke="#ff7a3d" stroke-width="4" opacity=".9"/></svg>`
+};
+const layers = $$('.layer'), projs = $$('.proj');
+const arts = projs.map(p => ART[p.dataset.art]());
+layers.forEach((l, i) => { l.innerHTML = arts[i]; });
+projs.forEach((p, i) => { $('.inline-art', p).innerHTML = arts[i]; });
+
+/* ---- behaviours that never depend on the motion libraries ---- */
+$('#mail').innerHTML = [...'hello@example.com'].map((c, i) => `<span style="--i:${i}" aria-hidden="true">${c}</span>`).join('');
+const tick = () => { try { $('#clock').textContent = 'Porto ' + new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Lisbon' }).format(new Date()); } catch (e) {} };
+tick(); setInterval(tick, 30000);
+$('#copy').addEventListener('click', async () => { const m = $('#copy-msg');
+  try { await navigator.clipboard.writeText('hello@example.com'); m.textContent = 'Email copied'; $('#copy').textContent = 'Copied ✓'; } catch (e) { m.textContent = 'Copy not available, select the address'; } });
+const note = $('.sample-note'); const fitBar = () => root.style.setProperty('--note', Math.max(0, note.getBoundingClientRect().bottom) + 'px'); fitBar(); addEventListener('scroll', fitBar, { passive: true }); addEventListener('resize', fitBar);
+const links = $$('.bar a[data-s]');
+['work','method','notes','contact'].forEach(id => new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.dataset.s === id)); }),
+  { rootMargin: '-45% 0px -50% 0px' }).observe(document.getElementById(id)));
+
+/* the active project drives the sticky stage (works without GSAP: class toggle + z-order) */
+let cur = -1, z = 1;
+const show = i => { if (i === cur) return; const first = cur < 0; cur = i; projs.forEach((p, k) => p.classList.toggle('on', k === i));
+  $('#count').textContent = `0${i + 1} / 0${projs.length}`;
+  const l = layers[i]; l.style.zIndex = ++z;
+  if (window.gsap && !first && matchMedia(MOTION_OK).matches) gsap.fromTo(l, { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: .8, ease: 'power3.inOut', onComplete: () => { l.style.clipPath = ''; } });
+  else l.style.clipPath = ''; };
+show(0);
+projs.forEach((p, i) => new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(i); }), { rootMargin: '-45% 0px -45% 0px' }).observe(p));
+
+/* ---- no libraries: page stays fully visible and usable ---- */
+if (!gsap || !ScrollTrigger || !Lenis) { root.classList.remove('intro'); $$('.step').forEach(s => s.classList.add('on')); $('.steps .draw').style.transform = 'scaleY(1)'; return; }
+gsap.registerPlugin(ScrollTrigger);
+
+/* Lenis owns the scroll, GSAP's ticker drives it (one clock); window.lenis is the off switch. */
+const lenis = new Lenis({ autoRaf: false, duration: 1.05 }); window.lenis = lenis;
+lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+$$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); const t = id === '#' ? null : $(id); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { offset: id === '#top' ? 0 : -10 }); }));
+
+/* ---- opening: words rise in, then the page assembles. Skippable, timer-released. ---- */
+if (root.classList.contains('intro') && !matchMedia(REDUCED).matches && scrollY === 0) {
+  const words = $$('.hero h1 .w'); let over = false, tl;
+  const finish = () => { if (over) return; over = true; tl && tl.progress(1).kill(); gsap.set(['.bar', '.hero-foot', ...words], { clearProps: 'all' }); root.classList.remove('intro'); lenis.start();
+    ['wheel','touchmove','keydown','pointerdown'].forEach(t => removeEventListener(t, finish)); };
+  Promise.race([document.fonts ? document.fonts.ready : 0, new Promise(r => setTimeout(r, 1200))]).then(() => requestAnimationFrame(() => {
+    if (over) return; lenis.stop();
+    gsap.set(words, { opacity: 0, yPercent: 60, rotate: 2 });
+    tl = gsap.timeline({ onComplete: finish })
+      .to(words, { opacity: 1, yPercent: 0, rotate: 0, duration: .8, ease: 'power4.out', stagger: .07 }, .1)
+      .to('.bar', { opacity: 1, duration: .5 }, .6).fromTo('.hero-foot', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .6, ease: 'power2.out' }, .9);
+    ['wheel','touchmove','keydown','pointerdown'].forEach(t => addEventListener(t, finish, { passive: true }));
+    setTimeout(finish, 3200); /* timer release: rAF freezes in background tabs */ }));
+} else root.classList.remove('intro');
+
+/* ---- reveals via IntersectionObserver (sticky/pin spacers make ScrollTrigger positions stale) ---- */
+const seen = new WeakMap();
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); const p = seen.get(e.target); if (p) { seen.delete(e.target); p(); } }), { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+const onVisible = (el, play) => { seen.set(el, play); io.observe(el); };
+const rise = (targets, o = {}) => { const els = gsap.utils.toArray(targets); if (!els.length) return;
+  gsap.set(els, { opacity: 0, y: innerWidth <= 600 ? 14 : 24 });
+  els.forEach((el, i) => onVisible(el, () => gsap.to(el, { opacity: 1, y: 0, duration: .6, delay: i * (o.stagger ?? .08), ease: 'power3.out', overwrite: true }))); };
+
+const mm = gsap.matchMedia();
+mm.add(MOTION_OK, () => {
+  rise('.index header > *'); rise('.method h2'); rise('.notes h2'); rise('.row', { stagger: .07 }); rise('.contact .lead');
+  /* the contact address and utility rows deliberately do not enter: furniture that moves is noise */
+  const steps = $$('.step');
+  gsap.to('.steps .draw', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 60%', end: 'bottom 60%', scrub: .4 } });
+  steps.forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 62%', onEnter: () => s.classList.add('on'), onLeaveBack: () => s.classList.remove('on') }));
+});
+mm.add(REDUCED, () => { $$('.step').forEach(s => s.classList.add('on')); gsap.set('.steps .draw', { scaleY: 1 }); lenis.destroy(); });
+ScrollTrigger.refresh(); addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
