@@ -41,7 +41,7 @@
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "99289aa54ae48ee947bf2c9927a1d44c7aedd4e1ce44db45455c88fb6c847573"
+      "sha256": "49eb9563d8eb8c2811d7e06930a50e6f51593d72d31ec6036829d7d2c1afbc83"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -225,7 +225,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "f9a456706cc5dab6fefa4fc27300d502b34c0fa68a2483f56bd36a27ee259b6d"
+      "sha256": "4af74cbf70da34baf07f405e13e56315fe66e80b818bbd74f7c25d11b0e1369a"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/intake-evals.md",
@@ -233,7 +233,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/pipeline-evals.md",
-      "sha256": "c79a1efbc768c6496284ce8816a68fe497fceda16d3130b44040db9112f5e740"
+      "sha256": "de7dbb4fca3eda42a47ab9d4b5d6436a0c89bf72113e248fc3c26e02ab936679"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/agency-playbook.md",
@@ -268,6 +268,14 @@
       "sha256": "e1c73a58829f6f5edc963bde1f38ca3e85ed66f6208386df11b2a7002564d4e4"
     },
     {
+      "path": "skills/.curated/colabio-frontend/references/domain-swatches.json",
+      "sha256": "9153867b1c0540bbf33f9b8bc35443b17f4cdf8ebdad9e1baa45d98fe3269d5b"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/references/impeccable-bridge.md",
+      "sha256": "aa8d80c0c2d3090e697b312cabe01b243b5c84c743d7899663ab878265115c58"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/references/libraries.md",
       "sha256": "f9bf9261296f3dd6c0983cea1c38ad9ff229e3daa21a2c3fbe984f9465ca4a17"
     },
@@ -276,8 +284,12 @@
       "sha256": "abafb0e88607ff5814aa8330be0fd307d2ad000acfed888b3d16dfabcbf99dc9"
     },
     {
+      "path": "skills/.curated/colabio-frontend/references/product-understanding.md",
+      "sha256": "8cd24da886bc9f1b5c80afc355a914daa5716d17473968cb2209abb11c448210"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/references/prompt-enhancer.md",
-      "sha256": "6e3541a01911851892c545054f748fa009f5b3dc29d5b5aaaeb0e928d69f9187"
+      "sha256": "db05aa70d47827b30db5011fefe562ba8920ed632cb8075f3578da054ecb27ba"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/site-types.md",
@@ -309,7 +321,11 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/finish-gate.mjs",
-      "sha256": "17265e64cf17d22565aa39bc75711c8b5cfa9dd8d12981954fe368925e096915"
+      "sha256": "f5b58d518b8c2af7f20e75c103241b6e645fdaf2c236923aec1495a7dd1a3801"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/scripts/palette-lab.mjs",
+      "sha256": "cef6cd9d72d6260bb5e5c30d2f681d2c89f6a2af18e804fe0247a3b0449d1d03"
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/pick-direction.mjs",
@@ -321,7 +337,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/select-build.mjs",
-      "sha256": "83b6a70b7058f61199a8af07a692dbedc44e032c749ed50ef22752bcc301ca6e"
+      "sha256": "ce3a085b17b8486c48033ab4b5656b59c5b827ec87b134ce3f7b4797f8d141de"
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/serve.mjs",
@@ -2444,6 +2460,10 @@
       "sha256": "552456dae07b94ba67faf9e953059ed756eca31e4cc4c3c1b668203b1219b1b0"
     },
     {
+      "path": "tests/fixtures-palette/index.html",
+      "sha256": "5fa876b3385e1b8258434d23a401a05b6b79db288b324b5334f4c955566dedd4"
+    },
+    {
       "path": "tests/fixtures-slop/index.html",
       "sha256": "0a6cbb582651cd6ec97b464f53dd153a43b66a71c054376faa9f8367d1f2cd6f"
     },
@@ -2453,7 +2473,7 @@
     },
     {
       "path": "tests/pipeline.test.mjs",
-      "sha256": "2f0e5db8ac54cbffbb472e417a4bff38e79132f93973447584508deb396f2a15"
+      "sha256": "8ba54d4bc1d96508af981d0fa1b131e04188738ffb257db2bf946cc595a46585"
     },
     {
       "path": "tests/selection.test.mjs",

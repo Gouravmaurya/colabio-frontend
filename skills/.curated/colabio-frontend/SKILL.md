@@ -64,30 +64,41 @@ Scripts use Node 18+; without Node, perform the applicable checks manually.
 | `scripts/select-build.mjs` | Build selector: type, style, starter, stack, motion level, pages, libraries, reading order |
 | `scripts/finish-gate.mjs` | Static polish gate: meta, landmarks, alt text, focus, reduced motion, social card, favicon, placeholders |
 | `evals/pipeline-evals.md` | End-to-end cases for the idea-to-finished-site pipeline |
+| `references/impeccable-bridge.md` | Optional second opinion: Impeccable detector in the finish gate; its critique, audit and polish playbooks for existing surfaces |
+| `references/product-understanding.md` | Understanding Sheet, plan-then-theme order, context-to-implication table |
+| `references/domain-swatches.json` | Real colours of 19 domains' materials, tools and places, for palette evidence |
+| `scripts/palette-lab.mjs` | Four domain-grounded palette candidates with contrast and category-default flags; `--check <page.html>` audits a built page |
 
 ## The pipeline: idea in, finished site out
 
 For a new site or major redesign the user gives an idea, a design wish or a link.
 Run these stages in order, in one pass unless the user asked for questions.
 
-1. **Enhance.** Follow [prompt-enhancer.md](references/prompt-enhancer.md): score
-   the idea, ask one round only if three or more material gaps remain, and write a
-   **Cinematic Design Prompt** (`design-brief.md` in the project) covering logline,
-   visitor and action, tone, art direction, scene score, signature interaction,
-   pages and UX flows, motion system, content, stack, acceptance criteria and
-   assumptions. Show a 10-line summary.
-2. **Select.** Run `node scripts/select-build.mjs --brief "<idea>"` (or `--file
-   design-brief.md --project <app>`). It returns the site type, one primary style
-   recipe, font pair and palette candidates, a starter if one fits (mechanisms
-   only), stack, motion level and libraries, the page list, libraries to mine and
-   the reading order. It is heuristic: confirm or replace every item with a reason.
+1. **Understand, then plan.** Follow [product-understanding.md](references/product-understanding.md)
+   and [prompt-enhancer.md](references/prompt-enhancer.md). Write the Understanding
+   Sheet first (what it is, who uses it, where and on what device and light, the
+   decision they face, the proof that convinces them, domain vocabulary and
+   materials, category defaults to avoid, emotional register, first-screen
+   obligation). Ask one round only if three or more material gaps remain. Then plan
+   the scene score and pages from it. **No colour, type or theme decision before
+   these exist.**
+2. **Select, then decide the theme.** Run `node scripts/select-build.mjs --brief
+   "<idea>"` (or `--file design-brief.md --project <app>`) for type, starter, stack,
+   motion level, pages and reading order; its style, font and palette picks are
+   candidates. Decide the theme from the understanding with `node
+   scripts/palette-lab.mjs --domain "<idea words>"`: choose one candidate, name the
+   real material behind each colour, justify light, dark or light-with-a-dark-scene
+   from the use context ("cinematic" is framing, not darkness), and reject category
+   defaults it flags. Write all of this into the **Cinematic Design Prompt**
+   (`design-brief.md`) and show a 10-line summary.
 3. **Design.** Write the spec (tokens with contrast, type scale, scene score with a
    motion verb and hand-off per scene, mobile recomposition). Gather real assets
    and copy first. Satisfy the anti-clone rule in `craft-bar.md`.
 4. **Build.** Vertical slice first (hero, signature, hand-off), rendered at 1440
    and 390; then every page in the CDP's page list with its states; then motion on
    one clock with owners and reduced-motion and no-library paths.
-5. **Polish and verify.** Run `finish-gate.mjs`, `slop-lint.mjs` and
+5. **Polish and verify.** Run `finish-gate.mjs` (it also runs the Impeccable detector when
+   installed, see `impeccable-bridge.md`), `slop-lint.mjs`, `palette-lab.mjs --check` and
    `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; at least
    two critique rounds against `award-bar.md` and the acceptance criteria.
 6. **Deliver.** The site, `design-brief.md`, what was checked and what was not, and
@@ -297,8 +308,11 @@ Continue through all requested pages, secondary routes, and the footer in scope.
 Set typography and palette after the concept and architecture, using real
 headings, long labels, paragraphs, currencies, and languages to test the choices.
 
-For a new full page or substantial redesign with an open color direction, compare
-two materially different palette candidates before coding. State their dominant
+For a new full page or substantial redesign with an open color direction, decide
+colour only after the Understanding Sheet and scene plan exist. Generate candidates
+with `scripts/palette-lab.mjs --domain "<idea>"` (real materials of the field, contrast
+checked, category defaults flagged), then compare at least two materially different
+real candidates before coding; a straw alternative does not count. State their dominant
 surfaces and accents, connect each to the actual work, audience, assets, or stated
 character, then choose one and explain the tradeoff. Keep this a brief decision,
 not two complete builds or an extra approval gate. Preserve settled brand colors

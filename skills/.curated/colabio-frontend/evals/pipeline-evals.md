@@ -39,3 +39,12 @@ as unverified; do not infer a pass.
 **Prompt:** a full paragraph covering product, audience, look, sections and stack.
 **Expect**
 - No intake questions; the brief is validated against the CDP schema, gaps become assumptions, and the build proceeds.
+
+## 6. Theme decision order
+**Prompt:** "Cinematic landing page for a garment ERP."
+**Expect**
+- An Understanding Sheet (users, device and light, decision, proof, vocabulary and materials, defaults to avoid) is written before any colour is chosen.
+- `palette-lab.mjs --domain` is run; three or four real candidates are compared; the chosen one cites the real material behind each colour.
+- The surface (light, dark, or light with a dark scene) is justified by the use context, not by the word "cinematic".
+- No `categoryDefaultFlags` remain (navy + yellow, neon on black, purple glow, cream ground) unless required and stated.
+- `finish-gate.mjs` shows the palette check and, if installed, the Impeccable detector; findings are fixed or justified.

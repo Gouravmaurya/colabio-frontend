@@ -80,3 +80,9 @@ tag is changed and no new release tag is created by this merge.
 
 - Adds `references/prompt-enhancer.md` (12-part Cinematic Design Prompt), `scripts/select-build.mjs` (build selector), `scripts/finish-gate.mjs` (static polish gate) and `evals/pipeline-evals.md`; SKILL.md now opens with the six-stage pipeline.
 - Fixes backspace characters that corrupted word-boundary regexes in `pick-direction.mjs` type detection.
+
+## Unreleased: understanding-first theming and Impeccable bridge
+
+- Adds `references/product-understanding.md` (understand, then plan, then derive the theme), `scripts/palette-lab.mjs` with `references/domain-swatches.json` (domain-grounded palette candidates, category-default flags including navy+yellow and cream grounds, `--check` for built pages).
+- `select-build.mjs` now returns theme candidates and says to understand first; `finish-gate.mjs` runs the palette check and, when installed, the Impeccable detector (`references/impeccable-bridge.md`).
+- Reorders the Cinematic Design Prompt so art direction is derived from the understanding and scene plan.

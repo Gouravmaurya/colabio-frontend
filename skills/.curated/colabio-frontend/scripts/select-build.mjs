@@ -85,6 +85,10 @@ const styleHint = has(/(cinematic|immersive|webgl|3d|film)/) ? 'cinematic-immers
 const pd = spawnSync(process.execPath, [path.join(here, 'pick-direction.mjs'), '--seed', arg('seed') || text.slice(0, 40), '--brief', text.slice(0, 600), '--type', type, ...(styleHint ? ['--style', styleHint] : [])], { encoding: 'utf8' });
 let direction = null; try { direction = JSON.parse(pd.stdout); } catch { /* picker unavailable */ }
 
+// ---- theme candidates grounded in the domain (decide AFTER the understanding sheet and scene plan) ----
+const pl = spawnSync(process.execPath, [path.join(here, 'palette-lab.mjs'), '--domain', text.slice(0, 400)], { encoding: 'utf8' });
+let themeCandidates = null; try { const j = JSON.parse(pl.stdout); themeCandidates = { domain: j.domain, recommend: j.recommend, candidates: j.candidates.map((c) => ({ id: c.id, scene: c.scene, score: c.score, tokens: c.tokens, flags: c.categoryDefaultFlags, evidence: c.domainEvidence })) }; } catch { themeCandidates = { note: 'No domain matched. Run palette-lab.mjs with --swatches taken from the product\'s real materials, photos or brand.' }; }
+
 // ---- libraries worth mining (see references/libraries.md) ----
 const mine = [
   stack !== 'html' ? 'ui.shadcn.com (foundations), 21st.dev, magicui.design, ui.aceternity.com, reactbits.dev' : 'uiverse.io (CSS-only parts), tympanus.net/codrops (technique source)',
@@ -93,15 +97,17 @@ const mine = [
 ].filter(Boolean);
 
 const R = 'references/';
-const readOrder = [R + 'prompt-enhancer.md', R + 'brief-intake.md', R + 'site-types.md (section: ' + type + ')', R + 'craft-bar.md',
+const readOrder = [R + 'product-understanding.md', R + 'prompt-enhancer.md', R + 'brief-intake.md', R + 'site-types.md (section: ' + type + ')', R + 'craft-bar.md',
   R + 'styles.md (' + (direction?.style?.id || 'recipe') + ')', R + 'cinematic-recipes.md', R + 'asset-and-copy.md', R + 'craft-defaults.md',
   R + 'motion-recipes.md', R + 'libraries.md', R + 'verify.md', R + 'visual-comparison-gates.md', R + 'award-bar.md'];
 
 const plan = {
   input: text.slice(0, 200) + (text.length > 200 ? '...' : ''),
   type, starter, starterNote: starter ? `templates/${starter}: take mechanisms and safety only; change type, palette, hero, navigation, signature and copy (anti-clone rule). Copy with scripts/scaffold.mjs.` : 'no starter fits; build from the recipes',
-  stack, existingProject: existing, motion, pages, direction, mine, readOrder,
-  checks: ['node scripts/slop-lint.mjs <src>', 'node scripts/check-contrast.mjs <page.html>', 'node scripts/finish-gate.mjs <dir|file>', 'serve + drive real events at 1440/1024/768/390 (references/verify.md)'],
+  stack, existingProject: existing, motion, pages, direction, themeCandidates,
+  order: 'Understand the product and plan scenes/pages first (references/product-understanding.md). Then decide the theme from themeCandidates and the use context. direction.palette and direction.font are only starting points.',
+  mine, readOrder,
+  checks: ['node scripts/slop-lint.mjs <src>', 'node scripts/palette-lab.mjs --check <page.html>', 'node scripts/check-contrast.mjs <page.html>', 'node scripts/finish-gate.mjs <dir|file>', 'serve + drive real events at 1440/1024/768/390 (references/verify.md)'],
   caveat: 'Heuristic plan from keywords. Confirm each choice against the brief, state a reason for any replacement, and never ship a starter unchanged.'
 };
 console.log(JSON.stringify(plan, null, 2));

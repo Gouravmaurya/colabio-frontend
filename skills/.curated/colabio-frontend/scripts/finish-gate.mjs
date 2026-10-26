@@ -3,6 +3,7 @@
 // It cannot judge visual quality; it catches what unfinished sites forget.
 // Usage: node finish-gate.mjs <file.html|folder> [--strict]   (--strict exits 1 on any FAIL)
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -56,6 +57,29 @@ for (const [label, script] of [['template tells', 'slop-lint.mjs'], ['contrast t
   const bad = lines.filter((l) => /^\[high\]|^FAIL|^fail/i.test(l));
   console.log(`\n${label} (${script}): ${bad.length ? bad.length + ' high/fail' : 'ok'}`);
   bad.forEach((l) => console.log('  ' + l)); if (bad.length) fails += bad.length;
+}
+
+// Optional second opinion: Impeccable's deterministic detector (Apache-2.0, github.com/pbakaus/impeccable), if installed.
+const home = process.env.USERPROFILE || process.env.HOME || '';
+const imp = [path.join(process.cwd(), '.claude/skills/impeccable/scripts'), path.join(process.cwd(), '.agents/skills/impeccable/scripts'), path.join(home, '.claude/skills/impeccable/scripts'), path.join(home, '.agents/skills/impeccable/scripts')]
+  .map((d) => path.join(d, process.platform === 'win32' ? 'impeccable.cmd' : 'impeccable')).find((f) => fs.existsSync(f));
+if (imp) {
+  // JSON to a temp file: the Windows launcher writes text straight to the console, which cannot be captured
+  const tmp = path.join(os.tmpdir(), `imp-${process.pid}.json`);
+  spawnSync(`"${imp}" detect "${target}" --json --no-advisory > "${tmp}"`, { encoding: 'utf8', shell: true, timeout: 120000 });
+  const rules = {};
+  try { JSON.parse(fs.readFileSync(tmp, 'utf8')).forEach((f) => { rules[f.antipattern] = (rules[f.antipattern] || 0) + 1; }); } catch { /* detector produced no JSON */ }
+  try { fs.unlinkSync(tmp); } catch { /* ignore */ }
+  const keys = Object.keys(rules);
+  console.log(`\nImpeccable detector: ${keys.length ? keys.length + ' rule(s) fired' : 'clean'}`);
+  keys.sort((a, b) => rules[b] - rules[a]).forEach((k) => { warns++; console.log(`  WARN ${k} x${rules[k]}`); });
+  if (keys.length) console.log('  Fix or justify each; run the detector directly for locations: impeccable detect <path>');
+} else console.log('\nImpeccable detector: not installed (optional). See references/impeccable-bridge.md');
+
+for (const file of pages) {
+  const r = spawnSync(process.execPath, [path.join(here, 'palette-lab.mjs'), '--check', file], { encoding: 'utf8' });
+  const w = (r.stdout || '').split('\n').filter((l) => /^WARN/.test(l));
+  if (w.length) { console.log(`\npalette (${path.relative(process.cwd(), file) || file}): ${w.length} category-default warning(s). Justify in the brief or change the palette (palette-lab.mjs)`); w.forEach((l) => { warns++; console.log('  ' + l); }); }
 }
 
 console.log(`\nfinish-gate: ${fails} fail, ${warns} warn. Static checks only: still render, drive real events, and critique at 1440/1024/768/390.`);
