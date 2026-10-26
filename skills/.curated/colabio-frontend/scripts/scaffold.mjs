@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Copy a template into a new project folder and rename the sample brand.
 // Usage: node scaffold.mjs <template> <out-dir> --brand "New Name" [--from "Sample"] [--replace old=new ...] [--force]
-//   <template>: cinematic-product-shop | scroll-stage-game | precision-service
+//   <template>: cinematic-product-shop | scroll-stage-game | precision-service | editorial-portfolio
 // Writes <out-dir>/index.html (+ design-spec.md when the template has one), then prints what is left to rewrite.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,7 +17,7 @@ const base = fileURLToPath(new URL('../templates/', import.meta.url));
 const known = fs.readdirSync(base, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name);
 if (!tpl || !out || !known.includes(tpl)) { console.error(`usage: node scaffold.mjs <${known.join('|')}> <out-dir> --brand "Name" [--from "Sample"] [--replace old=new]`); process.exit(2); }
 
-const DEFAULT_FROM = { 'cinematic-product-shop': 'Ashfold', 'scroll-stage-game': 'Reclone', 'precision-service': 'Reclone' };
+const DEFAULT_FROM = { 'cinematic-product-shop': 'Ashfold', 'scroll-stage-game': 'Reclone', 'precision-service': 'Reclone', 'editorial-portfolio': 'Atlas' };
 const brand = flag('--brand'), from = flag('--from') || DEFAULT_FROM[tpl];
 const dest = path.resolve(out);
 if (fs.existsSync(path.join(dest, 'index.html')) && !argv.includes('--force')) { console.error(`${dest}/index.html exists; pass --force to overwrite`); process.exit(1); }

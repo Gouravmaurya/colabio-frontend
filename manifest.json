@@ -225,7 +225,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "3820dc0fbd003d960f6511a5abe4b1ac0ddaa2fac577e1634d899199b7110b37"
+      "sha256": "340796c2534388511a76d573df461f0f4265b43ce207cbd0bcf7374068d4b8d3"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/intake-evals.md",
@@ -257,7 +257,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/design-kit.json",
-      "sha256": "e1c73a58829f6f5edc963bde1f38ca3e85ed66f6208386df11b2a7002564d4e4"
+      "sha256": "d7f49d00e6f39d8e29c7c398557658b9c5fb95b8ac3598249b7bc5799bf250b5"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/libraries.md",
@@ -268,8 +268,12 @@
       "sha256": "abafb0e88607ff5814aa8330be0fd307d2ad000acfed888b3d16dfabcbf99dc9"
     },
     {
+      "path": "skills/.curated/colabio-frontend/references/portfolio-benchmark.md",
+      "sha256": "c8be6249d59324edbb04f1893a0588ca9bec3905125b38c1f279660ef5b11619"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/references/site-types.md",
-      "sha256": "1eb19a1612806fe30336bcaed9d7bc6d8a7dff49a582841619081ed81049ed49"
+      "sha256": "b93f6e81e03caf27034daf72ace8725311384e3984ebd963c9b0555fcde0c24e"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/studies/editorial-portfolio.md",
@@ -301,7 +305,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/scaffold.mjs",
-      "sha256": "0dc7d8597484163a98aac672c5e7d395ccf079f34410840badcc84a94207758e"
+      "sha256": "e54efecb8e30944de9b5bd5178930afd349f5513c04434214d6ba4156e5f98de"
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/serve.mjs",
@@ -317,11 +321,15 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/README.md",
-      "sha256": "03e6a8976a75d32ec907505932396aa93c9327269683725a13d5c95dea5f0cd0"
+      "sha256": "87837a3c948742702efddaa40246520cc036070eb41c47d3cebfc160f00e6280"
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/cinematic-product-shop/index.html",
       "sha256": "6f87fe665b8a2c7a53dbec39a7cec60698cc14d932cf84620a310e64480adb8c"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/templates/editorial-portfolio/index.html",
+      "sha256": "abe047606cf52e67ed7e6ff22c34a14a090f4c40ea1c8b5dbf09cb19bb0dcef4"
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/precision-service/design-spec.md",

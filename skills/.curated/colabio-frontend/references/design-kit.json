@@ -214,6 +214,20 @@
         "creative",
         "community"
       ]
+    },
+    {
+      "id": "barlow-italiana-dmsans",
+      "display": "Barlow Condensed",
+      "body": "DM Sans",
+      "accentSerif": "Italiana",
+      "source": "Google Fonts",
+      "weights": "display 600-800, body 400-600, serif 400",
+      "mood": [
+        "portfolio",
+        "editorial",
+        "personal",
+        "craft"
+      ]
     }
   ],
   "palettes": [
@@ -380,6 +394,22 @@
         "luxury",
         "automotive",
         "finance"
+      ]
+    },
+    {
+      "id": "paper-ink-brick",
+      "bg": "#EEEAE1",
+      "surface": "#F7F4EC",
+      "text": "#23231F",
+      "muted": "#636057",
+      "accent": "#9A4030",
+      "accent2": "#E0A590",
+      "border": "#C8C2B6",
+      "mood": [
+        "portfolio",
+        "editorial",
+        "personal",
+        "craft"
       ]
     }
   ],

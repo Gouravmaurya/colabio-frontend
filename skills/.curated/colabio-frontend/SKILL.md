@@ -49,6 +49,7 @@ Scripts use Node 18+; without Node, perform the applicable checks manually.
 | `references/brief-intake.md` | Clarify material gaps and turn a thin prompt into a useful brief |
 | `references/site-types.md` | Website-type journeys, proof and interaction options |
 | `references/verify.md` | Serving, real-event browser verification and preview quirks |
+| `references/portfolio-benchmark.md` | Teardown of a strong hand-built portfolio: type trio, palette, dock, pinned track, intro, fail-open motion |
 | `references/award-bar.md` | Context-specific craft checks; examples do not mandate 3D |
 | `templates/README.md` | Optional working starters; reuse mechanisms only when they fit the brief |
 | `scripts/scaffold.mjs` | Copy a selected starter into a new output folder |
