@@ -27,6 +27,11 @@ assumptions. No adjectives like "premium" or "immersive" in the idea sentence.
    composition from `references/design-kit.json`.
 2. Accept, adjust, or replace each item **with a one-line reason tied to the
    product**. A brand's own fonts and colors always replace the kit.
+   For an open color brief, compare two materially different palettes before
+   choosing. Name their dominant surfaces and accents, the evidence for each,
+   and the tradeoff behind the selection. A seed, a palette name, or "premium"
+   is not that evidence. Preserve settled colors and local-fix scope; do not
+   add a user approval gate or build both directions.
 3. Load exactly **one primary style guide** (the picker's `guide`) and at most
    **two supporting guides**. Everything else in modules.json is "not needed this
    build". The selector script lists candidates; this cap overrides its breadth.
@@ -86,6 +91,13 @@ Render the live build in a browser (preview tools or playwright), screenshot at
 | Usability (30) | Navigation understood at first glance, no layout shift, no dead controls, mobile composed on its own terms, keyboard and reduced-motion paths work |
 | Creativity (20) | The signature component is specific to this product; motion explains something; removing the logo changes more than the copy |
 | Content (10) | Real copy and assets, passes the copy gate, no stock filler or placeholder |
+
+First challenge the rendered palette against that decision: inspect neutral
+tints, large surfaces, CTA area, and interaction states, not only swatches.
+Check for unexplained reuse when prior work is available. Passing contrast or
+the template scanner does not resolve an unsupported color choice. Correct the
+affected system and re-render before sign-off; explicit brand choices remain
+valid and no color family is banned.
 
 Then run the mechanical checks:
 

@@ -95,6 +95,8 @@ for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critiqu
    Cabinet Grotesk + Satoshi, Clash Display + General Sans, Newsreader + Public Sans,
    Big Shoulders Display + Barlow, Schibsted Grotesk + JetBrains Mono. Name exact
    weights, fallbacks, and loading.
+   Treat the picker's palette as one candidate; apply the color decision in
+   Section 3 before accepting it.
 3. **Spec before code**: tokens (bg, surface, text, muted, accent, border with
    contrast ratios: text 7:1, muted 4.5:1), fluid type with `clamp()`
    (display line-height 0.92-1.05, tracking -0.02 to -0.05em, `text-wrap: balance`,
@@ -183,6 +185,21 @@ Continue through all requested pages, secondary routes, and the footer in scope.
 
 Set typography and palette after the concept and architecture, using real
 headings, long labels, paragraphs, currencies, and languages to test the choices.
+
+For a new full page or substantial redesign with an open color direction, compare
+two materially different palette candidates before coding. State their dominant
+surfaces and accents, connect each to the actual work, audience, assets, or stated
+character, then choose one and explain the tradeoff. Keep this a brief decision,
+not two complete builds or an extra approval gate. Preserve settled brand colors
+and the scope of small fixes; do not invent alternatives when color is settled.
+
+The kit and seeded picker supply candidates, not evidence of fit. "Premium",
+"calm", "high contrast", or an industry stereotype alone does not justify a hue.
+Explain why the chosen colors and their visual prominence suit this content.
+Consider tinted backgrounds, text, and borders as well as accent swatches: a
+large colored CTA can dominate an otherwise neutral page. If comparable previous
+work is available, check for unexplained repetition; preserve deliberate brand
+continuity and do not claim a repetition check when no prior work was inspected.
 
 - Name actual font families and their display, heading, body, control, and numeric
   roles. One family may cover several roles; another must add a useful distinction.
@@ -283,9 +300,10 @@ authorize modifying application dependencies or setting up paid services.
 ## 6. Use the bundled toolkit, add dependencies only for the build
 
 Everything above is in this folder. Do not install other skills. Choose a style
-recipe from `references/styles.md` (one primary, at most two influences), take
-type and color from `references/design-kit.json` unless the brand dictates
-otherwise, and copy integration patterns from `references/motion-recipes.md`.
+recipe from `references/styles.md` (one primary, at most two influences), use
+`references/design-kit.json` as candidates for type and color, and choose against
+the brief and brand using Section 3. Copy integration patterns from
+`references/motion-recipes.md`.
 Mine component libraries per `references/libraries.md`.
 
 Website runtime libraries (gsap, lenis, motion/framer-motion, three, shadcn
@@ -311,6 +329,13 @@ unchanged, improve the central idea or signature component. Turn off animation
 and confirm structure still works. Check optical details such as baselines,
 type wrapping, icon weight, control spacing, borders, and interrupted transitions.
 Fix the weakest consequential dimension before adding ornament.
+
+For a full-page review, revisit the palette decision against the rendered result,
+including dominant surfaces, neutral tints, CTA area, and relevant states. Passing
+contrast checks does not justify an arbitrary or repeated theme. Treat a palette
+without a project-specific rationale as an unresolved design finding; correct
+the affected color system and recheck it before sign-off. Respect explicit user
+and brand choices. No color family is universally required or forbidden.
 
 For a redesign, compare the baseline and result at matching desktop and mobile
 viewport sizes, with motion settled and zoom accounted for. Assess product and

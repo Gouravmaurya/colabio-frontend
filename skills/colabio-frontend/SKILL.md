@@ -184,6 +184,18 @@ Separate decorative accents from error and success meanings. Check contrast
 for actual text/background pairs, including controls and muted labels.
 Do not rely on a palette's name or perceived premium character as justification.
 
+For a new full page or substantial redesign with an open color direction, compare
+two materially different palette candidates before coding. State their dominant
+surfaces and accents, connect each to the actual work, audience, assets, or stated
+character, then choose one and explain the tradeoff. Keep this a brief decision,
+not two complete builds or an extra approval gate. Preserve settled brand colors
+and the scope of small fixes; do not invent alternatives when color is settled.
+The kit and seeded picker are candidates, not evidence of fit. Inspect tinted
+neutrals and large colored areas, not only the accent swatch. During rendered
+review, treat an unsupported palette rationale as an unresolved design finding
+even when contrast passes; correct the affected system and recheck before sign-off.
+Explicit user and brand choices win; no color family is universally banned.
+
 Use reusable tokens for both color and typography. For an independent concept,
 keep the tokens local to that concept. Preserve the production brand when the
 user requests an isolated test. After rendering, revise decisions that fail

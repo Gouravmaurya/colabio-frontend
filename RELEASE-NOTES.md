@@ -1,5 +1,17 @@
 # Colabio Frontend v1.5.0
 
+## Main update: palette selection and rendered review
+
+Open color briefs now compare two materially different palettes with evidence
+from the actual project before choosing. Kit output and generic adjectives do
+not establish fit. Rendered review checks dominant surfaces, neutral tints, CTA
+area, interaction states, and unexplained reuse; unsupported palette choices
+remain findings even when contrast passes. Existing brand colors and small-fix
+scope are preserved. No color family is banned. These rules apply to both the
+standalone skill and the preserved bundle. Installation docs now describe the
+current standalone folder, including its references and scripts. No release tag
+or published version is changed.
+
 Adds a product-led decision protocol: understand the audience and use case, ask one focused discovery round when material choices remain, compare meaningful directions and palette families, and derive component anatomy from the visitor's task.
 
 - Separates quiet minimal, editorial premium, and expressive flagship character from quality or price claims.

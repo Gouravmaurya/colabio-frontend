@@ -9,6 +9,10 @@ template-tell scanner, motion recipes, asset/copy gates and component-library
 mining. Existing brands are preserved; small fixes stay local. The larger
 43-route bundle remains available separately.
 
+Open color briefs compare two grounded palettes before choosing. The rendered
+review challenges unsupported color choices, including tinted neutrals and large
+CTA surfaces; the kit is a starting point and established brand colors still win.
+
 [Read the skill](skills/.curated/colabio-frontend/SKILL.md) ·
 [Copy-paste setup prompt](PASTE-INSTALL.md) ·
 [Preserved full-bundle documentation](BUNDLE-README.md)
@@ -57,7 +61,9 @@ The selected source folder contains exactly:
 
 ```text
 colabio-frontend/
-└── SKILL.md
+├── SKILL.md
+├── references/
+└── scripts/
 ```
 
 The Skills CLI writes this folder to these locations:
@@ -176,9 +182,9 @@ npm run test:npx
 ```
 
 The standalone integration check covers fresh installation, repository discovery,
-upgrade from the full bundle, and reinstall for both assistants, with exactly
-one installed file. The preserved-bundle integration check verifies its complete
-payload. Regenerate manifests after source edits. These checks establish packaging
+upgrade from the full bundle, and reinstall for both assistants, with installed
+files matching the complete standalone folder. The preserved-bundle integration
+check verifies its complete payload. Regenerate manifests after source edits. These checks establish packaging
 and reported invariants; rendered frontend evaluation remains a separate task.
 
 Installation commands are checked with Skills CLI `1.7.4`. See the

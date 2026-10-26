@@ -33,15 +33,15 @@
     },
     {
       "path": "PASTE-INSTALL.md",
-      "sha256": "49735022ecbdecac9f06b87417cdd3bee65cb833310e5569e452333db8f61a4c"
+      "sha256": "924d9b4f05262a45f626bfc6fc9b7820a2450e7c7417225a8dddbd51d6382d22"
     },
     {
       "path": "README.md",
-      "sha256": "d1bcc13eb26d13aa162e53053b46566574c3408243bab45c7554dbd4672c4e46"
+      "sha256": "027245e650ec61e31af80e59b6e0ce50f7478a748acc91072e4d7066b12cacb3"
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "143b1928355d996cb63cab2125bb87d96db63dfe6a94b8c64386cbf9ff6c1aff"
+      "sha256": "a9df13a5f844b87d4df7ec47f260b46286f1b8f12c7fdb1afcd975d94fcd1e10"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -225,11 +225,11 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "b5264f634a70be4b44b02976ce5c001f8e30544e6644a9c5baa5b2a1454b5bb8"
+      "sha256": "8f7670028b779c3bf8e508d41f1be8b3cf351853b777b61f0128f861b202fb21"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/agency-playbook.md",
-      "sha256": "51e232e0bf64227317b9b177f695a3a902992b109d90d624c26485c90b64d65c"
+      "sha256": "307862a8c8aafe38c32a5a60715d0042018a9bf7c2b3de3f78026937d16a813f"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/asset-and-copy.md",
@@ -265,7 +265,7 @@
     },
     {
       "path": "skills/colabio-frontend/SKILL.md",
-      "sha256": "8d79c865efc84b63927f5f35cb842a7f7bd701a5b375e2cecb221da166c2b58b"
+      "sha256": "23c7db8403357eeb3aadaf4634a619a1fd7217a30d5aef883b7ccea043d52a27"
     },
     {
       "path": "skills/colabio-frontend/companions/hallmark/LICENSE",
@@ -2197,7 +2197,7 @@
     },
     {
       "path": "skills/colabio-frontend/references/agency-playbook.md",
-      "sha256": "763c878bab46cb9fc4a464e1e437d66d3d60afb8035b4269c7143f18e597eca2"
+      "sha256": "ad39551d0111eae139e405359a0f181d5cdfddfdd144e2a3da6897a1097a7d04"
     },
     {
       "path": "skills/colabio-frontend/references/asset-and-copy.md",
