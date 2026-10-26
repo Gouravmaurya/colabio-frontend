@@ -61,7 +61,7 @@ for (const [label, script] of [['template tells', 'slop-lint.mjs'], ['contrast t
 
 // Optional second opinion: Impeccable's deterministic detector (Apache-2.0, github.com/pbakaus/impeccable), if installed.
 const home = process.env.USERPROFILE || process.env.HOME || '';
-const imp = [path.join(process.cwd(), '.claude/skills/impeccable/scripts'), path.join(process.cwd(), '.agents/skills/impeccable/scripts'), path.join(home, '.claude/skills/impeccable/scripts'), path.join(home, '.agents/skills/impeccable/scripts')]
+const imp = [path.join(process.cwd(), '.claude/skills/impeccable/scripts'), path.join(process.cwd(), '.agents/skills/impeccable/scripts'), path.join(home, '.claude/skills/impeccable/scripts'), path.join(home, '.agents/skills/impeccable/scripts'), path.join(home, '.claude/skills-disabled/impeccable/scripts'), path.join(home, '.agents/skills-disabled/impeccable/scripts')]
   .map((d) => path.join(d, process.platform === 'win32' ? 'impeccable.cmd' : 'impeccable')).find((f) => fs.existsSync(f));
 if (imp) {
   // JSON to a temp file: the Windows launcher writes text straight to the console, which cannot be captured

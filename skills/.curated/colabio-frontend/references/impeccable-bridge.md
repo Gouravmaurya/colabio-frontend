@@ -8,7 +8,7 @@ Its playbooks are bundled in `library/impeccable/reference/` (Apache-2.0, licens
 are the `critique`, `audit`, `polish` ... commands of this skill, so nothing needs installing
 for them. Only the compiled **detector** is optional: when Impeccable itself is installed (the
 finish gate looks in `~/.claude/skills/impeccable`, `~/.agents/skills/impeccable` and the
-project's `.claude/skills` and `.agents/skills`), the gate runs it for an extra deterministic check.
+project's `.claude/skills` and `.agents/skills`, and the `skills-disabled` folders next to them, so disabling the duplicate skill does not remove the detector), the gate runs it for an extra deterministic check.
 
 ## Division of labour
 
