@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Read-only "template tell" scanner. Static heuristics only: it cannot judge visual quality.
-// Usage: node slop-lint.mjs <project-or-src-folder> [--strict]   (--strict exits 1 on any high finding)
+// Usage: node slop-lint.mjs <project-folder | single file> [--strict] [--sample "word|phrase|..."]   (--sample flags leftover template text)   (--strict exits 1 on any high finding)
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -9,7 +9,8 @@ const strict = process.argv.includes('--strict');
 const skip = new Set(['node_modules', '.next', 'dist', 'build', '.git', 'out', 'coverage', '.turbo']);
 const exts = new Set(['.html', '.css', '.scss', '.js', '.jsx', '.ts', '.tsx', '.vue', '.svelte', '.astro', '.mdx']);
 const files = [];
-(function walk(d) {
+if (fs.statSync(root).isFile()) files.push(root);
+else (function walk(d) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
     if (skip.has(e.name)) continue;
     const p = path.join(d, e.name);
@@ -24,8 +25,11 @@ const checks = [
   ['high', 'Default font stack only', () => /font-family:[^;]*\b(Inter|Roboto|Arial|Helvetica)\b/i.test(src) || /from ['"]next\/font\/google['"][\s\S]{0,200}\bInter\b/.test(src) ? (/Space Grotesk|Fraunces|Instrument|Bricolage|Satoshi|General Sans|Cabinet|Syne|Newsreader|Boska|Clash|Unbounded|Schibsted|Hanken|Gambarino|Geist/.test(src) ? 0 : 1) : 0, 'Only Inter/Roboto/Arial found. Pick a pair from references/design-kit.json or justify.'],
   ['high', 'Gradient headline text', () => count(/bg-clip-text|background-clip:\s*text/g), 'Gradient text is the strongest AI-template tell. Use solid type.'],
   ['high', 'Placeholder or filler copy', () => count(/lorem ipsum|Acme\b|John Doe|Jane Doe|your (company|product) name|coming soon/gi), 'Replace with real content.'],
-  ['high', 'Filler marketing verbs', () => count(/\b(unlock|elevate|seamless(ly)?|supercharge|revolutioni[sz]e|next-gen|cutting-edge|empower|streamline|game-chang\w+|reimagine|effortless(ly)?)\b/gi), 'See references/copy-gate.md. Say what it does with a number or noun.'],
-  ['high', 'No imagery or authored visuals', () => (count(/<img\b|<Image\b|<video\b|<svg\b|<canvas\b|<picture\b|url\(/g) < 3 ? 1 : 0), 'Fewer than 3 image/video/svg/canvas uses. Run the asset phase (references/asset-phase.md).'],
+  ['high', 'Filler marketing verbs', () => count(/\b(unlock|elevate|seamless(ly)?|supercharge|revolutioni[sz]e|next-gen|cutting-edge|empower|streamline|game-chang\w+|reimagine|effortless(ly)?)\b/gi), 'See references/asset-and-copy.md (copy gate). Say what it does with a number or noun.'],
+  ['high', 'No imagery or authored visuals', () => (count(/<img\b|<Image\b|<video\b|<svg\b|<canvas\b|<picture\b|url\(/g) < 3 ? 1 : 0), 'Fewer than 3 image/video/svg/canvas uses. Run the asset phase (references/asset-and-copy.md).'],
+  ['med', 'Overflow-hidden line mask without room for descenders', () => { const blocks = src.match(/[^{}]*\b(mask|mk|line|ln|split|reveal)\b[^{}]*\{[^}]*overflow:\s*hidden[^}]*\}/gi) || []; return blocks.filter((b) => !/padding-bottom|padding-block|clip-path/i.test(b)).length; }, 'A line mask with overflow:hidden clips descenders and wide display faces. Add padding-bottom (about .1em, with a matching negative margin) or use clip-path: inset(-.1em -50vw 0 -.1em).'],
+  ['med', 'WebGL without a fallback', () => (/WebGLRenderer|getContext\(\s*['"]webgl/.test(src) && !/no-?3d|no-?webgl|poster|webgl is not available|isn.t available/i.test(src) ? 1 : 0), 'Add a no-WebGL path (hidden canvas, static poster or message) and keep the rest of the page usable.'],
+  ['low', '100vh without svh/lvh/dvh', () => (/\b100vh\b/.test(src) && !/\b\d*[sld]vh\b/.test(src) ? 1 : 0), 'On phones 100vh ignores the browser bars. Add a 100svh (or 100lvh for fixed backgrounds) line after it.'],
   ['high', 'Placeholder image hosts', () => count(/placehold\.co|via\.placeholder|picsum\.photos|dummyimage/g), 'Replace with real or generated assets.'],
   ['high', 'Motion lib without reduced-motion handling', () => (/gsap|framer-motion|motion\/react|lenis/.test(src) && !/prefers-reduced-motion|useReducedMotion|matchMedia\([^)]*reduce/.test(src) ? 1 : 0), 'Add prefers-reduced-motion path.'],
   ['high', 'outline removed without focus-visible', () => (count(/outline-none|outline:\s*none/g) > count(/focus-visible|:focus-visible|focus:ring|focus-visible:ring/g) ? 1 : 0), 'Restore visible focus states.'],
@@ -42,6 +46,8 @@ const checks = [
   ['low', 'Fixed-px font sizes, no fluid type', () => (!/clamp\(/.test(src) ? 1 : 0), 'Use clamp() for display sizes.']
 ];
 
+const sampleArg = process.argv.indexOf('--sample') > -1 ? process.argv[process.argv.indexOf('--sample') + 1] : '';
+if (sampleArg) { const words = sampleArg.split('|').map((w) => w.trim()).filter(Boolean); checks.push(['high', 'Template sample content still present', () => words.reduce((n, w) => n + (src.toLowerCase().split(w.toLowerCase()).length - 1), 0), 'Leftover text from the template (' + words.join(' | ') + '). Rewrite it for this product.']); }
 const rank = { high: 3, med: 2, low: 1 };
 const found = checks.map(([sev, name, fn, fix]) => ({ sev, name, n: fn(), fix })).filter((c) => c.n).sort((a, b) => rank[b.sev] - rank[a.sev]);
 console.log(`slop-lint: ${files.length} files in ${root}`);

@@ -32,7 +32,7 @@ function addSkill(project, input) {
 
 try {
   assert.ok(process.env.npm_execpath, 'Run through npm run test:standalone.');
-  assert.ok(files.includes('SKILL.md') && files.every((f) => f === 'SKILL.md' || /^(references|scripts)\//.test(f)), 'Standalone folder may hold only SKILL.md, references/ and scripts/.');
+  assert.ok(files.includes('SKILL.md') && files.every((f) => f === 'SKILL.md' || /^(references|scripts|templates|evals)\//.test(f)), 'Standalone folder may hold only SKILL.md, references/, scripts/, templates/ and evals/.');
   addSkill(path.join(temporary, 'fresh'), source);
   addSkill(path.join(temporary, 'repository discovery'), root);
 

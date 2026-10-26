@@ -8,7 +8,13 @@ description: >
   review. Ships a complete toolkit (style recipes, curated font pairs and
   palettes, a seeded direction picker, a template-tell scanner, asset, copy and
   motion guides, component-library mining) so no other skill is required.
-  Keep small fixes local; exclude unrelated backend work.
+  Starts new or vague requests with a prompt-improvement intake: it scores the
+  prompt, asks what kind of website the user expects, and writes a better brief
+  before building. A short prompt such as "build me a shop for X" is enough: the
+  skill defaults to an award-level, cinematic result (real 3D or an equally strong
+  hero, scroll-directed scenes, a working configurator) by starting from a proven
+  template instead of a blank page. Keep small fixes local; exclude unrelated
+  backend work.
 ---
 
 # Colabio Frontend
@@ -27,6 +33,12 @@ run with Node 18+; if Node is unavailable, do the same checks by hand.
 
 | File | Use it for |
 | --- | --- |
+| `references/award-bar.md` | The default quality bar: ten things every finished site has, and how to reach it from a thin prompt |
+| `templates/README.md` | Three proven, working starters (3D product shop, scroll-stage game/studio, precision service) and how to adapt each |
+| `references/brief-intake.md` | Score a thin prompt, ask what site the user expects, write the improved brief, triage "looks cheap" |
+| `references/site-types.md` | Per website type: section order, proof, signature options, hero and copy patterns |
+| `references/verify.md` | Serve, capture, drive and report the rendered result; preview-pane quirks |
+| `evals/intake-evals.md` | Five sample prompts with expected intake behaviour, for manual checks |
 | `references/agency-playbook.md` | The one-pass premium build pipeline and critique rubric |
 | `references/styles.md` | Eight style recipes: type, color, layout, motion, pitfalls |
 | `references/design-kit.json` | Font pairs, contrast-checked palettes, signature mechanisms, hero compositions |
@@ -34,8 +46,81 @@ run with Node 18+; if Node is unavailable, do the same checks by hand.
 | `references/asset-and-copy.md` | Asset phase and copy gate |
 | `references/motion-recipes.md` | Lenis + GSAP + ScrollTrigger + Motion integration code |
 | `references/libraries.md` | Component-library sites and the mining protocol |
-| `scripts/pick-direction.mjs` | Seeded style/font/palette proposal; `--validate` checks palette contrast |
-| `scripts/slop-lint.mjs` | Scans source for template tells |
+| `scripts/pick-direction.mjs` | Brief-aware, seeded style/font/palette proposal (`--brief`, `--type`); reports `fallback`; `--validate` checks palette contrast |
+| `scripts/slop-lint.mjs` | Scans source for template tells, clipped masks, unguarded WebGL |
+| `scripts/check-contrast.mjs` | Contrast ratios of a built page's colour tokens |
+| `scripts/serve.mjs` | Zero-dependency static server and `launch.json` snippet for previews |
+| `scripts/scaffold.mjs` | Copies a starter from `templates/` (cinematic-product-shop, precision-service, scroll-stage-game) into a new project folder |
+| `templates/` | Three working single-file starters to adapt, never to ship unchanged |
+| `references/award-bar.md` | The bar a premium build is judged against |
+| `scripts/scaffold.mjs` | Copy a template into a new folder and rename the sample brand |
+
+## Default quality: award-level, from a short prompt
+
+A short prompt is enough. Unless the user asks for something simple, minimal or quick,
+build to the bar in `references/award-bar.md` (opening moment, one hero object, scroll
+that explains the product, something to touch, section moods, consistent imagery, a type
+moment, mobile and fallback paths). Do not start from a blank page: pick the matching
+template in `templates/README.md`, scaffold it, and replace its content and object
+model. The template holds the hard, already-verified parts (3D geometry, lighting, the
+scroll-directed stage, theme switching, drag, baking, cart, fallback); the work that
+remains is product-specific: tokens, copy, the stages of making or using the thing, the
+configurator data, one signature moment.
+
+| Prompt says | Template | Typical default look |
+| --- | --- | --- |
+| a shop, store, or product brand (ceramics, candles, bottles, lamps, glassware, jars) | `cinematic-product-shop` | dark hero, cream builder, product-led (apple-fluid + cinematic) |
+| a game, studio, app, tool, community | `scroll-stage-game` | dark, one accent for the user, one for their echoes |
+| a service priced on a trade-off (printing, repair, fabrication, quotes) | `precision-service` | paper and ink, one accent, data honest |
+| a non-round product, software, or something else | closest template for structure, then see `templates/README.md` (Choosing) | by brief |
+
+## Quick path (new site or substantial redesign)
+
+1. **Intake** (§0, `brief-intake.md`): score the prompt. With a short prompt ask at most two
+   questions (look and signature), or none if the user said "you decide". Show the improved brief.
+2. **Type and template** (`site-types.md`, `templates/README.md`): take section order, proof and
+   signature options; choose the template.
+3. **Baseline** (§1): inspect any existing site or reference rendered; record what to keep.
+4. **Direction**: `node scripts/pick-direction.mjs --seed "<product>" --brief "<their words>" --type <type>`;
+   accept or replace each pick with a one-line reason (the template's own palette and fonts are a valid
+   starting point when they fit); read the matching recipe in `styles.md`.
+5. **Scaffold**: `node scripts/scaffold.mjs <template> <project>/ --brand "<Name>"`, then work through the
+   `@CONFIG` and `@COPY` markers. Keep the template's architecture; change content and the object model.
+6. **Assets and copy** (`asset-and-copy.md`): real or labelled-sample content, nothing invented.
+7. **Vertical slice**: hero + configurator/signature + one scroll scene, rendered at 1440 and 390 first
+   (`verify.md`, including the WebGL snapshot technique).
+8. **Finish** (`motion-recipes.md`): remaining scenes, one animation clock, reduced-motion and no-WebGL paths.
+9. **Verify** (`verify.md`): serve, drive real events, `slop-lint.mjs`, `check-contrast.mjs`, two critique
+   rounds against the ten rows of `award-bar.md`.
+10. **Deliver**: what changed, what was checked, what was not, plus a "next time say" prompt. Remove debug
+    hooks and scratch files from the project folder first.
+
+## 0. Intake: upgrade the prompt and learn what the user expects
+
+Run this first for a new site, a substantial redesign, or any complaint that the
+result looks cheap, generic or not premium. Read `references/brief-intake.md`.
+Skip it for a small fix, for a user who already wrote a detailed brief, and for a
+user who said "no questions" or "you decide".
+
+1. **Score the prompt** for gaps: product, audience, action, look, scope,
+   content, interaction, stack. Three or more gaps means ask; fewer means
+   build and list the assumption.
+2. **Ask one round** (AskUserQuestion, recommended option first, "Other" always
+   available). For a short prompt that names its product ("a shop for X") ask at most
+   two questions: which look (mapped to a `styles.md` recipe) and which signature
+   moment. Use up to four (type, look, action, scope or stack) only when the prompt
+   leaves the product itself unclear. Ask nothing the prompt, repo or screenshot
+   already answers, and nothing at all when the user said "you decide" or "no
+   questions": pick the template defaults and list them as assumptions.
+3. **Write the improved brief** in the template from the reference, in 8-12
+   lines, with every guess marked as an assumption. Show it, then build; wait
+   only if an assumption changes cost or brand.
+4. **Teach the better prompt**: close with one pasteable sentence the user can
+   reuse next time. When the complaint is "cheap" or "boring", ask which part
+   bothers them and fix the cause with the triage table, not by restyling.
+
+Never invent customers, logos, awards, stats or prices as real; a fictional brand
+is fine when labelled as such on the page.
 
 ## 1. Establish the product and the scope
 
@@ -66,8 +151,8 @@ research platform needs its research or analysis value to remain apparent rather
 than relying on a beautiful property photograph to explain the business.
 
 Keep a component fix local. A review stays read-only unless fixes are requested.
-For substantial creative work, ask one focused discovery round only when an
-unresolved choice materially changes the outcome. Reuse settled answers and
+For substantial creative work, run the intake in section 0 (one focused round,
+only for unresolved choices that materially change the outcome). Reuse settled answers and
 respect users who delegate choices or request no questions. State reasonable
 assumptions and continue; do not invent a brand or block on routine taste choices.
 

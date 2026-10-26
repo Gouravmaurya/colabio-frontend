@@ -63,7 +63,9 @@ The selected source folder contains exactly:
 colabio-frontend/
 ├── SKILL.md
 ├── references/
-└── scripts/
+├── scripts/
+├── templates/
+└── evals/
 ```
 
 The Skills CLI writes this folder to these locations:

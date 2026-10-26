@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ashfold Ceramics — wheel-thrown stoneware, one batch at a time</title>
+<meta name="description" content="Ashfold makes wheel-thrown stoneware mugs, bowls, vases and planters in small batches. Turn each piece in 3D, choose a glaze and size, and add it to your cart.">
+<meta name="theme-color" content="#130C08">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=gambarino@400&f[]=switzer@400,500,600&display=swap">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+:root{
+  /* @CONFIG:tokens  dark section (d-*) and light section (c-*) colours, fonts, gutter. Keep text 7:1 and muted 4.5:1. */
+  --d-bg:#130C08; --d-text:#F3E8DA; --d-acc:#F0A27A;
+  --c-bg:#F1E5D6; --c-text:#2A1810; --c-acc:#A8370A; --c-panel:#E6D3BD; --c-surface:#FBF3E8;
+  --f-display:'Gambarino','Iowan Old Style','Palatino Linotype',Georgia,serif;
+  --f-body:'Switzer',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --gutter:clamp(18px,4vw,64px);
+}
+body{--bg:var(--c-bg);--text:var(--c-text);--acc:var(--c-acc)}
+body.dark{--bg:var(--d-bg);--text:var(--d-text);--acc:var(--d-acc)}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:80px;background:#130C08}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);color:var(--text);font:400 1.0625rem/1.55 var(--f-body);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden;transition:background-color .9s var(--ease),color .9s var(--ease)}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+svg{display:block;max-width:100%}
+.wrap{padding-inline:var(--gutter);max-width:1560px;margin-inline:auto;position:relative;z-index:2}
+.lbl{font:500 .75rem/1.3 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,currentColor 66%,transparent)}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:8px 12px;z-index:100;border-radius:99px}
+.skip:focus{left:8px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance}
+.mk{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
+.mk>span{display:block}
+.js .mk>span{opacity:0}
+em{font-style:italic;color:var(--acc)}
+.muted{color:color-mix(in srgb,currentColor 66%,transparent)}
+
+/* the one canvas + film layers */
+#stage3d{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;z-index:1;pointer-events:none}
+.grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.08;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.vig{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(110% 85% at 50% 48%,transparent 52%,rgba(0,0,0,.5) 100%);opacity:.9;transition:opacity .9s}
+body:not(.dark) .vig{opacity:.18}
+.fg{position:relative;z-index:4}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
+.nav.solid{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:color-mix(in srgb,currentColor 14%,transparent)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+.brand{text-decoration:none;font:400 1.75rem/1 var(--f-display);letter-spacing:-.01em}
+.nav ul{display:flex;gap:34px;list-style:none;padding:0}
+.nav ul a{text-decoration:none;font-size:.9375rem;opacity:.7;transition:opacity .2s;padding:6px 0}
+.nav ul a:hover{opacity:1}
+.cartbtn{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border:1px solid currentColor;border-radius:99px;background:transparent;font:500 .9375rem/1 var(--f-body);cursor:pointer;transition:background-color .25s,color .25s}
+.cartbtn:hover{background:var(--text);color:var(--bg)}
+.cartbtn b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--acc);color:#fff;font-weight:600;font-size:.75rem}
+body.dark .cartbtn b{color:#1a0f09}
+@media (max-width:860px){.nav ul{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:99px;border:1px solid var(--text);background:var(--text);color:var(--bg);font:500 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .3s var(--ease),color .3s var(--ease),transform .25s var(--ease),border-color .3s}
+.btn:hover{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--text)}
+.btn.ghost:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn.sm{min-height:42px;padding:0 20px;font-size:.9375rem}
+
+/* hero: the pot is the hero, the name sits behind it */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:calc(70px + 24px) 0 clamp(24px,4vh,48px)}
+.word{position:absolute;left:0;right:0;top:calc(50% - .52em);text-align:center;z-index:0;font:400 min(30vw,34rem)/1 var(--f-display);letter-spacing:-.04em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(243,232,218,.3);user-select:none;pointer-events:none}
+.hero-slot{position:absolute;left:50%;top:7%;height:62%;width:min(58vw,780px);transform:translateX(-50%);cursor:grab;touch-action:pan-y;z-index:4}
+.hero-slot:active{cursor:grabbing}
+.hero-top{position:absolute;top:calc(70px + 22px);left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;z-index:4}
+.hero-bot{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end;position:relative;z-index:5}
+.hero h1{grid-column:1 / span 8;font-size:clamp(2.5rem,6.4vw,7.25rem);line-height:.92;letter-spacing:-.03em}
+.hero .side{grid-column:10 / -1;padding-bottom:.5em}
+.hero .side p{max-width:30ch;margin-bottom:18px;color:color-mix(in srgb,currentColor 72%,transparent)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+.cue{position:absolute;left:50%;bottom:clamp(16px,3vh,32px);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:5}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(currentColor,transparent);transform-origin:top;animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media (max-width:860px){
+  .hero-slot{top:11%;height:50%;width:100%}
+  .hero h1{grid-column:1 / -1;margin-bottom:18px}.hero .side{grid-column:1 / -1}
+  .cue{display:none}.word{top:calc(32% - .52em)}
+}
+
+/* manifesto */
+.man{position:relative;padding:clamp(60px,8vw,120px) 0}
+.man .grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,80px);align-items:start;min-height:150vh}
+.manifesto{font:400 clamp(2rem,4.6vw,4.9rem)/1.06 var(--f-display);letter-spacing:-.02em;position:sticky;top:18vh}
+.js .manifesto .w{opacity:.14}
+.man-slot{height:74vh;position:sticky;top:14vh;cursor:grab;touch-action:pan-y}
+@media (max-width:860px){.man{min-height:0}.man .grid{grid-template-columns:1fr;min-height:0}.manifesto{position:static}.man-slot{position:relative;top:0;height:56vh}}
+
+/* builder (cream) */
+.make{position:relative;padding:clamp(80px,10vw,150px) 0}
+.sec-h{font-size:clamp(2.5rem,6vw,6.25rem);line-height:.94;letter-spacing:-.03em;margin-bottom:clamp(36px,5vw,72px)}
+.build{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,5vw,88px);align-items:start}
+.stagepanel{position:sticky;top:92px;border-radius:30px;aspect-ratio:10/11;overflow:hidden;border:1px solid rgba(42,24,16,.16)}
+.build-slot{position:absolute;inset:0;cursor:grab;touch-action:pan-y;z-index:4}
+.build-slot:active{cursor:grabbing}
+.stagepanel .tag,.stagepanel .gl,.stagepanel .hint{position:absolute;z-index:5;pointer-events:none;color:var(--c-text)}
+.stagepanel .tag{left:20px;top:18px}.stagepanel .gl{right:20px;top:18px;text-align:right}.stagepanel .hint{left:50%;bottom:16px;transform:translateX(-50%);padding:7px 14px;border-radius:99px;background:rgba(42,24,16,.08)}
+#stagePot{position:absolute;inset:0;display:none}
+.no3d #stagePot{display:block}
+.ctl{display:grid;gap:28px}
+fieldset{border:0;padding:0;min-width:0}
+legend{padding:0;margin-bottom:12px}
+.opts{display:grid;gap:8px}
+.opts.shape,.opts.glaze{grid-template-columns:repeat(4,1fr)}.opts.size{grid-template-columns:repeat(3,1fr)}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts label{display:grid;gap:6px;justify-items:center;align-content:center;min-height:64px;padding:12px 6px;border:1px solid rgba(42,24,16,.16);border-radius:16px;background:var(--c-surface);cursor:pointer;text-align:center;font-size:.875rem;font-weight:500;color:var(--c-text);transition:border-color .2s,background-color .2s}
+.opts label:hover{border-color:rgba(42,24,16,.5)}
+.opts input:checked+label{border-color:var(--c-text);box-shadow:inset 0 0 0 1px var(--c-text);background:#fff}
+.opts input:focus-visible+label{outline:2px solid var(--c-acc);outline-offset:2px}
+.opts label svg{width:34px;height:38px}
+.sw{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(42,24,16,.2),inset -4px -5px 8px rgba(0,0,0,.18),inset 3px 3px 5px rgba(255,255,255,.3)}
+.read{border-top:1px solid var(--text);padding-top:18px;display:grid;gap:14px}
+.read h3{font-size:clamp(1.75rem,2.6vw,2.5rem);line-height:1.05;letter-spacing:-.02em}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.facts div{border-left:1px solid color-mix(in srgb,currentColor 18%,transparent);padding-left:12px}
+.facts div:first-child{border-left:0;padding-left:0}
+.facts dd{font:500 1.25rem/1.2 var(--f-body);margin-top:4px}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.price{font:400 clamp(2.25rem,3.4vw,3.25rem)/1 var(--f-display);letter-spacing:-.02em}
+.note{font-size:.875rem}
+@media (max-width:900px){.build{grid-template-columns:1fr}.stagepanel{position:relative;top:0;aspect-ratio:1/1}}
+
+/* process (dark): a vase made in front of you */
+.proc{position:relative;padding:clamp(80px,11vw,170px) 0 clamp(40px,6vw,90px)}
+.proc-grid{display:grid;grid-template-columns:6fr 5fr;gap:clamp(24px,5vw,96px);align-items:start}
+.pstage{position:sticky;top:78px;height:calc(100vh - 104px);height:calc(100svh - 104px);min-height:420px;border-radius:30px;overflow:hidden;border:1px solid rgba(243,232,218,.14)}
+.proc-slot{position:absolute;inset:0;z-index:4}
+.pstage .temp{position:absolute;left:22px;bottom:18px;display:flex;gap:28px;z-index:5;pointer-events:none;color:var(--d-text)}
+.pstage .temp b{display:block;font:400 clamp(1.75rem,3vw,2.75rem)/1 var(--f-display);margin-top:4px;letter-spacing:-.02em}
+.pstage .stagelbl{position:absolute;right:22px;top:18px;z-index:5;color:var(--d-text)}
+#procPot{position:absolute;inset:0;display:none}
+.no3d #procPot{display:block}
+.steps{list-style:none;padding:0}
+.steps li{min-height:82vh;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:40ch}
+.steps li:last-child{min-height:60vh}
+.steps .n{color:var(--acc)}
+.steps h3{font-size:clamp(2.25rem,4.4vw,4.5rem);line-height:.95;letter-spacing:-.03em}
+@media (max-width:900px){.proc-grid{grid-template-columns:1fr}.pstage{height:50svh;min-height:300px;top:70px;z-index:0}.steps li{min-height:56vh}}
+
+/* collection (cream) */
+.coll{position:relative;padding:clamp(60px,8vw,120px) 0 clamp(80px,10vw,150px)}
+.cgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,2vw,28px)}
+.item{display:flex;flex-direction:column;gap:12px}
+.item .tile{position:relative;aspect-ratio:1/1.08;border-radius:26px;display:grid;place-items:end center;overflow:hidden;padding-bottom:7%;transition:transform .8s var(--ease)}
+.item .tile svg{width:78%;height:auto;transition:transform .8s var(--ease)}
+.item:hover .tile svg,.item:hover .tile img{transform:translateY(-6px) scale(1.03)}
+.item:nth-child(1){grid-column:span 5}.item:nth-child(2){grid-column:span 4;margin-top:clamp(0px,6vw,96px)}.item:nth-child(3){grid-column:span 3}
+.item:nth-child(4){grid-column:span 3;margin-top:clamp(0px,3vw,48px)}.item:nth-child(5){grid-column:span 4}.item:nth-child(6){grid-column:span 5;margin-top:clamp(0px,4vw,64px)}
+.item:nth-child(odd) .tile{background:var(--c-panel)}.item:nth-child(even) .tile{background:#DCC4A8}
+.item .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.item h3{font-size:clamp(1.5rem,2vw,2rem);letter-spacing:-.02em;line-height:1.05}
+.item .meta{font-size:.9375rem}
+.item .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+@media (max-width:860px){.cgrid{grid-template-columns:1fr 1fr}.item:nth-child(n){grid-column:span 1;margin-top:0}.item:nth-child(1){grid-column:1 / -1}}
+
+/* care + kiln + footer (dark) */
+.care{position:relative;padding:clamp(70px,9vw,130px) 0}
+.care h2{font-size:clamp(2.25rem,5vw,5rem);line-height:.95;letter-spacing:-.03em;margin-bottom:clamp(32px,5vw,64px);max-width:14ch}
+.facts2{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid color-mix(in srgb,currentColor 28%,transparent)}
+.facts2 div{padding:22px 20px 26px 0;border-right:1px solid color-mix(in srgb,currentColor 16%,transparent);margin-right:20px}
+.facts2 div:last-child{border-right:0}
+.facts2 dt{margin-bottom:10px}
+.facts2 dd{font:400 clamp(1.25rem,1.8vw,1.75rem)/1.25 var(--f-display)}
+.care .sample{margin-top:24px;font-size:.875rem}
+@media (max-width:860px){.facts2{grid-template-columns:1fr 1fr}.facts2 div{border-right:0;margin-right:0;border-bottom:1px solid color-mix(in srgb,currentColor 16%,transparent)}}
+.kiln{position:relative;padding:clamp(60px,9vw,130px) 0 clamp(50px,7vw,90px)}
+.kiln .grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(28px,6vw,100px);align-items:end}
+.kiln h2{font-size:clamp(2.75rem,6.4vw,7rem);line-height:.92;letter-spacing:-.03em}
+.kiln .sub{margin-top:20px;max-width:40ch}
+.form{display:grid;gap:12px}
+.form input[type=email]{width:100%;min-height:56px;padding:10px 22px;background:transparent;border:1px solid currentColor;border-radius:99px}
+.form input:focus{outline:2px solid var(--acc);outline-offset:2px}
+.err{display:none;color:var(--acc);font-size:.9375rem;font-weight:500}
+.bad .err{display:block}.bad input{border-width:2px;border-color:var(--acc)}
+.status{padding:14px 18px;border:1px solid currentColor;border-radius:18px;font-weight:500}
+.status[hidden]{display:none}
+@media (max-width:860px){.kiln .grid{grid-template-columns:1fr}}
+footer{position:relative;z-index:4;padding:28px 0 0;overflow:hidden;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent)}
+footer .cols{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:.9375rem}
+footer .cols p{max-width:48ch;color:color-mix(in srgb,currentColor 66%,transparent)}
+footer a{text-decoration:none;display:inline-block;padding:4px 0}
+footer a:hover{color:var(--acc)}
+.mark{font:400 min(34vw,40rem)/.8 var(--f-display);letter-spacing:-.04em;margin:clamp(24px,4vw,56px) 0 0 -.03em;white-space:nowrap;user-select:none;padding-bottom:.06em;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,currentColor 55%,transparent)}
+footer small{display:block;padding:14px 0 20px;border-top:1px solid color-mix(in srgb,currentColor 14%,transparent)}
+
+/* cart drawer (fixed light surface) */
+.scrim{position:fixed;inset:0;background:rgba(19,12,8,.55);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--c-surface);color:var(--c-text);z-index:95;transform:translateX(104%);transition:transform .45s var(--ease);display:flex;flex-direction:column;box-shadow:-24px 0 60px rgba(19,12,8,.3)}
+.drawer.on{transform:none}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #E3D2C0}
+.drawer h2{font:400 1.75rem/1 var(--f-display)}
+.x{width:44px;height:44px;border-radius:50%;border:1px solid #E3D2C0;background:transparent;cursor:pointer;font-size:1.25rem;line-height:1}
+.x:hover{border-color:var(--c-text)}
+.lines{flex:1;overflow:auto;padding:8px 24px;list-style:none}
+.cline{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid #E3D2C0}
+.cline .th{width:64px;height:72px;border-radius:12px;background:var(--c-panel);display:grid;place-items:end center;overflow:hidden}
+.cline .th svg{width:86%;height:auto;margin-bottom:4px}
+.cline b{font-weight:500;display:block}
+.cline small{color:#6B4F41}
+.cline button{background:none;border:0;color:var(--c-acc);text-decoration:underline;cursor:pointer;font-size:.875rem;padding:4px 0}
+.empty{padding:40px 24px;color:#6B4F41;text-align:center}
+.empty a{color:var(--c-acc);font-weight:500}
+.drawer footer{padding:20px 24px 24px;border-top:1px solid #E3D2C0;display:grid;gap:12px;overflow:visible}
+.drawer .btn{background:var(--c-text);color:var(--c-bg);border-color:var(--c-text)}
+.drawer .btn:hover{background:var(--c-acc);border-color:var(--c-acc)}
+.tot{display:flex;justify-content:space-between;font:500 1.125rem/1 var(--f-body)}
+.drawer .status{margin:0;border-color:var(--c-text)}
+
+.no3d #stage3d,.no3d .vig{display:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body class="dark">
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="stage3d" aria-hidden="true"></canvas>
+<div class="vig" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Ashfold Ceramics, home">Ashfold</a>
+  <nav aria-label="Primary"><ul>
+    <li><a href="#make">Build a piece</a></li><li><a href="#process">Process</a></li><li><a href="#collection">Collection</a></li><li><a href="#care">Care</a></li>
+  </ul></nav>
+  <button class="cartbtn" id="cartBtn" type="button" aria-haspopup="dialog" aria-controls="drawer">Cart <b id="cartN">0</b></button>
+</div></header>
+
+<main id="main">
+<!-- @COPY:hero  headline = noun + verb; brand word behind the object; one primary action -->
+<section class="hero" id="top" data-theme="dark">
+  <div class="word" aria-hidden="true" id="word">Ashfold</div>
+  <div class="hero-top lbl"><span>Wheel-thrown stoneware</span><span>Batch 07 · sample shop</span></div>
+  <div class="hero-slot" id="heroSlot" role="img" aria-label="A celadon-glazed stoneware vase turning on a plinth. Drag to turn it." data-drag></div>
+  <div class="wrap" style="width:100%"><div class="hero-bot">
+    <h1 aria-label="Thrown by hand, one batch at a time.">
+      <span class="mk" aria-hidden="true"><span>Thrown by hand,</span></span>
+      <span class="mk" aria-hidden="true"><span>one <em>batch</em> at a time.</span></span>
+    </h1>
+    <div class="side">
+      <p>Mugs, bowls, vases and planters, made on the wheel and fired once a month. Turn this one, then make your own.</p>
+      <div class="cta-row"><a class="btn" href="#make">Build your piece</a><a class="btn ghost" href="#collection">The collection</a></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- @COPY:manifesto  one true paragraph about how it is made; no filler verbs -->
+<section class="man" id="story" data-theme="dark">
+  <div class="wrap"><div class="grid">
+    <p class="manifesto" id="manifesto">Clay remembers every touch. Each piece keeps the pull of the hand that raised it, a little off-round, never quite like the next. We fire it hot enough to turn to glass, and sell it by the batch.</p>
+    <div class="man-slot" id="manSlot" data-drag></div>
+  </div></div>
+</section>
+
+<section class="make" id="make" data-theme="cream">
+  <div class="wrap">
+    <h2 class="sec-h"><span class="mk"><span>Make it <em>yours.</em></span></span></h2>
+    <div class="build">
+      <div class="stagepanel" id="stagepanel">
+        <span class="lbl tag" id="stTag">Vase · medium</span><span class="lbl gl" id="stGlaze">Celadon</span>
+        <div class="build-slot" id="buildSlot" data-drag role="img" aria-label="3D view of the piece you are building. Drag to turn it."></div>
+        <div id="stagePot" role="img" aria-label="Drawing of the piece you are building"></div>
+        <span class="lbl hint">Drag to turn</span>
+      </div>
+      <form class="ctl" id="builder" onsubmit="return false" aria-label="Pot builder">
+        <fieldset><legend class="lbl">Shape</legend><div class="opts shape" id="oShape"></div></fieldset>
+        <fieldset><legend class="lbl">Glaze</legend><div class="opts glaze" id="oGlaze"></div></fieldset>
+        <fieldset><legend class="lbl">Size</legend><div class="opts size" id="oSize"></div></fieldset>
+        <div class="read">
+          <h3 id="rName">Celadon vase</h3>
+          <dl class="facts" aria-live="polite">
+            <div><dt class="lbl">Height</dt><dd id="rH">22 cm</dd></div>
+            <div><dt class="lbl">Width</dt><dd id="rW">15 cm</dd></div>
+            <div><dt class="lbl" id="rCapL">Holds</dt><dd id="rCap">1.9 l</dd></div>
+          </dl>
+          <div class="buy"><span class="price" id="rPrice">$96</span><button class="btn" id="addBtn" type="button">Add to cart</button></div>
+          <p class="note muted" id="rNote">Sample prices. Made in the next kiln: ships in about 3 weeks (sample).</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- @COPY:process  4 real steps of making; the 3D piece morphs between them (PSTG in the script) -->
+<section class="proc" id="process" data-theme="dark">
+  <div class="wrap">
+    <h2 class="sec-h"><span class="mk"><span>From a lump to a <em>vase.</em></span></span></h2>
+    <div class="proc-grid">
+      <div class="pstage" id="pstage">
+        <span class="lbl stagelbl" id="pLbl">01 · Wedge</span>
+        <div class="proc-slot" id="procSlot"></div>
+        <div id="procPot" role="img" aria-label="A piece of clay changing shape through the stages of making"></div>
+        <div class="temp"><div><span class="lbl">Clay</span><b id="pClay">Wet</b></div><div><span class="lbl">Heat</span><b id="pHeat">Room temp.</b></div></div>
+      </div>
+      <ol class="steps" id="steps">
+        <li data-i="0"><span class="lbl n">01 · Wedge</span><h3>Knead the air out.</h3><p class="muted">Clay is wedged by hand until it’s even all the way through. Trapped air would burst in the kiln.</p></li>
+        <li data-i="1"><span class="lbl n">02 · Throw</span><h3>Centre it, then lift.</h3><p class="muted">On the wheel the lump is centred, opened and pulled up into a wall. A thrown piece shows faint rings where the fingers climbed.</p></li>
+        <li data-i="2"><span class="lbl n">03 · Trim</span><h3>Dry, then turn the foot.</h3><p class="muted">Once leather-hard the piece goes back on the wheel and the base is trimmed. Then it dries completely and goes into a first, lower firing.</p></li>
+        <li data-i="3"><span class="lbl n">04 · Fire</span><h3>Glaze, then the long burn.</h3><p class="muted">The glaze goes on as a chalky slurry and turns to glass in the second firing, at about 1,240°C for stoneware. Typical figures; each kiln differs.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="coll" id="collection" data-theme="cream">
+  <div class="wrap">
+    <h2 class="sec-h"><span class="mk"><span>The <em>current</em> shelf.</span></span></h2>
+    <div class="cgrid" id="cgrid"></div>
+  </div>
+</section>
+
+<!-- @COPY:facts  sample specifications; label anything not real as sample -->
+<section class="care" id="care" data-theme="dark">
+  <div class="wrap">
+    <h2><span class="mk"><span>Made to be <em>used</em> daily.</span></span></h2>
+    <dl class="facts2">
+      <div><dt class="lbl">Material</dt><dd>Stoneware clay, glazed inside and out</dd></div>
+      <div><dt class="lbl">Washing</dt><dd>Dishwasher safe. Hand-wash keeps the glaze glossy longer</dd></div>
+      <div><dt class="lbl">Variation</dt><dd>Every piece differs slightly in size, speckle and glaze break</dd></div>
+      <div><dt class="lbl">Shipping</dt><dd>Packed in recycled paper, ships from the studio</dd></div>
+    </dl>
+    <p class="sample muted">Sample specifications for a fictional shop; a real studio would confirm care and shipping details per glaze.</p>
+  </div>
+</section>
+
+<section class="kiln" id="kiln" data-theme="dark">
+  <div class="wrap grid">
+    <div>
+      <h2><span class="mk"><span>Know when the</span></span><span class="mk"><span><em>kiln</em> opens.</span></span></h2>
+      <p class="sub muted">One email when a new batch is ready. No sales calendar, no countdown timers.</p>
+    </div>
+    <form class="form" id="kForm" novalidate>
+      <div id="kField"><label class="lbl" for="kMail">Email</label><input id="kMail" type="email" autocomplete="email" inputmode="email" placeholder="name@example.com"><p class="err" role="alert">That email doesn’t look right — check the @ and the domain.</p></div>
+      <button class="btn" type="submit">Tell me when it’s ready</button>
+      <p class="status" id="kStatus" role="status" hidden></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer id="footer" data-theme="dark">
+  <div class="wrap">
+    <div class="cols">
+      <p>Ashfold Ceramics is a fictional shop made for a design test. Pieces are generated in code, prices and timings are samples, and no order or email is sent anywhere.</p>
+      <nav aria-label="Footer"><a href="#make">Build a piece</a><br><a href="#collection">Collection</a><br><a href="#kiln">Kiln list</a></nav>
+    </div>
+    <div class="mark" aria-hidden="true">Ashfold</div>
+    <small class="lbl">© 2026 Ashfold Ceramics · Test page</small>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true" tabindex="-1">
+  <header><h2 id="dTitle">Your cart</h2><button class="x" id="dClose" type="button" aria-label="Close cart">×</button></header>
+  <ul class="lines" id="lines"></ul>
+  <div class="empty" id="empty">Your cart is empty. <a href="#make" id="emptyLink">Build a piece</a> and it will appear here.</div>
+  <footer id="dFoot" hidden>
+    <div class="tot"><span>Total</span><span id="dTot">$0</span></div>
+    <button class="btn" id="checkout" type="button">Checkout (demo)</button>
+    <p class="status" id="dStatus" role="status" hidden></p>
+  </footer>
+</aside>
+
+<script type="module">
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const root = document.documentElement;
+const hasG = !!(window.gsap && window.ScrollTrigger);
+if (hasG) { root.classList.add('js'); gsap.registerPlugin(ScrollTrigger); }
+
+/* ---------- pottery engine: profile -> glazed SVG ---------- */
+/* @CONFIG:objects  One entry per object type. pts = outer profile [[radius_cm, height_cm], ...] bottom to top,
+   h = height, wall/floor = thickness, base = sample price, handle = adds a swept handle, fill = capacity label.
+   Round objects only (pots, bottles, lamps, candles, glasses). For other objects see templates/README.md. */
+const SHAPES = {
+  mug:     { label: 'Mug',     h: 9.5,  base: 34, wall: .5, floor: .8, handle: true,  fill: 'Holds', pts: [[3.3, 0], [3.7, .6], [4.0, 3], [4.1, 6], [4.15, 9.5]] },
+  bowl:    { label: 'Bowl',    h: 7,    base: 42, wall: .5, floor: .8, handle: false, fill: 'Holds', pts: [[3.2, 0], [4.2, .8], [6.5, 3], [8.2, 5.5], [8.8, 7]] },
+  vase:    { label: 'Vase',    h: 22,   base: 96, wall: .6, floor: 1,  handle: false, fill: 'Holds', pts: [[4.2, 0], [6, 2], [7.4, 7], [7.0, 13], [4.2, 18], [3.4, 20], [3.9, 22]] },
+  planter: { label: 'Planter', h: 14,   base: 58, wall: .7, floor: 1,  handle: false, fill: 'Soil',  pts: [[5.6, 0], [6.2, .5], [7.0, 4], [7.6, 10], [7.8, 14]] }
+};
+/* @CONFIG:finishes  Colour, fleck colour (speck) and price add-on. speck=2 style (light flecks) is chosen for 'ink' in glazeTarget(). */
+const GLAZES = {
+  oat:      { label: 'Oat',      base: '#CDB58F', speck: [.36, .22, .12], thr: 11.0, add: 0 },
+  celadon:  { label: 'Celadon',  base: '#9DB5A2', speck: [.16, .26, .18], thr: 11.6, add: 4 },
+  ink:      { label: 'Ink',      base: '#2F4450', speck: [.72, .78, .8],  thr: 12.2, add: 6 },
+  rust:     { label: 'Rust',     base: '#B4552B', speck: [.2, .08, .04],  thr: 11.2, add: 6 }
+};
+/* @CONFIG:sizes  f = linear scale, k = price multiplier. */
+const SIZES = { S: { f: .85, k: .8, label: 'Small' }, M: { f: 1, k: 1, label: 'Medium' }, L: { f: 1.2, k: 1.35, label: 'Large' } };
+const SKEY = Object.keys(SHAPES);
+
+const shade = (hex, f) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(f > 1 ? v + (255 - v) * (f - 1) : v * f)))); return `rgb(${c})`; };
+const mix = (a, b, t) => { const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); const x = p(a), y = p(b); return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const clamp01 = (t) => Math.max(0, Math.min(1, t));
+
+// resample [[r,y]..] to N points evenly in y
+function resample(pts, N = 14) {
+  const H = pts[pts.length - 1][1], out = [];
+  for (let i = 0; i < N; i++) {
+    const y = H * i / (N - 1); let k = 0; while (k < pts.length - 2 && pts[k + 1][1] < y) k++;
+    const [r0, y0] = pts[k], [r1, y1] = pts[k + 1], t = y1 === y0 ? 0 : (y - y0) / (y1 - y0);
+    out.push([r0 + (r1 - r0) * t, y]);
+  }
+  return out;
+}
+// Catmull-Rom through screen points -> cubic bezier path (no leading M)
+function smooth(P) {
+  let d = '';
+  for (let i = 0; i < P.length - 1; i++) {
+    const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+    d += `C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  }
+  return d;
+}
+let uid = 0;
+/* o: {prof:[[r_cm,y_cm]..], ppc, base, speck:{rgb,thr}|null, open:0..1, handle:bool, dim:label|null, rings:0..1, wobble:0..1} */
+function potSVG(o) {
+  const id = 'p' + (++uid), W = 400, Hh = 440, cx = 200, gy = 392, ppc = o.ppc, pr = o.prof;
+  const X = (r) => r * ppc, Y = (y) => gy - y * ppc;
+  const wob = (y) => (o.wobble ? Math.sin(y * 1.9) * o.wobble * .35 : 0);
+  const L = pr.map(([r, y]) => [cx - X(r + wob(y)), Y(y)]), R = pr.map(([r, y]) => [cx + X(r + wob(y)), Y(y)]);
+  const r0 = X(pr[0][0]), rt = X(pr[pr.length - 1][0]), yt = Y(pr[pr.length - 1][1]), ry0 = r0 * .16, ryt = Math.max(3, rt * .2);
+  const outline = `M${L[0][0].toFixed(1)} ${L[0][1].toFixed(1)}${smooth(L)}L${R[R.length - 1][0].toFixed(1)} ${R[R.length - 1][1].toFixed(1)}${smooth([...R].reverse())}A${r0.toFixed(1)} ${ry0.toFixed(1)} 0 0 1 ${L[0][0].toFixed(1)} ${L[0][1].toFixed(1)}Z`;
+  const dark = shade(o.base, .55), rimC = shade(o.base, 1.18);
+  const maxR = Math.max(...pr.map((p) => p[0])) * ppc;
+  let rings = '';
+  if (o.rings) { const gap = Math.max(5, ppc * .55); for (let y = gy - 10; y > yt; y -= gap) rings += `<path d="M${cx - maxR - 4} ${y.toFixed(1)}H${cx + maxR + 4}" stroke="rgba(0,0,0,${(.07 * o.rings).toFixed(3)})" stroke-width="1.2"/><path d="M${cx - maxR - 4} ${(y + 1.6).toFixed(1)}H${cx + maxR + 4}" stroke="rgba(255,255,255,${(.1 * o.rings).toFixed(3)})" stroke-width="1"/>`; }
+  let handle = '';
+  if (o.handle) { const yy1 = Y(pr[pr.length - 1][1] * .8), yy2 = Y(pr[pr.length - 1][1] * .25), xr = (y) => { let k = 0; while (k < pr.length - 2 && Y(pr[k + 1][1]) > y) k++; return cx + X(pr[k][0]); }, x1 = xr(yy1) - 3, x2 = xr(yy2) - 3, bulge = ppc * 2.6;
+    handle = `<path d="M${x1.toFixed(1)} ${yy1.toFixed(1)}C${(x1 + bulge).toFixed(1)} ${(yy1 - ppc).toFixed(1)} ${(x2 + bulge).toFixed(1)} ${(yy2 + ppc).toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}" fill="none" stroke="${o.base}" stroke-width="${(ppc * 1.15).toFixed(1)}" stroke-linecap="round"/><path d="M${x1.toFixed(1)} ${yy1.toFixed(1)}C${(x1 + bulge).toFixed(1)} ${(yy1 - ppc).toFixed(1)} ${(x2 + bulge).toFixed(1)} ${(yy2 + ppc).toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="${(ppc * .35).toFixed(1)}" stroke-linecap="round" transform="translate(${(ppc * .3).toFixed(1)} ${(ppc * .25).toFixed(1)})"/>`; }
+  const sp = o.speck, speck = sp ? `<filter id="${id}s" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="1" seed="7"/><feColorMatrix type="matrix" values="0 0 0 0 ${sp.rgb[0]}  0 0 0 0 ${sp.rgb[1]}  0 0 0 0 ${sp.rgb[2]}  ${sp.thr} 0 0 0 ${-(sp.thr * .64).toFixed(2)}"/></filter><rect width="${W}" height="${Hh}" filter="url(#${id}s)" clip-path="url(#${id}c)" opacity=".75"/>` : '';
+  let dim = '';
+  if (o.dim) { const left = !!o.handle, x = left ? cx - maxR - 34 : cx + maxR + 34; dim = `<g stroke="rgba(42,24,16,.45)" stroke-width="1" fill="none"><path d="M${x} ${gy}V${yt}M${x - 5} ${gy}H${x + 5}M${x - 5} ${yt}H${x + 5}"/></g><text x="${left ? x - 10 : x + 10}" y="${((gy + yt) / 2).toFixed(1)}" text-anchor="${left ? 'end' : 'start'}" font-family="Switzer,system-ui,sans-serif" font-size="13" font-weight="500" fill="#6B4F41" dominant-baseline="middle">${o.dim}</text>`; }
+  const open = o.open == null ? 1 : o.open;
+  const mouth = open > .02 ? `<ellipse cx="${cx}" cy="${yt.toFixed(1)}" rx="${rt.toFixed(1)}" ry="${ryt.toFixed(1)}" fill="${rimC}" opacity="${open.toFixed(2)}"/><ellipse cx="${cx}" cy="${(yt + ryt * .12).toFixed(1)}" rx="${Math.max(1, rt - ppc * .55).toFixed(1)}" ry="${Math.max(1, ryt - ppc * .09).toFixed(1)}" fill="${dark}" opacity="${open.toFixed(2)}"/>` : '';
+  return `<svg viewBox="0 0 ${W} ${Hh}" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+<defs><clipPath id="${id}c"><path d="${outline}"/></clipPath>
+<linearGradient id="${id}g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".42"/><stop offset=".3" stop-color="#fff" stop-opacity=".26"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>
+<linearGradient id="${id}v" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+<filter id="${id}b" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="7"/></filter><filter id="${id}h"><feGaussianBlur stdDeviation="3.2"/></filter></defs>
+<ellipse cx="${cx}" cy="${gy + 4}" rx="${(r0 * 1.45).toFixed(1)}" ry="${(ry0 * 1.2 + 3).toFixed(1)}" fill="rgba(42,24,16,.34)" filter="url(#${id}b)"/>
+${handle}
+<path d="${outline}" fill="${o.base}"/>
+<g clip-path="url(#${id}c)">${rings}${speck}<rect x="0" y="0" width="${W}" height="${Hh}" fill="url(#${id}v)"/><rect x="${cx - maxR - 6}" y="0" width="${(maxR * 2 + 12).toFixed(1)}" height="${Hh}" fill="url(#${id}g)"/>
+<ellipse cx="${(cx - maxR * .48).toFixed(1)}" cy="${((yt + gy) / 2).toFixed(1)}" rx="${(maxR * .075).toFixed(1)}" ry="${(((gy - yt) * .34)).toFixed(1)}" fill="#fff" opacity=".34" filter="url(#${id}h)"/></g>
+${mouth}${dim}</svg>`;
+}
+// builder-friendly wrapper: shape + glaze + size -> svg string
+function pieceSVG(shape, glaze, size, dim = false) {
+  const S = SHAPES[shape], G = GLAZES[glaze], Z = SIZES[size];
+  const rmax = Math.max(...S.pts.map((p) => p[0])), ppc = Math.min((S.handle ? 200 : 255) / S.h, 150 / rmax) * Z.f;
+  const prof = resample(S.pts).map(([r, y]) => [r, y]);
+  return potSVG({ prof, ppc: Math.min(ppc, 400 / S.h / 1.05 * (Z.f > 1 ? 1 : 1)), base: G.base, speck: { rgb: G.speck, thr: G.thr }, handle: S.handle, rings: .9, dim: dim ? `${(S.h * Z.f).toFixed(S.h * Z.f < 10 ? 1 : 0)} cm` : null });
+}
+function metrics(shape, size) {
+  const S = SHAPES[shape], Z = SIZES[size], f = Z.f, pts = resample(S.pts, 60);
+  let vol = 0; // cm^3 by disc integration of the inner radius above the floor
+  for (let i = 1; i < pts.length; i++) { const y = pts[i][1] * f, dy = (pts[i][1] - pts[i - 1][1]) * f; if (y < S.floor * f) continue; const ri = Math.max(0, pts[i][0] * f - S.wall * f); vol += Math.PI * ri * ri * dy; }
+  const W = Math.max(...S.pts.map((p) => p[0])) * 2 * f, H = S.h * f;
+  const base = S.base * Z.k;
+  return { H, W, ml: vol, base };
+}
+const price = (shape, glaze, size) => Math.round(metrics(shape, size).base + GLAZES[glaze].add);
+const fmtCap = (ml) => ml >= 1000 ? (ml / 1000).toFixed(1) + ' l' : Math.round(ml / 10) * 10 + ' ml';
+const fmtCm = (v) => { const r = Math.round(v * 10) / 10; return (r < 10 ? r.toFixed(1) : Math.round(r)) + ' cm'; };
+const name = (shape, glaze, size) => `${GLAZES[glaze].label} ${SHAPES[shape].label.toLowerCase()}`;
+
+
+
+/* ---------- WebGL availability ---------- */
+let THREE = null, RoomEnvironment = null;
+try {
+  THREE = await import('three'); ({ RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js'));
+  const t = document.createElement('canvas'); if (location.search.includes('no3d') || !(t.getContext('webgl2') || t.getContext('webgl'))) throw 0; // ?no3d previews the fallback
+} catch (e) { THREE = null; root.classList.add('no3d'); }
+
+/* ---------- shared UI state ---------- */
+const st = { shape: 'vase', glaze: 'celadon', size: 'M' };
+let mode = 'hero'; // which scene owns the 3D piece: hero | build | proc
+const hexRGB = (h) => [1, 3, 5].map((i) => { const v = parseInt(h.slice(i, i + 2), 16) / 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); // sRGB hex -> linear, same as THREE.Color
+
+/* ================= 3D: lathe-turned stoneware ================= */
+const NP = 48, NO = 150, NI = 26;
+const cur = { H: 22, r: new Float32Array(NP), w: .6, floor: 1, open: 1, ripple: .9, handle: 0, hs: 1, glow: 0, gloss: 1, col: [.5, .5, .5], speck: 1, speckRGB: [.2, .3, .2] };
+const tgt = { H: 22, r: new Float32Array(NP), w: .6, floor: 1, open: 1, ripple: .9, handle: 0, hs: 1, glow: 0, gloss: 1, col: [.5, .5, .5], speck: 1, speckRGB: [.2, .3, .2] };
+let world = null, dirty = true, stageA = 1, intro = { v: reduce ? 1 : 0 };
+const CLAY = [.45, .27, .17], BISQUE = [.68, .52, .39];
+
+function shapeTarget(shape, size) {
+  const S = SHAPES[shape], f = SIZES[size].f, pts = resample(S.pts, NP);
+  return { H: S.h * f, r: Float32Array.from(pts.map((p) => p[0] * f)), w: S.wall * f, floor: S.floor * f, open: 1, handle: S.handle ? 1 : 0, hs: f };
+}
+function glazeTarget(glaze) {
+  const G = GLAZES[glaze]; return { col: hexRGB(G.base), speck: glaze === 'ink' ? 2 : 1, speckRGB: G.speck, gloss: 1, glow: 0, ripple: .9 };
+}
+const setTarget = (o) => { for (const k in o) { if (k === 'r') tgt.r = o.r; else if (Array.isArray(o[k])) tgt[k] = o[k].slice(); else tgt[k] = o[k]; } };
+const snap = () => { for (const k in tgt) { if (k === 'r') cur.r.set(tgt.r); else if (Array.isArray(tgt[k])) cur[k] = tgt[k].slice(); else cur[k] = tgt[k]; } dirty = true; };
+function follow(k) {
+  let d = 0;
+  for (const key of ['H', 'w', 'floor', 'open', 'ripple', 'handle', 'hs', 'glow', 'gloss']) { const e = tgt[key] - cur[key]; cur[key] += e * k; d = Math.max(d, Math.abs(e)); }
+  for (let i = 0; i < NP; i++) { const e = tgt.r[i] - cur.r[i]; cur.r[i] += e * k; d = Math.max(d, Math.abs(e)); }
+  for (let i = 0; i < 3; i++) { const e = tgt.col[i] - cur.col[i]; cur.col[i] += e * k; d = Math.max(d, Math.abs(e)); }
+  cur.speck = tgt.speck; cur.speckRGB = tgt.speckRGB;
+  return d;
+}
+const rAt = (y) => { const u = Math.min(1, Math.max(0, y / cur.H)) * (NP - 1), i = Math.min(NP - 2, Math.floor(u)), t = u - i; return cur.r[i] + (cur.r[i + 1] - cur.r[i]) * t; };
+
+function speckTexture(kind) {
+  const c = document.createElement('canvas'); c.width = c.height = 512; const x = c.getContext('2d');
+  x.fillStyle = kind === 2 ? '#000' : '#fff'; x.fillRect(0, 0, 512, 512);
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 1500; i++) { const r = .5 + rnd() * rnd() * 2.4, a = .25 + rnd() * .7; x.fillStyle = kind === 2 ? `rgba(255,255,255,${a})` : `rgba(40,22,12,${a * .85})`; x.beginPath(); x.arc(rnd() * 512, rnd() * 512, r, 0, 7); x.fill(); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(2, 2); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
+}
+
+const R3 = {}; // renderer, scene, camera ...
+if (THREE) {
+  const canvas = $('#stage3d'), W = () => innerWidth, H = () => innerHeight;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1.5 : 2));
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.setClearAlpha(0);
+  const scene = new THREE.Scene();
+  const pmrem = new THREE.PMREMGenerator(renderer); scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+  const cam = new THREE.PerspectiveCamera(26, 1, 5, 400); cam.position.set(0, 18, 78);
+  const key = new THREE.SpotLight(0xffd9b0, 0, 0, .5, .85, 2); key.position.set(-30, 52, 34); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.bias = -.0006; key.shadow.normalBias = .08; key.shadow.radius = 7; scene.add(key, key.target);
+  const rim = new THREE.DirectionalLight(0xffb27a, 0); rim.position.set(30, 22, -46); scene.add(rim);
+  const fill = new THREE.DirectionalLight(0x9fb4c2, 0); fill.position.set(38, 10, 30); scene.add(fill);
+  const plinthMat = new THREE.MeshStandardMaterial({ color: 0x24150d, roughness: .62, metalness: 0 });
+  const plinth = new THREE.Mesh(new THREE.CylinderGeometry(15, 15.8, 1.6, 96), plinthMat); plinth.position.y = -.8; plinth.receiveShadow = true; scene.add(plinth);
+  const group = new THREE.Group(); scene.add(group);
+  const mat = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: .3, metalness: 0, clearcoat: 1, clearcoatRoughness: .1, envMapIntensity: .75, side: THREE.DoubleSide });
+  const tex1 = speckTexture(1), tex2 = speckTexture(2);
+  const body = new THREE.Mesh(new THREE.BufferGeometry(), mat), handle = new THREE.Mesh(new THREE.BufferGeometry(), mat);
+  body.castShadow = handle.castShadow = true; body.receiveShadow = handle.receiveShadow = false; group.add(body, handle);
+  const gc = document.createElement('canvas'); gc.width = gc.height = 256; const gx = gc.getContext('2d'), gg = gx.createRadialGradient(128, 128, 0, 128, 128, 128);
+  gg.addColorStop(0, 'rgba(255,255,255,1)'); gg.addColorStop(.45, 'rgba(255,255,255,.38)'); gg.addColorStop(1, 'rgba(255,255,255,0)'); gx.fillStyle = gg; gx.fillRect(0, 0, 256, 256);
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(gc), transparent: true, depthWrite: false, opacity: .3, color: 0xff9a5c })); glow.scale.set(150, 150, 1); glow.position.set(0, 14, -34); scene.add(glow);
+  const catcher = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), new THREE.ShadowMaterial({ opacity: .34 })); catcher.rotation.x = -Math.PI / 2; catcher.position.y = .01; catcher.receiveShadow = true; catcher.visible = false; scene.add(catcher);
+  Object.assign(R3, { renderer, scene, cam, key, rim, fill, plinthMat, plinth, group, mat, tex1, tex2, body, handle, glow, catcher });
+}
+
+function rebuild() {
+  const { body, handle, mat, tex1, tex2 } = R3, H = cur.H, o = cur.open, w = cur.w, pts = [], clayMix = [];
+  const ripple = (y) => cur.ripple * .017 * cur.hs * Math.sin(y * 7.2) * Math.min(1, y / 1.5) * Math.min(1, (H - y) / 1.2 + .25);
+  const r0 = rAt(0), rt = rAt(H);
+  pts.push([0, 0], [Math.max(.01, r0 - .5), 0], [r0 - .08, .04]);
+  for (let k = 0; k < NO; k++) { const y = H * k / (NO - 1); pts.push([rAt(y) + ripple(y), y]); }
+  pts.push([rt - w * .15, H + .05 * cur.hs], [rt - w * .5, H + .075 * cur.hs], [Math.max(.01, rt - w * .85), H + .04 * cur.hs]);
+  for (let j = 0; j <= NI; j++) { const y = H - (H - cur.floor) * j / NI; pts.push([Math.max(.01, (rAt(y) - w) * o), y]); }
+  pts.push([0, cur.floor]);
+  const geo = new THREE.LatheGeometry(pts.map((p) => new THREE.Vector2(p[0], p[1])), 110);
+  const pos = geo.attributes.position, colors = new Float32Array(pos.count * 3), [cr, cg, cb] = cur.col;
+  for (let i = 0; i < pos.count; i++) {
+    const y = pos.getY(i), t = Math.min(1, y / H), tone = .86 + .22 * t;
+    let m = 0; if (y < .5 * cur.hs && cur.gloss > .5) m = (1 - y / (.5 * cur.hs)) * .85; if (y > H + .03 * cur.hs && cur.gloss > .5) m = Math.max(m, .35);
+    colors[i * 3] = (cr * tone) * (1 - m) + BISQUE[0] * m; colors[i * 3 + 1] = (cg * tone) * (1 - m) + BISQUE[1] * m; colors[i * 3 + 2] = (cb * tone) * (1 - m) + BISQUE[2] * m;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3)); body.geometry.dispose(); body.geometry = geo;
+  // handle (mugs): a swept tube that grows out of the wall
+  if (cur.handle > .02) {
+    const y1 = H * .8, y2 = H * .27, a = rAt(y1) - .25, b = rAt(y2) - .25, k = cur.hs * cur.handle;
+    const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(a, y1, 0), new THREE.Vector3(a + 2.1 * k, y1 + .55 * k, 0), new THREE.Vector3(a + 3.3 * k, (y1 + y2) / 2, 0), new THREE.Vector3(b + 2.1 * k, y2 - .45 * k, 0), new THREE.Vector3(b, y2, 0)]);
+    const tg = new THREE.TubeGeometry(curve, 36, .52 * cur.hs * Math.min(1, cur.handle + .2), 14, false), n = tg.attributes.position.count, cc = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) { cc[i * 3] = cr * .95; cc[i * 3 + 1] = cg * .95; cc[i * 3 + 2] = cb * .95; }
+    tg.setAttribute('color', new THREE.BufferAttribute(cc, 3)); handle.geometry.dispose(); handle.geometry = tg; handle.visible = true;
+  } else handle.visible = false;
+  // surface response
+  mat.clearcoat = cur.gloss; mat.roughness = .92 - .62 * cur.gloss; mat.clearcoatRoughness = .1 + .4 * (1 - cur.gloss);
+  const sp = cur.gloss > .5 ? cur.speck : 0;
+  mat.map = sp === 1 ? tex1 : null;
+  if (cur.glow > .02) { mat.emissive.setRGB(1, .36, .1); mat.emissiveMap = null; mat.emissiveIntensity = cur.glow * 1.6; }
+  else if (sp === 2) { mat.emissive.setRGB(.55, .6, .64); mat.emissiveMap = tex2; mat.emissiveIntensity = .55; }
+  else { mat.emissive.setRGB(0, 0, 0); mat.emissiveMap = null; mat.emissiveIntensity = 0; }
+  mat.needsUpdate = true; dirty = false;
+}
+
+/* slots: which DOM box the 3D piece is fitted into, blended while sections scroll */
+const SLOTS = [$('#heroSlot'), $('#manSlot'), $('#buildSlot'), $('#procSlot')], SECS = [$('#top'), $('#story'), $('#make'), $('#process')];
+const ease3 = (t) => t * t * (3 - 2 * t);
+function slotRect() {
+  const vh = innerHeight; let pos = 0;
+  for (let i = 1; i < 4; i++) pos += ease3(clamp01((vh * .95 - SECS[i].getBoundingClientRect().top) / (vh * .95)));
+  const i = Math.min(2, Math.floor(pos)), t = pos - i, a = SLOTS[i].getBoundingClientRect(), b = SLOTS[i + 1].getBoundingClientRect(), l = (p, q) => p + (q - p) * t;
+  return { x: l(a.x, b.x), y: l(a.y, b.y), w: l(a.width, b.width), h: l(a.height, b.height), pos };
+}
+let lastKey = '', mouse = { x: 0, y: 0 }, rotVel = .35, dragging = false, userSpin = 0, lastT = 0;
+function fitCam() {
+  const { cam } = R3, Wd = innerWidth, Hd = innerHeight, r = slotRect(), cy = cur.H * .5;
+  const Rmax = Math.max(...cur.r) + (cur.handle > .1 ? 3.6 * cur.hs : 0);
+  const e = intro.v, zi = .8 + .2 * ease3(e);
+  const key = [Wd | 0, Hd | 0, r.x | 0, r.y | 0, r.w | 0, r.h | 0, cur.H.toFixed(1), Rmax.toFixed(1), e.toFixed(2), mouse.x.toFixed(2), mouse.y.toFixed(2)].join();
+  if (key === lastKey) return; lastKey = key;
+  const fov = cam.fov * Math.PI / 180, d = 78, ppu0 = Hd / (2 * d * Math.tan(fov / 2));
+  const PR = Rmax * 1.45 + 1.5, fitPx = Math.min(r.h * .82 / (cur.H + 2 + PR * .5), r.w * .94 / (2 * PR));
+  cam.aspect = Wd / Hd; cam.zoom = Math.max(.05, fitPx / ppu0 * zi);
+  cam.position.set(mouse.x * 4, cy + 9 + mouse.y * -3, d); cam.lookAt(0, cy - 1, 0); cam.updateProjectionMatrix();
+  const cxs = r.x + r.w / 2, cys = r.y + r.h / 2;
+  cam.setViewOffset(Wd, Hd, -(cxs - Wd / 2), -(cys - Hd / 2), Wd, Hd);
+}
+let themeDark = true;
+function tick(time, ms) {
+  if (!THREE || stageA < .01 || document.hidden) return;
+  const dt = Math.min(ms / 1000, .05), { renderer, scene, cam, key, rim, fill, plinthMat, group, mat } = R3;
+  const k = reduce ? 1 : 1 - Math.exp(-dt * (mode === 'proc' ? 13 : 6.5));
+  if (follow(k) > 1e-3 || dirty) rebuild();
+  // turntable: light stays put, the piece turns, so reflections sweep across the glaze
+  const auto = reduce ? 0 : (mode === 'hero' ? .32 : .2) * (1 + (1 - intro.v) * 6);
+  if (!dragging) { userSpin *= Math.exp(-dt * 2.2); group.rotation.y += (auto + userSpin) * dt; }
+  group.position.y = (1 - ease3(intro.v)) * -7;
+  { const Rm = Math.max(...cur.r) + (cur.handle > .1 ? 3.4 * cur.hs : 0), ps = Math.min(1.1, Math.max(.3, (Rm * 1.45 + 1.5) / 15)); R3.plinth.scale.x += (ps - R3.plinth.scale.x) * k; R3.plinth.scale.z = R3.plinth.scale.x; }
+  const L = ease3(intro.v);
+  key.intensity = 12500 * L; key.target.position.set(0, cur.H * .45, 0); rim.intensity = 2.8 * L; fill.intensity = .22 * L; mat.envMapIntensity = (themeDark ? .35 : .5) * (.3 + .7 * L);
+  const pc = themeDark ? [.04, .022, .013] : [.5, .4, .3]; plinthMat.color.r += (pc[0] - plinthMat.color.r) * k; plinthMat.color.g += (pc[1] - plinthMat.color.g) * k; plinthMat.color.b += (pc[2] - plinthMat.color.b) * k;
+  const gl = R3.glow, gt = themeDark ? { c: [1, .6, .36], o: .34 } : { c: [1, .97, .92], o: .8 };
+  gl.material.color.r += (gt.c[0] - gl.material.color.r) * k; gl.material.color.g += (gt.c[1] - gl.material.color.g) * k; gl.material.color.b += (gt.c[2] - gl.material.color.b) * k; gl.material.opacity += (gt.o * L - gl.material.opacity) * k; gl.position.y = cur.H * .5 + 2;
+  fitCam(); renderer.render(scene, cam);
+}
+function sizeCanvas() { if (!THREE) return; R3.renderer.setSize(innerWidth, innerHeight, false); lastKey = ''; }
+if (THREE) { addEventListener('resize', sizeCanvas); sizeCanvas(); if (hasG) gsap.ticker.add(tick); else (function loop(t) { tick(t / 1000, 16); requestAnimationFrame(loop); })(0); }
+
+/* drag to turn */
+if (THREE) {
+  let lx = 0, lt = 0;
+  addEventListener('pointerdown', (e) => { const s = e.target.closest && e.target.closest('[data-drag]'); if (!s) return; dragging = true; lx = e.clientX; lt = performance.now(); userSpin = 0; });
+  addEventListener('pointermove', (e) => {
+    mouse.x = (e.clientX / innerWidth - .5) * 2; mouse.y = (e.clientY / innerHeight - .5) * 2;
+    if (!dragging) return; const dx = e.clientX - lx, now = performance.now(), dtt = Math.max(1, now - lt); R3.group.rotation.y += dx * .011; userSpin = Math.max(-5, Math.min(5, dx * .011 / (dtt / 1000))); lx = e.clientX; lt = now;
+  });
+  addEventListener('pointerup', () => { dragging = false; }); addEventListener('pointercancel', () => { dragging = false; });
+}
+
+/* ---------- builder ---------- */
+$('#oShape').innerHTML = SKEY.map((k) => `<input type="radio" name="shape" id="sh-${k}" value="${k}" ${k === st.shape ? 'checked' : ''}><label for="sh-${k}">${pieceSVG(k, 'oat', 'M').replace('<svg ', '<svg style="width:34px;height:38px" ')}${SHAPES[k].label}</label>`).join('');
+$('#oGlaze').innerHTML = Object.keys(GLAZES).map((k) => `<input type="radio" name="glaze" id="gl-${k}" value="${k}" ${k === st.glaze ? 'checked' : ''}><label for="gl-${k}"><span class="sw" style="background:${GLAZES[k].base}"></span>${GLAZES[k].label}</label>`).join('');
+$('#oSize').innerHTML = Object.keys(SIZES).map((k) => `<input type="radio" name="size" id="sz-${k}" value="${k}" ${k === st.size ? 'checked' : ''}><label for="sz-${k}">${SIZES[k].label}</label>`).join('');
+$$('#oShape svg').forEach((s) => s.setAttribute('viewBox', '60 90 280 330'));
+const buildTarget = () => ({ ...shapeTarget(st.shape, st.size), ...glazeTarget(st.glaze) });
+function drawBuilder() {
+  const { shape, glaze, size } = st, m = metrics(shape, size);
+  $('#stTag').textContent = `${SHAPES[shape].label} · ${SIZES[size].label.toLowerCase()}`; $('#stGlaze').textContent = GLAZES[glaze].label;
+  $('#rName').textContent = `${name(shape, glaze, size)}, ${SIZES[size].label.toLowerCase()}`;
+  $('#rH').textContent = fmtCm(m.H); $('#rW').textContent = fmtCm(m.W); $('#rCapL').textContent = SHAPES[shape].fill; $('#rCap').textContent = fmtCap(m.ml);
+  $('#rPrice').textContent = '$' + price(shape, glaze, size);
+  $('#rNote').textContent = `Sample price. ${size === 'L' ? 'Made to order: ships in about 3 weeks (sample).' : 'In the next kiln: ships in about 2 weeks (sample).'}`;
+  if (THREE) { if (mode === 'build') setTarget(buildTarget()); } else $('#stagePot').innerHTML = pieceSVG(shape, glaze, size, true);
+}
+$('#builder').addEventListener('change', (e) => { st[e.target.name] = e.target.value; drawBuilder(); });
+drawBuilder();
+
+/* ---------- process: clay -> glazed vase (profiles + surface state) ---------- */
+const VASE_R = resample(SHAPES.vase.pts, NP).map((p) => p[0]), VASE_H = SHAPES.vase.h;
+const BALL = { H: 11, r: Float32Array.from({ length: NP }, (_, i) => { const u = i / (NP - 1); return 5.8 * Math.pow(Math.sin(Math.PI * Math.min(Math.max(u, .015), .985)), .6); }), w: .0, floor: 1, open: 0, ripple: 0, gloss: 0, col: CLAY, handle: 0, hs: 1, glow: 0 };
+const CYL = { H: 18, r: Float32Array.from({ length: NP }, (_, i) => { const u = i / (NP - 1); return 4.9 + .5 * Math.sin(u * Math.PI * 1.4) + .12 * Math.sin(u * 19); }), w: .6, floor: 1, open: 1, ripple: 1.6, gloss: 0, col: CLAY, handle: 0, hs: 1, glow: 0 };
+const TRIM = { H: VASE_H, r: Float32Array.from(VASE_R), w: .6, floor: 1, open: 1, ripple: .55, gloss: 0, col: BISQUE, handle: 0, hs: 1, glow: 0 };
+const FIRE = { ...TRIM, ripple: .9, gloss: 1, col: hexRGB(GLAZES.celadon.base), speck: 1, speckRGB: GLAZES.celadon.speck };
+const PSTG = [
+  { P: BALL, lbl: '01 · Wedge', clay: 'Wet', heat: 'Room temp.' }, { P: CYL, lbl: '02 · Throw', clay: 'Wet', heat: 'Room temp.' },
+  { P: TRIM, lbl: '03 · Trim', clay: 'Bone dry', heat: '≈ 1,000°C bisque' }, { P: FIRE, lbl: '04 · Fire', clay: 'Glazed', heat: '≈ 1,240°C' }
+];
+const mixP = (A, B, t) => { const o = { r: new Float32Array(NP) }; for (const k of ['H', 'w', 'floor', 'open', 'ripple', 'gloss', 'handle', 'hs', 'glow']) o[k] = A[k] + (B[k] - A[k]) * t; for (let i = 0; i < NP; i++) o.r[i] = A.r[i] + (B.r[i] - A.r[i]) * t; o.col = [0, 1, 2].map((i) => A.col[i] + (B.col[i] - A.col[i]) * t); o.speck = B.speck || 1; o.speckRGB = B.speckRGB || GLAZES.celadon.speck; return o; };
+let pLast = -1;
+function procAt(p) { // p in 0..3
+  const i = Math.min(2, Math.floor(p)), t = ease(clamp01(p - i)), P = mixP(PSTG[i].P, PSTG[i + 1].P, t);
+  if (i === 2) { P.gloss = t > .55 ? 1 : 0; P.glow = Math.sin(Math.PI * clamp01(t * 1.15)) * .95; if (t >= .99) P.glow = 0; }
+  if (i === 2 && t > .55) P.col = hexRGB(GLAZES.celadon.base);
+  const k = Math.round(p), S = PSTG[Math.min(3, Math.max(0, k))];
+  $('#pLbl').textContent = S.lbl; $('#pClay').textContent = S.clay; $('#pHeat').textContent = S.heat;
+  return P;
+}
+function updateProc() {
+  const lis = $$('#steps li'), ref = innerHeight * .5, c = lis.map((li) => { const r = li.getBoundingClientRect(); return r.top + r.height / 2; });
+  let p = 0; for (let i = 0; i < c.length; i++) if (c[i] <= ref) p = i + (i < c.length - 1 ? (ref - c[i]) / (c[i + 1] - c[i]) : 0);
+  p = Math.min(3, Math.max(0, p));
+  if (Math.abs(p - pLast) < .002) return; pLast = p;
+  const P = procAt(p);
+  if (THREE) { if (mode === 'proc') setTarget(P); } else $('#procPot').innerHTML = potSVG({ prof: resample(SHAPES.vase.pts, 14), ppc: 11, base: p > 2.5 ? GLAZES.celadon.base : p > 1.6 ? '#D6B79B' : '#A87555', speck: p > 2.6 ? { rgb: GLAZES.celadon.speck, thr: GLAZES.celadon.thr } : null, open: p > .5 ? 1 : 0, rings: .8, handle: false });
+}
+
+/* ---------- active scene + theme ---------- */
+const THEMES = { dark: true, cream: false };
+function activate(el) {
+  const th = el.dataset.theme; if (th) { themeDark = THEMES[th]; document.body.classList.toggle('dark', themeDark); }
+  const id = el.id, m = id === 'make' ? 'build' : id === 'process' ? 'proc' : (id === 'top' || id === 'story') ? 'hero' : null;
+  if (!m || !THREE) return;
+  const was = mode; mode = m;
+  if (m === 'hero' && was !== 'hero') setTarget({ ...shapeTarget('vase', 'L'), ...glazeTarget('celadon') });
+  if (m === 'build') setTarget(buildTarget());
+  if (m === 'proc') { pLast = -1; updateProc(); }
+}
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) activate(e.target); }), { rootMargin: '-45% 0px -45% 0px' });
+[...$$('main > section'), $('#footer')].forEach((s) => io.observe(s));
+function updateFade() { const top = $('#collection').getBoundingClientRect().top, a = 1 - clamp01((innerHeight * .9 - top) / (innerHeight * .5)); stageA = a; if (THREE) { $('#stage3d').style.opacity = a; $('.vig').style.opacity = a * (themeDark ? .9 : .18); } }
+addEventListener('scroll', () => { updateProc(); updateFade(); $('#nav').classList.toggle('solid', scrollY > 40); }, { passive: true });
+addEventListener('resize', () => { updateProc(); updateFade(); });
+
+/* ---------- collection + cart ---------- */
+/* @CONFIG:collection  Pieces shown in the shelf; thumbnails are baked from the 3D engine at load. */
+const COLL = [
+  { shape: 'mug', glaze: 'ink', size: 'M', note: 'Wide-handled, holds a full pour-over.' },
+  { shape: 'bowl', glaze: 'celadon', size: 'L', note: 'For soup or for the fruit that never gets eaten.' },
+  { shape: 'planter', glaze: 'oat', size: 'M', note: 'Drainage hole and a matching saucer.' },
+  { shape: 'vase', glaze: 'rust', size: 'S', note: 'A narrow neck holds three stems well.' },
+  { shape: 'mug', glaze: 'oat', size: 'L', note: 'The big one, for slow mornings.' },
+  { shape: 'vase', glaze: 'ink', size: 'L', note: 'Tall enough to take branches.' }
+];
+$('#cgrid').innerHTML = COLL.map((p, i) => { const m = metrics(p.shape, p.size);
+  return `<article class="item"><div class="tile">${pieceSVG(p.shape, p.glaze, p.size)}</div><div class="row"><h3>${name(p.shape, p.glaze, p.size)}</h3><span class="price" style="font-size:1.5rem">$${price(p.shape, p.glaze, p.size)}</span></div><p class="meta muted">${SIZES[p.size].label} · ${fmtCm(m.H)} tall · ${p.note}</p><div class="acts"><button class="btn sm add" type="button" data-i="${i}">Add to cart</button><button class="btn ghost sm cust" type="button" data-i="${i}">Customise in 3D</button></div></article>`; }).join('');
+const cart = new Map();
+const $drawer = $('#drawer'), $scrim = $('#scrim'); let lastFocus = null, lenis = null;
+function renderCart() {
+  const items = [...cart.values()], n = items.reduce((a, b) => a + b.qty, 0), total = items.reduce((a, b) => a + b.qty * price(b.shape, b.glaze, b.size), 0);
+  $('#cartN').textContent = n; $('#empty').hidden = !!items.length; $('#dFoot').hidden = !items.length; $('#dTot').textContent = '$' + total; $('#dStatus').hidden = true;
+  $('#lines').innerHTML = items.map((it) => `<li class="cline"><div class="th">${pieceSVG(it.shape, it.glaze, it.size).replace('<svg ', '<svg style="width:100%;height:auto" ')}</div><div><b>${name(it.shape, it.glaze, it.size)}</b><small>${SIZES[it.size].label} · qty ${it.qty}</small><br><button type="button" data-rm="${it.key}">Remove</button></div><b>$${it.qty * price(it.shape, it.glaze, it.size)}</b></li>`).join('');
+  $$('.th svg').forEach((s) => s.setAttribute('viewBox', '40 60 320 360'));
+}
+function add(shape, glaze, size) { const key = [shape, glaze, size].join('-'), it = cart.get(key) || { key, shape, glaze, size, qty: 0 }; it.qty++; cart.set(key, it); renderCart(); if (!reduce && hasG) gsap.fromTo('#cartN', { scale: 1.5 }, { scale: 1, duration: .5, ease: 'back.out(3)' }); }
+function openCart() { lastFocus = document.activeElement; $drawer.classList.add('on'); $scrim.classList.add('on'); $drawer.setAttribute('aria-hidden', 'false'); $('#dClose').focus(); lenis && lenis.stop(); }
+function closeCart() { $drawer.classList.remove('on'); $scrim.classList.remove('on'); $drawer.setAttribute('aria-hidden', 'true'); lenis && lenis.start(); lastFocus && lastFocus.focus(); }
+const flash = (b, t = 'Add to cart') => { b.textContent = 'Added ✓'; setTimeout(() => { b.textContent = t; }, 1400); };
+$('#addBtn').onclick = () => { add(st.shape, st.glaze, st.size); flash($('#addBtn')); };
+const goTo = (sel) => { const t = $(sel); lenis ? lenis.scrollTo(t, { offset: -60, duration: 1.4 }) : t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); };
+$('#cgrid').addEventListener('click', (e) => {
+  const a = e.target.closest('.add'), c = e.target.closest('.cust');
+  if (a) { const p = COLL[+a.dataset.i]; add(p.shape, p.glaze, p.size); flash(a); }
+  if (c) { const p = COLL[+c.dataset.i]; Object.assign(st, { shape: p.shape, glaze: p.glaze, size: p.size }); ['shape', 'glaze', 'size'].forEach((n) => { $(`#${n === 'shape' ? 'sh' : n === 'glaze' ? 'gl' : 'sz'}-${st[n]}`).checked = true; }); drawBuilder(); goTo('#make'); }
+});
+$('#lines').addEventListener('click', (e) => { const k = e.target.dataset.rm; if (k) { cart.delete(k); renderCart(); } });
+$('#cartBtn').onclick = openCart; $('#dClose').onclick = closeCart; $scrim.onclick = closeCart; $('#emptyLink').onclick = closeCart;
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && $drawer.classList.contains('on')) closeCart(); if (e.key === 'Tab' && $drawer.classList.contains('on')) { const f = $$('button,a[href]', $drawer).filter((x) => !x.closest('[hidden]') && x.offsetParent); if (!f.length) return; const a = f[0], z = f[f.length - 1]; if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } } });
+$('#checkout').onclick = () => { const s = $('#dStatus'); s.hidden = false; s.textContent = 'Demo shop: nothing was charged and no order was placed. A real checkout would take payment here.'; };
+renderCart();
+$('#kMail').addEventListener('input', () => $('#kField').classList.remove('bad'));
+$('#kForm').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#kMail').value.trim(), ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v), s = $('#kStatus'); $('#kField').classList.toggle('bad', !ok); if (!ok) { $('#kMail').focus(); s.hidden = true; return; } s.hidden = false; s.textContent = `Test page: nothing was sent. In production ${v} would be added to the kiln list.`; });
+
+/* ---------- manifesto words ---------- */
+(() => { const el = $('#manifesto'); const f = document.createDocumentFragment(); el.textContent.split(/(\s+)/).forEach((t) => { if (!t) return; if (/^\s+$/.test(t)) f.append(t); else { const s = document.createElement('span'); s.className = 'w'; s.textContent = t; f.append(s); } }); el.textContent = ''; el.append(f); })();
+
+/* ---------- motion: one clock, then scenes ---------- */
+if (hasG && !reduce && window.Lenis) { lenis = new Lenis({ lerp: .1 }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+$$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { const t = $(a.getAttribute('href')); if (!t || a.id === 'emptyLink') return; e.preventDefault(); goTo(a.getAttribute('href')); }));
+
+if (hasG) {
+  const spans = $$('.hero h1 .mk>span'); gsap.set(spans, { yPercent: 112, opacity: 1 });
+  const tl = gsap.timeline({ delay: .15 });
+  if (!reduce) tl.to(intro, { v: 1, duration: 3, ease: 'power2.out' }, 0);
+  tl.fromTo('#word', { opacity: 0, letterSpacing: '.08em' }, { opacity: 1, letterSpacing: '-.04em', duration: 2.6, ease: 'expo.out' }, .1)
+    .to(spans, { yPercent: 0, duration: 1.4, ease: 'expo.out', stagger: .12 }, .9)
+    .from('.hero .side > *, .hero-top', { y: 16, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: .1 }, 1.2)
+    ;
+  $$('.sec-h,.care h2,.kiln h2').forEach((h) => { const s = $$('.mk>span', h); gsap.set(s, { yPercent: 112, opacity: 1 }); gsap.to(s, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: h, start: 'top 86%', once: true } }); });
+  gsap.set('.item', { opacity: 0, y: 40 });
+  ScrollTrigger.batch('.item', { start: 'top 92%', once: true, onEnter: (b) => gsap.to(b, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: .12 }) });
+  if (!reduce) {
+    gsap.to('#word', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('#manifesto .w', { opacity: 1, ease: 'none', stagger: .5, scrollTrigger: { trigger: '#manifesto', start: 'top 70%', end: 'bottom 45%', scrub: true } });
+  } else $$('#manifesto .w').forEach((w) => { w.style.opacity = 1; });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => ScrollTrigger.refresh());
+} else { intro.v = 1; }
+
+/* ---------- bake product thumbnails from the same 3D engine ---------- */
+function bake(shape, glaze, size, rot = .55) {
+  const { renderer, scene, key, rim, fill, group, plinth, glow, mat, catcher } = R3, Wb = 520, Hb = 560, pc = new THREE.PerspectiveCamera(26, Wb / Hb, 5, 400);
+  setTarget({ ...shapeTarget(shape, size), ...glazeTarget(glaze) }); snap(); rebuild();
+  group.rotation.y = rot; group.position.y = 0; plinth.visible = false; glow.visible = false; catcher.visible = true;
+  key.intensity = 12500; key.target.position.set(0, cur.H * .45, 0); rim.intensity = 2.8; fill.intensity = .22; mat.envMapIntensity = .5;
+  const Rm = Math.max(...cur.r) + (cur.handle > .1 ? 3.4 * cur.hs : 0), cy = cur.H * .5, d = 78, ppu0 = Hb / (2 * d * Math.tan(13 * Math.PI / 180)), fit = Math.min(Hb * .8 / (cur.H + 2), Wb * .86 / (2 * Rm + 1));
+  pc.zoom = fit / ppu0; pc.position.set(0, cy + 9, d); pc.lookAt(0, cy - 1, 0); pc.updateProjectionMatrix();
+  renderer.setPixelRatio(1); renderer.setSize(Wb, Hb, false); renderer.render(scene, pc);
+  const url = renderer.domElement.toDataURL('image/png');
+  plinth.visible = true; glow.visible = true; catcher.visible = false; return url;
+}
+function bakeAll() {
+  const ratio = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1.5 : 2);
+  try {
+    $$('#cgrid .tile').forEach((tile, i) => { const p = COLL[i]; tile.innerHTML = '<img alt="' + name(p.shape, p.glaze, p.size) + ', ' + SIZES[p.size].label.toLowerCase() + ' size" width="520" height="560" decoding="async" style="width:84%;height:auto;transition:transform .8s var(--ease)" src="' + bake(p.shape, p.glaze, p.size, .5 + i * .18) + '">'; });
+    $$('#oShape label').forEach((lab, i) => { const k = SKEY[i], svg = lab.querySelector('svg'); if (svg) svg.outerHTML = '<img alt="" width="34" height="38" style="width:34px;height:38px;object-fit:contain" src="' + bake(k, 'oat', 'M', .5) + '">'; });
+  } catch (e) { console.warn('thumbnail bake skipped', e); }
+  R3.renderer.setPixelRatio(ratio); sizeCanvas();
+}
+
+/* ---------- boot ---------- */
+if (THREE) {
+  bakeAll();
+  setTarget({ ...shapeTarget('vase', 'L'), ...glazeTarget('celadon') }); snap(); rebuild();
+  R3.group.rotation.y = .6;
+} else { $('#heroSlot').innerHTML = pieceSVG('vase', 'celadon', 'L').replace('<svg ', '<svg style="height:100%;width:100%" '); $('#manSlot').innerHTML = pieceSVG('bowl', 'oat', 'L'); }
+updateProc(); updateFade();
+</script>
+</body>
+</html>

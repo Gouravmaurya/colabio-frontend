@@ -1,5 +1,9 @@
 # Colabio Frontend v1.5.0
 
+## Main update: intake, site types, verification and templates
+
+Merges the locally developed skill with the palette-grounding update: prompt-improvement intake (`brief-intake.md`), per-type playbooks (`site-types.md`), render verification (`verify.md`, `serve.mjs`, `check-contrast.mjs`), an award-bar reference, brief-aware `pick-direction.mjs`, starter `templates/` with `scaffold.mjs`, and intake evals. Palette comparison and rendered palette review from the previous update are retained.
+
 ## Main update: palette selection and rendered review
 
 Open color briefs now compare two materially different palettes with evidence

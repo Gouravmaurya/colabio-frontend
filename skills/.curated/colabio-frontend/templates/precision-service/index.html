@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reclone Studio — 3D printing for parts you can't buy anymore</title>
+<meta name="description" content="Send a broken part or a CAD file. Reclone Studio prints a working clone in PLA, PETG, ASA, nylon or TPU. Price it in the layer-height estimator first.">
+<meta name="theme-color" content="#F1EEE6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --paper:#F1EEE6; --paper-2:#E7E3D8; --ink:#15140F; --ink-2:#201F18;
+  --muted:#5A574D; --muted-dark:#A8A495; --border:#CFCAB9; --border-dark:#3A382E;
+  --accent:#FF4D1F; --accent-ink:#C8310A;
+  --f-display:'Bricolage Grotesque','Arial Narrow',system-ui,sans-serif;
+  --f-body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --gutter:clamp(16px,4vw,56px);
+  --max:1440px;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme=light]){ color-scheme:light } } /* page is a fixed light/ink composition */
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--paper);color:var(--ink);font:400 1.0625rem/1.55 var(--f-body);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance}
+h2{font-size:clamp(2rem,4.6vw,4.5rem);line-height:1;letter-spacing:-.035em}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--border);backdrop-filter:blur(6px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 1.125rem/1 var(--f-display);letter-spacing:-.02em}
+.brand svg{width:26px;height:26px}
+.nav ul{display:flex;gap:28px;list-style:none;padding:0}
+.nav ul a{text-decoration:none;font-size:.9375rem;position:relative;padding:6px 0}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .2s var(--ease)}
+.nav ul a:hover::after,.nav ul a:focus-visible::after{transform:scaleX(1)}
+@media (max-width:900px){.nav ul{display:none}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border:2px solid var(--ink);border-radius:2px;background:var(--accent);color:var(--ink);font:600 1rem/1 var(--f-body);text-decoration:none;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .12s var(--ease),box-shadow .12s var(--ease)}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.btn.ghost{background:transparent;box-shadow:none}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);transform:none}
+.btn.sm{min-height:40px;padding:0 16px;font-size:.9375rem;box-shadow:3px 3px 0 var(--ink)}
+.btn[disabled]{opacity:.55;cursor:progress}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-top:clamp(32px,6vw,72px);border-bottom:1px solid var(--ink)}
+.hero .grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end}
+.hero-copy{grid-column:1 / span 7;padding-bottom:clamp(40px,6vw,80px)}
+.hero h1{font-size:clamp(3rem,9.4vw,9.5rem);line-height:.92;letter-spacing:-.045em;font-weight:800}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.hero h1 .ln>span{display:block}
+.js .hero h1 .ln>span{transform:translateY(105%);animation:rise .9s var(--ease) forwards}
+.js .hero h1 .ln:nth-child(2)>span{animation-delay:.08s}
+.js .hero h1 .ln:nth-child(3)>span{animation-delay:.16s}
+@keyframes rise{to{transform:none}}
+.hero h1 em{font-style:normal;color:var(--accent-ink)}
+.hero .lede{max-width:46ch;margin-top:clamp(20px,3vw,36px);font-size:clamp(1.0625rem,1.5vw,1.3125rem);color:var(--ink)}
+.hero .lede span{color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.plate{grid-column:8 / span 5;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:0}
+.plate-frame{position:relative;background:var(--ink);color:var(--paper);aspect-ratio:4/5;min-height:320px;border:2px solid var(--ink);overflow:hidden}
+.plate-frame canvas{position:absolute;inset:0;width:100%;height:100%}
+.plate-hud{position:absolute;left:14px;right:14px;top:12px;display:flex;justify-content:space-between;gap:10px;color:var(--muted-dark)}
+.plate-hud b{color:var(--paper);font-weight:500}
+.plate-foot{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;color:var(--muted-dark)}
+.plate-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--border-dark)}
+.plate-bar i{display:block;height:100%;width:0;background:var(--accent)}
+.reg{position:absolute;width:14px;height:14px;border:1px solid var(--muted-dark);border-radius:50%}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--muted-dark)}
+.reg::before{left:50%;top:-5px;bottom:-5px;width:1px}.reg::after{top:50%;left:-5px;right:-5px;height:1px}
+.reg.a{left:12px;top:44px}.reg.b{right:12px;top:44px}
+.specbar{border-top:1px solid var(--ink);margin-top:0}
+.specbar .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.specbar div{padding:16px 0 18px;border-left:1px solid var(--border);padding-left:18px}
+.specbar div:first-child{border-left:0;padding-left:0}
+.specbar dt{color:var(--muted)}
+.specbar dd{font:600 1.0625rem/1.3 var(--f-display);margin-top:4px;letter-spacing:-.01em}
+@media (max-width:900px){
+  .hero-copy,.plate{grid-column:1 / -1}
+  .plate-frame{aspect-ratio:1/1}
+  .specbar .wrap{grid-template-columns:1fr 1fr}
+  .specbar div:nth-child(3){border-left:0;padding-left:0}
+  .specbar div:nth-child(n+3){border-top:1px solid var(--border)}
+}
+
+/* ---------- process ---------- */
+.process{padding:clamp(72px,10vw,128px) 0}
+.process .grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px)}
+.process h2{position:sticky;top:96px;align-self:start}
+.process h2 small{display:block;margin-top:20px;font:400 1.0625rem/1.55 var(--f-body);letter-spacing:0;color:var(--muted);max-width:36ch}
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{position:relative;display:grid;grid-template-columns:72px 1fr;gap:8px 20px;padding:28px 0 32px}
+.steps li::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--ink);transform-origin:left}
+.js .steps li::before{transform:scaleX(0);transition:transform 1s var(--ease)}
+.js .steps li.in::before{transform:none}
+.steps .n{font:500 .875rem/1 var(--f-mono);color:var(--accent-ink);padding-top:10px}
+.steps h3{font-size:clamp(1.5rem,2.6vw,2.25rem);letter-spacing:-.025em;line-height:1.05}
+.steps p{grid-column:2;color:var(--muted);max-width:52ch}
+.steps .meta{grid-column:2;margin-top:8px;color:var(--ink)}
+@media (max-width:900px){.process .grid{grid-template-columns:1fr}.process h2{position:static}.steps li{grid-template-columns:44px 1fr;gap:6px 12px}}
+
+/* ---------- parts index ---------- */
+.parts{background:var(--paper-2);border-block:1px solid var(--ink);padding:clamp(56px,8vw,96px) 0}
+.parts header{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.parts header p{max-width:38ch;color:var(--muted)}
+.index{list-style:none;padding:0;border-top:2px solid var(--ink)}
+.index li{border-bottom:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:88px 1.4fr 1fr 1fr 28px;align-items:center;gap:20px;width:100%;padding:18px 4px;background:none;border:0;text-align:left;cursor:pointer;transition:background .15s,padding .25s var(--ease)}
+.row:hover,.row[aria-expanded=true]{background:var(--paper);padding-inline:16px}
+.row svg{width:64px;height:64px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linejoin:round}
+.row .t{font:700 clamp(1.25rem,2.6vw,2.25rem)/1.05 var(--f-display);letter-spacing:-.03em}
+.row .m{color:var(--muted)}
+.row .pm{font:500 1.5rem/1 var(--f-mono);justify-self:end;transition:transform .25s var(--ease)}
+.row[aria-expanded=true] .pm{transform:rotate(45deg)}
+.row[aria-expanded=true] svg .hl{stroke:var(--accent-ink)}
+.detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s var(--ease)}
+.detail>div{overflow:hidden}
+.detail.open{grid-template-rows:1fr}
+.detail p{padding:4px 16px 24px 108px;max-width:92ch;color:var(--ink)}
+@media (max-width:760px){
+  .row{grid-template-columns:56px 1fr 24px;gap:12px}
+  .row svg{width:48px;height:48px}.row .m{display:none}
+  .detail p{padding:0 8px 20px 68px}
+}
+
+/* ---------- estimator ---------- */
+.est{background:var(--ink);color:var(--paper);padding:clamp(80px,11vw,144px) 0;position:relative}
+.est .mono{color:var(--muted-dark)}
+.est h2{max-width:14ch}
+.est .intro{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.est .intro p{color:var(--muted-dark);max-width:52ch;justify-self:end}
+.console{display:grid;grid-template-columns:5fr 7fr;border:1px solid var(--border-dark)}
+.controls{padding:clamp(20px,3vw,36px);border-right:1px solid var(--border-dark);display:grid;gap:28px;align-content:start}
+.ctl>label,.ctl>legend{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;color:var(--muted-dark);padding:0}
+.ctl output{color:var(--paper);font-weight:500}
+fieldset.ctl{border:0;padding:0;min-width:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--border-dark);border-radius:2px;cursor:pointer;font:500 .875rem/1 var(--f-mono);transition:background .12s,color .12s,border-color .12s}
+.seg label:hover{border-color:var(--muted-dark)}
+.seg input:checked+label{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.seg input:focus-visible+label{outline:3px solid var(--paper);outline-offset:2px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--muted-dark)}
+input[type=range]::-moz-range-track{height:2px;background:var(--muted-dark)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-10px;background:var(--accent);border:2px solid var(--paper);border-radius:0}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;background:var(--accent);border:2px solid var(--paper);border-radius:0}
+.viz{display:grid;grid-template-rows:auto auto}
+.viz-stage{position:relative;aspect-ratio:16/10;border-bottom:1px solid var(--border-dark);background:
+  linear-gradient(var(--border-dark) 1px,transparent 1px) 0 0/100% 10%,
+  linear-gradient(90deg,var(--border-dark) 1px,transparent 1px) 0 0/10% 100%;background-blend-mode:normal}
+.viz-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.viz-cap{position:absolute;left:14px;top:12px;right:14px;display:flex;justify-content:space-between;gap:12px;color:var(--muted-dark);pointer-events:none}
+.legend{position:absolute;left:14px;bottom:12px;display:flex;gap:18px;color:var(--muted-dark);flex-wrap:wrap}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid var(--accent);margin-right:8px;vertical-align:middle}
+.legend i.d{border-top:2px dashed var(--paper)}
+.readout{display:grid;grid-template-columns:repeat(4,1fr)}
+.readout div{padding:20px clamp(14px,2vw,24px) 22px;border-left:1px solid var(--border-dark)}
+.readout div:first-child{border-left:0}
+.readout dt{color:var(--muted-dark)}
+.readout dd{font:700 clamp(1.5rem,3vw,2.75rem)/1 var(--f-display);letter-spacing:-.03em;margin-top:8px}
+.readout dd small{font:500 .8125rem/1 var(--f-mono);letter-spacing:0;color:var(--muted-dark);margin-left:4px}
+.tradeoff{grid-column:1 / -1;border-top:1px solid var(--border-dark);padding:20px clamp(20px,3vw,36px);display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.tradeoff p{font:500 clamp(1.125rem,1.8vw,1.5rem)/1.3 var(--f-display);letter-spacing:-.015em;max-width:60ch}
+.tradeoff b{color:var(--accent)}
+.fine{color:var(--muted-dark);margin-top:16px;max-width:80ch;font-size:.875rem}
+@media (max-width:900px){
+  .est .intro{grid-template-columns:1fr}.est .intro p{justify-self:start}
+  .console{grid-template-columns:1fr}
+  .controls{border-right:0;border-bottom:1px solid var(--border-dark)}
+  .readout{grid-template-columns:1fr 1fr}
+  .readout div:nth-child(3){border-left:0}.readout div:nth-child(n+3){border-top:1px solid var(--border-dark)}
+  .viz-stage{aspect-ratio:4/3.4}
+  .viz-cap span:last-child{display:none}
+  .seg label{flex:1 1 auto;justify-content:center;padding:0 8px}
+  #segLh{flex-wrap:nowrap}
+}
+
+/* ---------- materials ---------- */
+.mats{padding:clamp(64px,9vw,112px) 0}
+.mats header{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.mats header p{max-width:42ch;color:var(--muted)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:500;color:var(--muted);padding:0 12px 12px 0;border-bottom:2px solid var(--ink)}
+td{padding:20px 12px 20px 0;border-bottom:1px solid var(--border);vertical-align:top}
+td.name{font:700 1.5rem/1 var(--f-display);letter-spacing:-.02em;white-space:nowrap}
+td.name small{display:block;font:400 .75rem/1.2 var(--f-mono);color:var(--muted);margin-top:6px;letter-spacing:.04em;text-transform:uppercase}
+.heat{display:flex;align-items:center;gap:10px;min-width:160px}
+.heat span{flex:1;min-width:110px;height:10px;background:var(--paper-2);border:1px solid var(--border);position:relative}
+.heat span i{position:absolute;left:0;top:0;bottom:0;background:var(--ink);width:0;transition:width 1s var(--ease)}
+.heat b{font:500 .875rem/1 var(--f-mono);min-width:3.5ch}
+.in .heat i,.heat.in i,.no-js .heat i{width:var(--w)}
+.js tbody tr:not(.in) .heat i{width:0}
+@media (max-width:860px){
+  thead{display:none}
+  table,tbody,tr,td{display:block}
+  tr{border-bottom:1px solid var(--border);padding:20px 0}
+  td{border:0;padding:4px 0}
+  td.name{margin-bottom:6px}
+  td[data-l]::before{content:attr(data-l);display:block;font:400 .6875rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 4px}
+}
+
+/* ---------- quote ---------- */
+.quote{background:var(--accent);color:var(--ink);border-block:1px solid var(--ink);padding:clamp(64px,9vw,128px) 0}
+.quote .grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px)}
+.quote h2{font-size:clamp(2.25rem,5.4vw,5.5rem);letter-spacing:-.045em}
+.quote .side p{margin-top:20px;max-width:36ch;font-size:1.125rem}
+.form{background:var(--paper);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:clamp(20px,3vw,36px);display:grid;gap:20px}
+.field>label:not(.drop),.field>legend{display:block;font:500 .75rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;padding:0}
+.field input[type=email],.field select,.field textarea{width:100%;min-height:48px;padding:10px 12px;background:#fff;border:2px solid var(--ink);border-radius:2px}
+.field textarea{min-height:96px;resize:vertical}
+.field .hint{font-size:.875rem;color:var(--muted);margin-top:6px}
+.field .err{display:none;font-size:.875rem;color:var(--accent-ink);margin-top:6px;font-weight:600}
+.field.bad .err{display:block}.field.bad input,.field.bad .drop{border-color:var(--accent-ink)}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:132px;padding:16px;border:2px dashed var(--ink);background:var(--paper-2);text-align:center;cursor:pointer;transition:background .15s}
+.drop:hover,.drop.over{background:#fff}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop:focus-within{outline:3px solid var(--accent);outline-offset:3px}
+.drop strong{font:700 1.25rem/1.1 var(--f-display)}
+.drop.has strong{color:var(--accent-ink)}
+.status{padding:14px 16px;border:2px solid var(--ink);background:var(--paper-2);font-weight:500}
+.status[hidden]{display:none}
+@media (max-width:900px){.quote .grid{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq{padding:clamp(64px,9vw,112px) 0}
+.faq .grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,96px)}
+details{border-top:1px solid var(--ink)}
+details:last-child{border-bottom:1px solid var(--ink)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:64px;padding:12px 0;font:600 1.25rem/1.2 var(--f-display);letter-spacing:-.015em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:500 1.5rem/1 var(--f-mono);transition:transform .25s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 22px;max-width:60ch;color:var(--muted)}
+@media (max-width:900px){.faq .grid{grid-template-columns:1fr}}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:48px 0 0;overflow:hidden}
+footer .cols{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;color:var(--muted-dark)}
+footer .cols a{display:inline-block;padding:6px 0;color:var(--paper);text-decoration:none}
+footer .cols a:hover{color:var(--accent)}
+footer .cols p{max-width:40ch}
+.mark{font:800 clamp(5rem,26vw,24rem)/.82 var(--f-display);letter-spacing:-.06em;margin:48px 0 0 -.04em;white-space:nowrap;
+  color:var(--accent);
+  -webkit-mask:repeating-linear-gradient(180deg,#000 0 .09em,transparent .09em .115em);
+          mask:repeating-linear-gradient(180deg,#000 0 .09em,transparent .09em .115em);
+  user-select:none}
+footer small{display:block;color:var(--muted-dark);padding:14px 0 18px;border-top:1px solid var(--border-dark);margin-top:0}
+
+/* ---------- reveal helpers ---------- */
+.js [data-rv]{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js [data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .js .hero h1 .ln>span{transform:none}
+  .js [data-rv]{opacity:1;transform:none}
+  .js .steps li::before{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Reclone Studio, home">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><g fill="#15140F"><rect x="9" y="2" width="8" height="4"/><rect x="6" y="8" width="14" height="4"/><rect x="3" y="14" width="20" height="4"/></g><rect x="0" y="20" width="26" height="4" fill="#FF4D1F"/></svg>
+      Reclone Studio
+    </a>
+    <nav aria-label="Primary"><ul>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#parts">Parts</a></li>
+      <li><a href="#estimator">Estimator</a></li>
+      <li><a href="#materials">Materials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul></nav>
+    <a class="btn sm" href="#quote">Send a file</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap grid">
+    <div class="hero-copy">
+      <h1 aria-label="Send a broken part. Get its clone back.">
+        <span class="ln" aria-hidden="true"><span>Send a</span></span>
+        <span class="ln" aria-hidden="true"><span>broken part.</span></span>
+        <span class="ln" aria-hidden="true"><span>Get its <em>clone.</em></span></span>
+      </h1>
+      <p class="lede">Reclone Studio prints replacements for the knobs, clips, gears and brackets that stopped being sold. <span>Upload a STL, 3MF or STEP file — or tell us what snapped.</span></p>
+      <div class="cta-row">
+        <a class="btn" href="#estimator">Price my part <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#quote">Send a file</a>
+      </div>
+    </div>
+    <div class="plate">
+      <div class="plate-frame" id="plate">
+        <canvas id="heroCanvas" role="img" aria-label="A vase being printed layer by layer on a build plate. Live layer counter shown above."></canvas>
+        <i class="reg a"></i><i class="reg b"></i>
+        <div class="plate-hud mono"><span>Layer <b id="hLayer">0</b> / <b id="hTotal">0</b></span><span><b id="hLh">0.20</b> mm · PLA</span></div>
+        <div class="plate-foot mono"><span>Z <b id="hZ">0.0</b> mm</span><span>Sample part, 90 mm tall</span></div>
+        <div class="plate-bar"><i id="hBar"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="specbar">
+    <dl class="wrap">
+      <div><dt class="mono">Files in</dt><dd>STL · 3MF · STEP · OBJ</dd></div>
+      <div><dt class="mono">Materials</dt><dd>PLA · PETG · ASA · PA12 · TPU</dd></div>
+      <div><dt class="mono">Layer heights</dt><dd>0.08 – 0.28 mm</dd></div>
+      <div><dt class="mono">Quote</dt><dd>Priced before you pay</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap grid">
+    <h2 data-rv>Four steps from snapped to sorted.<small>No file? Post us the broken piece or a photo with a ruler next to it. We model it, you approve the model before anything prints.</small></h2>
+    <ol class="steps">
+      <li data-step>
+        <span class="n">01</span><h3>Send what you have</h3>
+        <p>A CAD file, a photo with a ruler in frame, or the part itself. Say what it does and what it touches — heat, oil, sunlight, load.</p>
+        <span class="meta mono">Takes you ~3 min</span>
+      </li>
+      <li data-step>
+        <span class="n">02</span><h3>We slice and price it</h3>
+        <p>We orient the part, pick the layer height and material that suit the job, and send back a fixed price with the estimated print hours.</p>
+        <span class="meta mono">You approve the model + price</span>
+      </li>
+      <li data-step>
+        <span class="n">03</span><h3>It prints, layer by layer</h3>
+        <p>Parts print on a calibrated machine and get a visual check against the file. Fit-critical holes are test-fitted before packing.</p>
+        <span class="meta mono">Hours to a couple of days</span>
+      </li>
+      <li data-step>
+        <span class="n">04</span><h3>It ships, you fit it</h3>
+        <p>Supports removed, edges cleaned, packed flat. If the fit is off, send the measurement back and we reprint the revision.</p>
+        <span class="meta mono">One revision included</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="parts" id="parts">
+  <div class="wrap">
+    <header>
+      <h2 data-rv>Parts people<br>stop finding.</h2>
+      <p>Five kinds of job we take most often. Open a row for what to expect.</p>
+    </header>
+    <ul class="index" id="partsList">
+      <li>
+        <button class="row" aria-expanded="false" aria-controls="d1" id="b1">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22"/><path class="hl" d="M32 10v12"/><circle cx="32" cy="32" r="6"/></svg>
+          <span class="t">Appliance knobs</span><span class="m mono">PETG · ASA</span><span class="m mono">40 – 70 mm</span><span class="pm" aria-hidden="true">+</span>
+        </button>
+        <div class="detail" id="d1" role="region" aria-labelledby="b1"><div><p>Oven, cooker and washer dials with a D-shaft or splined bore. Send the old knob or the shaft diameter and flat position. We print in ASA or PETG when the knob sits near heat, then test-fit the bore.</p></div></div>
+      </li>
+      <li>
+        <button class="row" aria-expanded="false" aria-controls="d2" id="b2">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><g id="gear"></g></svg>
+          <span class="t">Gears and drive cogs</span><span class="m mono">PA12 · PETG</span><span class="m mono">10 – 80 mm</span><span class="pm" aria-hidden="true">+</span>
+        </button>
+        <div class="detail" id="d2" role="region" aria-labelledby="b2"><div><p>Mixer, blind-motor and toy gears. Nylon is the first choice for teeth that mesh; we print at a fine layer height so tooth flanks stay smooth. Tell us the module or tooth count if you know it.</p></div></div>
+      </li>
+      <li>
+        <button class="row" aria-expanded="false" aria-controls="d3" id="b3">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 40V14h12v20h20V14h12v26a10 10 0 0 1-10 10H20A10 10 0 0 1 10 40z"/><path class="hl" d="M22 22h20"/></svg>
+          <span class="t">Clips, latches, hinges</span><span class="m mono">PETG · TPU</span><span class="m mono">15 – 60 mm</span><span class="pm" aria-hidden="true">+</span>
+        </button>
+        <div class="detail" id="d3" role="region" aria-labelledby="b3"><div><p>Parts that flex or snap. Layers run along the part, not across it, so the print orientation matters more than the layer height. We choose it and tell you why.</p></div></div>
+      </li>
+      <li>
+        <button class="row" aria-expanded="false" aria-controls="d4" id="b4">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 8h14v34h34v14H8z"/><circle class="hl" cx="15" cy="15" r="3"/><circle class="hl" cx="48" cy="49" r="3"/></svg>
+          <span class="t">Brackets and mounts</span><span class="m mono">PETG · PA12</span><span class="m mono">30 – 200 mm</span><span class="pm" aria-hidden="true">+</span>
+        </button>
+        <div class="detail" id="d4" role="region" aria-labelledby="b4"><div><p>Shelf, sensor, camera and bike-light brackets. Load decides infill and wall count, so we ask what hangs from it. Screw holes are printed slightly undersized and drilled when fit matters.</p></div></div>
+      </li>
+      <li>
+        <button class="row" aria-expanded="false" aria-controls="d5" id="b5">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><circle class="hl" cx="32" cy="32" r="5"/></svg>
+          <span class="t">Bushings and spacers</span><span class="m mono">PA12 · TPU</span><span class="m mono">5 – 40 mm</span><span class="pm" aria-hidden="true">+</span>
+        </button>
+        <div class="detail" id="d5" role="region" aria-labelledby="b5"><div><p>Small rings that take up play or damp vibration. Quick, cheap and easy to batch — ask for a set of ten with different bore sizes to find the one that fits.</p></div></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="est" id="estimator">
+  <div class="wrap">
+    <div class="intro">
+      <h2 data-rv>Finer layers cost hours. See what you get for them.</h2>
+      <p>Every print is a stack of thin slices. A taller slice is faster but leaves visible stair-steps on curved walls. Move the controls: the cross-section shows the true curve against what the printer builds.</p>
+    </div>
+    <div class="console">
+      <form class="controls" id="estForm" onsubmit="return false" aria-label="Print estimator controls">
+        <fieldset class="ctl">
+          <legend class="mono">Layer height</legend>
+          <div class="seg" id="segLh"></div>
+        </fieldset>
+        <fieldset class="ctl">
+          <legend class="mono">Material</legend>
+          <div class="seg" id="segMat"></div>
+        </fieldset>
+        <div class="ctl">
+          <label class="mono" for="inf">Infill <output id="infO">20%</output></label>
+          <input type="range" id="inf" min="10" max="100" step="5" value="20">
+        </div>
+        <div class="ctl">
+          <label class="mono" for="vol">Part volume <output id="volO">48 cm³</output></label>
+          <input type="range" id="vol" min="5" max="200" step="1" value="48">
+        </div>
+      </form>
+      <div class="viz">
+        <div class="viz-stage" id="stage">
+          <canvas id="wallCanvas" role="img" aria-label="Cross-section of a curved wall, 3 millimetres tall, comparing the true curve with printed stair-steps."></canvas>
+          <div class="viz-cap mono"><span>Wall cross-section · 3 mm tall</span><span>Magnified, width stretched</span></div>
+          <div class="legend mono"><span><i class="d"></i>True curve</span><span><i></i>As printed</span></div>
+        </div>
+        <dl class="readout" aria-live="polite">
+          <div><dt class="mono">Layers</dt><dd id="oLayers">0</dd></div>
+          <div><dt class="mono">Print time</dt><dd id="oTime">0<small>h</small></dd></div>
+          <div><dt class="mono">Price</dt><dd id="oCost">$0</dd></div>
+          <div><dt class="mono">Stair error</dt><dd id="oErr">0<small>µm</small></dd></div>
+        </dl>
+      </div>
+      <div class="tradeoff"><span class="mono" style="color:var(--muted-dark)">The trade</span><p id="oTrade"></p></div>
+    </div>
+    <p class="fine">Sample model for this test page: 90 mm tall part, 0.45 mm line width, 45 mm/s base speed, $3/h machine time, $6 setup, material price per kg as listed. Real quotes come from the sliced file, not from this slider.</p>
+  </div>
+</section>
+
+<section class="mats" id="materials">
+  <div class="wrap">
+    <header>
+      <h2 data-rv>Pick by where it lives.</h2>
+      <p>Typical values for common filaments. Exact figures vary by brand and colour; we confirm against the datasheet before printing.</p>
+    </header>
+    <table>
+      <thead><tr class="mono"><th>Material</th><th>Typical use temp</th><th>Good for</th><th>Not for</th></tr></thead>
+      <tbody>
+        <tr><td class="name">PLA<small>Easy, stiff</small></td><td data-l="Typical use temp"><div class="heat"><span><i style="--w:44%"></i></span><b>~50°</b></div></td><td data-l="Good for">Prototypes, display pieces, fit checks, indoor parts under no heat.</td><td data-l="Not for">Cars in summer, kettles, anything left in the sun.</td></tr>
+        <tr><td class="name">PETG<small>Tough, forgiving</small></td><td data-l="Typical use temp"><div class="heat"><span><i style="--w:62%"></i></span><b>~70°</b></div></td><td data-l="Good for">Brackets, clips, enclosures, parts that need some give.</td><td data-l="Not for">Precision sliding fits, long-term outdoor UV.</td></tr>
+        <tr><td class="name">ASA<small>Weatherproof</small></td><td data-l="Typical use temp"><div class="heat"><span><i style="--w:80%"></i></span><b>~90°</b></div></td><td data-l="Good for">Outdoor and near-heat parts, appliance knobs, car interior trim.</td><td data-l="Not for">Parts that need flexibility; strong fumes while printing, so we vent.</td></tr>
+        <tr><td class="name">Nylon PA12<small>Wear-resistant</small></td><td data-l="Typical use temp"><div class="heat"><span><i style="--w:90%"></i></span><b>~100°</b></div></td><td data-l="Good for">Gears, bushings, hinges, anything that rubs.</td><td data-l="Not for">Wet environments over time — it absorbs moisture.</td></tr>
+        <tr><td class="name">TPU<small>Rubber-like</small></td><td data-l="Typical use temp"><div class="heat"><span><i style="--w:56%"></i></span><b>~60°</b></div></td><td data-l="Good for">Seals, grips, feet, vibration dampers, flexible clips.</td><td data-l="Not for">Rigid load-bearing parts and fine threads.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="quote" id="quote">
+  <div class="wrap grid">
+    <div class="side">
+      <h2>Got the part? Send the file.</h2>
+      <p>We reply with a fixed price and print hours. You see the sliced model before anything is printed.</p>
+    </div>
+    <form class="form" id="quoteForm" novalidate>
+      <div class="field" id="fFile">
+        <label for="file">Model or photo</label>
+        <label class="drop" id="drop" for="file">
+          <input type="file" id="file" accept=".stl,.3mf,.step,.stp,.obj,image/*">
+          <strong id="dropT">Drop a file or choose one</strong>
+          <span class="mono" id="dropS">STL · 3MF · STEP · OBJ · or a photo</span>
+        </label>
+        <p class="err" role="alert">Choose a model or photo so we can price it.</p>
+      </div>
+      <div class="field" id="fMail">
+        <label for="mail">Your email</label>
+        <input type="email" id="mail" autocomplete="email" inputmode="email" placeholder="name@example.com">
+        <p class="err" role="alert">That email doesn’t look right — check for the @ and the domain.</p>
+      </div>
+      <div class="field">
+        <label for="mat">Material</label>
+        <select id="mat"><option>Not sure — recommend one</option><option>PLA</option><option>PETG</option><option>ASA</option><option>Nylon PA12</option><option>TPU</option></select>
+      </div>
+      <div class="field">
+        <label for="note">What does it do?</label>
+        <textarea id="note" placeholder="Holds the oven door spring. Gets warm, never above ~80°C."></textarea>
+        <p class="hint">Heat, load, outdoors, food contact — anything that decides the material.</p>
+      </div>
+      <button class="btn" type="submit" id="send">Request my fixed price <span aria-hidden="true">→</span></button>
+      <p class="status" id="status" role="status" hidden></p>
+    </form>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap grid">
+    <h2 data-rv>Before you send.</h2>
+    <div>
+      <details><summary>I don’t have a CAD file. Can you still help?</summary><p>Yes. Send the part, or photos with a ruler beside it and the key dimensions. We model it and send you the model to approve before printing. Modelling is quoted separately.</p></details>
+      <details><summary>How accurate are the parts?</summary><p>Plan on about ±0.2 mm for ordinary desktop printing, tighter on small features when we tune for it. Tell us which dimensions are fit-critical and we’ll print those with allowance and test-fit them.</p></details>
+      <details><summary>Which file types do you accept?</summary><p>STL, 3MF, STEP and OBJ. STEP is best for parts that need tight fits because it keeps true curves and holes.</p></details>
+      <details><summary>What if it doesn’t fit?</summary><p>Send the measurement that’s off. One revision reprint is included in the original price; further revisions are priced like a new job.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <p>Reclone Studio prints replacement parts. This is a test landing page: prices, rates and timings are sample values, and the quote form sends nothing.</p>
+      <nav aria-label="Footer"><a href="#process">Process</a><br><a href="#estimator">Estimator</a><br><a href="#materials">Materials</a><br><a href="#quote">Send a file</a></nav>
+    </div>
+    <div class="mark" aria-hidden="true">Reclone</div>
+    <small class="mono">© 2026 Reclone Studio · Test page</small>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const ACC = '#FF4D1F', PAPER = '#F1EEE6';
+const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+
+/* ---------- gear glyph ---------- */
+(() => {
+  const g = $('#gear'); const n = 10; let d = '';
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2, w = Math.PI / n;
+    const pts = [[a - w*.55, 17], [a - w*.3, 25], [a + w*.3, 25], [a + w*.55, 17]];
+    pts.forEach((p, j) => { d += (i === 0 && j === 0 ? 'M' : 'L') + (32 + Math.cos(p[0]) * p[1]).toFixed(1) + ' ' + (32 + Math.sin(p[0]) * p[1]).toFixed(1); });
+  }
+  g.innerHTML = `<path d="${d}Z"/><circle class="hl" cx="32" cy="32" r="6"/>`;
+})();
+
+/* ---------- reveal on enter ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });
+$$('[data-rv],[data-step],tbody tr').forEach(el => io.observe(el));
+
+/* ---------- parts accordion ---------- */
+$$('.row').forEach(b => b.addEventListener('click', () => {
+  const open = b.getAttribute('aria-expanded') === 'true';
+  b.setAttribute('aria-expanded', String(!open));
+  $('#' + b.getAttribute('aria-controls')).classList.toggle('open', !open);
+}));
+
+/* ---------- canvas helper ---------- */
+function fit(c) {
+  const dpr = Math.min(devicePixelRatio || 1, 2), r = c.getBoundingClientRect();
+  c.width = Math.max(1, Math.round(r.width * dpr)); c.height = Math.max(1, Math.round(r.height * dpr));
+  const x = c.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { x, w: r.width, h: r.height };
+}
+
+/* ---------- hero: vase printing live ---------- */
+const hero = $('#heroCanvas'); let hv = fit(hero);
+const TOTAL = 450, LH = 0.2, HEIGHT_MM = 90;
+const radius = u => 0.5 + 0.3 * Math.sin(u * Math.PI * 1.15 + 0.2) + 0.035 * Math.sin(u * 46);
+function drawVase(p) {
+  const { x, w, h } = hv; x.clearRect(0, 0, w, h);
+  const cx = w / 2, baseY = h * 0.84, H = h * 0.6, R = Math.min(w * 0.42, h * 0.34);
+  // build plate
+  x.strokeStyle = '#3A382E'; x.lineWidth = 1;
+  x.beginPath(); x.ellipse(cx, baseY + 6, R * 1.25, R * 0.36, 0, 0, Math.PI * 2); x.stroke();
+  x.beginPath(); x.ellipse(cx, baseY + 6, R * 0.9, R * 0.26, 0, 0, Math.PI * 2); x.stroke();
+  const n = Math.max(1, Math.floor(p * TOTAL)), step = Math.max(1, Math.round(TOTAL / 150));
+  let lastY = baseY, lastR = 0;
+  for (let i = 0; i <= n; i += step) {
+    const u = i / TOTAL, y = baseY - u * H, r = radius(u) * R, ry = r * 0.28;
+    x.beginPath(); x.ellipse(cx, y, r, ry, 0, 0, Math.PI * 2);
+    x.fillStyle = '#B5340F'; x.fill();
+    x.beginPath(); x.ellipse(cx, y, r, ry, 0, 0.05 * Math.PI, 0.95 * Math.PI);
+    x.strokeStyle = i % (step * 2) ? '#FF6A3D' : ACC; x.lineWidth = 1.4; x.stroke();
+    lastY = y; lastR = r;
+  }
+  // cylinder shading
+  x.save(); x.globalCompositeOperation = 'source-atop';
+  const g = x.createLinearGradient(cx - R, 0, cx + R, 0);
+  g.addColorStop(0, 'rgba(0,0,0,.55)'); g.addColorStop(.3, 'rgba(255,255,255,.12)'); g.addColorStop(.55, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.6)');
+  x.fillStyle = g; x.fillRect(0, 0, w, h); x.restore();
+  // nozzle
+  if (p < 1) {
+    const nx = cx + Math.cos(p * 38) * lastR * .9, ny = lastY + Math.sin(p * 38) * lastR * .26;
+    x.fillStyle = PAPER; x.beginPath(); x.moveTo(nx - 11, ny - 38); x.lineTo(nx + 11, ny - 38); x.lineTo(nx + 3, ny - 3); x.lineTo(nx - 3, ny - 3); x.closePath(); x.fill();
+    x.fillStyle = '#A8A495'; x.fillRect(nx - 14, ny - 52, 28, 14);
+    x.fillStyle = ACC; x.fillRect(nx - 1.5, ny - 3, 3, 3);
+  }
+}
+const hL = $('#hLayer'), hT = $('#hTotal'), hZ = $('#hZ'), hB = $('#hBar');
+hT.textContent = TOTAL; $('#hLh').textContent = LH.toFixed(2);
+function heroState(p) { const n = Math.max(0, Math.floor(p * TOTAL)); hL.textContent = n; hZ.textContent = (p * HEIGHT_MM).toFixed(1); hB.style.width = (p * 100) + '%'; drawVase(p); }
+let heroVisible = true, t0 = performance.now();
+const PRINT = 6000, HOLD = 2600;
+function tick(now) {
+  if (heroVisible && !document.hidden) {
+    const t = (now - t0) % (PRINT + HOLD);
+    heroState(t < PRINT ? ease(t / PRINT) : 1);
+  }
+  requestAnimationFrame(tick);
+}
+new IntersectionObserver(e => { heroVisible = e[0].isIntersecting; if (heroVisible) t0 = performance.now(); }).observe(hero);
+if (reduce) heroState(1); else requestAnimationFrame(tick);
+
+/* ---------- estimator ---------- */
+const LHS = [0.08, 0.12, 0.16, 0.20, 0.28];
+const MATS = [
+  { id: 'PLA',  rho: 1.24, kg: 22, spd: 1.0 },
+  { id: 'PETG', rho: 1.27, kg: 26, spd: 0.9 },
+  { id: 'ASA',  rho: 1.07, kg: 32, spd: 0.85 },
+  { id: 'PA12', rho: 1.01, kg: 70, spd: 0.7 },
+  { id: 'TPU',  rho: 1.21, kg: 45, spd: 0.5 }
+];
+const st = { lh: 0.20, mat: 'PLA', inf: 20, vol: 48 };
+const mk = (host, name, items, label, checked) => items.forEach(it => {
+  const v = label(it), id = name + '-' + v;
+  host.insertAdjacentHTML('beforeend', `<input type="radio" name="${name}" id="${id}" value="${v}" ${checked(it) ? 'checked' : ''}><label for="${id}">${v}</label>`);
+});
+mk($('#segLh'), 'lh', LHS, v => v.toFixed(2), v => v === st.lh);
+mk($('#segMat'), 'mat', MATS, m => m.id, m => m.id === st.mat);
+
+function model(lh, matId, inf, vol) {
+  const m = MATS.find(x => x.id === matId);
+  const eff = vol * (0.35 + 0.65 * inf / 100);              // cm³ actually extruded (shell + infill)
+  const flow = lh * 0.45 * 45 * m.spd * 3.6;                 // cm³/h
+  const layers = Math.round(HEIGHT_MM / lh);
+  const hours = eff / flow * 1.1 + layers * 4 / 3600;
+  const cost = eff * m.rho / 1000 * m.kg * 1.08 + hours * 3 + 6;
+  return { layers, hours, cost };
+}
+const wall = z => 0.62 * z - 0.09 * z * z;                    // mm, outer edge x at height z (max slope 0.62 at z=0)
+const slope = z => 0.62 - 0.18 * z;
+const fmt = (n, d = 1) => n.toFixed(d);
+
+const wc = $('#wallCanvas'); let wv = fit(wc);
+function drawWall() {
+  const { x, w, h } = wv; x.clearRect(0, 0, w, h);
+  const padL = 56, padB = 52, padT = w < 520 ? 56 : 44;
+  const Zmm = 3, k = (h - padB - padT) / Zmm;                  // px per mm (≈ zoom)
+  const X0 = padL + 40, Y0 = h - padB;
+  const px = mm => X0 + mm * k * 1.6, py = z => Y0 - z * k;    // x stretched 1.6× so slope reads
+  // printed solid
+  x.fillStyle = 'rgba(255,77,31,.22)'; x.strokeStyle = ACC; x.lineWidth = 2;
+  x.beginPath(); x.moveTo(X0 - 30, Y0);
+  const n = Math.floor(Zmm / st.lh + 1e-6);
+  let prev = 0;
+  for (let i = 0; i < n; i++) {
+    const z0 = i * st.lh, z1 = z0 + st.lh, xm = wall(z0 + st.lh / 2);
+    x.lineTo(px(xm), py(z0)); x.lineTo(px(xm), py(z1));
+  }
+  x.lineTo(X0 - 30, py(n * st.lh)); x.closePath(); x.fill(); x.stroke();
+  // true curve
+  x.setLineDash([7, 6]); x.strokeStyle = PAPER; x.lineWidth = 2; x.beginPath();
+  for (let i = 0; i <= 60; i++) { const z = i / 60 * Zmm; x[i ? 'lineTo' : 'moveTo'](px(wall(z)), py(z)); }
+  x.stroke(); x.setLineDash([]);
+  // layer height bracket on 2nd layer
+  const bx = px(wall(1.5 * st.lh)) + 26, by0 = py(st.lh), by1 = py(2 * st.lh);
+  x.strokeStyle = '#A8A495'; x.lineWidth = 1; x.beginPath();
+  x.moveTo(bx - 5, by0); x.lineTo(bx + 5, by0); x.moveTo(bx - 5, by1); x.lineTo(bx + 5, by1); x.moveTo(bx, by0); x.lineTo(bx, by1); x.stroke();
+  x.fillStyle = PAPER; x.font = '500 12px "JetBrains Mono",monospace'; x.textBaseline = 'middle';
+  x.fillText(st.lh.toFixed(2) + ' mm', bx + 10, (by0 + by1) / 2);
+  // z axis ticks
+  x.fillStyle = '#A8A495'; x.textAlign = 'right';
+  for (let z = 0; z <= Zmm; z++) { x.fillText(z + ' mm', padL - 6, py(z)); x.fillRect(padL - 2, py(z), 6, 1); }
+  x.textAlign = 'left';
+}
+function update() {
+  const r = model(st.lh, st.mat, st.inf, st.vol), base = model(0.28, st.mat, st.inf, st.vol);
+  $('#oLayers').textContent = r.layers.toLocaleString('en-US');
+  $('#oTime').innerHTML = fmt(r.hours) + '<small>h</small>';
+  $('#oCost').textContent = '$' + Math.round(r.cost);
+  const err = slope(0) * st.lh / 2 * 1000;
+  $('#oErr').innerHTML = Math.round(err) + '<small>µm</small>';
+  $('#infO').textContent = st.inf + '%'; $('#volO').textContent = st.vol + ' cm³';
+  const dH = r.hours - base.hours, dC = r.cost - base.cost;
+  const errBase = Math.round(slope(0) * 0.14 * 1000);
+  $('#oTrade').innerHTML = st.lh === 0.28
+    ? `This is the fastest setting: <b>${fmt(r.hours)} h</b> and <b>$${Math.round(r.cost)}</b>, with steps up to <b>${Math.round(err)} µm</b> on steep curves. Fine for hidden or functional parts.`
+    : `Versus 0.28 mm: <b>+${fmt(dH)} h</b> and <b>+$${Math.round(dC)}</b> buys steps <b>${Math.round((1 - st.lh / 0.28) * 100)}% smaller</b> (${Math.round(err)} µm instead of ${errBase} µm).`;
+  drawWall();
+}
+$('#segLh').addEventListener('change', e => { st.lh = +e.target.value; update(); });
+$('#segMat').addEventListener('change', e => { st.mat = e.target.value; update(); });
+$('#inf').addEventListener('input', e => { st.inf = +e.target.value; update(); });
+$('#vol').addEventListener('input', e => { st.vol = +e.target.value; update(); });
+update();
+
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { hv = fit(hero); wv = fit(wc); if (reduce || !heroVisible) heroState(1); drawWall(); }, 120); });
+
+/* ---------- quote form (no backend: says so) ---------- */
+const file = $('#file'), drop = $('#drop');
+const show = f => { drop.classList.toggle('has', !!f); $('#dropT').textContent = f ? f.name : 'Drop a file or choose one'; $('#dropS').textContent = f ? (f.size / 1024 / 1024 >= 1 ? (f.size / 1024 / 1024).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1024)) + ' KB') + ' · ready' : 'STL · 3MF · STEP · OBJ · or a photo'; if (f) $('#fFile').classList.remove('bad'); };
+file.addEventListener('change', () => show(file.files[0]));
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { file.files = e.dataTransfer.files; show(file.files[0]); } });
+$('#quoteForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const okF = !!file.files[0], okM = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('#mail').value.trim());
+  $('#fFile').classList.toggle('bad', !okF); $('#fMail').classList.toggle('bad', !okM);
+  const s = $('#status');
+  if (!okF || !okM) { (okF ? $('#mail') : file).focus(); s.hidden = true; return; }
+  s.hidden = false; s.textContent = 'Test page: nothing was uploaded or sent. In production this would post ' + file.files[0].name + ' to your quote endpoint and reply to ' + $('#mail').value.trim() + ' with a fixed price.';
+});
+$('#mail').addEventListener('input', () => $('#fMail').classList.remove('bad'));
+})();
+</script>
+</body>
+</html>
