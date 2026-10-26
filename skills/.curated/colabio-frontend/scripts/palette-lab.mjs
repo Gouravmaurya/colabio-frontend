@@ -48,6 +48,10 @@ if (arg('check')) {
   const html = fs.readFileSync(path.resolve(arg('check')), 'utf8'), vars = {};
   for (const m of html.matchAll(/--([a-z0-9-]+)\s*:\s*(#[0-9a-f]{6})\b/gi)) vars[m[1]] = m[2].toUpperCase();
   const pairs = []; for (const k of Object.keys(vars)) { const m = k.match(/^(.*?)bg$/); if (!m) continue; const p = m[1], acc = vars[p + 'acc'] || vars[p + 'accent']; if (acc) pairs.push({ prefix: p || '(root)', bg: vars[k], accent: acc }); }
+  if (!pairs.length) { // fallback for other token names: ground = --bg/--paper/--ground/--page, accent = the most saturated colour token
+    const gk = Object.keys(vars).find((k) => /(^|-)(bg|paper|ground|page)$/.test(k));
+    if (gk) { const acc = Object.entries(vars).filter(([k]) => k !== gk).map(([k, v]) => [k, v, toHsl(v)[1]]).sort((a, b) => b[2] - a[2])[0]; if (acc) pairs.push({ prefix: `(inferred --${gk} / --${acc[0]})`, bg: vars[gk], accent: acc[1] }); }
+  }
   let any = false;
   for (const p of pairs) { const f = flags({ ...p, surface: p.bg, text: p.bg, accent2: p.accent }); f.forEach((x) => { any = true; console.log(`WARN palette ${p.prefix}: ${x}`); }); }
   if (!pairs.length) console.log('no bg/accent token pairs found (name them --bg and --acc/--accent, with a shared prefix)');
@@ -104,6 +108,11 @@ const cool = withHsl.filter((x) => x.hsl[2] > .5 && !(x.hsl[0] >= 25 && x.hsl[0]
 if (cool) { const bgC = mix(cool.h, '#FFFFFF', .55), aC = accentFor(bgC, [aL.n]);
   cands.push(build('non-cream-light', 'Light ground taken from a real non-beige material, so the page is not the reflexive cream default', 'light',
     { bg: bgC, paper: cool.h, ink: darkest.h, accent: aC.h, accent2: second(aC.h).h, why: `Ground tinted from ${cool.n} instead of cream; accent from ${aC.n}. Keeps the light, dense-data reading surface without the beige default.`, bonus: 8 })); }
+// --ground "kraft": build a candidate on a specific real material (by name), e.g. a ground that is neither cream nor white
+const gName = (arg('ground') || '').toLowerCase(), g = gName && withHsl.find((x) => x.n.toLowerCase().includes(gName));
+if (g) { const bgG = mix(g.h, '#FFFFFF', g.hsl[2] > .7 ? .3 : .22), aG = accentFor(bgG, [aL.n]);
+  cands.push(build('chosen-ground', `Ground taken from the named material "${g.n}", ink from the darkest, accent from a real dye`, g.hsl[2] > .5 ? 'light' : 'dark',
+    { bg: bgG, paper: g.h, ink: darkest.h, accent: aG.h, accent2: second(aG.h).h, why: `Ground is ${g.n} (explicit choice); accent ${aG.n}.`, bonus: 8 })); }
 cands.sort((a, b) => b.score - a.score);
 
 console.log(JSON.stringify({
