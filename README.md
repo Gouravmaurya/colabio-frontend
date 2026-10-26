@@ -9,6 +9,13 @@ template-tell scanner, motion recipes, asset/copy gates and component-library
 mining. Existing brands are preserved; small fixes stay local. The larger
 43-route bundle remains available separately.
 
+Version **1.6.0** adds six cinematic composition recipes and strict rendered
+baseline/slice/final gates. A redesign with a recorded visual regression is a
+candidate, not a verified upgrade. The bundled checker catches missing/mismatched
+evidence and unresolved findings; it cannot judge aesthetics or guarantee awards.
+The [live portfolio study](skills/.curated/colabio-frontend/references/studies/editorial-portfolio.md)
+shows how to learn framing, typography and continuity without copying a palette.
+
 Open color briefs compare two grounded palettes before choosing. The rendered
 review challenges unsupported color choices, including tinted neutrals and large
 CTA surfaces; the kit is a starting point and established brand colors still win.
@@ -30,6 +37,14 @@ Install for your user account, available across projects:
 ```sh
 npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a claude-code -a codex --copy -g -y
 ```
+
+When updating, back up customized copies outside scanned skill directories first.
+Check the actual `.agents/skills/colabio-frontend` (Codex) and
+`.claude/skills/colabio-frontend` (Claude Code) files, not just the clone. The new
+entrypoint includes `metadata.version: "1.6.0"`, and both installed folders must
+contain `references/cinematic-recipes.md`, `references/visual-comparison-gates.md`
+and `scripts/verify-visual-gates.mjs`. Check project-local and alternate `.codex`
+copies that might shadow the global version. Refresh discovery after replacement.
 
 For this project only, run from its root and omit `-g`:
 
@@ -80,7 +95,7 @@ its own installation metadata outside this folder. Installing Colabio does not
 install website packages, hooks, a browser, or other skills.
 
 Prefer a manual install? Copy the [standalone folder](skills/.curated/colabio-frontend)
-(`SKILL.md`, `references/`, `scripts/`) into the appropriate skills folder above. Refresh skill discovery or restart the assistant if needed.
+(`SKILL.md`, `references/`, `scripts/`, `templates/`, `evals/`) into the appropriate skills folder above. Refresh skill discovery or restart the assistant if needed.
 
 ## Use
 

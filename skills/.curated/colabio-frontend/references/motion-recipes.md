@@ -6,6 +6,10 @@ state transitions, CSS owns simple hover/focus. One owner per element and
 property. Check current docs for the installed versions before relying on an
 API; the snippets track the documented patterns.
 
+For cinematic briefs start with [cinematic-recipes.md](cinematic-recipes.md):
+write the framing, continuous subject and motion score before choosing a tween.
+These integration snippets are infrastructure, not proof of a cinematic result.
+
 Install only what the build needs, locally:
 `npm i gsap @gsap/react lenis` and, for React component transitions,
 `npm i motion` (import from `motion/react`) or reuse an installed `framer-motion`.
@@ -19,18 +23,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let lenis;
+let lenis, tick;
 if (!reduce) {
-  lenis = new Lenis({ autoRaf: false });
+  lenis = new Lenis({ autoRaf: false, anchors: true });
   lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
+  tick = (seconds) => lenis.raf(seconds * 1000);
+  gsap.ticker.add(tick);
 }
-// cleanup on unmount: gsap.ticker.remove(fn); lenis?.destroy(); ScrollTrigger.killAll();
+// Call on unmount. Kill only this scene's timelines via its gsap.context().revert().
+function cleanupScroll() {
+  if (tick) gsap.ticker.remove(tick);
+  lenis?.off('scroll', ScrollTrigger.update);
+  lenis?.destroy();
+}
 ```
 
 Keep anchor links, keyboard scrolling, modals (`data-lenis-prevent`) and nested
-scrollers working. Never run a second requestAnimationFrame loop.
+scrollers working. Never run a second requestAnimationFrame loop. Never call
+`ScrollTrigger.killAll()` from a reusable scene; that destroys other scenes.
+If reduced-motion preferences change while mounted, create/destroy the scroll
+transport through a media-query listener or one app-level owner.
 
 ## React scope and cleanup
 
@@ -47,6 +59,7 @@ function Scene() {
       gsap.from('.line', { yPercent: 110, stagger: 0.06, duration: 1, ease: 'power4.out',
         scrollTrigger: { trigger: root.current, start: 'top 70%' } });
     });
+    return () => mm.revert();
   }, { scope: root });
   return <section ref={root}>…</section>;
 }
@@ -61,8 +74,31 @@ gsap.timeline({ scrollTrigger: { trigger: '.scene', start: 'top top', end: '+=20
   .to('.copy-a', { autoAlpha: 0, y: -24 }, 0.3)
   .from('.copy-b', { autoAlpha: 0, y: 24 }, 0.5);
 ```
-Give a pinned scene the scroll length of its content (1.5-3 viewports), keep
-`end` relative, and recompute on fonts/images load (`ScrollTrigger.refresh()`).
+Give a pinned scene the scroll length of its content (1.5-3 viewports is only a
+starting range), keep `end` relative, and recompute on fonts/images load
+(`ScrollTrigger.refresh()`). Give short scenes less distance. Disable pinning
+when it clips controls. Use an in-flow mobile/reduced-motion variant. Test
+entry/exit, reverse scroll, anchors, resize, focus and interruption.
+
+For a horizontal project stage, measure actual travel instead of translating
+an arbitrary multiple of viewport widths:
+
+```js
+// Inside a scoped matchMedia/context; stage and track are elements.
+const travel = () => Math.max(0, track.scrollWidth - stage.clientWidth);
+if (travel() > 0) {
+  gsap.to(track, {
+    x: () => -travel(), ease: 'none',
+    scrollTrigger: { trigger: stage, pin: true, start: 'top top',
+      end: () => `+=${travel()}`, scrub: .6, invalidateOnRefresh: true }
+  });
+}
+```
+
+This is only geometry. Add direct case navigation and focus handling that makes
+offscreen project links visible, or use a selected case panel. At narrow/reduced
+settings stack the cards. Capture actual mid/settled frames: a full-page image
+alone cannot show the complete pinned track.
 
 ## Split-line masked headline
 
@@ -204,8 +240,8 @@ revealing, and add `aria-label` to the heading with `aria-hidden` on the split s
 # Cinematic 3D product scene (tested on the Ashfold ceramics page)
 
 Use when the product is a physical object and the brief asks for award-level or
-cinematic. A real 3D object lit like a product photograph beats any amount of 2D
-decoration. Same architecture as the fixed stage above (one canvas, slot rectangles),
+cinematic. Use 3D when inspecting the real object benefits the visitor; consistent stills
+or an authored 2D sequence can be stronger for another brief. Same architecture as the fixed stage above (one canvas, slot rectangles),
 plus the points below. Versions: three 0.160.0 with `RoomEnvironment`, gsap 3.12.5.
 
 **Geometry from a profile.** Turned objects (pots, bottles, lamps) are a

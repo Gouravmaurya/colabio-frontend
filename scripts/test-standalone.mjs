@@ -9,6 +9,8 @@ import { install } from './install.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = path.join(root, 'skills/.curated/colabio-frontend');
 const expected = fs.readFileSync(path.join(source, 'SKILL.md'), 'utf8');
+const version = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version;
+assert.equal(expected.match(/^  version: "([^"]+)"\r?$/m)?.[1], version, 'Skill metadata version must match the package version.');
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'colabio-standalone-'));
 const providers = ['.agents', '.claude'];
 const list = (dir, prefix = '') => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
@@ -27,6 +29,7 @@ function addSkill(project, input) {
     const target = path.join(project, provider, 'skills/colabio-frontend');
     assert.deepEqual(list(target), files, 'Installed files differ from the standalone folder in ' + target);
     assert.equal(fs.readFileSync(path.join(target, 'SKILL.md'), 'utf8'), expected);
+    for (const file of files) assert.deepEqual(fs.readFileSync(path.join(target, file)), fs.readFileSync(path.join(source, file)), 'Installed reference/script differs: ' + file);
   }
 }
 

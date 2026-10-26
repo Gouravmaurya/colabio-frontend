@@ -1,6 +1,6 @@
 # Agency playbook: premium build in one pass
 
-How top studios deliver: one idea, a spec before code, a designer's eye on the
+Working method: one idea, a spec before code, a designer's eye on the
 rendered result, and a performance pass at the end. This is the default pipeline
 for a new premium site or substantial redesign. Run all phases in one response
 unless the user asked for questions. If they delegated choices, assume and state
@@ -15,6 +15,12 @@ janky 3D one; stock imagery, placeholder text and broken mobile are penalized;
 winners write a measured spec first and check every section against it.
 
 ## Phase 0: lock the brief (2 minutes)
+
+Before any direction choice, apply [visual-comparison-gates.md](visual-comparison-gates.md)
+Gate 0. Render the actual incumbent and any supplied live URL, record strengths,
+capture desktop/narrow states, and distinguish the live version from local source.
+For expressive/cinematic work read [cinematic-recipes.md](cinematic-recipes.md),
+choose one story engine and score its establish/enter/hold/transform/resolve beats.
 
 One sentence idea in the product's own nouns. The visitor, the one action, the
 proof they need. Reuse existing brand, content and assets in the repo. List
@@ -81,16 +87,13 @@ static fallback for no-WebGL and reduced motion.
 
 ## Phase 7: critique loop (required, at least two rounds)
 
-Render the live build in a browser (preview tools or playwright), screenshot at
-1440, 1024, 768 and 390 wide, plus one full-page capture. Score each dimension
-1-5 and write one concrete fix per dimension below 4:
-
-| Dimension (weight) | What a strong result shows |
-| --- | --- |
-| Design (40) | Clear hierarchy in 3 seconds, custom type scale, cohesive color, micro-detail in hover/focus/selected states, tokens consistent on every page |
-| Usability (30) | Navigation understood at first glance, no layout shift, no dead controls, mobile composed on its own terms, keyboard and reduced-motion paths work |
-| Creativity (20) | The signature component is specific to this product; motion explains something; removing the logo changes more than the copy |
-| Content (10) | Real copy and assets, passes the copy gate, no stock filler or placeholder |
+Render the live build in a browser using the host's supported controls. Follow
+[visual-comparison-gates.md](visual-comparison-gates.md): opening, strongest proof,
+main action, ending and responsive views with actual CSS dimensions recorded.
+Use before/middle/settled and reduced-motion frames for cinematic work. Compare
+identity, composition, typography, assets, motion, clarity, usability and completeness
+individually. A numeric average cannot excuse a regression. Code checks do not
+pass a visual gate. Reject a weak slice before scaling the page.
 
 First challenge the rendered palette against that decision: inspect neutral
 tints, large surfaces, CTA area, and interaction states, not only swatches.
@@ -106,9 +109,12 @@ node <colabio>/scripts/slop-lint.mjs <app-src-folder>     # template tells
 node <colabio>/scripts/pick-direction.mjs --validate        # only after editing the kit
 ```
 
-Fix every `high` finding or justify it in the delivery notes. Apply fixes, re-render,
-re-score. Stop after round 3 or when no dimension is below 4, whichever is first.
-Keep screenshots as evidence; do not claim an award or a score the browser did not show.
+Fix every `high` finding or justify it in the delivery notes. Apply fixes and
+re-render. At least two review/recheck rounds are required for substantial work.
+At an agreed time/scope limit, report unresolved work; a round limit never changes
+a failed or unverified gate into a pass. Keep actual captures and run
+`scripts/verify-visual-gates.mjs`. Do not claim an award, independent judgment,
+visual upgrade or measured performance without corresponding evidence.
 
 ## Phase 8: ship notes
 

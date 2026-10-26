@@ -1,8 +1,30 @@
-# Colabio Frontend v1.5.0
+# Colabio Frontend v1.6.0 (main; no release tag created)
 
-## Main update: intake, site types, verification and templates
+- Adds six content-led cinematic recipes: editorial portrait, product close-up,
+  software walkthrough, project screening room, film-title sequence, process study.
+- Adds a live reference study of the owner's published portfolio (2026-10-26),
+  distinguishing observed desktop/mobile behavior from untested claims. No source
+  or image assets are redistributed. The study transfers mechanisms, not identity.
+- Requires baseline inspection before direction, an accepted representative slice,
+  and dimension-by-dimension final comparison. Visual regressions/unverified rows
+  block upgrade claims; two review rounds do not excuse unresolved weaknesses.
+- Adds a read-only visual-record verifier with PNG/viewport checks, chronology,
+  cinematic checkpoints, responsive comparisons and explicit finding rechecks.
+  Passing it verifies records, not aesthetic quality or screenshot provenance.
+- Fixes motion examples: removable ticker callbacks, scoped media cleanup, no
+  global ScrollTrigger kill, and measured horizontal-track travel.
+- Adds an explicit direction-picker style constraint and preserves requested
+  themes during mood fallback. Standalone and full-bundle entries share the gates.
+- Adds regression tests for the portfolio-v2 failure mode and installation checks
+  for every bundled reference/script. Packaging tests do not certify future designs.
 
-Merges the locally developed skill with the palette-grounding update: prompt-improvement intake (`brief-intake.md`), per-type playbooks (`site-types.md`), render verification (`verify.md`, `serve.mjs`, `check-contrast.mjs`), an award-bar reference, brief-aware `pick-direction.mjs`, starter `templates/` with `scaffold.mjs`, and intake evals. Palette comparison and rendered palette review from the previous update are retained.
+## v1.5.0
+
+### Intake, site types, verification and templates
+
+Preserves the incoming brief intake, type playbooks, preview/contrast helpers,
+brief-aware picker, three working starter examples and intake evaluation cases.
+Starters remain optional and now obey the strict rendered acceptance contract.
 
 ## Main update: palette selection and rendered review
 

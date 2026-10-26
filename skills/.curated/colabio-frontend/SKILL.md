@@ -1,5 +1,7 @@
 ---
 name: colabio-frontend
+metadata:
+  version: "1.6.0"
 description: >
   Art-direct, build, and refine distinctive frontend interfaces grounded in the
   product, audience, and existing brand. Use for websites, landing pages,
@@ -8,13 +10,9 @@ description: >
   review. Ships a complete toolkit (style recipes, curated font pairs and
   palettes, a seeded direction picker, a template-tell scanner, asset, copy and
   motion guides, component-library mining) so no other skill is required.
-  Starts new or vague requests with a prompt-improvement intake: it scores the
-  prompt, asks what kind of website the user expects, and writes a better brief
-  before building. A short prompt such as "build me a shop for X" is enough: the
-  skill defaults to an award-level, cinematic result (real 3D or an equally strong
-  hero, scroll-directed scenes, a working configurator) by starting from a proven
-  template instead of a blank page. Keep small fixes local; exclude unrelated
-  backend work.
+  Includes cinematic composition recipes and rendered baseline/slice/final gates
+  that reject visual regressions rather than treating working code as design proof.
+  Keep small fixes local; exclude unrelated backend work.
 ---
 
 # Colabio Frontend
@@ -28,17 +26,12 @@ not against a preference for a quieter or more fashionable visual style.
 
 This skill is fully standalone: everything it needs ships in this folder
 (`references/` and `scripts/`). It never requires installing another skill.
-Read a reference only at the phase that needs it. Scripts are read-only helpers
-run with Node 18+; if Node is unavailable, do the same checks by hand.
+Read a reference only at the phase that needs it. The picker, scanner and gate
+verifier are read-only; scaffold/serve write or serve only the requested output.
+Scripts use Node 18+; without Node, perform the applicable checks manually.
 
 | File | Use it for |
 | --- | --- |
-| `references/award-bar.md` | The default quality bar: ten things every finished site has, and how to reach it from a thin prompt |
-| `templates/README.md` | Three proven, working starters (3D product shop, scroll-stage game/studio, precision service) and how to adapt each |
-| `references/brief-intake.md` | Score a thin prompt, ask what site the user expects, write the improved brief, triage "looks cheap" |
-| `references/site-types.md` | Per website type: section order, proof, signature options, hero and copy patterns |
-| `references/verify.md` | Serve, capture, drive and report the rendered result; preview-pane quirks |
-| `evals/intake-evals.md` | Five sample prompts with expected intake behaviour, for manual checks |
 | `references/agency-playbook.md` | The one-pass premium build pipeline and critique rubric |
 | `references/styles.md` | Eight style recipes: type, color, layout, motion, pitfalls |
 | `references/design-kit.json` | Font pairs, contrast-checked palettes, signature mechanisms, hero compositions |
@@ -46,81 +39,72 @@ run with Node 18+; if Node is unavailable, do the same checks by hand.
 | `references/asset-and-copy.md` | Asset phase and copy gate |
 | `references/motion-recipes.md` | Lenis + GSAP + ScrollTrigger + Motion integration code |
 | `references/libraries.md` | Component-library sites and the mining protocol |
-| `scripts/pick-direction.mjs` | Brief-aware, seeded style/font/palette proposal (`--brief`, `--type`); reports `fallback`; `--validate` checks palette contrast |
-| `scripts/slop-lint.mjs` | Scans source for template tells, clipped masks, unguarded WebGL |
-| `scripts/check-contrast.mjs` | Contrast ratios of a built page's colour tokens |
-| `scripts/serve.mjs` | Zero-dependency static server and `launch.json` snippet for previews |
-| `scripts/scaffold.mjs` | Copies a starter from `templates/` (cinematic-product-shop, precision-service, scroll-stage-game) into a new project folder |
-| `templates/` | Three working single-file starters to adapt, never to ship unchanged |
-| `references/award-bar.md` | The bar a premium build is judged against |
-| `scripts/scaffold.mjs` | Copy a template into a new folder and rename the sample brand |
+| `references/cinematic-recipes.md` | Editorial portrait, product close-up, software walkthrough, screening room, title sequence and process-study direction |
+| `references/visual-comparison-gates.md` | Baseline before direction, representative slice, no-regression final acceptance |
+| `references/studies/editorial-portfolio.md` | Observed live reference: typography, portraits, actual work and scene continuity; principles to transfer, limits to avoid |
+| `references/visual-review.example.json` | Intentionally unverified record showing the visual-gate fields |
+| `scripts/pick-direction.mjs` | Brief-aware proposal (`--brief`, `--type`, `--style`, `--theme`); reports fallback; `--validate` checks kit contrast |
+| `scripts/slop-lint.mjs` | Scans source for template tells |
+| `scripts/verify-visual-gates.mjs` | Read-only evidence checks; fails recorded regression, missing comparison, bad viewport matching and unresolved findings |
+| `references/brief-intake.md` | Clarify material gaps and turn a thin prompt into a useful brief |
+| `references/site-types.md` | Website-type journeys, proof and interaction options |
+| `references/verify.md` | Serving, real-event browser verification and preview quirks |
+| `references/award-bar.md` | Context-specific craft checks; examples do not mandate 3D |
+| `templates/README.md` | Optional working starters; reuse mechanisms only when they fit the brief |
+| `scripts/scaffold.mjs` | Copy a selected starter into a new output folder |
+| `scripts/serve.mjs` | Local static preview server |
+| `scripts/check-contrast.mjs` | Check foreground/background token contrast |
+| `evals/intake-evals.md` | Manual brief/intake behavior cases |
 
-## Default quality: award-level, from a short prompt
+## Acceptance contract for substantial creative work
 
-A short prompt is enough. Unless the user asks for something simple, minimal or quick,
-build to the bar in `references/award-bar.md` (opening moment, one hero object, scroll
-that explains the product, something to touch, section moods, consistent imagery, a type
-moment, mobile and fallback paths). Do not start from a blank page: pick the matching
-template in `templates/README.md`, scaffold it, and replace its content and object
-model. The template holds the hard, already-verified parts (3D geometry, lighting, the
-scroll-directed stage, theme switching, drag, baking, cart, fallback); the work that
-remains is product-specific: tokens, copy, the stages of making or using the thing, the
-configurator data, one signature moment.
+Read [visual comparison gates](references/visual-comparison-gates.md) **before
+choosing a direction**. Inspect the actual live reference/incumbent when supplied;
+never assume an older local source is the same site. Establish its strengths in
+identity, composition, typography, assets and motion as well as usability. Preserve
+that ambition unless the user explicitly changes it. A cleaner layout does not
+by itself justify a visually weaker replacement.
 
-| Prompt says | Template | Typical default look |
-| --- | --- | --- |
-| a shop, store, or product brand (ceramics, candles, bottles, lamps, glassware, jars) | `cinematic-product-shop` | dark hero, cream builder, product-led (apple-fluid + cinematic) |
-| a game, studio, app, tool, community | `scroll-stage-game` | dark, one accent for the user, one for their echoes |
-| a service priced on a trade-off (printing, repair, fabrication, quotes) | `precision-service` | paper and ink, one accent, data honest |
-| a non-round product, software, or something else | closest template for structure, then see `templates/README.md` (Choosing) | by brief |
+For cinematic/expressive briefs, or an incumbent with that character, read
+[cinematic recipes](references/cinematic-recipes.md). Choose a content-led recipe
+and write a scene score: establish, enter, hold, transform, resolve. Plan dominant
+type, real imagery, foreground/background relationships, continuity, control and
+narrow/reduced-motion states. Cinematic does not require dark surfaces or WebGL.
 
-## Quick path (new site or substantial redesign)
+Inspect a representative opening + real proof + transition slice before extending
+the build. Reject a weak slice. Do not substitute an abstract diagram, generic
+orbiting logo or decorative mockup for real work or a product's actual workflow.
 
-1. **Intake** (§0, `brief-intake.md`): score the prompt. With a short prompt ask at most two
-   questions (look and signature), or none if the user said "you decide". Show the improved brief.
-2. **Type and template** (`site-types.md`, `templates/README.md`): take section order, proof and
-   signature options; choose the template.
-3. **Baseline** (§1): inspect any existing site or reference rendered; record what to keep.
-4. **Direction**: `node scripts/pick-direction.mjs --seed "<product>" --brief "<their words>" --type <type>`;
-   accept or replace each pick with a one-line reason (the template's own palette and fonts are a valid
-   starting point when they fit); read the matching recipe in `styles.md`.
-5. **Scaffold**: `node scripts/scaffold.mjs <template> <project>/ --brand "<Name>"`, then work through the
-   `@CONFIG` and `@COPY` markers. Keep the template's architecture; change content and the object model.
-6. **Assets and copy** (`asset-and-copy.md`): real or labelled-sample content, nothing invented.
-7. **Vertical slice**: hero + configurator/signature + one scroll scene, rendered at 1440 and 390 first
-   (`verify.md`, including the WebGL snapshot technique).
-8. **Finish** (`motion-recipes.md`): remaining scenes, one animation clock, reduced-motion and no-WebGL paths.
-9. **Verify** (`verify.md`): serve, drive real events, `slop-lint.mjs`, `check-contrast.mjs`, two critique
-   rounds against the ten rows of `award-bar.md`.
-10. **Deliver**: what changed, what was checked, what was not, plus a "next time say" prompt. Remove debug
-    hooks and scratch files from the project folder first.
+The final comparison must explicitly judge identity, composition, typography,
+assets, motion, clarity, usability and completeness. A regressed/unverified row
+prevents claiming a verified upgrade. At least one target must visibly improve.
+Two review rounds are the minimum for substantial work; reaching a round limit
+never turns a failure into a pass. Deliver an honest candidate if tools or scope
+prevent verification, with the remaining finding stated. Gate decisions do not
+require extra user approval or a new skill installation.
 
-## 0. Intake: upgrade the prompt and learn what the user expects
+Keep the compact record/captures in the implementation project's output. Use
+`scripts/verify-visual-gates.mjs --project <output> --record visual-review.json --stage baseline|slice|final`
+at each applicable gate when Node is available, to check evidence completeness,
+not to score aesthetics. Without Node, check the same fields manually and state
+that limitation. Browser inspection and
+observed interaction remain mandatory for visual/behavioral claims.
 
-Run this first for a new site, a substantial redesign, or any complaint that the
-result looks cheap, generic or not premium. Read `references/brief-intake.md`.
-Skip it for a small fix, for a user who already wrote a detailed brief, and for a
-user who said "no questions" or "you decide".
+## Brief intake and optional working starters
 
-1. **Score the prompt** for gaps: product, audience, action, look, scope,
-   content, interaction, stack. Three or more gaps means ask; fewer means
-   build and list the assumption.
-2. **Ask one round** (AskUserQuestion, recommended option first, "Other" always
-   available). For a short prompt that names its product ("a shop for X") ask at most
-   two questions: which look (mapped to a `styles.md` recipe) and which signature
-   moment. Use up to four (type, look, action, scope or stack) only when the prompt
-   leaves the product itself unclear. Ask nothing the prompt, repo or screenshot
-   already answers, and nothing at all when the user said "you decide" or "no
-   questions": pick the template defaults and list them as assumptions.
-3. **Write the improved brief** in the template from the reference, in 8-12
-   lines, with every guess marked as an assumption. Show it, then build; wait
-   only if an assumption changes cost or brand.
-4. **Teach the better prompt**: close with one pasteable sentence the user can
-   reuse next time. When the complaint is "cheap" or "boring", ask which part
-   bothers them and fix the cause with the triage table, not by restyling.
+For new or vague requests, read `references/brief-intake.md` and the relevant
+journey in `references/site-types.md`. Reuse facts from the repo, the supplied
+live reference and settled answers. Ask only about gaps that materially change
+the result; respect delegated decisions or "no questions" and state assumptions.
+Never make a thin prompt a reason to lower the craft bar or invent proof.
 
-Never invent customers, logos, awards, stats or prices as real; a fictional brand
-is fine when labelled as such on the page.
+The three examples in `templates/README.md` provide reusable working mechanisms:
+a configurable product scene, a scroll-directed interactive stage, and a service
+estimator. Use `scripts/scaffold.mjs` when one fits a new standalone build.
+Templates are optional infrastructure: preserve the real project's framework and
+derive composition, imagery, data and pacing from its content. Do not funnel
+every app into a game stage, force a configurator onto every offer, or claim
+quality because a starter was copied. Apply the rendered gates to every result.
 
 ## 1. Establish the product and the scope
 
@@ -151,8 +135,8 @@ research platform needs its research or analysis value to remain apparent rather
 than relying on a beautiful property photograph to explain the business.
 
 Keep a component fix local. A review stays read-only unless fixes are requested.
-For substantial creative work, run the intake in section 0 (one focused round,
-only for unresolved choices that materially change the outcome). Reuse settled answers and
+For substantial creative work, ask one focused discovery round only when an
+unresolved choice materially changes the outcome. Reuse settled answers and
 respect users who delegate choices or request no questions. State reasonable
 assumptions and continue; do not invent a brand or block on routine taste choices.
 
@@ -163,15 +147,17 @@ characters, not quality tiers or guarantees of monetary value.
 
 ## Premium one-pass build (new premium sites and substantial redesigns)
 
-Run these phases in one response unless the user asked for questions; state
+Run these phases in one working pass unless the user asked for questions; state
 assumptions up front. Full detail: `references/agency-playbook.md`; this section
 is the working summary. Run `scripts/pick-direction.mjs --seed "<product>" --mood <words>`
 for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critique loop.
 
-1. **Lock the idea**: one sentence in the product's own nouns (no "premium",
+1. **Inspect first, then lock the idea**: capture the actual incumbent/reference
+   before selecting a direction, apply the acceptance contract above, then write
+   one sentence in the product's own nouns (no "premium",
    "immersive"). Visitor, single action, proof needed.
 2. **Choose by decision, not mood**: pick ONE style character (editorial print,
-   swiss precision, industrial brutal, Apple-fluid, cinematic 3D, atmospheric
+   swiss precision, industrial brutal, Apple-fluid, cinematic composition, atmospheric
    soft, playful kinetic, GSAP-experimental) and at most two supporting influences.
    Mixed style guides average into a template. Brand and brief override all
    defaults. When the brief is open, vary the result from the usual
@@ -212,11 +198,13 @@ for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critiqu
    and keep a static fallback. Animate transform/opacity/clip-path. Vary reveal
    grammar by scene (mask wipe, scrub, split line, number roll); no blanket
    fade-up. Skip long intro loaders. Reduced-motion path throughout.
-8. **Critique loop (required, 2+ rounds)**: render at 1440/1024/768/390 plus a
-   full-page capture. Score 1-5 and fix anything below 4: Design (hierarchy,
-   type scale, color, micro-detail), Usability (clarity in 3 seconds, no layout
-   shift, mobile composed on its own, keyboard), Creativity (swap the logo: does
-   more than the copy change?), Content (real copy and assets). Scan source for
+8. **Critique loop (required, 2+ rounds)**: render at representative desktop,
+   tablet and narrow widths (1440/1024/768/390 are starting targets; record actual
+   CSS dimensions), plus a full-page composition and scene checkpoints. Follow
+   `visual-comparison-gates.md`: each dimension must be improved/preserved for a
+   redesign or pass for a new build. No average or self-awarded score overrides
+   a failure. Inspect before/middle/settled and reduced-motion states for cinematic
+   work. Scan source for
    template tells: gradient headline text, Inter-only, indigo/purple defaults,
    rounded-2xl everywhere, repeated 3-up icon-tile cards, glow blobs, identical
    section padding, uniform fade-ups, emoji icons, filler copy, no imagery.
@@ -442,7 +430,8 @@ appropriate to the change. Reuse an existing test/browser setup when suitable.
 For substantial work, preserve a compact record in the task's output, including
 the direction, references applied, dependency changes, rendered checks,
 observed failures, fixes/rechecks, and remaining limitations. This can be delivery
-notes; no Colabio-specific JSON schema or helper script is required. Do not modify
+notes for small tasks; substantial creative builds use `visual-review.json` and
+the acceptance contract above. Do not modify
 the global skill directory with task artifacts or demand routine user approvals.
 
 Deliver the whole requested working result. State what changed and what was

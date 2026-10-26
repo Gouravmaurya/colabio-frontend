@@ -32,6 +32,42 @@ Changing palette, fonts, border radii, or reveal effects alone does not qualify
 as a substantive creative redesign. Award-level craft is the target, not a
 claim that an award or an independent quality rating has been earned.
 
+## Acceptance contract for substantial creative work
+
+Read [visual comparison gates](references/visual-comparison-gates.md) **before
+choosing a direction**. Inspect the actual live reference/incumbent when supplied;
+never assume an older local source is the same site. Establish its strengths in
+identity, composition, typography, assets and motion as well as usability. Preserve
+that ambition unless the user explicitly changes it. A cleaner layout does not
+by itself justify a visually weaker replacement.
+
+For cinematic/expressive briefs, or an incumbent with that character, read
+[cinematic recipes](references/cinematic-recipes.md). Choose a content-led recipe
+and write a scene score: establish, enter, hold, transform, resolve. Plan dominant
+type, real imagery, foreground/background relationships, continuity, control and
+narrow/reduced-motion states. Cinematic does not require dark surfaces or WebGL.
+
+Inspect a representative opening + real proof + transition slice before extending
+the build. Reject a weak slice. Do not substitute an abstract diagram, generic
+orbiting logo or decorative mockup for real work or a product's actual workflow.
+
+The final comparison must explicitly judge identity, composition, typography,
+assets, motion, clarity, usability and completeness. A regressed/unverified row
+prevents claiming a verified upgrade. At least one target must visibly improve.
+Two review rounds are the minimum for substantial work; reaching a round limit
+never turns a failure into a pass. Deliver an honest candidate if tools or scope
+prevent verification, with the remaining finding stated. Gate decisions do not
+require extra user approval or a new skill installation.
+
+Keep the compact record/captures in the implementation project's output. Use
+`scripts/verify-visual-gates.mjs --project <output> --record visual-review.json --stage baseline|slice|final`
+to check evidence completeness, not to score aesthetics. Browser inspection and
+observed interaction remain mandatory for visual/behavioral claims.
+
+
+This contract takes precedence over legacy optional-review wording and self-score
+shortcuts below. Existing bundled specialists remain supporting guidance.
+
 ## Scope
 
 Apply these instructions throughout the requested frontend task and its follow-ups.

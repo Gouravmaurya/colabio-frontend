@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "redesign",
+  "cinematic": true,
+  "designStartedAt": "2026-10-26T10:00:00Z",
+  "baselineStrengths": ["Replace with an observed identity strength", "Replace with an observed composition strength", "Replace with useful existing proof"],
+  "targets": ["Replace with a concrete task improvement", "Replace with a concrete visual improvement", "Replace with a concrete interaction improvement"],
+  "captures": [],
+  "captureShape": {
+    "id": "baseline-desktop",
+    "phase": "baseline",
+    "file": "captures/baseline-desktop.png",
+    "route": "http://localhost:3000/",
+    "capturedAt": "2026-10-26T09:55:00Z",
+    "viewport": { "width": 1440, "height": 900, "dpr": 1 },
+    "state": "settled",
+    "extent": "viewport"
+  },
+  "comparisonShape": {
+    "stage": "slice",
+    "dimension": "identity",
+    "verdict": "unverified",
+    "note": "Replace after inspecting both captures. Copy this row for all eight dimensions and both stages.",
+    "baseline": ["baseline-desktop"],
+    "candidate": ["slice-desktop"]
+  },
+  "comparisons": [],
+  "checks": {
+    "signatureDepth": { "status": "unverified", "note": "Test that the component demonstrates actual product/work information.", "evidence": [] },
+    "journey": { "status": "unverified", "note": "Opening, strongest proof, main action and ending.", "evidence": [] },
+    "interaction": { "status": "unverified", "note": "Exercise actual controls and resulting states.", "evidence": [] },
+    "keyboard": { "status": "unverified", "note": "Exercise focus, controls and offscreen scene reachability.", "evidence": [] },
+    "overflow": { "status": "unverified", "note": "Record actual narrow and wide CSS widths.", "evidence": [] },
+    "reducedMotion": { "status": "unverified", "note": "Exercise the real reduced-motion/static path.", "evidence": [] },
+    "console": { "status": "unverified", "note": "Inspect runtime errors in the production preview.", "evidence": [] },
+    "fonts": { "status": "unverified", "note": "Verify actual loaded fonts and unclipped settled type.", "evidence": [] }
+  },
+  "roundShape": { "stage": "final", "number": 1, "note": "Observed finding and correction/recheck.", "captures": ["final-desktop"] },
+  "rounds": [],
+  "findings": [],
+  "limitations": ["This intentionally incomplete example must not pass the final gate."]
+}

@@ -1,4 +1,9 @@
-# Templates: start from a proven build, not a blank page
+# Optional starters: reuse working mechanisms when they fit
+
+Read the brief and any rendered incumbent before selecting a starter. These are
+examples, not compulsory site structures. Use a mechanism that fits the actual
+content; do not migrate frameworks or turn every product into a 3D shop/game.
+The cinematic recipes and strict rendered gates in `../references/` still apply.
 
 Each folder is a complete, working single-file site that was built, rendered and
 checked with this skill. Copy one with `node scripts/scaffold.mjs`, then change the

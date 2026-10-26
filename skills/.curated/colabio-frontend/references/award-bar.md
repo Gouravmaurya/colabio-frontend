@@ -1,10 +1,11 @@
-# The quality bar: what "finished" means by default
+# Craft checks: apply the bar to the actual brief
 
-Unless the user asks for something simple, minimal or quick, every new site is built to
-this bar. It was set by the Ashfold ceramics build (`templates/cinematic-product-shop/`),
-which the user rated as the target level after two earlier versions fell short. The bar is
-defined by what the visitor experiences, not by technology; 3D is the default answer for a
-physical product, not for everything.
+These checks describe the Ashfold ceramics example (`templates/cinematic-product-shop/`).
+Use them as craft prompts, not a mandatory page architecture or a universal technology
+choice. For another brief translate the mechanism into its subject: an actual software
+workflow, a portrait and real projects, a physical detail, a process or a useful instrument.
+The strict [visual comparison gates](visual-comparison-gates.md) control acceptance.
+No model, cinematic effect, template or self-score establishes an award or improvement.
 
 ## The ten things a finished site has
 
@@ -32,9 +33,10 @@ physical product, not for everything.
 
 ## How to reach the bar from a thin prompt
 
-1. Classify the product (site-types.md) and take the matching template (templates/README.md).
-2. Keep the template's architecture and replace content: tokens, object model, copy, stages of
-   making or using, collection. Rename with `scripts/scaffold.mjs`.
+1. Classify the product (site-types.md), choose a content-led direction, and use a
+   matching starter mechanism only when it fits (templates/README.md).
+2. If using a starter, adapt its subject, architecture, tokens, copy and data to the
+   brief. Preserve useful engineering; do not preserve an unsuitable composition.
 3. Run the build to a vertical slice first (hero + configurator + one scroll scene), check it
    rendered (verify.md, including the WebGL snapshot technique), then finish the rest.
 4. Self-review against the ten rows above and fix the weakest. Say plainly which rows are met

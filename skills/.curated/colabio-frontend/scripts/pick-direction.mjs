@@ -2,7 +2,7 @@
 // Seeded, brief-aware design-direction picker. Read-only. Forces variety so open briefs do not
 // collapse to one look, but scores every option against the brief instead of guessing blindly.
 // Usage: node pick-direction.mjs --seed "<product>" [--brief "<text>"] [--mood a,b] [--type landing|studio|game|store|software|editorial|event]
-//                                 [--theme light|dark] [--list] [--validate]
+//                                 [--style <id>] [--theme light|dark] [--list] [--validate]
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -10,6 +10,8 @@ const kit = JSON.parse(fs.readFileSync(fileURLToPath(new URL('../references/desi
 const argv = process.argv.slice(2);
 const args = {};
 argv.forEach((x, i) => { if (x.startsWith('--')) args[x.slice(2)] = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true; });
+if (args.theme && !['light', 'dark'].includes(args.theme)) { console.error('--theme must be light or dark'); process.exit(1); }
+if (args.style && !kit.styles.some((s) => s.id === args.style)) { console.error('Unknown --style: choose an id from --list'); process.exit(1); }
 
 const lum = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
@@ -85,10 +87,10 @@ function choose(list, fn) {
   const top = ranked.filter((r) => r.s === best).map((r) => r.x);
   return { pick: top[Math.floor(rng() * top.length)], matched: best > 0, score: best, candidates: top.length };
 }
-const style = choose(kit.styles, (s) => score(s, typeStyles.includes(s.id) ? 3 : 0));
+const style = args.style ? { pick: kit.styles.find((s) => s.id === args.style), matched: true } : choose(kit.styles, (s) => score(s, typeStyles.includes(s.id) ? 3 : 0));
 const font = choose(kit.fontPairs, (f) => score(f) + (style.pick.id && /editorial|literary|refined/.test(hay(f)) && /editorial|cinematic/.test(style.pick.id) ? 1 : 0));
 const themed = args.theme ? kit.palettes.filter((p) => dark(p) === (args.theme === 'dark')) : kit.palettes;
-const palette = choose(themed.length ? themed : kit.palettes, (p) => score(p) + (style.pick.id === 'cinematic-immersive' && dark(p) ? 1 : 0));
+const palette = choose(themed, (p) => score(p));
 const fallback = !(style.matched && font.matched && palette.matched);
 
 console.log(JSON.stringify({
@@ -99,6 +101,7 @@ console.log(JSON.stringify({
   palette: palette.pick,
   matched: { style: style.matched, font: font.matched, palette: palette.matched },
   fallback,
+  fallbacks: [!style.matched && 'style: no brief match', !font.matched && 'font: no brief match', !palette.matched && 'palette: no brief match; requested theme preserved'].filter(Boolean),
   signatureMechanism: kit.signatureMechanisms[Math.floor(rng() * kit.signatureMechanisms.length)],
   heroComposition: kit.heroCompositions[Math.floor(rng() * kit.heroCompositions.length)],
   rules: [

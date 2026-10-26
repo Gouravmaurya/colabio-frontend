@@ -45,14 +45,18 @@ Fits: hardware, consumer apps, premium physical products.
 - Avoid: busy backgrounds, many accents, cramped feature lists.
 
 ## cinematic-immersive
-Fits: launches, entertainment, spatial or physical products, brand flagships.
-- Type: wide or condensed display over dark scenes; very little body text.
-- Color: near-black, one light source color, film grain only if cheap.
-- Layout: one 3D or shader hero object that earns its place, pinned scenes with
-  1.5-3 viewports of scroll each, captions timed to the scene.
-- Motion: camera moves tied to scroll progress, composite transitions between
-  scenes, ease-in-out. Poster image and reduced-motion fallback are mandatory.
-- Avoid: 3D for decoration, heavy models, scroll hijacking of direction.
+Fits: expressive portfolios, launches, entertainment, product stories and flagships.
+Read [cinematic-recipes.md](cinematic-recipes.md) before using this character.
+- Type: one dominant title/name and contrasting supporting roles; readable body
+  text is allowed and often necessary. Condensed display is one option.
+- Color: chosen from the subject/assets/brand. Light editorial scenes can be
+  cinematic; dark is not mandatory. Change scene mood at a narrative boundary.
+- Layout: an authored portrait, real product/UI, process or object as the subject;
+  depth from crop, overlap, scale and framing. 3D is optional.
+- Motion: establish/enter/hold/transform/resolve; one continuing subject crosses
+  a meaningful transition. Pinning requires useful content and reachable controls.
+- Avoid: generic orbiting logos, abstract diagrams replacing actual evidence,
+  effects without continuity, heavy models, or scroll traps.
 
 ## atmospheric-soft
 Fits: wellness, hospitality, travel, lifestyle, human-toned AI products.

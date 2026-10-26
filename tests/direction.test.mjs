@@ -16,3 +16,16 @@ test('slop-lint flags a template page and exits 1 in strict mode', () => {
   assert.equal(r.status, 1);
   assert.match(r.stdout, /Gradient headline text/);
 });
+test('explicit cinematic direction is respected rather than randomly replaced', () => {
+  for (const seed of ['portrait', 'software', 'object']) {
+    const result = run('pick-direction.mjs', '--seed', seed, '--style', 'cinematic-immersive');
+    assert.equal(result.status, 0); assert.equal(JSON.parse(result.stdout).style.id, 'cinematic-immersive');
+  }
+  assert.equal(run('pick-direction.mjs', '--style', 'unknown').status, 1);
+});
+test('requested theme survives an unsupported mood and fallback is disclosed', () => {
+  const r = JSON.parse(run('pick-direction.mjs', '--theme', 'dark', '--mood', 'no-match-mood').stdout);
+  assert.ok(r.fallbacks.some((s) => s.startsWith('palette:')));
+  const bg = r.palette.bg; assert.ok(parseInt(bg.slice(1, 3), 16) < 64);
+  assert.equal(run('pick-direction.mjs', '--theme', 'banana').status, 1);
+});
