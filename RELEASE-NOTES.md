@@ -91,3 +91,4 @@ tag is changed and no new release tag is created by this merge.
 
 - Adds a trimmed, licensed `library/` (about 4 MB, 340 files) with Impeccable playbooks, Hallmark, Taste references, UI/UX Pro Max data subset, Emil Kowalski, GSAP, Motion, Scroll Craft and Three.js guides, routed by `library/INDEX.md`, with `library/NOTICE.md` and `references/sources.md`.
 - Adds a Commands layer to SKILL.md (new, shape, redesign, critique, audit, polish, harden, distill, bolder, quieter, typeset, layout, colorize, animate, onboard, clarify, adapt, optimize).
+- SKILL.md slimmed from 36 KB to 12 KB: full guidance moved to `references/core-guidance.md`, file list to `references/file-map.md`, and a new `references/commands.md` says how each command runs here (including what to skip in Impeccable guides that assume its launcher). Hallmark token links repaired.

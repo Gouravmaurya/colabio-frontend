@@ -54,3 +54,12 @@ test('library is one skill: no nested SKILL.md, every upstream folder keeps a li
   const size = all.reduce((a, p) => a + fs.statSync(p).size, 0);
   assert.ok(size < 6 * 1024 * 1024, 'library stays under 6 MB, was ' + size);
 });
+
+test('SKILL.md stays short and every file it names exists', () => {
+  const root = 'skills/.curated/colabio-frontend', s = fs.readFileSync(path.join(root, 'SKILL.md'), 'utf8');
+  assert.ok(s.length < 16000, 'SKILL.md should stay under 16 KB, was ' + s.length);
+  const missing = [...new Set([...s.matchAll(/`((?:references|scripts|templates|library|evals)\/[^`\s|<*]+)`/g)].map((m) => m[1]))]
+    .filter((p) => !fs.existsSync(path.join(root, p.replace(/\/$/, ''))));
+  assert.deepEqual(missing, []);
+  for (const f of ['commands.md', 'core-guidance.md', 'file-map.md']) assert.ok(fs.existsSync(path.join(root, 'references', f)), f);
+});

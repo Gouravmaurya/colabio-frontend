@@ -48,3 +48,5 @@ Preserve these notices when redistributing.
 Impeccable is Apache-2.0: its LICENSE and NOTICE.md are kept in `library/impeccable/`,
 and its files are unmodified apart from the entry rename. "Impeccable" is the name of the
 upstream project; this skill is not endorsed by its authors.
+
+Link repairs: relative links to `site/css/tokens.css` and `docs/recipes.md` inside `library/hallmark/` were rewritten to the bundled paths (8 links). No other upstream text was changed.
