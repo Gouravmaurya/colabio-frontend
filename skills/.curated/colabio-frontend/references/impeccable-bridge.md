@@ -4,9 +4,11 @@
 design skill with a deterministic anti-pattern detector (62 rules, no LLM, no API
 key) and evaluation and refinement playbooks: `critique`, `audit`, `polish`,
 `distill`, `bolder`, `quieter`, `harden`, `typeset`, `layout`, `animate`, `colorize`.
-Colabio does not vendor or require it. When it is installed (the finish gate looks
-in `~/.claude/skills/impeccable`, `~/.agents/skills/impeccable` and the project's
-`.claude/skills` and `.agents/skills`), use it for what it is best at.
+Its playbooks are bundled in `library/impeccable/reference/` (Apache-2.0, license kept) and
+are the `critique`, `audit`, `polish` ... commands of this skill, so nothing needs installing
+for them. Only the compiled **detector** is optional: when Impeccable itself is installed (the
+finish gate looks in `~/.claude/skills/impeccable`, `~/.agents/skills/impeccable` and the
+project's `.claude/skills` and `.agents/skills`), the gate runs it for an extra deterministic check.
 
 ## Division of labour
 

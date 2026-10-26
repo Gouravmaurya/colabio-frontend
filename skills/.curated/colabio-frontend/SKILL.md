@@ -15,7 +15,12 @@ description: >
   Runs an idea-to-site pipeline: enhances a thin idea into a Cinematic Design
   Prompt, selects the build plan (type, style, starter, stack, motion, pages),
   builds with scroll and motion systems, then verifies with polish and
-  rendered gates before delivery.
+  rendered gates before delivery. One skill, many commands: new, shape, redesign,
+  critique, audit, polish, harden, distill, bolder, quieter, typeset, layout,
+  colorize, animate, onboard, adapt, optimize. A bundled, licensed library
+  (Impeccable playbooks, Hallmark components and page structures, Taste anti-slop
+  references, UI/UX Pro Max decision data, GSAP, Motion, Scroll Craft, Three.js)
+  is routed by one index, so no other frontend skill is needed.
   Keep small fixes local; exclude unrelated backend work.
 ---
 
@@ -28,9 +33,11 @@ rendered interface and observed behavior, never by a skill count or self-rating.
 Judge an upgrade against the product's actual needs and the existing experience,
 not against a preference for a quieter or more fashionable visual style.
 
-This skill is fully standalone: everything it needs ships in this folder
-(`references/` and `scripts/`). It never requires installing another skill.
-Read a reference only at the phase that needs it. The picker, scanner and gate
+This is one skill and it is fully standalone: everything it needs ships in this folder
+(`references/`, `scripts/`, `templates/` and a licensed `library/` of reviewed upstream
+guides). It never requires installing another skill; if Impeccable, Taste or Hallmark are
+also installed, do not invoke them separately for the same job. Read a reference only at
+the phase that needs it. The picker, scanner and gate
 verifier are read-only; scaffold/serve write or serve only the requested output.
 Scripts use Node 18+; without Node, perform the applicable checks manually.
 
@@ -68,6 +75,36 @@ Scripts use Node 18+; without Node, perform the applicable checks manually.
 | `references/product-understanding.md` | Understanding Sheet, plan-then-theme order, context-to-implication table |
 | `references/domain-swatches.json` | Real colours of 19 domains' materials, tools and places, for palette evidence |
 | `scripts/palette-lab.mjs` | Four domain-grounded palette candidates with contrast and category-default flags; `--check <page.html>` audits a built page |
+| `library/INDEX.md` | Router: which bundled guide answers which command or need |
+| `library/README.md` | Precedence and rules for using bundled upstream guides |
+| `library/NOTICE.md` | Attribution and licenses for everything under `library/` |
+| `references/sources.md` | What was combined from which skill, what each adds, what was left out |
+
+## Commands
+
+The user can ask for a command by name (`/colabio-frontend critique src/pages/Home`) or
+in plain words. **new** and **redesign** run the pipeline below. Every other command is a
+focused pass on an existing surface: inspect it rendered first, open the guide named in
+[`library/INDEX.md`](library/INDEX.md), apply it, then run the matching gates.
+
+| Command | Purpose | Guide (see INDEX for more) |
+| --- | --- | --- |
+| `new` | Idea to finished site | the pipeline; `library/impeccable/reference/new-work.md` |
+| `shape` | Plan UX and scenes before code | `library/impeccable/reference/shape.md` |
+| `redesign` | Improve an existing site without regressions | `references/visual-comparison-gates.md` |
+| `critique` | Scored UX and visual review | `library/impeccable/reference/critique.md` |
+| `audit` | Accessibility, performance, responsive checks | `library/impeccable/reference/audit.md`, `scripts/finish-gate.mjs` |
+| `polish` | Final shipping pass | `library/impeccable/reference/polish.md` |
+| `harden` | Errors, empty states, edge cases, i18n | `library/impeccable/reference/harden.md` |
+| `distill` / `bolder` / `quieter` | Remove, amplify, tone down | `library/impeccable/reference/` |
+| `typeset` / `layout` / `colorize` | Type, spacing and structure, colour | `library/impeccable/reference/`, `scripts/palette-lab.mjs` |
+| `animate` | Purposeful motion | `references/motion-recipes.md`, `library/impeccable/reference/animate.md` |
+| `onboard` / `clarify` / `adapt` / `optimize` | First run, UX copy, devices, speed | `library/impeccable/reference/` |
+
+Rules for the library: Colabio's order and gates win (understand, plan, derive the theme,
+anti-clone, rendered gates, finish gate); upstream guides are reference for a phase, never a
+second workflow; skip upstream launcher, hook, init and install steps; open about three
+library files per phase; keep one primary style recipe. Details in `library/README.md`.
 
 ## The pipeline: idea in, finished site out
 

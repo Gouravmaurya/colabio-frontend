@@ -40,3 +40,17 @@ test('select-build starts with understanding and carries theme candidates', () =
   assert.match(p.order, /Understand/);
   assert.equal(p.themeCandidates.domain, 'garment');
 });
+
+import fs from 'node:fs';
+import path from 'node:path';
+test('library is one skill: no nested SKILL.md, every upstream folder keeps a license, index paths exist', () => {
+  const root = 'skills/.curated/colabio-frontend/library';
+  const all = []; (function walk(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : all.push(p); } })(root);
+  assert.equal(all.filter((p) => path.basename(p) === 'SKILL.md').length, 0);
+  for (const d of ['impeccable', 'hallmark', 'taste', 'design-data']) assert.ok(fs.existsSync(path.join(root, d, 'LICENSE')), d + ' license');
+  for (const d of fs.readdirSync(path.join(root, 'modules'))) assert.ok(fs.existsSync(path.join(root, 'modules', d, 'LICENSE')), d + ' license');
+  assert.ok(fs.existsSync(path.join(root, 'impeccable', 'NOTICE.md')) && fs.existsSync(path.join(root, 'NOTICE.md')));
+  for (const f of ['critique', 'audit', 'polish', 'harden', 'typeset', 'layout', 'colorize', 'animate', 'shape', 'new-work', 'craft-floor']) assert.ok(fs.existsSync(path.join(root, 'impeccable/reference', f + '.md')), f);
+  const size = all.reduce((a, p) => a + fs.statSync(p).size, 0);
+  assert.ok(size < 6 * 1024 * 1024, 'library stays under 6 MB, was ' + size);
+});

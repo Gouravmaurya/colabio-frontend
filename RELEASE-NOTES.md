@@ -86,3 +86,8 @@ tag is changed and no new release tag is created by this merge.
 - Adds `references/product-understanding.md` (understand, then plan, then derive the theme), `scripts/palette-lab.mjs` with `references/domain-swatches.json` (domain-grounded palette candidates, category-default flags including navy+yellow and cream grounds, `--check` for built pages).
 - `select-build.mjs` now returns theme candidates and says to understand first; `finish-gate.mjs` runs the palette check and, when installed, the Impeccable detector (`references/impeccable-bridge.md`).
 - Reorders the Cinematic Design Prompt so art direction is derived from the understanding and scene plan.
+
+## Unreleased: one combined skill
+
+- Adds a trimmed, licensed `library/` (about 4 MB, 340 files) with Impeccable playbooks, Hallmark, Taste references, UI/UX Pro Max data subset, Emil Kowalski, GSAP, Motion, Scroll Craft and Three.js guides, routed by `library/INDEX.md`, with `library/NOTICE.md` and `references/sources.md`.
+- Adds a Commands layer to SKILL.md (new, shape, redesign, critique, audit, polish, harden, distill, bolder, quieter, typeset, layout, colorize, animate, onboard, clarify, adapt, optimize).

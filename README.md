@@ -141,14 +141,14 @@ establish an upgrade. Unavailable checks and simulated behavior are disclosed.
 
 ## Built in
 
-Everything is in the skill folder: `references/agency-playbook.md` (one-pass
-build and critique rubric), `styles.md`, `design-kit.json`, `craft-defaults.md`,
-`asset-and-copy.md`, `motion-recipes.md`, `libraries.md`, and the scripts
-`pick-direction.mjs` and `slop-lint.mjs`. It never installs other skills.
+One skill, one entry point. Everything is in the skill folder:
 
-Application libraries (gsap, lenis, motion, shadcn source components) belong in
-the target project when a build needs them; adding Colabio never installs them
-globally.
+- **Pipeline and decisions:** understanding sheet, Cinematic Design Prompt, build selector, domain-grounded palette lab, anti-clone rule, rendered gates, finish gate.
+- **Commands:** new, shape, redesign, critique, audit, polish, harden, distill, bolder, quieter, typeset, layout, colorize, animate, onboard, clarify, adapt, optimize.
+- **:** reviewed upstream guides bundled with their licenses and routed by  (Impeccable playbooks, Hallmark components and page structures, Taste anti-slop references, UI/UX Pro Max decision data, Emil Kowalski's guides, GSAP official skills, Motion, Scroll Craft, Three.js rules). See  and .
+- **Starters and scripts:** four working templates, , , , , , , .
+
+It never installs another skill. If Impeccable, Taste or Hallmark are also installed, disable them so they do not double-trigger.
 
 ## Update and troubleshoot
 
