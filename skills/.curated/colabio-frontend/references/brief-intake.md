@@ -178,3 +178,13 @@ approval. End with the "next time say" sentence so the user can reproduce or var
 Example: "build me a shop for handmade ceramics" -> asks look and signature, picks
 `cinematic-product-shop`, scaffolds it, replaces the object model, copy and process stages, verifies
 with the WebGL snapshot technique, and reports which of the ten bar rows were met.
+
+## Real brands and companies
+
+If the idea names a real company or product ("a landing page for YouTube"), ask which it is
+before designing: the user's own page about it (an owner, creator or partner), a tool for that
+product's audience, or an **unofficial concept**. For an unofficial concept: say so in a visible
+banner and in the footer, use the name only as plain text, use no logo, wordmark styling, brand
+mark, trade-dress colours or third-party assets, make no statistics or feature claims beyond
+widely known ones, keep all interactions local and sample, and choose a palette that cannot be
+mistaken for the brand's own (palette-lab's category flags help). Never imply endorsement.

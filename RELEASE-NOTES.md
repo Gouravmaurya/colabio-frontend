@@ -7,7 +7,7 @@ One skill that replaces a stack of frontend skills.
   vocabulary and materials, defaults to avoid), plan scenes and pages, and only then derive the theme.
 - Prompt enhancer: any idea becomes a 12-part Cinematic Design Prompt (`design-brief.md`).
 - `select-build.mjs` proposes type, starter, stack, motion level, pages, libraries and reading order.
-- `palette-lab.mjs` builds domain-grounded palette candidates from real materials (19 domains), checks contrast,
+- `palette-lab.mjs` builds domain-grounded palette candidates from real materials (20 domains), checks contrast,
   flags category defaults (navy + yellow, neon on black, purple glow, cream ground) and audits built pages.
 - Anti-clone rule and craft bar: build the level of strong sites, never their design.
 

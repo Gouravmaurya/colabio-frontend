@@ -1,43 +1,729 @@
 {
   "note": "Real colours of each domain's materials, tools and places. Used by scripts/palette-lab.mjs to ground palettes in evidence. Approximate values; extend freely. Keys are regexes matched against the idea text.",
   "domains": [
-    { "id": "garment", "keys": "garment|apparel|textile|fabric|cloth|sewing|stitch|denim|fashion factory|knit|weav", "swatches": [
-      ["indigo dye", "#2B3F7A"], ["madder red", "#B5412E"], ["turmeric", "#D9961E"], ["undyed cotton", "#EFE8D8"], ["kraft pattern paper", "#CDB892"], ["horn button", "#4A3B2F"], ["brass snap", "#B58E3C"], ["tailor chalk blue", "#A9B7C6"], ["thread spool green", "#3F6B4F"], ["QC stamp red", "#C23A2B"], ["cutting mat green", "#4E7A62"], ["pattern grid line", "#C9D6CF"], ["pressing cloth grey", "#B8B5AE"] ] },
-    { "id": "ceramics", "keys": "ceramic|pottery|clay|kiln|glaze|stoneware|porcelain|tea ?ware", "swatches": [
-      ["celadon", "#A5C2B0"], ["tenmoku", "#2A2523"], ["shino", "#D9CFBA"], ["iron red", "#B4552B"], ["raw stoneware", "#B9A58A"], ["kiln ash", "#8A8F86"], ["cobalt blue", "#2D4F8C"], ["bisque", "#D8B9A0"] ] },
-    { "id": "coffee-tea", "keys": "coffee|espresso|roast|cafe|tea\\b|matcha|barista", "swatches": [
-      ["dark roast", "#3B2418"], ["crema", "#C99A6B"], ["green bean", "#8C9A5B"], ["milk foam", "#F2E9DC"], ["matcha", "#7A9A4A"], ["burlap", "#B79B74"], ["copper kettle", "#B26A3C"] ] },
-    { "id": "finance", "keys": "finance|bank|fintech|invest|wealth|insurance|payments?|trading|accounting", "swatches": [
-      ["ledger green", "#1F5E4B"], ["banknote cream", "#EDE6D0"], ["ink black", "#15171C"], ["gold leaf", "#B8923A"], ["stamp navy", "#23365F"], ["paper grey", "#D8D8D2"], ["signal red", "#C43D2F"] ] },
-    { "id": "health", "keys": "health|clinic|medical|hospital|dental|pharmacy|therapy|patient|wellness", "swatches": [
-      ["scrub teal", "#2E8B8B"], ["gauze white", "#F4F6F4"], ["antiseptic blue", "#CFE3EE"], ["iodine amber", "#B5651D"], ["pulse red", "#C8372D"], ["sage", "#9DB5A2"], ["chart grey", "#8A94A0"] ] },
-    { "id": "logistics", "keys": "logistic|shipping|freight|warehouse|delivery|courier|fleet|cargo|supply chain", "swatches": [
-      ["pallet wood", "#B98E58"], ["safety orange", "#EA6A1B"], ["container steel", "#5C6F7B"], ["tape yellow", "#F0C419"], ["asphalt", "#2B2F33"], ["label white", "#F1F1EC"], ["customs stamp red", "#B7342B"] ] },
-    { "id": "construction", "keys": "construction|architect|building|contractor|civil|engineering firm|renovation|concrete", "swatches": [
-      ["concrete", "#A7A8A3"], ["rebar rust", "#8E4A2A"], ["blueprint", "#1C4E80"], ["hi-vis yellow", "#E6E82F"], ["timber", "#B58B5A"], ["drafting paper", "#F2EFE4"], ["steel", "#4D5A63"] ] },
-    { "id": "music-audio", "keys": "music|audio|record label|studio recording|podcast|vinyl|synth|concert|band", "swatches": [
-      ["vinyl black", "#121212"], ["tube amp glow", "#E08A2E"], ["vu meter green", "#6FB04A"], ["brushed aluminium", "#B7BBBF"], ["tolex", "#2A2623"], ["label red", "#B02A2A"], ["sleeve cream", "#EDE4D2"] ] },
-    { "id": "food", "keys": "restaurant|food|bakery|kitchen|chef|catering|menu|recipe|farm to table", "swatches": [
-      ["tomato", "#C8402A"], ["basil", "#4F7A3A"], ["flour", "#F1EADB"], ["olive oil", "#B8A33A"], ["char", "#2B2522"], ["saffron", "#E3A21A"], ["beet", "#7B2A45"] ] },
-    { "id": "education", "keys": "school|education|course|learning|student|university|tutor|classroom|curriculum", "swatches": [
-      ["chalkboard green", "#2F4A3F"], ["pencil yellow", "#F0C23B"], ["notebook blue", "#3C6BB0"], ["eraser pink", "#E8A5A0"], ["paper", "#F4F0E6"], ["ink", "#1D2433"], ["highlighter green", "#9BD34A"] ] },
-    { "id": "real-estate", "keys": "real estate|property|housing|realtor|home buying|rental|architecture visuali|interior", "swatches": [
-      ["brick", "#9A4A36"], ["plaster", "#E8E1D3"], ["slate roof", "#4C5560"], ["oak", "#B58E5E"], ["garden green", "#5E7F4B"], ["brass key", "#B8923A"], ["dusk sky", "#4B5E86"] ] },
-    { "id": "travel", "keys": "travel|tour|hotel|trip|itinerary|airline|resort|hostel|adventure", "swatches": [
-      ["lagoon", "#2A8C94"], ["sand", "#E4D3B0"], ["terracotta roof", "#C0623B"], ["sunset", "#E98B4A"], ["pine", "#2F5846"], ["passport navy", "#1F2A4D"], ["stamp red", "#B53A32"] ] },
-    { "id": "fitness", "keys": "fitness|gym|workout|sport|training|athlet|yoga|running", "swatches": [
-      ["rubber black", "#1A1A1A"], ["court orange", "#E8642A"], ["track red", "#B8432F"], ["turf green", "#3C8A3F"], ["chalk", "#EFEFEA"], ["steel plate", "#6B7075"], ["electrolyte blue", "#2E9CCA"] ] },
-    { "id": "beauty", "keys": "beauty|cosmetic|skincare|salon|makeup|fragrance|perfume", "swatches": [
-      ["blush", "#E7B7AE"], ["clay mask", "#B98E7A"], ["aloe", "#9DB88C"], ["bottle amber", "#8A4A1C"], ["pearl", "#F3EEE8"], ["rouge", "#A82A3E"], ["glass frost", "#CFD9D6"] ] },
-    { "id": "energy", "keys": "solar|energy|battery|electric|renewable|grid|wind|ev charging|utility", "swatches": [
-      ["panel blue", "#1E3A5F"], ["sun yellow", "#F2B705"], ["copper wire", "#B5683A"], ["field green", "#5E8C3A"], ["cell silver", "#BFC5CC"], ["cable orange", "#E05A1F"], ["night", "#0F1722"] ] },
-    { "id": "print-3d", "keys": "3d print|printing|fabrication|filament|cnc|laser cut|workshop|maker", "swatches": [
-      ["filament orange", "#E6692A"], ["resin grey", "#8E9399"], ["bed black", "#1E1F22"], ["PLA white", "#EDEDE8"], ["support blue", "#4A7FB5"], ["cut-line magenta", "#C2307C"], ["plywood", "#C9A877"] ] },
-    { "id": "jewelry", "keys": "jewel|ring\\b|necklace|watchmaker|gemstone|goldsmith|silversmith", "swatches": [
-      ["yellow gold", "#C9A24A"], ["sterling", "#C5C8CC"], ["emerald", "#1F6B52"], ["garnet", "#7A1F2B"], ["velvet", "#2C1F3A"], ["pearl", "#F2EDE4"], ["sapphire", "#274A8C"] ] },
-    { "id": "legal-consulting", "keys": "law firm|legal|attorney|consult|advisory|compliance|audit", "swatches": [
-      ["leather binding", "#5A3A2A"], ["legal pad", "#F2E7A8"], ["ink", "#1B2230"], ["seal red", "#8E2B2B"], ["oak panel", "#8A6240"], ["document white", "#F6F4EE"], ["brass", "#B08D3C"] ] },
-    { "id": "software-dev", "keys": "developer|api\\b|devtool|open source|cli\\b|sdk|infrastructure|cloud platform|database", "swatches": [
-      ["terminal green", "#4CAF50"], ["editor grey", "#1E1F26"], ["diff red", "#D9534F"], ["diff green", "#3FA66B"], ["syntax amber", "#E0A84A"], ["doc white", "#F7F7F5"], ["link blue", "#4A7BD8"] ] }
+    {
+      "id": "garment",
+      "keys": "garment|apparel|textile|fabric|cloth|sewing|stitch|denim|fashion factory|knit|weav",
+      "swatches": [
+        [
+          "indigo dye",
+          "#2B3F7A"
+        ],
+        [
+          "madder red",
+          "#B5412E"
+        ],
+        [
+          "turmeric",
+          "#D9961E"
+        ],
+        [
+          "undyed cotton",
+          "#EFE8D8"
+        ],
+        [
+          "kraft pattern paper",
+          "#CDB892"
+        ],
+        [
+          "horn button",
+          "#4A3B2F"
+        ],
+        [
+          "brass snap",
+          "#B58E3C"
+        ],
+        [
+          "tailor chalk blue",
+          "#A9B7C6"
+        ],
+        [
+          "thread spool green",
+          "#3F6B4F"
+        ],
+        [
+          "QC stamp red",
+          "#C23A2B"
+        ],
+        [
+          "cutting mat green",
+          "#4E7A62"
+        ],
+        [
+          "pattern grid line",
+          "#C9D6CF"
+        ],
+        [
+          "pressing cloth grey",
+          "#B8B5AE"
+        ]
+      ]
+    },
+    {
+      "id": "ceramics",
+      "keys": "ceramic|pottery|clay|kiln|glaze|stoneware|porcelain|tea ?ware",
+      "swatches": [
+        [
+          "celadon",
+          "#A5C2B0"
+        ],
+        [
+          "tenmoku",
+          "#2A2523"
+        ],
+        [
+          "shino",
+          "#D9CFBA"
+        ],
+        [
+          "iron red",
+          "#B4552B"
+        ],
+        [
+          "raw stoneware",
+          "#B9A58A"
+        ],
+        [
+          "kiln ash",
+          "#8A8F86"
+        ],
+        [
+          "cobalt blue",
+          "#2D4F8C"
+        ],
+        [
+          "bisque",
+          "#D8B9A0"
+        ]
+      ]
+    },
+    {
+      "id": "coffee-tea",
+      "keys": "coffee|espresso|roast|cafe|tea\\b|matcha|barista",
+      "swatches": [
+        [
+          "dark roast",
+          "#3B2418"
+        ],
+        [
+          "crema",
+          "#C99A6B"
+        ],
+        [
+          "green bean",
+          "#8C9A5B"
+        ],
+        [
+          "milk foam",
+          "#F2E9DC"
+        ],
+        [
+          "matcha",
+          "#7A9A4A"
+        ],
+        [
+          "burlap",
+          "#B79B74"
+        ],
+        [
+          "copper kettle",
+          "#B26A3C"
+        ]
+      ]
+    },
+    {
+      "id": "finance",
+      "keys": "finance|bank|fintech|invest|wealth|insurance|payments?|trading|accounting",
+      "swatches": [
+        [
+          "ledger green",
+          "#1F5E4B"
+        ],
+        [
+          "banknote cream",
+          "#EDE6D0"
+        ],
+        [
+          "ink black",
+          "#15171C"
+        ],
+        [
+          "gold leaf",
+          "#B8923A"
+        ],
+        [
+          "stamp navy",
+          "#23365F"
+        ],
+        [
+          "paper grey",
+          "#D8D8D2"
+        ],
+        [
+          "signal red",
+          "#C43D2F"
+        ]
+      ]
+    },
+    {
+      "id": "health",
+      "keys": "health|clinic|medical|hospital|dental|pharmacy|therapy|patient|wellness",
+      "swatches": [
+        [
+          "scrub teal",
+          "#2E8B8B"
+        ],
+        [
+          "gauze white",
+          "#F4F6F4"
+        ],
+        [
+          "antiseptic blue",
+          "#CFE3EE"
+        ],
+        [
+          "iodine amber",
+          "#B5651D"
+        ],
+        [
+          "pulse red",
+          "#C8372D"
+        ],
+        [
+          "sage",
+          "#9DB5A2"
+        ],
+        [
+          "chart grey",
+          "#8A94A0"
+        ]
+      ]
+    },
+    {
+      "id": "logistics",
+      "keys": "logistic|shipping|freight|warehouse|delivery|courier|fleet|cargo|supply chain",
+      "swatches": [
+        [
+          "pallet wood",
+          "#B98E58"
+        ],
+        [
+          "safety orange",
+          "#EA6A1B"
+        ],
+        [
+          "container steel",
+          "#5C6F7B"
+        ],
+        [
+          "tape yellow",
+          "#F0C419"
+        ],
+        [
+          "asphalt",
+          "#2B2F33"
+        ],
+        [
+          "label white",
+          "#F1F1EC"
+        ],
+        [
+          "customs stamp red",
+          "#B7342B"
+        ]
+      ]
+    },
+    {
+      "id": "construction",
+      "keys": "construction|architect|building|contractor|civil|engineering firm|renovation|concrete",
+      "swatches": [
+        [
+          "concrete",
+          "#A7A8A3"
+        ],
+        [
+          "rebar rust",
+          "#8E4A2A"
+        ],
+        [
+          "blueprint",
+          "#1C4E80"
+        ],
+        [
+          "hi-vis yellow",
+          "#E6E82F"
+        ],
+        [
+          "timber",
+          "#B58B5A"
+        ],
+        [
+          "drafting paper",
+          "#F2EFE4"
+        ],
+        [
+          "steel",
+          "#4D5A63"
+        ]
+      ]
+    },
+    {
+      "id": "music-audio",
+      "keys": "music|audio|record label|studio recording|podcast|vinyl|synth|concert|band",
+      "swatches": [
+        [
+          "vinyl black",
+          "#121212"
+        ],
+        [
+          "tube amp glow",
+          "#E08A2E"
+        ],
+        [
+          "vu meter green",
+          "#6FB04A"
+        ],
+        [
+          "brushed aluminium",
+          "#B7BBBF"
+        ],
+        [
+          "tolex",
+          "#2A2623"
+        ],
+        [
+          "label red",
+          "#B02A2A"
+        ],
+        [
+          "sleeve cream",
+          "#EDE4D2"
+        ]
+      ]
+    },
+    {
+      "id": "food",
+      "keys": "restaurant|food|bakery|kitchen|chef|catering|menu|recipe|farm to table",
+      "swatches": [
+        [
+          "tomato",
+          "#C8402A"
+        ],
+        [
+          "basil",
+          "#4F7A3A"
+        ],
+        [
+          "flour",
+          "#F1EADB"
+        ],
+        [
+          "olive oil",
+          "#B8A33A"
+        ],
+        [
+          "char",
+          "#2B2522"
+        ],
+        [
+          "saffron",
+          "#E3A21A"
+        ],
+        [
+          "beet",
+          "#7B2A45"
+        ]
+      ]
+    },
+    {
+      "id": "education",
+      "keys": "school|education|course|learning|student|university|tutor|classroom|curriculum",
+      "swatches": [
+        [
+          "chalkboard green",
+          "#2F4A3F"
+        ],
+        [
+          "pencil yellow",
+          "#F0C23B"
+        ],
+        [
+          "notebook blue",
+          "#3C6BB0"
+        ],
+        [
+          "eraser pink",
+          "#E8A5A0"
+        ],
+        [
+          "paper",
+          "#F4F0E6"
+        ],
+        [
+          "ink",
+          "#1D2433"
+        ],
+        [
+          "highlighter green",
+          "#9BD34A"
+        ]
+      ]
+    },
+    {
+      "id": "real-estate",
+      "keys": "real estate|property|housing|realtor|home buying|rental|architecture visuali|interior",
+      "swatches": [
+        [
+          "brick",
+          "#9A4A36"
+        ],
+        [
+          "plaster",
+          "#E8E1D3"
+        ],
+        [
+          "slate roof",
+          "#4C5560"
+        ],
+        [
+          "oak",
+          "#B58E5E"
+        ],
+        [
+          "garden green",
+          "#5E7F4B"
+        ],
+        [
+          "brass key",
+          "#B8923A"
+        ],
+        [
+          "dusk sky",
+          "#4B5E86"
+        ]
+      ]
+    },
+    {
+      "id": "travel",
+      "keys": "travel|tour|hotel|trip|itinerary|airline|resort|hostel|adventure",
+      "swatches": [
+        [
+          "lagoon",
+          "#2A8C94"
+        ],
+        [
+          "sand",
+          "#E4D3B0"
+        ],
+        [
+          "terracotta roof",
+          "#C0623B"
+        ],
+        [
+          "sunset",
+          "#E98B4A"
+        ],
+        [
+          "pine",
+          "#2F5846"
+        ],
+        [
+          "passport navy",
+          "#1F2A4D"
+        ],
+        [
+          "stamp red",
+          "#B53A32"
+        ]
+      ]
+    },
+    {
+      "id": "fitness",
+      "keys": "fitness|gym|workout|sport|training|athlet|yoga|running",
+      "swatches": [
+        [
+          "rubber black",
+          "#1A1A1A"
+        ],
+        [
+          "court orange",
+          "#E8642A"
+        ],
+        [
+          "track red",
+          "#B8432F"
+        ],
+        [
+          "turf green",
+          "#3C8A3F"
+        ],
+        [
+          "chalk",
+          "#EFEFEA"
+        ],
+        [
+          "steel plate",
+          "#6B7075"
+        ],
+        [
+          "electrolyte blue",
+          "#2E9CCA"
+        ]
+      ]
+    },
+    {
+      "id": "beauty",
+      "keys": "beauty|cosmetic|skincare|salon|makeup|fragrance|perfume",
+      "swatches": [
+        [
+          "blush",
+          "#E7B7AE"
+        ],
+        [
+          "clay mask",
+          "#B98E7A"
+        ],
+        [
+          "aloe",
+          "#9DB88C"
+        ],
+        [
+          "bottle amber",
+          "#8A4A1C"
+        ],
+        [
+          "pearl",
+          "#F3EEE8"
+        ],
+        [
+          "rouge",
+          "#A82A3E"
+        ],
+        [
+          "glass frost",
+          "#CFD9D6"
+        ]
+      ]
+    },
+    {
+      "id": "energy",
+      "keys": "solar|energy|battery|electric|renewable|grid|wind|ev charging|utility",
+      "swatches": [
+        [
+          "panel blue",
+          "#1E3A5F"
+        ],
+        [
+          "sun yellow",
+          "#F2B705"
+        ],
+        [
+          "copper wire",
+          "#B5683A"
+        ],
+        [
+          "field green",
+          "#5E8C3A"
+        ],
+        [
+          "cell silver",
+          "#BFC5CC"
+        ],
+        [
+          "cable orange",
+          "#E05A1F"
+        ],
+        [
+          "night",
+          "#0F1722"
+        ]
+      ]
+    },
+    {
+      "id": "print-3d",
+      "keys": "3d print|printing|fabrication|filament|cnc|laser cut|workshop|maker",
+      "swatches": [
+        [
+          "filament orange",
+          "#E6692A"
+        ],
+        [
+          "resin grey",
+          "#8E9399"
+        ],
+        [
+          "bed black",
+          "#1E1F22"
+        ],
+        [
+          "PLA white",
+          "#EDEDE8"
+        ],
+        [
+          "support blue",
+          "#4A7FB5"
+        ],
+        [
+          "cut-line magenta",
+          "#C2307C"
+        ],
+        [
+          "plywood",
+          "#C9A877"
+        ]
+      ]
+    },
+    {
+      "id": "jewelry",
+      "keys": "jewel|ring\\b|necklace|watchmaker|gemstone|goldsmith|silversmith",
+      "swatches": [
+        [
+          "yellow gold",
+          "#C9A24A"
+        ],
+        [
+          "sterling",
+          "#C5C8CC"
+        ],
+        [
+          "emerald",
+          "#1F6B52"
+        ],
+        [
+          "garnet",
+          "#7A1F2B"
+        ],
+        [
+          "velvet",
+          "#2C1F3A"
+        ],
+        [
+          "pearl",
+          "#F2EDE4"
+        ],
+        [
+          "sapphire",
+          "#274A8C"
+        ]
+      ]
+    },
+    {
+      "id": "legal-consulting",
+      "keys": "law firm|legal|attorney|consult|advisory|compliance|audit",
+      "swatches": [
+        [
+          "leather binding",
+          "#5A3A2A"
+        ],
+        [
+          "legal pad",
+          "#F2E7A8"
+        ],
+        [
+          "ink",
+          "#1B2230"
+        ],
+        [
+          "seal red",
+          "#8E2B2B"
+        ],
+        [
+          "oak panel",
+          "#8A6240"
+        ],
+        [
+          "document white",
+          "#F6F4EE"
+        ],
+        [
+          "brass",
+          "#B08D3C"
+        ]
+      ]
+    },
+    {
+      "id": "software-dev",
+      "keys": "developer|api\\b|devtool|open source|cli\\b|sdk|infrastructure|cloud platform|database",
+      "swatches": [
+        [
+          "terminal green",
+          "#4CAF50"
+        ],
+        [
+          "editor grey",
+          "#1E1F26"
+        ],
+        [
+          "diff red",
+          "#D9534F"
+        ],
+        [
+          "diff green",
+          "#3FA66B"
+        ],
+        [
+          "syntax amber",
+          "#E0A84A"
+        ],
+        [
+          "doc white",
+          "#F7F7F5"
+        ],
+        [
+          "link blue",
+          "#4A7BD8"
+        ]
+      ]
+    },
+    {
+      "id": "video-creator",
+      "keys": "youtube|video|creator|channel|streaming|vlog|film|filmmaking|editing|podcast|camera|studio recording|livestream",
+      "swatches": [
+        [
+          "film leader amber",
+          "#D98A2B"
+        ],
+        [
+          "slate black",
+          "#16171B"
+        ],
+        [
+          "softbox white",
+          "#F4F2EC"
+        ],
+        [
+          "timeline clip teal",
+          "#2F8F8B"
+        ],
+        [
+          "grease-pencil red",
+          "#B5352B"
+        ],
+        [
+          "gaffer tape grey",
+          "#8D9094"
+        ],
+        [
+          "cue-card yellow",
+          "#E6C24A"
+        ],
+        [
+          "audio meter green",
+          "#59A24A"
+        ],
+        [
+          "film base brown",
+          "#3A2A1E"
+        ],
+        [
+          "monitor blue-grey",
+          "#3E4C5E"
+        ],
+        [
+          "lens coating violet",
+          "#6B4FA0"
+        ]
+      ]
+    }
   ]
 }

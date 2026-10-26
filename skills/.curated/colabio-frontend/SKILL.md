@@ -168,6 +168,7 @@ journey in `references/site-types.md`. Reuse facts from the repo, the supplied
 live reference and settled answers. Ask only about gaps that materially change
 the result; respect delegated decisions or "no questions" and state assumptions.
 Never make a thin prompt a reason to lower the craft bar or invent proof.
+If the idea names a real company or product, ask whether it is the user's own page, a tool for that audience, or an **unofficial concept**; follow "Real brands and companies" in `references/brief-intake.md` (visible unofficial label, no logo or trade dress, no invented claims).
 
 The three examples in `templates/README.md` provide reusable working mechanisms:
 a configurable product scene, a scroll-directed interactive stage, and a service

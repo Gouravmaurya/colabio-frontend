@@ -45,7 +45,7 @@
     },
     {
       "path": "RELEASE-NOTES.md",
-      "sha256": "934b716b87f7ea1011413164677fd532430ec1b8a345881823305eb7f208ba93"
+      "sha256": "0cbf2b6a0e65ce969cb7502255fcc483fa7b56faf55a375c2320b422770e811b"
     },
     {
       "path": "THIRD-PARTY-NOTICES.md",
@@ -229,7 +229,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "5f09b107aa36c09b3e5e98e12b39b30ca1e1ad6a16902b490ad9d09c31d3caf5"
+      "sha256": "878d12e5fc344d1203f62fa66ee41b52a334eb03bb35cc2a9d5b3512b1472c2d"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/acceptance.md",
@@ -1633,7 +1633,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/brief-intake.md",
-      "sha256": "18bb125ea2f77ae0e94318f795a38facd94163509b422c65f9db1bb80041df3d"
+      "sha256": "112a709151a8445c29df6b498a3449fafdb0432e8c3024a69073f596a75a16bb"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/cinematic-recipes.md",
@@ -1661,7 +1661,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/domain-swatches.json",
-      "sha256": "9153867b1c0540bbf33f9b8bc35443b17f4cdf8ebdad9e1baa45d98fe3269d5b"
+      "sha256": "d798428db7ded42fb483be67bae38eca8d0ce3cea9b2b8a3edc17ba9648863ff"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/file-map.md",
