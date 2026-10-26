@@ -12,6 +12,10 @@ description: >
   motion guides, component-library mining) so no other skill is required.
   Includes cinematic composition recipes and rendered baseline/slice/final gates
   that reject visual regressions rather than treating working code as design proof.
+  Runs an idea-to-site pipeline: enhances a thin idea into a Cinematic Design
+  Prompt, selects the build plan (type, style, starter, stack, motion, pages),
+  builds with scroll and motion systems, then verifies with polish and
+  rendered gates before delivery.
   Keep small fixes local; exclude unrelated backend work.
 ---
 
@@ -56,6 +60,39 @@ Scripts use Node 18+; without Node, perform the applicable checks manually.
 | `scripts/serve.mjs` | Local static preview server |
 | `scripts/check-contrast.mjs` | Check foreground/background token contrast |
 | `evals/intake-evals.md` | Manual brief/intake behavior cases |
+| `references/prompt-enhancer.md` | Turn any idea into a Cinematic Design Prompt (12-part schema, examples) |
+| `scripts/select-build.mjs` | Build selector: type, style, starter, stack, motion level, pages, libraries, reading order |
+| `scripts/finish-gate.mjs` | Static polish gate: meta, landmarks, alt text, focus, reduced motion, social card, favicon, placeholders |
+| `evals/pipeline-evals.md` | End-to-end cases for the idea-to-finished-site pipeline |
+
+## The pipeline: idea in, finished site out
+
+For a new site or major redesign the user gives an idea, a design wish or a link.
+Run these stages in order, in one pass unless the user asked for questions.
+
+1. **Enhance.** Follow [prompt-enhancer.md](references/prompt-enhancer.md): score
+   the idea, ask one round only if three or more material gaps remain, and write a
+   **Cinematic Design Prompt** (`design-brief.md` in the project) covering logline,
+   visitor and action, tone, art direction, scene score, signature interaction,
+   pages and UX flows, motion system, content, stack, acceptance criteria and
+   assumptions. Show a 10-line summary.
+2. **Select.** Run `node scripts/select-build.mjs --brief "<idea>"` (or `--file
+   design-brief.md --project <app>`). It returns the site type, one primary style
+   recipe, font pair and palette candidates, a starter if one fits (mechanisms
+   only), stack, motion level and libraries, the page list, libraries to mine and
+   the reading order. It is heuristic: confirm or replace every item with a reason.
+3. **Design.** Write the spec (tokens with contrast, type scale, scene score with a
+   motion verb and hand-off per scene, mobile recomposition). Gather real assets
+   and copy first. Satisfy the anti-clone rule in `craft-bar.md`.
+4. **Build.** Vertical slice first (hero, signature, hand-off), rendered at 1440
+   and 390; then every page in the CDP's page list with its states; then motion on
+   one clock with owners and reduced-motion and no-library paths.
+5. **Polish and verify.** Run `finish-gate.mjs`, `slop-lint.mjs` and
+   `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; at least
+   two critique rounds against `award-bar.md` and the acceptance criteria.
+6. **Deliver.** The site, `design-brief.md`, what was checked and what was not, and
+   a "next time say" prompt. Never claim an award, a score or measured performance
+   without evidence.
 
 ## Acceptance contract for substantial creative work
 

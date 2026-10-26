@@ -61,7 +61,7 @@ const TYPES = {
   game: ['cinematic-immersive', 'playful-kinetic', 'gsap-experimental'], store: ['apple-fluid', 'atmospheric-soft', 'editorial-print'],
   software: ['swiss-precision', 'apple-fluid'], editorial: ['editorial-print', 'atmospheric-soft'], event: ['industrial-brutal', 'gsap-experimental', 'playful-kinetic']
 };
-const TYPE_WORDS = { game: /games?|gaming|playtest/, store: /store|shop|e-?commerce|catalog/, software: /saas|dashboard|app|software|platform/, event: /event|conference|festival|campaign/, editorial: /magazine|blog|journal|editorial/, landing: /landing/, studio: /portfolio|studio|agency/ };
+const TYPE_WORDS = { game: /\bgames?\b|gaming|playtest/, store: /\bstore|shop|e-?commerce|catalog/, software: /\bsaas|dashboard|\bapp\b|software|platform/, event: /event|conference|festival|campaign/, editorial: /magazine|blog|journal|editorial/, landing: /landing/, studio: /portfolio|\bstudio\b|agency/ };
 
 const text = [args.brief, args.mood, args.seed].filter((x) => typeof x === 'string').join(' ').toLowerCase();
 const STOP = new Set('a an the for and or of to in on at is it me my we our us you your i now create build make want need please website site page landing web very with that this from into about like just'.split(' '));

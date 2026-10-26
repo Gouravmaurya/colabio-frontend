@@ -75,3 +75,8 @@ tag is changed and no new release tag is created by this merge.
 - Caps style guides at one primary plus two supporting; adds a library-website mining protocol (shadcn directory, 21st.dev, Magic UI, Aceternity, React Bits, Motion Primitives, Codrops and more).
 - The standalone curated `SKILL.md` carries a self-contained "Premium one-pass build" section.
 - The default curated skill is now fully standalone: it ships `references/` (playbook, style recipes, design kit, craft defaults, asset/copy gate, motion recipes, library mining) and `scripts/` (pick-direction, slop-lint). The design council and the install-other-skills section were removed.
+
+## Unreleased: idea-to-site pipeline
+
+- Adds `references/prompt-enhancer.md` (12-part Cinematic Design Prompt), `scripts/select-build.mjs` (build selector), `scripts/finish-gate.mjs` (static polish gate) and `evals/pipeline-evals.md`; SKILL.md now opens with the six-stage pipeline.
+- Fixes backspace characters that corrupted word-boundary regexes in `pick-direction.mjs` type detection.
