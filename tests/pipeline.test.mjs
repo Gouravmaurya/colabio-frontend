@@ -63,3 +63,41 @@ test('SKILL.md stays short and every file it names exists', () => {
   assert.deepEqual(missing, []);
   for (const f of ['commands.md', 'core-guidance.md', 'file-map.md']) assert.ok(fs.existsSync(path.join(root, 'references', f)), f);
 });
+
+test('variety-check flags the banned skeleton and demo phrases', () => {
+  const r = run('variety-check.mjs', 'tests/fixtures-variety/index.html');
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /banned skeleton/);
+  assert.match(r.stdout, /demo or stock phrases/);
+});
+
+test('finish-gate warns when mobile navigation is hidden with no menu', () => {
+  const r = run('finish-gate.mjs', 'tests/fixtures-nav/index.html');
+  assert.match(r.stdout, /WARN mobile navigation/);
+});
+
+test('component-source lists and prints bundled components and fails cleanly', () => {
+  const list = run('component-source.mjs', 'local:list');
+  assert.equal(list.status, 0);
+  for (const n of ['marquee', 'command-palette', 'progress-thread']) assert.ok(list.stdout.split('\n').includes(n), n);
+  const one = run('component-source.mjs', 'local:marquee');
+  assert.equal(one.status, 0);
+  assert.match(one.stdout, /### HTML[\s\S]*### CSS[\s\S]*### JS/);
+  assert.equal(run('component-source.mjs', 'local:../x').status, 2);
+  assert.equal(run('component-source.mjs', 'nope:thing').status, 2);
+  const k = spawnSync(process.execPath, ['skills/.curated/colabio-frontend/scripts/component-source.mjs', '21st:a/b'], { encoding: 'utf8', env: { ...process.env, API_KEY_21ST: '', TWENTYFIRST_API_KEY: '' } });
+  assert.equal(k.status, 3);
+  assert.match(k.stderr, /API_KEY_21ST/);
+});
+
+test('every bundled component has matching html markers and the gallery exists', () => {
+  const s = fs.readFileSync('skills/.curated/colabio-frontend/library/components/components.html', 'utf8');
+  const names = [...s.matchAll(/@component:html ([a-z0-9-]+)/g)].map((m) => m[1]);
+  assert.ok(names.length >= 16, 'expected 16+ components, found ' + names.length);
+  for (const n of names) assert.ok(s.includes(`@end:html ${n}`), n + ' end marker');
+});
+
+test('capture.mjs is syntactically valid and refuses to run without arguments', () => {
+  const r = run('capture.mjs');
+  assert.equal(r.status, 2);
+});

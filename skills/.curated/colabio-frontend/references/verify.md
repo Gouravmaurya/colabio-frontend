@@ -110,3 +110,16 @@ performance, accessibility compliance, awards or a score you did not measure.
   the grid a `min-height`.
 - **Fallback path:** load the page with the fallback switch (`?no3d`) and confirm there are
   no console errors and every control still works.
+
+## Exact-size captures for the visual gates
+
+`verify-visual-gates.mjs` needs real PNGs whose width and height match the recorded CSS viewport, and baseline captures taken **before** design starts.
+Headless Chrome windows cannot be narrower than about 500 px, so a plain `--window-size=390` capture is a cropped 500 px layout. Use:
+
+```sh
+node scripts/capture.mjs <url> --out review/captures/baseline-narrow.png --width 390 --height 844 --wait 14000
+node scripts/capture.mjs <url> --out review/captures/baseline-desktop.png --width 1440 --height 900 --wait 14000
+# add --full-page, --reduced-motion, --scroll <y> as needed
+```
+The JSON it prints holds the actual viewport, DPR, `scrollWidth` and `overflowX`; paste those into the record. WebGL pages need a long `--wait`
+(the first capture can miss the object). A page wider than the requested width reports `overflowX: true`, which is itself a finding.

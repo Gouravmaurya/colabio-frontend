@@ -49,12 +49,16 @@ CINEMATIC DESIGN PROMPT: <working title>
                   materials · category defaults to avoid · emotional register · constraints ·
                   first-screen obligation.
 3  Visitor        The moment they arrive in. Primary action as a button label. Success measure.
-4  Scene score    5-8 scenes. Each: question it answers · composition · dominant asset ·
-                  motion verb (establish, enter, hold, transform, resolve) · hand-off to the
-                  next scene · phone recomposition.
-5  Signature      One interaction or object specific to this product: what changes, what the
-                  visitor learns or does, its states, keyboard and touch behaviour,
-                  static/reduced-motion equivalent.
+4  Scene score    5-8 scenes. Each: question it answers · form from the section-grammar menu
+                  (references/distinctive-design.md; no form more than twice, none adjacent) ·
+                  composition · dominant asset · motion verb (establish, enter, hold, transform,
+                  resolve) · hand-off to the next scene · phone recomposition · component
+                  source (library/components, registry, or custom) with the planned change.
+5  Signature      The one distinctive move only this product could own (one sentence), as an
+                  interaction or object: what changes, what the visitor learns or does, its
+                  states, keyboard and touch behaviour, static/reduced-motion equivalent.
+                  Also list the category inventory (what competitors all do) and the three
+                  in-category and three out-of-category references it avoids or borrows from.
 6  Pages and UX   Page list with purpose · navigation model · primary flow in steps ·
                   secondary flows · forms with validation and honest results · empty, error,
                   loading and success states.

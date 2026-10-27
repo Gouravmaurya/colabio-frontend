@@ -229,11 +229,11 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/SKILL.md",
-      "sha256": "878d12e5fc344d1203f62fa66ee41b52a334eb03bb35cc2a9d5b3512b1472c2d"
+      "sha256": "2a0b4a3d67bbae315c2b084d1e5ab59fa8894a637d4ee93452f59870eedaf13a"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/acceptance.md",
-      "sha256": "d5e7bd252881c9b24153f8b96740c66faa495ecadb18d8ac5d00a8ded3fa7e98"
+      "sha256": "6e79b58cdddbdfacc3000d1d3dc7ff624afc9db749cf3ae71b87953ff2ad4bf0"
     },
     {
       "path": "skills/.curated/colabio-frontend/evals/intake-evals.md",
@@ -256,6 +256,14 @@
       "sha256": "be8113c6e2d5cf0be8a3a02ceafe6d0d8a55921761d3eb5f0728a580d1996f48"
     },
     {
+      "path": "skills/.curated/colabio-frontend/library/components/INDEX.md",
+      "sha256": "d8c3fd13ebb59e31f397323c3add7f2d865431751cdc5eac5b56d2d1702a9697"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/library/components/components.html",
+      "sha256": "c541cdfd314e6de293ce193d2ffd7843c11f90b0c9f967e2e1112599171dec02"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/library/design-data/GUIDE.md",
       "sha256": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9"
     },
@@ -265,47 +273,47 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/app-interface.csv",
-      "sha256": "331e7cf2c0b222d80c566c5f255c63cb339f65bfd02e471a720f28e4864a9f08"
+      "sha256": "f502a372b25ebd186dc850a77462b1a7c0a95c02595122cd6d55a629739073af"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/charts.csv",
-      "sha256": "4115cf1120680f2cedef0676cb648f30c7ef4699e2a947535d4113e71ed3b12a"
+      "sha256": "1fd649c00516a24b193940902548d2584381f1e3cfa048490c9f88cddcf65bb4"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/colors.csv",
-      "sha256": "8162429222bce22df62b564085946a30d07cc9722c58d0a3a494bd0d1d00841c"
+      "sha256": "1c7527d81842b386fbb066376e1e449b05c4bb5db72e6842b51db752801b6fc0"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/landing.csv",
-      "sha256": "9a2edd3bb676c2a58f00ade7a062e285222d4297bfd847c8d5b056f0dbbf52d0"
+      "sha256": "9efd4568de12dc9e9e4c5b7c1743f3643243232d2dbb9257d30d88613d4bb8fc"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/motion.csv",
-      "sha256": "381affe8df8ea1f66fbbda2598827f9f54299107bbe6a1b4e9b68f6b62091ceb"
+      "sha256": "854b30af6fdd40a735eeed077eabec3a6917923627220bc5062ea8a15165ef6b"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/products.csv",
-      "sha256": "42473f75e8dde5987bdf89ce55d8c168091b80a356cae691dd60247d80720b70"
+      "sha256": "c3ef558cf2987e145e90ab22ff71dbe769d38d2c83999bfd63d7dd58b477f73d"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/react-performance.csv",
-      "sha256": "3d925802539abac5afeb63ae8aa1960b7229ad271b3a47caed40ab2d97ad0734"
+      "sha256": "4dc9b897a2150a8f30b4ad18f67ebc62074d1706bde9849c189b7f511fb821d2"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/styles.csv",
-      "sha256": "a93a4d9d7025856575d7b7583bda020be9043013432c5af7c58af9dbdfb206b7"
+      "sha256": "667595149f49cc894ac4b7b3468e7b9c6b0c2795ebea26dce20ca3f92044d517"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/typography.csv",
-      "sha256": "321fc446e89024488ebae96dda93efc4d2307bd8bddb240857ad51364f6782c8"
+      "sha256": "5c32783790714baaa0f870131aacff021b865495008ed8ab65e7ddf894862581"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/ui-reasoning.csv",
-      "sha256": "f0774dd741cecdad5eec842034bd6d5e9ea50e9f220a1910069748daa0bb8e9a"
+      "sha256": "8c45627a7ac18cc57b8abe909d840aae3cf9a9f3ef15b8a6e1bf6c64fb02ed64"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/data/ux-guidelines.csv",
-      "sha256": "ff81ec613f70ba9fc3fcce52dbe4ae35d44b2079dbe6dc066d2d6e38c28facd5"
+      "sha256": "0552e850d47fb5b5cf0b2e35784e1d44f6b2aea52c9255193f7eb2588c2c9f4b"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/design-data/references/pro-rules.md",
@@ -1349,7 +1357,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/library/modules/scroll-craft/engine/scrollcraft.js",
-      "sha256": "91a8e57cec07b7b977584885741f07d93fd1cd08fdbea623d5432fcede66fd38"
+      "sha256": "4a419b3ede51f64790af7b56c0195ea01c98a84df8e0e768ebf343956b922f39"
     },
     {
       "path": "skills/.curated/colabio-frontend/library/modules/scroll-craft/references/approved-collection.md",
@@ -1653,11 +1661,15 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/craft-defaults.md",
-      "sha256": "963d34d45b376918dddcf6a9b8fd33fedeacff68b80efb444698726da95ce99d"
+      "sha256": "6d0201876529f7d3cd4f34d306580058fcb2f716558c0de0675d237aeb80189c"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/design-kit.json",
       "sha256": "e1c73a58829f6f5edc963bde1f38ca3e85ed66f6208386df11b2a7002564d4e4"
+    },
+    {
+      "path": "skills/.curated/colabio-frontend/references/distinctive-design.md",
+      "sha256": "e1108557bb397ce8aa47ab1c3ac8ff8da54acbe73f971dbd9028c6cd3bdf424f"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/domain-swatches.json",
@@ -1665,7 +1677,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/file-map.md",
-      "sha256": "32057f68a91a95f8f07cf2e0d5d8a82f045915cb359bc4aa9c878fb6c2617c15"
+      "sha256": "723ba58031d347ba896edd0f994c6065768e6f7aa43b11d65c715f07b460205d"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/impeccable-bridge.md",
@@ -1673,7 +1685,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/libraries.md",
-      "sha256": "f9bf9261296f3dd6c0983cea1c38ad9ff229e3daa21a2c3fbe984f9465ca4a17"
+      "sha256": "65e6df253506e5ae371f198d769dfcc08cbcd45428474f61a25ccc5eb11fd2bc"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/motion-recipes.md",
@@ -1685,7 +1697,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/prompt-enhancer.md",
-      "sha256": "db05aa70d47827b30db5011fefe562ba8920ed632cb8075f3578da054ecb27ba"
+      "sha256": "896043be9ec5a7bfaceac4c37889a27e2b477af3258cd1b92ff3929fa42e7b4c"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/site-types.md",
@@ -1705,7 +1717,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/references/verify.md",
-      "sha256": "e6f2b62cad0f4447c9310c17b76eeccdbde7a682557155cdfcb53dccba1774fa"
+      "sha256": "a390304fb9ac6a7a4f1946125531b85c8e89caac3285bd5aa4e3634c5b9bef6e"
     },
     {
       "path": "skills/.curated/colabio-frontend/references/visual-comparison-gates.md",
@@ -1716,12 +1728,20 @@
       "sha256": "2ea79df6ad9d2ecac051e94394b153deb7cad74dc25832fec5edf207a13fe242"
     },
     {
+      "path": "skills/.curated/colabio-frontend/scripts/capture.mjs",
+      "sha256": "8cf6a049b3214ebe05cfa549f16f032b6232acba12fcd3d4364e1440354b9e94"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/scripts/check-contrast.mjs",
       "sha256": "65f2c3188fbfb613b13d048fad48129e9c99ce4ff56e3503e5f9e6e6ad87e1c8"
     },
     {
+      "path": "skills/.curated/colabio-frontend/scripts/component-source.mjs",
+      "sha256": "e319195cc6c95e6efcb04bab59380b117169af85a09ff5ce0390683d031d7476"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/scripts/finish-gate.mjs",
-      "sha256": "48e522a90e0e1d8eb59baf1a22eb3f5fbf5ddc61c1241b0f27d13a4501ff3f8b"
+      "sha256": "8430ab85209f3b99fb84c45c109c4ddda72a7ce34be64d623b6a233c376e55e4"
     },
     {
       "path": "skills/.curated/colabio-frontend/scripts/palette-lab.mjs",
@@ -1748,6 +1768,10 @@
       "sha256": "45cc893ed80c1d0ff814184454cac6ba4e3489d4f65d1c494fa4bce4791778ff"
     },
     {
+      "path": "skills/.curated/colabio-frontend/scripts/variety-check.mjs",
+      "sha256": "7cc8363237b2cad1fa0314b99424230365b0c3a72e118119f383c893e68906b4"
+    },
+    {
       "path": "skills/.curated/colabio-frontend/scripts/verify-visual-gates.mjs",
       "sha256": "1da454dc16211d2a282ab0d68ffc357852927570387702592bb8228ee17ce9bf"
     },
@@ -1761,7 +1785,7 @@
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/portfolio-index/index.html",
-      "sha256": "4c8f7953faaad9f2752df75acd6a020313c588a2d1895d4b717be44d44b744f7"
+      "sha256": "31dce6d0e9eb6d7b6b3d7bc9a6a58bb006f7671b102c25493a34185b442f14cc"
     },
     {
       "path": "skills/.curated/colabio-frontend/templates/precision-service/design-spec.md",
@@ -3860,6 +3884,10 @@
       "sha256": "552456dae07b94ba67faf9e953059ed756eca31e4cc4c3c1b668203b1219b1b0"
     },
     {
+      "path": "tests/fixtures-nav/index.html",
+      "sha256": "ff00d91ac8008b52ba25930ccc71c9040411e2210b274533aaa9e52a65f99acd"
+    },
+    {
       "path": "tests/fixtures-palette/index.html",
       "sha256": "5fa876b3385e1b8258434d23a401a05b6b79db288b324b5334f4c955566dedd4"
     },
@@ -3868,12 +3896,16 @@
       "sha256": "0a6cbb582651cd6ec97b464f53dd153a43b66a71c054376faa9f8367d1f2cd6f"
     },
     {
+      "path": "tests/fixtures-variety/index.html",
+      "sha256": "ac68481eadd5038bd190f8e6b7e534afabfd62bb6b2dc3c8a0799db10d321252"
+    },
+    {
       "path": "tests/install.test.mjs",
       "sha256": "b9a5aebdcf778764976e582dee5734ef64b33410c4996726511008a328aa835a"
     },
     {
       "path": "tests/pipeline.test.mjs",
-      "sha256": "7cca946b69568980f53104822a221a2b733b1f601b128d0438a10366e63dc746"
+      "sha256": "33bfd44267e54a98be7543879ae4765030a069292069942a2e85c2c113e1566d"
     },
     {
       "path": "tests/selection.test.mjs",

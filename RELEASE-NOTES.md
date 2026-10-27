@@ -21,6 +21,13 @@ One skill that replaces a stack of frontend skills.
   runs here and what to skip in upstream guides that assume Impeccable's launcher.
 - `SKILL.md` is 12 KB; full guidance lives in `references/core-guidance.md`.
 
+**Beyond the template**
+- `references/distinctive-design.md`: category inventory, one distinctive move per page, a section-form menu (no form more than twice, none adjacent, banned skeleton needs a reason), component sourcing order and five specificity tests.
+- `scripts/variety-check.mjs`: heuristic scan for repeated or adjacent section forms, the banned skeleton, and demo phrases.
+- `library/components`: 16 original, dependency-free components with a live gallery and a transform checklist.
+- `scripts/component-source.mjs`: read-only viewer for the bundled components and the shadcn, Magic UI, Aceternity UI, React Bits, Skiper UI and Vengeance UI registries; 21st.dev works with the user's own `API_KEY_21ST` (never entered in chat). Nothing is installed.
+- `scripts/capture.mjs`: exact-size PNG captures; finish-gate warns when mobile navigation is hidden with no menu.
+
 **Build and verify**
 - Intake and site-type playbooks, four working starters (cinematic product shop, scroll-stage game, precision
   service, portfolio index) with `scaffold.mjs`, local `serve.mjs`.

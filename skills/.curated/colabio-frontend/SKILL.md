@@ -45,9 +45,9 @@ Scripts use Node 18+; without Node, perform the applicable checks manually.
 
 Open a file only when its phase needs it. Full list: [file-map.md](references/file-map.md).
 
-- **Decide:** `references/product-understanding.md`, `prompt-enhancer.md`, `brief-intake.md`, `site-types.md`, `craft-bar.md`, `styles.md`, `design-kit.json`, `scripts/select-build.mjs`, `scripts/palette-lab.mjs`
-- **Build:** `references/core-guidance.md` (sections below), `craft-defaults.md`, `asset-and-copy.md`, `motion-recipes.md`, `libraries.md`, `cinematic-recipes.md`, `templates/README.md`, `scripts/scaffold.mjs`
-- **Verify:** `references/verify.md`, `visual-comparison-gates.md`, `award-bar.md`, `scripts/finish-gate.mjs`, `slop-lint.mjs`, `check-contrast.mjs`, `serve.mjs`, `verify-visual-gates.mjs`
+- **Decide:** `references/product-understanding.md`, `prompt-enhancer.md`, `brief-intake.md`, `site-types.md`, `craft-bar.md`, `distinctive-design.md`, `styles.md`, `design-kit.json`, `scripts/select-build.mjs`, `scripts/palette-lab.mjs`
+- **Build:** `references/core-guidance.md` (sections below), `craft-defaults.md`, `asset-and-copy.md`, `motion-recipes.md`, `libraries.md`, `library/components/INDEX.md`, `scripts/component-source.mjs`, `cinematic-recipes.md`, `templates/README.md`, `scripts/scaffold.mjs`
+- **Verify:** `references/verify.md`, `visual-comparison-gates.md`, `award-bar.md`, `scripts/finish-gate.mjs`, `slop-lint.mjs`, `variety-check.mjs`, `check-contrast.mjs`, `serve.mjs`, `capture.mjs`, `verify-visual-gates.mjs`
 - **Commands and library:** `references/commands.md`, `library/INDEX.md`, `library/README.md`, `library/NOTICE.md`, `references/sources.md`, `references/impeccable-bridge.md`
 
 ## Core guidance map (open `references/core-guidance.md` at the part you need)
@@ -114,14 +114,17 @@ Run these stages in order, in one pass unless the user asked for questions.
    defaults it flags. Write all of this into the **Cinematic Design Prompt**
    (`design-brief.md`) and show a 10-line summary.
 3. **Design.** Write the spec (tokens with contrast, type scale, scene score with a
-   motion verb and hand-off per scene, mobile recomposition). Gather real assets
-   and copy first. Satisfy the anti-clone rule in `craft-bar.md`.
+   section form, motion verb and hand-off per scene, mobile recomposition). Gather real
+   assets and copy first. Satisfy the anti-clone rule in `craft-bar.md` and
+   [distinctive-design.md](references/distinctive-design.md): name the one distinctive move,
+   give each section a different form, and plan component sources (bundled originals first,
+   then registries via `component-source.mjs`, always transformed).
 4. **Build.** Vertical slice first (hero, signature, hand-off), rendered at 1440
    and 390; then every page in the CDP's page list with its states; then motion on
    one clock with owners and reduced-motion and no-library paths.
 5. **Polish and verify.** Run `finish-gate.mjs` (it also runs the Impeccable detector when
-   installed, see `impeccable-bridge.md`), `slop-lint.mjs`, `palette-lab.mjs --check` and
-   `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; at least
+   installed, see `impeccable-bridge.md`), `slop-lint.mjs`, `variety-check.mjs`,
+   `palette-lab.mjs --check` and `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; at least
    two critique rounds against `award-bar.md` and the acceptance criteria.
 6. **Deliver.** The site, `design-brief.md`, what was checked and what was not, and
    a "next time say" prompt. Never claim an award, a score or measured performance

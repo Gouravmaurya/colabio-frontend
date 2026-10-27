@@ -46,6 +46,7 @@ for (const file of pages) {
   /<meta[^>]+name=["']theme-color["']/i.test(h) ? out('PASS', 'theme-color') : out('WARN', 'theme-color');
   /:focus-visible/i.test(h) ? out('PASS', 'focus styles') : out('FAIL', 'focus styles', 'no :focus-visible rule');
   /100vh/.test(h) && !/100svh|100dvh|100lvh/.test(h) ? out('WARN', 'viewport units', '100vh without svh/dvh') : out('PASS', 'viewport units');
+  /max-width[\s\S]{0,700}?nav[^{}]*\{\s*display\s*:\s*none/i.test(h) && !/aria-expanded|aria-controls="?(menu|nav)|menu-?toggle|hamburger|bottom-?nav/i.test(h) ? out('WARN', 'mobile navigation', 'links are hidden on small screens with no menu or bottom bar') : out('PASS', 'mobile navigation');
   const btnEmpty = (h.match(/<button\b[^>]*>\s*<\/button>/gi) || []).length;
   btnEmpty ? out('FAIL', 'button names', `${btnEmpty} empty <button>`) : out('PASS', 'button names');
   /<form\b/i.test(h) && !/(aria-live|role=["'](status|alert)["'])/i.test(h) ? out('WARN', 'form feedback', 'forms need an aria-live status or role=alert') : out('PASS', 'form feedback');

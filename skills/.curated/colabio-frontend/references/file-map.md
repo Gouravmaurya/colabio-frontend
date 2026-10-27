@@ -43,3 +43,9 @@ Every bundled file and what it is for.
 | `references/commands.md` | How each command runs here, substitutions for upstream launcher steps |
 | `references/core-guidance.md` | The full decision guidance (product, experience, visual system, interface, behaviour, toolkit, verification) |
 | `references/file-map.md` | This list |
+| `scripts/capture.mjs` | Exact-size PNG capture (true CSS width, height, DPR, overflow flag) for the visual gates; zero dependencies, any installed Chrome or Edge |
+| `references/distinctive-design.md` | Beyond the template: category inventory, one distinctive move, section grammar, component sourcing, specificity tests |
+| `library/components/INDEX.md` | Catalogue of the 16 bundled original components, transform checklist, variants |
+| `library/components/components.html` | Live gallery of the bundled components with extraction markers |
+| `scripts/component-source.mjs` | Read-only component viewer: bundled components and shadcn, Magic UI, Aceternity, React Bits, Skiper UI, Vengeance UI, 21st.dev (user key) |
+| `scripts/variety-check.mjs` | Section-form heuristic: repeats, adjacent repeats, banned skeleton, demo phrases |

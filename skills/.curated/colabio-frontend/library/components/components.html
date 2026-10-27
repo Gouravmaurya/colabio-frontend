@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Colabio component library: live gallery</title>
+<meta name="description" content="Original, token-driven vanilla components with markers for extraction. Run scripts/component-source.mjs local:<name> to print one.">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101114'/%3E%3C/svg%3E">
+<style>
+/* Gallery shell only. Components read these tokens; map them to your design-brief tokens when you copy a component. */
+:root{
+  --c-bg:#101114; --c-surf:#1a1c21; --c-surf2:#23252b; --c-ink:#f3f1ea; --c-muted:#a6a8ae; --c-line:#33363d;
+  --c-acc:#e0a13a; --c-acc-ink:#15120a; --c-acc2:#58b8b0; --c-radius:10px;
+  --c-display:'Georgia','Times New Roman',serif; --c-sans:system-ui,-apple-system,'Segoe UI',sans-serif; --c-mono:ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --c-ease:cubic-bezier(.16,1,.3,1); --c-pad:max(5vw,20px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--c-bg);scroll-padding-top:90px}
+body{background:var(--c-bg);color:var(--c-ink);font:400 1rem/1.55 var(--c-sans)}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;color:inherit}button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid var(--c-acc);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gal{padding:70px var(--c-pad);max-width:1180px;margin:auto;border-top:1px solid var(--c-line)}
+.gal h2{font:600 .8rem/1 var(--c-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-acc);margin-bottom:8px}
+.gal .note{color:var(--c-muted);max-width:70ch;margin-bottom:26px;font-size:.95rem}
+.gal .stage{border:1px dashed var(--c-line);border-radius:14px;padding:clamp(14px,3vw,30px);background:var(--c-surf)}
+.top{padding:44px var(--c-pad) 24px;max-width:1180px;margin:auto}
+.top h1{font:700 clamp(1.8rem,4vw,3rem)/1.05 var(--c-display);letter-spacing:-.02em}
+.top p{color:var(--c-muted);margin-top:10px;max-width:70ch}
+
+/* @component:css nav-index-bar */
+.nib{position:relative;display:flex;align-items:center;gap:20px;padding:12px 18px;background:var(--c-surf2);border:1px solid var(--c-line);border-radius:var(--c-radius)}
+.nib-brand{font:700 1.15rem/1 var(--c-display);letter-spacing:-.02em;margin-right:auto}
+.nib-links{display:flex;gap:6px;font:500 .8125rem/1 var(--c-mono)}
+.nib-links a{padding:10px 12px;border-radius:99px;transition:background .2s}
+.nib-links a:hover,.nib-links a[aria-current="true"]{background:var(--c-line)}
+.nib-clock{font:500 .8125rem/1 var(--c-mono);color:var(--c-muted);font-variant-numeric:tabular-nums}
+.nib-cta{padding:10px 18px;border-radius:99px;background:var(--c-acc);color:var(--c-acc-ink);font-weight:700;min-height:44px;display:inline-flex;align-items:center}
+.nib-menu{display:none;min-height:44px;padding:0 16px;border:1px solid var(--c-line);border-radius:99px;font:500 .8125rem/1 var(--c-mono)}
+@media (max-width:760px){
+  .nib-clock{display:none}.nib-menu{display:inline-flex;align-items:center}
+  .nib-links{position:absolute;left:0;right:0;top:calc(100% + 8px);flex-direction:column;background:var(--c-surf2);border:1px solid var(--c-line);border-radius:var(--c-radius);padding:8px;display:none;z-index:5}
+  .nib[data-open] .nib-links{display:flex}.nib-links a{padding:14px 12px}
+}
+/* @end:css nav-index-bar */
+
+/* @component:css hero-statement */
+.hs{font:700 clamp(2rem,6vw,5rem)/1 var(--c-display);letter-spacing:-.03em;max-width:16ch}
+.hs-line{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.hs-line>span{display:inline-block}
+.hs-chip{display:inline-block;vertical-align:-.06em;width:1.5em;height:.78em;border-radius:.4em;overflow:hidden;margin:0 .08em}
+.hs-chip svg{width:100%;height:100%;display:block}
+.hs em{font-style:normal;color:var(--c-acc)}
+.js .hs-line>span{transform:translateY(110%)}
+.js .hs.is-in .hs-line>span{transform:none;transition:transform .9s var(--c-ease);transition-delay:calc(var(--i)*90ms)}
+@media (prefers-reduced-motion:reduce){.js .hs-line>span{transform:none!important;transition:none!important}}
+/* @end:css hero-statement */
+
+/* @component:css marquee */
+.mq{overflow:hidden;border-block:1px solid var(--c-line);padding:14px 0}
+.mq-track{display:flex;width:max-content;animation:mq-run 28s linear infinite}
+.mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
+.mq ul{display:flex;gap:44px;padding-right:44px;list-style:none;font:600 clamp(1.1rem,2.4vw,1.7rem)/1 var(--c-display);white-space:nowrap}
+.mq li::after{content:"✦";color:var(--c-acc);margin-left:44px;font-size:.7em}
+@keyframes mq-run{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.mq{overflow-x:auto}.mq-track{animation:none}.mq ul[aria-hidden="true"]{display:none}}
+/* @end:css marquee */
+
+/* @component:css index-list */
+.il{list-style:none;border-top:1px solid var(--c-line)}
+.il-row{display:grid;grid-template-columns:56px minmax(0,1.1fr) minmax(0,1.4fr) auto;gap:18px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--c-line)}
+.il-row>*{transition:transform .4s var(--c-ease)}
+.il-row:hover>*,.il-row:focus-visible>*{transform:translateX(10px)}
+.il-row:hover .il-t,.il-row:focus-visible .il-t{color:var(--c-acc)}
+.il-n{font:500 .8125rem/1 var(--c-mono);color:var(--c-muted)}
+.il-t{font:700 clamp(1.2rem,2.2vw,1.9rem)/1.1 var(--c-display);letter-spacing:-.02em;transition:color .2s,transform .4s var(--c-ease)}
+.il-d{color:var(--c-muted)}.il-g{font:500 .75rem/1.3 var(--c-mono);border:1px solid var(--c-line);border-radius:99px;padding:3px 10px;white-space:nowrap}
+@media (max-width:760px){.il-row{grid-template-columns:36px 1fr;gap:6px 12px}.il-d,.il-g{grid-column:2;justify-self:start}}
+@media (prefers-reduced-motion:reduce){.il-row>*{transition:none}.il-row:hover>*{transform:none}}
+/* @end:css index-list */
+
+/* @component:css sticky-stage */
+.ss{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,4vw,56px);align-items:start}
+.ss-stage{position:sticky;top:90px;aspect-ratio:4/3;border-radius:var(--c-radius);overflow:hidden;background:var(--c-surf2);border:1px solid var(--c-line)}
+.ss-layer{position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(3rem,9vw,7rem)/1 var(--c-display);opacity:0;transition:opacity .5s}
+.ss-layer.on{opacity:1}
+.ss-item{min-height:70vh;display:flex;flex-direction:column;justify-content:center;border-top:1px solid var(--c-line);opacity:.4;transition:opacity .4s}
+.ss-item.on{opacity:1}.ss-item h3{font:700 clamp(1.5rem,3vw,2.4rem)/1.05 var(--c-display);margin-bottom:8px}.ss-item p{color:var(--c-muted);max-width:40ch}
+@media (max-width:760px){.ss{grid-template-columns:1fr}.ss-stage{top:70px;aspect-ratio:16/9;z-index:2}.ss-item{min-height:50vh}}
+@media (prefers-reduced-motion:reduce){.ss-layer,.ss-item{transition:none}}
+/* @end:css sticky-stage */
+
+/* @component:css scrub-timeline */
+.st{display:grid;gap:12px}
+.st-bar{position:relative;height:54px;border-radius:var(--c-radius);background:var(--c-surf2);border:1px solid var(--c-line);overflow:hidden}
+.st-blk{position:absolute;inset:0;transform-origin:0 50%}
+.st-lab{position:absolute;top:0;bottom:0;display:flex;align-items:center;padding-left:10px;font:500 .75rem/1 var(--c-mono);color:var(--c-acc-ink);white-space:nowrap;overflow:hidden;pointer-events:none}
+.st-ph{position:absolute;top:0;bottom:0;width:2px;background:var(--c-ink);pointer-events:none}
+.st-row{display:flex;align-items:center;gap:12px}
+.st-row output{font:500 .9rem/1 var(--c-mono);min-width:5ch;text-align:right;font-variant-numeric:tabular-nums}
+input[type=range].st-range{-webkit-appearance:none;appearance:none;flex:1;height:44px;background:transparent;cursor:pointer}
+.st-range::-webkit-slider-runnable-track{height:4px;background:var(--c-line);border-radius:2px}.st-range::-moz-range-track{height:4px;background:var(--c-line);border-radius:2px}
+.st-range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--c-ink);border:4px solid var(--c-bg);margin-top:-11px}
+.st-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--c-ink);border:4px solid var(--c-bg)}
+/* @end:css scrub-timeline */
+
+/* @component:css compare-slider */
+.cs{position:relative;aspect-ratio:16/9;border-radius:var(--c-radius);overflow:hidden;--p:50%;background:var(--c-surf2);border:1px solid var(--c-line)}
+.cs-layer{position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(1.4rem,4vw,3rem)/1 var(--c-display)}
+.cs-after{clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.cs-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;background:var(--c-ink);pointer-events:none}
+.cs-line::after{content:"";position:absolute;top:50%;left:-13px;width:28px;height:28px;border-radius:50%;background:var(--c-ink);transform:translateY(-50%)}
+.cs-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.cs:has(.cs-range:focus-visible){outline:2px solid var(--c-acc);outline-offset:3px}
+/* @end:css compare-slider */
+
+/* @component:css segmented-tabs */
+.sg-list{display:inline-flex;border:2px solid var(--c-ink);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.sg-tab{padding:0 18px;min-height:44px;font:500 .8125rem/1 var(--c-mono)}
+.sg-tab+.sg-tab{border-left:2px solid var(--c-ink)}
+.sg-tab[aria-selected="true"]{background:var(--c-ink);color:var(--c-bg)}
+.sg-panel{padding:16px;border:1px solid var(--c-line);border-radius:var(--c-radius);background:var(--c-surf2)}
+.sg-panel[hidden]{display:none}
+/* @end:css segmented-tabs */
+
+/* @component:css disclosure-list */
+.dl details{border-top:1px solid var(--c-line)}.dl details:last-child{border-bottom:1px solid var(--c-line)}
+.dl summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;padding:18px 0;font:700 clamp(1.05rem,2vw,1.5rem)/1.2 var(--c-display)}
+.dl summary::-webkit-details-marker{display:none}
+.dl summary::after{content:"+";font:400 1.5rem/1 var(--c-mono);color:var(--c-acc);transition:transform .3s var(--c-ease)}
+.dl details[open] summary::after{transform:rotate(45deg)}
+.dl p{padding:0 0 20px;max-width:60ch;color:var(--c-muted)}
+@media (prefers-reduced-motion:reduce){.dl summary::after{transition:none}}
+/* @end:css disclosure-list */
+
+/* @component:css command-palette */
+.cp{width:min(560px,92vw);margin:12vh auto auto;border:1px solid var(--c-line);border-radius:14px;background:var(--c-surf2);color:var(--c-ink);padding:0;overflow:hidden}
+.cp::backdrop{background:rgba(0,0,0,.6)}
+.cp input{width:100%;min-height:56px;padding:0 18px;background:transparent;border:0;border-bottom:1px solid var(--c-line);font-size:1.05rem}
+.cp input:focus-visible{outline:none;box-shadow:inset 0 -2px 0 var(--c-acc)}
+.cp ul{list-style:none;max-height:300px;overflow:auto;padding:8px}
+.cp li{display:flex;justify-content:space-between;gap:12px;padding:12px 12px;border-radius:8px;cursor:pointer}
+.cp li[aria-selected="true"]{background:var(--c-line)}
+.cp li small{color:var(--c-muted);font:400 .75rem/1.4 var(--c-mono)}
+.cp-empty{padding:18px;color:var(--c-muted)}
+.cp-open{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid var(--c-line);border-radius:99px;font:500 .8125rem/1 var(--c-mono)}
+.cp-open kbd{border:1px solid var(--c-line);border-radius:5px;padding:2px 6px;font:inherit;color:var(--c-muted)}
+/* @end:css command-palette */
+
+/* @component:css toast */
+.ts{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:50;max-width:min(360px,calc(100vw - 32px))}
+.ts-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--c-ink);color:var(--c-bg);box-shadow:0 14px 30px -14px rgba(0,0,0,.7);animation:ts-in .35s var(--c-ease)}
+.ts-item button{margin-left:auto;min-width:32px;min-height:32px;border-radius:50%}
+@keyframes ts-in{from{opacity:0;transform:translateY(10px)}}
+@media (prefers-reduced-motion:reduce){.ts-item{animation:none}}
+/* @end:css toast */
+
+/* @component:css magnetic-button */
+.mb{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:99px;background:var(--c-acc);color:var(--c-acc-ink);font-weight:700;transition:transform .25s var(--c-ease)}
+/* @end:css magnetic-button */
+
+/* @component:css count-up */
+.cu{font-variant-numeric:tabular-nums}
+.cu-row{display:flex;gap:clamp(20px,5vw,60px);flex-wrap:wrap}
+.cu-box .v{font:700 clamp(2rem,5vw,3.6rem)/1 var(--c-display)}.cu-box .l{font:500 .75rem/1.3 var(--c-mono);color:var(--c-muted);margin-top:6px}
+/* @end:css count-up */
+
+/* @component:css field-validated */
+.fv{display:grid;gap:16px;max-width:420px}
+.fv-field{display:grid;gap:6px}
+.fv-field label{font:500 .8125rem/1.3 var(--c-mono)}
+.fv-field input{min-height:50px;border:1.5px solid var(--c-line);background:var(--c-surf2);border-radius:var(--c-radius);padding:0 14px}
+.fv-field input:focus-visible{outline:2px solid var(--c-acc);outline-offset:1px}
+.fv-field input[aria-invalid="true"]{border-color:#e5736a}
+.fv-hint{font-size:.85rem;color:var(--c-muted)}
+.fv-err{display:none;font-size:.9rem;color:#f09a92}.fv-field.bad .fv-err{display:block}
+.fv-ok{padding:12px 14px;border-left:3px solid var(--c-acc2);background:rgba(88,184,176,.1)}
+/* @end:css field-validated */
+
+/* @component:css progress-thread */
+.pt{position:sticky;top:0;height:4px;background:var(--c-line);z-index:20}
+.pt i{display:block;height:100%;background:var(--c-acc);transform-origin:0 50%;transform:scaleX(0)}
+/* @end:css progress-thread */
+
+/* @component:css horizontal-track */
+.ht{position:relative;height:300vh}
+.ht-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.ht-track{display:flex;gap:24px;padding:0 var(--c-pad);will-change:transform}
+.ht-card{flex:none;width:min(70vw,460px);aspect-ratio:4/3;border-radius:var(--c-radius);border:1px solid var(--c-line);background:var(--c-surf2);display:grid;place-items:center;font:700 clamp(2rem,5vw,3.4rem)/1 var(--c-display)}
+@media (prefers-reduced-motion:reduce){.ht{height:auto}.ht-sticky{position:static;height:auto;overflow:visible}.ht-track{flex-wrap:wrap;transform:none!important}}
+/* @end:css horizontal-track */
+</style>
+</head>
+<body>
+<!-- @component:html progress-thread -->
+<div class="pt" aria-hidden="true"><i id="ptBar"></i></div>
+<!-- @end:html progress-thread -->
+<div class="top">
+  <h1>Component library: live gallery</h1>
+  <p>Original vanilla components, token-driven, keyboard-accessible and reduced-motion safe. Print one with <code>node scripts/component-source.mjs local:&lt;name&gt;</code>, then transform it: your tokens, your content, your easing, your behaviour. Never ship a demo unchanged.</p>
+</div>
+
+<section class="gal" id="nav-index-bar"><h2>nav-index-bar</h2><p class="note">Top bar with numbered links, live local time and a real mobile menu (aria-expanded, Escape closes). Use when a page needs orientation without a default centred logo bar.</p>
+<div class="stage">
+<!-- @component:html nav-index-bar -->
+<header class="nib" id="nib">
+  <a class="nib-brand" href="#nav-index-bar">Atelier</a>
+  <nav class="nib-links" id="nibLinks" aria-label="Primary"><a href="#hero-statement" aria-current="true">01 Work</a><a href="#marquee">02 Studio</a><a href="#index-list">03 Index</a><a href="#command-palette">04 Contact</a></nav>
+  <span class="nib-clock" id="nibClock" data-tz="Europe/Lisbon" aria-label="Local time">--:--</span>
+  <a class="nib-cta" href="#field-validated">Start a project</a>
+  <button class="nib-menu" type="button" aria-expanded="false" aria-controls="nibLinks">Menu</button>
+</header>
+<!-- @end:html nav-index-bar -->
+</div></section>
+
+<section class="gal" id="hero-statement"><h2>hero-statement</h2><p class="note">One huge sentence with inline media chips and a line-wipe entrance. Replace the chip artwork with real thumbnails or objects. Content stays visible without JS.</p>
+<div class="stage">
+<!-- @component:html hero-statement -->
+<h2 class="hs" id="hs" aria-label="Motion for products that explain themselves.">
+  <span class="hs-line" aria-hidden="true" style="--i:0"><span>Motion <i class="hs-chip"><svg viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><rect width="120" height="60" fill="#e0a13a"/><circle cx="40" cy="30" r="22" fill="#101114"/><circle cx="82" cy="30" r="22" fill="none" stroke="#101114" stroke-width="4"/></svg></i> for</span></span>
+  <span class="hs-line" aria-hidden="true" style="--i:1"><span>products that</span></span>
+  <span class="hs-line" aria-hidden="true" style="--i:2"><span><em>explain</em> themselves.</span></span>
+</h2>
+<!-- @end:html hero-statement -->
+</div></section>
+
+<section class="gal" id="marquee"><h2>marquee</h2><p class="note">CSS-only ticker. Pauses on hover and focus, becomes a scrollable row under reduced motion. Use for real proof (places, materials, press you can name), never for invented logos.</p>
+<div class="stage">
+<!-- @component:html marquee -->
+<div class="mq" role="region" aria-label="Materials we work with" tabindex="0">
+  <div class="mq-track">
+    <ul><li>Stoneware</li><li>Porcelain</li><li>Celadon glaze</li><li>Tenmoku</li><li>Shino</li><li>Raku</li></ul>
+    <ul aria-hidden="true"><li>Stoneware</li><li>Porcelain</li><li>Celadon glaze</li><li>Tenmoku</li><li>Shino</li><li>Raku</li></ul>
+  </div>
+</div>
+<!-- @end:html marquee -->
+</div></section>
+
+<section class="gal" id="index-list"><h2>index-list</h2><p class="note">Typographic index rows instead of cards. Hover and focus shift the row by transform only (no layout thrash). Good for services, modules, work, notes.</p>
+<div class="stage">
+<!-- @component:html index-list -->
+<ul class="il">
+  <li><a class="il-row" href="#index-list"><span class="il-n">01</span><span class="il-t">Cutting room</span><span class="il-d">Marker efficiency per lay, not per month.</span><span class="il-g">Fabric</span></a></li>
+  <li><a class="il-row" href="#index-list"><span class="il-n">02</span><span class="il-t">Sewing floor</span><span class="il-d">Station times and the line's real bottleneck.</span><span class="il-g">Output</span></a></li>
+  <li><a class="il-row" href="#index-list"><span class="il-n">03</span><span class="il-t">Quality</span><span class="il-d">Defects by cause, from the inspection scan.</span><span class="il-g">Rework</span></a></li>
+</ul>
+<!-- @end:html index-list -->
+</div></section>
+
+<section class="gal" id="sticky-stage"><h2>sticky-stage</h2><p class="note">A sticky object on one side, a scrolling list on the other; the active item swaps the stage. Works without JS (first layer shows). Put the real product state on the stage, not decoration.</p>
+<div class="stage">
+<!-- @component:html sticky-stage -->
+<div class="ss" id="ss">
+  <div class="ss-stage" aria-hidden="true"><div class="ss-layer on">Plan</div><div class="ss-layer">Cut</div><div class="ss-layer">Sew</div></div>
+  <div class="ss-list">
+    <article class="ss-item on"><h3>Plan</h3><p>The matrix becomes a fabric order.</p></article>
+    <article class="ss-item"><h3>Cut</h3><p>The marker decides the margin.</p></article>
+    <article class="ss-item"><h3>Sew</h3><p>A line moves at the speed of its slowest station.</p></article>
+  </div>
+</div>
+<!-- @end:html sticky-stage -->
+</div></section>
+
+<section class="gal" id="scrub-timeline"><h2>scrub-timeline</h2><p class="note">Proportional segments plus a scrubber; the labels shrink to fit. Feed it durations from your model. The range gives keyboard control for free.</p>
+<div class="stage">
+<!-- @component:html scrub-timeline -->
+<div class="st" id="st" data-clips='[{"n":"Hook","d":8,"c":"#e0a13a"},{"n":"Story","d":36,"c":"#58b8b0"},{"n":"Close","d":8,"c":"#f3f1ea"}]'>
+  <div class="st-bar" id="stBar" aria-hidden="true"></div>
+  <div class="st-row"><label for="stRange" class="sr-only">Scrub</label><input class="st-range" id="stRange" type="range" min="0" max="52" step="1" value="0"><output for="stRange" id="stOut">0:00</output></div>
+</div>
+<!-- @end:html scrub-timeline -->
+</div></section>
+
+<section class="gal" id="compare-slider"><h2>compare-slider</h2><p class="note">Before and after with a native range input (keyboard, touch and screen reader work). Put two real states in the layers.</p>
+<div class="stage">
+<!-- @component:html compare-slider -->
+<div class="cs" id="cs">
+  <div class="cs-layer" style="background:#2c2f36">Before</div>
+  <div class="cs-layer cs-after" style="background:#58b8b0;color:#101114">After</div>
+  <span class="cs-line" aria-hidden="true"></span>
+  <input class="cs-range" type="range" min="0" max="100" value="50" aria-label="Reveal the after state">
+</div>
+<!-- @end:html compare-slider -->
+</div></section>
+
+<section class="gal" id="segmented-tabs"><h2>segmented-tabs</h2><p class="note">Real tabs: roving tabindex, arrow keys, Home and End. Use to switch views of the same object (plan, cut, sew), not to hide content from search.</p>
+<div class="stage">
+<!-- @component:html segmented-tabs -->
+<div id="sg">
+  <div class="sg-list" role="tablist" aria-label="Views">
+    <button class="sg-tab" role="tab" id="sgt1" aria-selected="true" aria-controls="sgp1">Plan</button>
+    <button class="sg-tab" role="tab" id="sgt2" aria-selected="false" aria-controls="sgp2" tabindex="-1">Cut</button>
+    <button class="sg-tab" role="tab" id="sgt3" aria-selected="false" aria-controls="sgp3" tabindex="-1">Sew</button>
+  </div>
+  <div class="sg-panel" role="tabpanel" id="sgp1" aria-labelledby="sgt1">Fabric need from the size-colour matrix.</div>
+  <div class="sg-panel" role="tabpanel" id="sgp2" aria-labelledby="sgt2" hidden>Marker efficiency for this lay.</div>
+  <div class="sg-panel" role="tabpanel" id="sgp3" aria-labelledby="sgt3" hidden>Station times and the bottleneck.</div>
+</div>
+<!-- @end:html segmented-tabs -->
+</div></section>
+
+<section class="gal" id="disclosure-list"><h2>disclosure-list</h2><p class="note">Native details elements, exclusive via the name attribute, with a rotating plus. No JS, fully accessible.</p>
+<div class="stage">
+<!-- @component:html disclosure-list -->
+<div class="dl">
+  <details name="faq" open><summary>Do I need a good camera?</summary><p>A phone is enough. Sound and light matter more than the camera.</p></details>
+  <details name="faq"><summary>How long should it be?</summary><p>As long as the idea needs.</p></details>
+  <details name="faq"><summary>What if nobody watches?</summary><p>Treat early work as practice and improve one thing each time.</p></details>
+</div>
+<!-- @end:html disclosure-list -->
+</div></section>
+
+<section class="gal" id="command-palette"><h2>command-palette</h2><p class="note">Ctrl or Cmd + K opens a native dialog with filtering, arrow-key selection and focus return. Good for dense products and portfolios with many destinations.</p>
+<div class="stage">
+<!-- @component:html command-palette -->
+<button class="cp-open" id="cpOpen" type="button" aria-haspopup="dialog">Search <kbd>Ctrl K</kbd></button>
+<dialog class="cp" id="cp" aria-label="Command palette">
+  <input id="cpIn" type="text" role="combobox" aria-expanded="true" aria-controls="cpList" aria-autocomplete="list" placeholder="Type a command" autocomplete="off" spellcheck="false">
+  <ul id="cpList" role="listbox"></ul>
+</dialog>
+<!-- @end:html command-palette -->
+</div></section>
+
+<section class="gal" id="toast"><h2>toast</h2><p class="note">Polite live-region messages that dismiss themselves and can be closed. Use for confirmations of real actions.</p>
+<div class="stage">
+<!-- @component:html toast -->
+<button class="cp-open" id="tsBtn" type="button">Show a toast</button>
+<div class="ts" id="ts" role="status" aria-live="polite"></div>
+<!-- @end:html toast -->
+</div></section>
+
+<section class="gal" id="magnetic-button"><h2>magnetic-button</h2><p class="note">Pointer-fine, motion-allowed only: the button leans toward the cursor. Skip it entirely on touch.</p>
+<div class="stage">
+<!-- @component:html magnetic-button -->
+<a class="mb" id="mb" href="#magnetic-button">Book a demo</a>
+<!-- @end:html magnetic-button -->
+</div></section>
+
+<section class="gal" id="count-up"><h2>count-up</h2><p class="note">Numbers that tween when they scroll into view. The final value is already in the markup, so nothing breaks without JS. Use tabular numerals and only for real figures.</p>
+<div class="stage">
+<!-- @component:html count-up -->
+<div class="cu-row">
+  <div class="cu-box"><div class="v"><span class="cu" data-to="5000">5,000</span></div><div class="l">pieces on the order</div></div>
+  <div class="cu-box"><div class="v"><span class="cu" data-to="87.1" data-dec="1">87.1</span>%</div><div class="l">marker efficiency</div></div>
+  <div class="cu-box"><div class="v"><span class="cu" data-to="125">125</span></div><div class="l">cartons packed</div></div>
+</div>
+<!-- @end:html count-up -->
+</div></section>
+
+<section class="gal" id="field-validated"><h2>field-validated</h2><p class="note">Label, hint, inline error with aria-invalid and aria-describedby, validate on blur and on submit, honest success state. Replace the success text with the truth about what happens.</p>
+<div class="stage">
+<!-- @component:html field-validated -->
+<form class="fv" id="fv" novalidate>
+  <div class="fv-field" id="fvEmail"><label for="fvIn">Work email</label><input id="fvIn" type="email" autocomplete="email" inputmode="email" aria-describedby="fvHint fvErr" placeholder="name@company.example"><span class="fv-hint" id="fvHint">We reply within two working days.</span><span class="fv-err" id="fvErr" role="alert">Enter an email like name@company.example.</span></div>
+  <button class="mb" type="submit" style="justify-self:start">Send</button>
+  <p class="fv-ok" id="fvOk" role="status" hidden>Design study: nothing was sent.</p>
+</form>
+<!-- @end:html field-validated -->
+</div></section>
+
+<section class="gal" id="progress-thread"><h2>progress-thread</h2><p class="note">The thin line at the top of this page is the component: a scaleX bar driven by scroll. Use a vertical thread with section stops for long stories.</p>
+<div class="stage"><p class="muted" style="color:var(--c-muted)">Scroll the page and watch the line at the top. Markup is one element; the JS below sets <code>transform: scaleX()</code> from scroll progress (transform only).</p></div></section>
+
+<section class="gal" id="horizontal-track"><h2>horizontal-track</h2><p class="note">Vertical scroll drives a horizontal sequence with sticky positioning and transform (no library). Under reduced motion it becomes a wrapped grid.</p></section>
+<!-- @component:html horizontal-track -->
+<section class="ht" id="ht" aria-label="Sequence">
+  <div class="ht-sticky"><div class="ht-track" id="htTrack"><div class="ht-card">One</div><div class="ht-card">Two</div><div class="ht-card">Three</div><div class="ht-card">Four</div><div class="ht-card">Five</div></div></div>
+</section>
+<!-- @end:html horizontal-track -->
+<div class="gal" style="border-top:0"><p class="note">End of gallery.</p></div>
+
+<script>
+document.documentElement.classList.add('js');
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+
+// @component:js nav-index-bar
+(() => {
+  const nib = $('#nib'), btn = $('.nib-menu', nib), links = $('#nibLinks'), clock = $('#nibClock');
+  const set = (open) => { nib.toggleAttribute('data-open', open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', () => set(!nib.hasAttribute('data-open')));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && nib.hasAttribute('data-open')) { set(false); btn.focus(); } });
+  links.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+  const tick = () => { try { clock.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: clock.dataset.tz }).format(new Date()); } catch (e) { clock.textContent = ''; } };
+  tick(); setInterval(tick, 30000);
+})();
+// @end:js nav-index-bar
+
+// @component:js hero-statement
+(() => { const h = $('#hs'); if (!h) return;
+  const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { h.classList.add('is-in'); io.disconnect(); } }, { threshold: .2 });
+  io.observe(h); setTimeout(() => h.classList.add('is-in'), 2500); /* fail-open */ })();
+// @end:js hero-statement
+
+// @component:js sticky-stage
+(() => { const items = $$('#ss .ss-item'), layers = $$('#ss .ss-layer');
+  items.forEach((it, i) => new IntersectionObserver((es) => { if (es[0].isIntersecting) { items.forEach((x, k) => x.classList.toggle('on', k === i)); layers.forEach((l, k) => l.classList.toggle('on', k === i)); } }, { rootMargin: '-45% 0px -45% 0px' }).observe(it)); })();
+// @end:js sticky-stage
+
+// @component:js scrub-timeline
+(() => { const box = $('#st'), bar = $('#stBar'), range = $('#stRange'), out = $('#stOut'), clips = JSON.parse(box.dataset.clips), total = clips.reduce((a, c) => a + c.d, 0);
+  const mmss = (s) => Math.floor(s / 60) + ':' + String(Math.round(s % 60)).padStart(2, '0');
+  let t = 0, html = '';
+  clips.forEach((c) => { html += `<div class="st-blk" style="background:${c.c};transform:translateX(${t / total * 100}%) scaleX(${c.d / total})"></div>`; t += c.d; });
+  t = 0; clips.forEach((c) => { html += `<span class="st-lab" style="left:${t / total * 100}%;width:${c.d / total * 100}%" data-n="${c.n}" data-d="${c.d}"></span>`; t += c.d; });
+  bar.innerHTML = html + '<div class="st-ph" id="stPh"></div>'; range.max = total;
+  const fit = () => $$('.st-lab', bar).forEach((n) => { const px = n.dataset.d / total * bar.clientWidth; n.textContent = px >= 100 ? n.dataset.n + ' ' + n.dataset.d + 's' : px >= 46 ? n.dataset.n : n.dataset.n[0]; });
+  const move = () => { $('#stPh').style.left = (range.value / total * 100) + '%'; out.textContent = mmss(+range.value); };
+  range.addEventListener('input', move); addEventListener('resize', fit); fit(); move(); })();
+// @end:js scrub-timeline
+
+// @component:js compare-slider
+(() => { const cs = $('#cs'); $('.cs-range', cs).addEventListener('input', (e) => cs.style.setProperty('--p', e.target.value + '%')); })();
+// @end:js compare-slider
+
+// @component:js segmented-tabs
+(() => { const tabs = $$('#sg [role=tab]'), panels = $$('#sg [role=tabpanel]');
+  const select = (i, focus) => { tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; panels[k].hidden = k !== i; }); if (focus) tabs[i].focus(); };
+  tabs.forEach((t, i) => { t.addEventListener('click', () => select(i)); t.addEventListener('keydown', (e) => { const n = tabs.length; const m = { ArrowRight: (i + 1) % n, ArrowLeft: (i + n - 1) % n, Home: 0, End: n - 1 }[e.key]; if (m !== undefined) { e.preventDefault(); select(m, true); } }); }); })();
+// @end:js segmented-tabs
+
+// @component:js toast
+const toast = (msg) => { const host = $('#ts'), el = document.createElement('div'); el.className = 'ts-item';
+  const sp = document.createElement('span'), b = document.createElement('button'); sp.textContent = msg; b.type = 'button'; b.setAttribute('aria-label', 'Dismiss'); b.textContent = '×'; b.onclick = () => el.remove();
+  el.append(sp, b); host.append(el); setTimeout(() => el.remove(), 3500); };
+$('#tsBtn').addEventListener('click', () => toast('Saved to your plan'));
+// @end:js toast
+
+// @component:js command-palette
+(() => { const dlg = $('#cp'), inp = $('#cpIn'), list = $('#cpList'), openBtn = $('#cpOpen');
+  const CMDS = [['Go to work', '#hero-statement'], ['Go to studio', '#marquee'], ['Go to the index', '#index-list'], ['Show a toast', 'toast'], ['Contact', '#field-validated']];
+  let shown = [], idx = 0;
+  const draw = () => { const q = inp.value.trim().toLowerCase(); shown = CMDS.filter(([n]) => n.toLowerCase().includes(q)); idx = Math.min(idx, Math.max(0, shown.length - 1));
+    list.innerHTML = shown.length ? shown.map(([n, a], i) => `<li role="option" id="cpo${i}" aria-selected="${i === idx}" data-i="${i}"><span>${n}</span><small>${a === 'toast' ? 'action' : 'jump'}</small></li>`).join('') : '<li class="cp-empty" role="presentation">No match</li>';
+    inp.setAttribute('aria-activedescendant', shown.length ? 'cpo' + idx : ''); };
+  const run = (i) => { const c = shown[i]; if (!c) return; dlg.close(); if (c[1] === 'toast') toast('Palette action ran'); else location.hash = c[1]; };
+  const open = () => { inp.value = ''; idx = 0; draw(); dlg.showModal(); inp.focus(); };
+  openBtn.addEventListener('click', open);
+  addEventListener('keydown', (e) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); } });
+  inp.addEventListener('input', () => { idx = 0; draw(); });
+  inp.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown') { e.preventDefault(); idx = Math.min(idx + 1, shown.length - 1); draw(); } else if (e.key === 'ArrowUp') { e.preventDefault(); idx = Math.max(idx - 1, 0); draw(); } else if (e.key === 'Enter') { e.preventDefault(); run(idx); } });
+  list.addEventListener('click', (e) => { const li = e.target.closest('li[data-i]'); if (li) run(+li.dataset.i); });
+  dlg.addEventListener('close', () => openBtn.focus()); })();
+// @end:js command-palette
+
+// @component:js magnetic-button
+(() => { const b = $('#mb'); if (!b || !FINE || REDUCED) return;
+  b.addEventListener('pointermove', (e) => { const r = b.getBoundingClientRect(); const x = (e.clientX - (r.left + r.width / 2)) * .25, y = (e.clientY - (r.top + r.height / 2)) * .35; b.style.transform = `translate(${x}px,${y}px)`; });
+  b.addEventListener('pointerleave', () => { b.style.transform = ''; }); })();
+// @end:js magnetic-button
+
+// @component:js count-up
+(() => { const els = $$('.cu'); if (REDUCED) return;
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; io.unobserve(e.target); const el = e.target, to = +el.dataset.to, dec = +(el.dataset.dec || 0), t0 = performance.now();
+    const step = (t) => { const p = Math.min(1, (t - t0) / 1200), v = to * (1 - Math.pow(1 - p, 3)); el.textContent = v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }), { threshold: .6 });
+  els.forEach((e) => io.observe(e)); })();
+// @end:js count-up
+
+// @component:js field-validated
+(() => { const f = $('#fv'), wrap = $('#fvEmail'), inp = $('#fvIn'), ok = $('#fvOk'); const valid = () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(inp.value.trim());
+  const check = () => { const v = valid(); wrap.classList.toggle('bad', !v); inp.setAttribute('aria-invalid', String(!v)); return v; };
+  inp.addEventListener('blur', () => { if (inp.value) check(); }); inp.addEventListener('input', () => { if (wrap.classList.contains('bad')) check(); });
+  f.addEventListener('submit', (e) => { e.preventDefault(); ok.hidden = true; if (!check()) { inp.focus(); return; } ok.hidden = false; }); })();
+// @end:js field-validated
+
+// @component:js progress-thread
+(() => { const bar = $('#ptBar'); let tick = false; const upd = () => { tick = false; const h = document.documentElement; bar.style.transform = `scaleX(${Math.min(1, scrollY / Math.max(1, h.scrollHeight - innerHeight))})`; };
+  addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); upd(); })();
+// @end:js progress-thread
+
+// @component:js horizontal-track
+(() => { const sec = $('#ht'), track = $('#htTrack'); if (REDUCED) return;
+  const dist = () => Math.max(0, track.scrollWidth - innerWidth + 2 * parseFloat(getComputedStyle(track).paddingLeft));
+  const size = () => { sec.style.height = (innerHeight + dist()) + 'px'; };
+  const upd = () => { const r = sec.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / Math.max(1, sec.offsetHeight - innerHeight))); track.style.transform = `translateX(${-p * dist()}px)`; };
+  addEventListener('resize', () => { size(); upd(); }); addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true }); size(); upd(); })();
+// @end:js horizontal-track
+</script>
+</body>
+</html>

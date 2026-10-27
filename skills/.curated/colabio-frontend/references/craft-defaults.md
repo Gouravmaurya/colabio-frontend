@@ -59,3 +59,7 @@ Favicon and app icons, OG/Twitter image, custom selection color, scrollbar left
 alone, focus ring in the accent, 404 page, loading skeletons shaped like content,
 print stylesheet if content-heavy, `color-scheme` meta, `lang`, landmark roles,
 image alt text, link underline offsets, `:target` offset for anchors under sticky nav.
+
+## Mobile navigation
+
+Never hide the primary links below a breakpoint without a replacement: a menu button with `aria-expanded`, or a compact bottom bar. The finish gate warns when a media query hides `nav` and no menu exists.
