@@ -2,9 +2,10 @@
 
 Working method: one idea, a spec before code, a designer's eye on the
 rendered result, and a performance pass at the end. This is the default pipeline
-for a new premium site or substantial redesign. Run all phases in one response
-unless the user asked for questions. If they delegated choices, assume and state
-assumptions in the first message. Small fixes skip this file.
+for a new premium site or substantial redesign. First follow
+[conversational intake](brief-intake.md), recommend a fitting direction, then
+build without another design approval step. Premium alone does not require
+cinematic motion or showpiece image quotas. Small fixes skip this file.
 
 Research basis (2026-10): practitioner write-ups of jury-scored winners and
 third-party summaries of the Awwwards rubric (Design 40, Usability 30,

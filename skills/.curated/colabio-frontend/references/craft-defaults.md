@@ -63,3 +63,10 @@ image alt text, link underline offsets, `:target` offset for anchors under stick
 ## Mobile navigation
 
 Never hide the primary links below a breakpoint without a replacement: a menu button with `aria-expanded`, or a compact bottom bar. The finish gate warns when a media query hides `nav` and no menu exists.
+
+## Illustrated scenes (inline SVG)
+
+- A global `svg { max-width: 100% }` silently caps an oversized scene SVG. If the scene must be wider than the viewport (a street cropped on phones), set `max-width: none` on it.
+- Draw the scene once at a fixed `viewBox`, scale it by width, and shift the crop with a CSS variable so the important part (the lit houses) is centred at every width. Check 390, 768 and 1440 rendered.
+- Keep state in classes on groups (`on`, `near`) and write the default state into the markup, so the picture is correct with scripting off.
+- Glows belong to the idea (a lit window), not to buttons and sliders. The Impeccable detector's `dark-glow` rule is a prompt to ask "is this light part of the concept?"

@@ -6,9 +6,39 @@ state transitions, CSS owns simple hover/focus. One owner per element and
 property. Check current docs for the installed versions before relying on an
 API; the snippets track the documented patterns.
 
-For cinematic briefs start with [cinematic-recipes.md](cinematic-recipes.md):
+For cinematic briefs read [cinematic-motion.md](cinematic-motion.md) for the shared
+scene/state contract and vocabulary, then [cinematic-recipes.md](cinematic-recipes.md):
 write the framing, continuous subject and motion score before choosing a tween.
 These integration snippets are infrastructure, not proof of a cinematic result.
+
+## Visible motion contract
+
+For experience-led landing pages or an explicit animation request, include a motion
+score alongside the scene score. For each major section name the subject, intended
+effect, trigger, start/middle/end state, owner, phone choreography and separate reduced/static equivalent.
+Choose recognizable motion that advances the subject: an image opens into an
+eyepiece view, programme items enter in their actual order, a result's structure
+appears as a coherent component, or a closing wordmark completes the scene.
+
+A motion-rich brief needs a perceptible scroll-linked sequence and supporting
+component reveals where they help the reading order. A tiny parallax, smooth-scroll
+transport or hover feedback alone is insufficient. Keep one consistent reveal
+grammar for related headings; vary the role of pictures, lists, controls and scene
+transitions instead of applying fade-and-rise to every block. Still sections are
+valid when intentional; do not force pins, loops or effects onto every element.
+
+Disabling desktop smooth scrolling on a phone does not require disabling all native
+scroll-triggered reveals. Define a touch composition independently, respecting
+reduced motion. Keep controls usable while motion runs, finish or bypass reveals
+when keyboard/anchor navigation reaches them, and avoid overflow from translated
+components. Content is visible before successful motion initialization and remains
+complete when libraries fail or motion is reduced.
+
+Verify motion by scrolling through actual start, middle and settled states on desktop
+and phone. Exercise component entry, reverse/fast scroll, focus, anchors and runtime
+preference changes. Imports, static screenshots and “a transform changed” are not
+enough to claim the planned choreography was delivered. Record which sequences and
+component reveals were visibly observed, with any intentional still areas.
 
 Install only what the build needs, locally:
 `npm i gsap @gsap/react lenis` and, for React component transitions,
@@ -38,6 +68,9 @@ function cleanupScroll() {
 }
 ```
 
+When Lenis owns interpolation, disable competing CSS `scroll-behavior: smooth` on
+its active scroll root and restore native behavior on teardown. Test a lazy-image or
+font-triggered refresh at a nonzero scroll position; scene ranges must remain correct.
 Keep anchor links, keyboard scrolling, modals (`data-lenis-prevent`) and nested
 scrollers working. Never run a second requestAnimationFrame loop. Never call
 `ScrollTrigger.killAll()` from a reusable scene; that destroys other scenes.

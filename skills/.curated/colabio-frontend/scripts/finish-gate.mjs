@@ -19,11 +19,19 @@ const pages = [];
 })(target);
 if (!pages.length) { console.error('no .html pages found'); process.exit(2); }
 
+
+// A site is often several files: follow local (relative) stylesheet and script links so their CSS and JS are part of what is checked.
+const readLocal = (file, html) => {
+  let extra = '';
+  for (const m of html.matchAll(/<link[^>]+href=["']([^"':?#]+\.css)["']/gi)) { try { extra += '\n' + fs.readFileSync(path.join(path.dirname(file), m[1]), 'utf8'); } catch { /* missing file: ignore */ } }
+  for (const m of html.matchAll(/<script[^>]+src=["']([^"':?#]+\.js)["']/gi)) { try { extra += '\n' + fs.readFileSync(path.join(path.dirname(file), m[1]), 'utf8'); } catch { /* missing file: ignore */ } }
+  return extra;
+};
 let fails = 0, warns = 0;
 const out = (lvl, name, msg) => { if (lvl === 'FAIL') fails++; if (lvl === 'WARN') warns++; console.log(`${lvl.padEnd(4)} ${name}${msg ? ': ' + msg : ''}`); };
 
 for (const file of pages) {
-  const h = fs.readFileSync(file, 'utf8'), low = h.toLowerCase(), rel = path.relative(process.cwd(), file) || file;
+  const raw = fs.readFileSync(file, 'utf8'), h = raw + readLocal(file, raw), low = h.toLowerCase(), rel = path.relative(process.cwd(), file) || file;
   console.log(`\n${rel}`);
   const title = (h.match(/<title[^>]*>([^<]*)<\/title>/i) || [])[1]?.trim();
   title && title.length >= 8 && title.length <= 70 ? out('PASS', 'title') : out('FAIL', 'title', 'missing or not 8-70 characters');
@@ -58,6 +66,17 @@ for (const [label, script] of [['template tells', 'slop-lint.mjs'], ['contrast t
   const bad = lines.filter((l) => /^\[high\]|^FAIL|^fail/i.test(l));
   console.log(`\n${label} (${script}): ${bad.length ? bad.length + ' high/fail' : 'ok'}`);
   bad.forEach((l) => console.log('  ' + l)); if (bad.length) fails += bad.length;
+}
+
+// Studio bar: the Taste tells and the picture floor. With --showpiece (awwwards, cinematic, agency briefs) its FAILs are gate failures and
+// the motion stack (GSAP, ScrollTrigger, Lenis) is required; otherwise they are listed as warnings.
+{
+  const showpiece = process.argv.includes('--showpiece');
+  const r = spawnSync(process.execPath, [path.join(here, 'taste-check.mjs'), target, ...(showpiece ? ['--showpiece'] : [])], { encoding: 'utf8' });
+  const lines = (r.stdout || '').split('\n').filter((l) => /^(FAIL|WARN)/.test(l));
+  console.log(`\nstudio bar (taste-check.mjs${showpiece ? ' --showpiece' : ''}): ${lines.length ? lines.length + ' finding(s)' : 'ok'}`);
+  lines.forEach((l) => { console.log('  ' + l); if (/^FAIL/.test(l) && showpiece) fails++; else warns++; });
+  if (lines.length && !showpiece) console.log('  Not a showpiece run: listed as warnings. Pass --showpiece for awwwards, cinematic or agency briefs.');
 }
 
 // Optional second opinion: Impeccable's deterministic detector (Apache-2.0, github.com/pbakaus/impeccable), if installed.

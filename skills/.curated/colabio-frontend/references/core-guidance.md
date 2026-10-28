@@ -31,8 +31,8 @@ research platform needs its research or analysis value to remain apparent rather
 than relying on a beautiful property photograph to explain the business.
 
 Keep a component fix local. A review stays read-only unless fixes are requested.
-For substantial creative work, ask one focused discovery round only when an
-unresolved choice materially changes the outcome. Reuse settled answers and
+For substantial creative work, follow [conversational intake](brief-intake.md):
+ask 1-3 relevant questions initially, with follow-ups only for material ambiguity. Reuse settled answers and
 respect users who delegate choices or request no questions. State reasonable
 assumptions and continue; do not invent a brand or block on routine taste choices.
 
@@ -43,8 +43,8 @@ characters, not quality tiers or guarantees of monetary value.
 
 ## Premium one-pass build (new premium sites and substantial redesigns)
 
-Run these phases in one working pass unless the user asked for questions; state
-assumptions up front. Full detail: `references/agency-playbook.md`; this section
+Follow conversational intake first, recommend the direction briefly, then run
+these phases without another approval step; state important assumptions. Full detail: `references/agency-playbook.md`; this section
 is the working summary. Run `scripts/pick-direction.mjs --seed "<product>" --mood <words>`
 for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critique loop.
 
@@ -89,7 +89,9 @@ for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critiqu
    against the scene list, check license/deps/touch/keyboard/reduced motion,
    preview with `npx shadcn@latest add <item> --dry-run`, install finalists only,
    then replace content, tokens, easing and ownership. Never ship an unchanged demo.
-7. **Build with one animation clock**: Lenis driven by the GSAP ticker; WebGL loops
+7. **Match motion to the accepted brief**: premium alone needs no cinematic stack.
+   Use CSS for simple feedback and preserve installed libraries. For a cinematic
+   Lenis + GSAP build, use one clock: Lenis driven by the GSAP ticker; WebGL loops
    share it, mount in view, pause off-screen, cap pixel ratio at 2, dynamic-import,
    and keep a static fallback. Animate transform/opacity/clip-path. Vary reveal
    grammar by scene (mask wipe, scrub, split line, number roll); no blanket
@@ -241,6 +243,9 @@ Check long content, text zoom, touch, keyboard access, sticky overlays, and over
 Never conceal a layout defect with overflow hiding or shrink text until it fits.
 Reserve media dimensions and defer heavy optional content.
 
+For motion-led work read [cinematic-motion.md](cinematic-motion.md): agree actual
+assets, crops, anchors and meaningful before/middle/settled states with art before
+building. Native-touch choreography and reduced/static equivalents are distinct.
 Choose motion for state explanation, feedback, attention, or a specific narrative.
 Use CSS for simple feedback; GSAP for coordinated timelines and scroll scenes;
 Motion/Framer Motion for appropriate React layout, presence, or gestures; Lenis

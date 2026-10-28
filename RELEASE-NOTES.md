@@ -1,3 +1,14 @@
+# Colabio Frontend v1.10.0 (main; no tag created)
+
+Synchronizes the standalone skill with the installed v1.10.0 frontend skill.
+Adds agent council role prompts, runtime-adapted orchestration, scoped design
+memory, cinematic motion guidance, and plan/taste checks. Updates selection,
+palette, component sourcing, contrast, variety, and finish checks with the
+matching references and evaluation guidance.
+
+The original full bundle and existing version tags remain unchanged. The
+standalone installation check now includes the bundled `agents/` role prompts.
+
 # Colabio Frontend v1.6.0 (main; release candidate, no tag created)
 
 One skill that replaces a stack of frontend skills.

@@ -11,6 +11,7 @@ signature component stays original.
 | Animated marketing blocks, backgrounds, text effects | magicui.design, ui.aceternity.com, reactbits.dev, animate-ui.com |
 | Motion-first React primitives | motion-primitives.com, cult-ui.com, motion.dev |
 | Expressive registries | vengenceui.com, skiper-ui.com |
+| Physical, interactive components (text, buttons, cards, backgrounds, nav, inputs, AI UI) | kokonutui.com (free, MIT; Pro tier is paid and not used) |
 | CSS-only elements and loaders | uiverse.io |
 | WebGL, GSAP, scroll and transition techniques with source | tympanus.net/codrops |
 | Engines | gsap.com/docs, lenis.darkroom.engineering, threejs.org |
@@ -31,13 +32,24 @@ node scripts/component-source.mjs aceternity:spotlight
 node scripts/component-source.mjs reactbits:SplitText-TS-CSS
 node scripts/component-source.mjs skiper:skiper40
 node scripts/component-source.mjs vengeance:animated-rays
+node scripts/component-source.mjs kokonut:marker-text --files
+node scripts/component-source.mjs --list kokonut --category backgrounds
 node scripts/component-source.mjs --list shadcn
 node scripts/component-source.mjs shadcn:card --out ./review/components   # save for review
 ```
 
 Endpoints it uses: ui.shadcn.com/r/styles/new-york-v4, magicui.design/r, ui.aceternity.com/registry, reactbits.dev/r
-(`<Name>-<LANG>-<STYLE>`), skiper-ui.com/registry, vengenceui.com/r. If one returns an error, the name is wrong or the
+(`<Name>-<LANG>-<STYLE>`), skiper-ui.com/registry, vengenceui.com/r, kokonutui.com/r. If one returns an error, the name is wrong or the
 registry changed: browse the site for the current name and report the registry as unavailable if needed.
+
+### Kokonut UI (kokonutui.com)
+
+About 100 free React + Tailwind + Motion components, MIT licensed, in eight groups: backgrounds (`dot-field`, `topo-background`, `caustics-background`, `ink-background`...), cards, navigation, inputs, AI, media, texts (`marker-text`, `split-flap-text`, `type-writer`...) and buttons (`hold-button`, `particle-button`, `attract-button`...). Its strength is physical, drag-and-spring interaction; its risk is that a page of them looks like a demo reel.
+
+- `--list kokonut` reads the site's `llms.txt` and shows free items only; `--all` also shows Pro items.
+- **Pro items** (marked "Part of Kokonut UI Pro", namespace `@kokonutui-pro`) are paid and return 404 on the free registry. Never buy, unlock or work around them. Use a free item or build it.
+- Items are shadcn registry JSON and expect `components.json`, Tailwind and the `motion` package. For a single-file HTML page, read the source for its mechanism (the physics, the states) and rebuild it in vanilla CSS and JS, or use it only in a React or Next project.
+- Use at most one or two per page and only where the concept needs that interaction (a typewriter in a chat scene, a marker underline on one phrase). The six-step transform checklist in `library/components/INDEX.md` applies in full.
 
 ### 21st.dev (needs the user's own key)
 

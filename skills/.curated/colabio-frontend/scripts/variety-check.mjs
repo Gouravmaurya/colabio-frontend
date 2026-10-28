@@ -28,6 +28,9 @@ const count = (s, re) => (s.match(re) || []).length;
 
 function form(b, i) {
   const open = (b.match(/^<[^>]+>/) || [''])[0].toLowerCase(), t = text(b), low = b.toLowerCase();
+  // sections rendered by script cannot be read here: declare their form with data-form="stage|instrument|track|..." and it is used as is
+  const declared = (open.match(/data-form="([a-z-]+)"/) || [])[1];
+  if (declared) return declared;
   if (/<h1[\s>]/i.test(b) && i < 2) return 'hero';
   if (/<footer/i.test(open)) return 'footer';
   if (/testimonial|review|<blockquote/.test(low) || /class="[^"]*quote/.test(low)) return 'testimonial';
@@ -61,6 +64,12 @@ for (const file of pages) {
   for (let i = 1; i < forms.length; i++) if (forms[i] === forms[i - 1] && !['other', 'footer'].includes(forms[i])) { flagged++; console.log(`  WARN sections ${i} and ${i + 1} both "${forms[i]}": adjacent repeat`); }
   const skeleton = ['hero', 'logos', 'cards', 'testimonial', 'cta'].filter((f) => forms.includes(f));
   if (skeleton.length >= 4) { flagged++; console.log(`  WARN banned skeleton (${skeleton.join(', ')}): justify it in the brief or restructure (references/distinctive-design.md)`); }
+  // "Made by an AI" tells: every section opening with the same eyebrow + big heading, numbered 01 02 03, and letter-spaced micro-caps everywhere
+  const eyebrow = bs.filter((b) => /<(p|span|div)[^>]*class="[^"]*\b(kick|kicker|eyebrow|overline|section-label)\b/i.test(b.slice(0, 600)) || /^\s*<[^>]+>\s*(<[^>]+>\s*)?0?\d\b[\s.\-:/]/i.test(text(b.slice(0, 500)))).length;
+  if (eyebrow >= 4) { flagged++; console.log(`  WARN ${eyebrow} sections open with the same eyebrow + heading formula: vary the openings (a sentence that is the control, a caption inside the figure, no label at all)`); }
+  const numbered = (h.match(/<b>\s*0\d\s*<\/b>/g) || []).length; if (numbered >= 3) { flagged++; console.log(`  WARN ${numbered} numbered section labels (01, 02, 03): a numbered eyebrow is a template signature`); }
+  const caps = (h.match(/text-transform:\s*uppercase[^}]*letter-spacing:\s*\.\d+em|letter-spacing:\s*\.\d+em[^}]*text-transform:\s*uppercase/gi) || []).length;
+  if (caps > 8) { flagged++; console.log(`  WARN letter-spaced uppercase micro-text in ${caps} rules: keep it for one or two roles (data labels), set the rest in sentence case`); }
   const distinct = new Set(forms.filter((f) => f !== 'footer')).size;
   if (distinct < 4) { flagged++; console.log(`  WARN only ${distinct} distinct section forms: add Instrument, Specimen, Stage, Index or Quiet`); }
   if (!forms.some((f) => ['quiet', 'statement'].includes(f))) console.log('  NOTE no quiet or statement section: pacing may be uniform');

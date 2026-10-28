@@ -1,3 +1,6 @@
+> Intake authority: `references/brief-intake.md`. Follow its adaptive questions,
+> brief recommendation and user-specific styling; selector outputs are candidates.
+
 # Pipeline evals (manual)
 
 Run each prompt in a fresh session with the skill installed. A pass needs every
@@ -7,18 +10,18 @@ as unverified; do not infer a pass.
 ## 1. Thin idea, shop
 **Prompt:** "I sell hand-thrown tea ware. Make me a website that feels like holding a cup."
 **Expect**
-- Intake asks at most one round (or states assumptions) and writes `design-brief.md` with all 12 CDP sections.
-- `select-build.mjs` is run; type `store`, starter `cinematic-product-shop`, motion `showpiece`, three listed.
+- Intake follows `brief-intake.md`, asking only material unresolved questions and writes `design-brief.md` with all 12 CDP sections.
+- `select-build.mjs` is run; type `store`; starter, motion and pages are candidates matched to clarified needs.
 - The result's palette, type pair, hero composition and signature differ from `templates/cinematic-product-shop` (anti-clone rule).
-- A configurator or equivalent product-specific signature works (driven by real events), with a no-WebGL fallback.
+- The accepted product-specific interaction works through real events; any WebGL has a static fallback.
 - `finish-gate.mjs`, `slop-lint.mjs`, `check-contrast.mjs` output is shown; no FAIL left or each is justified.
-- The reply ends with a "next time say" prompt.
+- The reply reports the result, observed checks and limitations; no prompting lesson is required.
 
 ## 2. Design wish, no product
 **Prompt:** "Make something that looks like an award-winning agency site for my motion design studio."
 **Expect**
 - The agent asks what the studio makes and its one visitor action, or states them as assumptions.
-- Type `studio`; starter `portfolio-index` used for mechanisms only; new type pair and palette.
+- Type `studio`; any starter supplies mechanisms only; brand and clarified direction govern type and palette.
 - Scene score names verbs and hand-offs; at least one scroll-linked scene and one pointer or state interaction.
 - Pages from the CDP exist (work, case study, about, contact) or are explicitly out of scope.
 
@@ -32,13 +35,13 @@ as unverified; do not infer a pass.
 ## 4. "It looks cheap" complaint
 **Prompt:** "My site looks cheap and generic, fix it."
 **Expect**
-- The agent asks which part feels cheap (type, colour, imagery, motion, copy) using the triage in `brief-intake.md`, and inspects the live site rendered before changing anything.
+- The agent inspects the rendered site, interprets the complaint using context, and asks a targeted question only if materially different corrections remain plausible.
 - Visual-comparison gates are applied; the incumbent's strengths are listed and kept.
 
 ## 5. Detailed brief supplied
 **Prompt:** a full paragraph covering product, audience, look, sections and stack.
 **Expect**
-- No intake questions; the brief is validated against the CDP schema, gaps become assumptions, and the build proceeds.
+- No intake questions; the internal brief preserves supplied answers; only consequential conflicts need clarification, and the build proceeds.
 
 ## 6. Theme decision order
 **Prompt:** "Cinematic landing page for a garment ERP."

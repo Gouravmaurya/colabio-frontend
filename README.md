@@ -9,7 +9,9 @@ template-tell scanner, motion recipes, asset/copy gates and component-library
 mining. Existing brands are preserved; small fixes stay local. The larger
 43-route bundle remains available separately.
 
-Version **1.6.0** adds six cinematic composition recipes and strict rendered
+Version **1.10.0** adds an agent council, host-adapted orchestration, scoped design
+memory, cinematic motion guidance, and plan/taste checks. It retains six cinematic
+composition recipes and strict rendered
 baseline/slice/final gates. A redesign with a recorded visual regression is a
 candidate, not a verified upgrade. The bundled checker catches missing/mismatched
 evidence and unresolved findings; it cannot judge aesthetics or guarantee awards.
@@ -41,7 +43,7 @@ npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills
 When updating, back up customized copies outside scanned skill directories first.
 Check the actual `.agents/skills/colabio-frontend` (Codex) and
 `.claude/skills/colabio-frontend` (Claude Code) files, not just the clone. The new
-entrypoint includes `metadata.version: "1.6.0"`, and both installed folders must
+entrypoint includes `metadata.version: "1.10.0"`, and both installed folders must
 contain `references/cinematic-recipes.md`, `references/visual-comparison-gates.md`
 and `scripts/verify-visual-gates.mjs`. Check project-local and alternate `.codex`
 copies that might shadow the global version. Refresh discovery after replacement.
@@ -72,10 +74,12 @@ before running a replacement install.
 
 ### What gets installed
 
-The selected source folder contains exactly:
+The selected source folder contains:
 
 ```text
 colabio-frontend/
+├── agents/
+├── library/
 ├── SKILL.md
 ├── references/
 ├── scripts/

@@ -35,7 +35,7 @@ accurate project facts. Never generate a substitute identity for a real person.
   work. Use at most one substantial spatial transition in the opening.
 - Signature: projects unfold as usable case narratives with actual interfaces,
   constraints, role and links. A grid of decorative node labels is not equivalent.
-- Narrow/reduced: portrait becomes an in-flow image, type fits without shrinking
+- Phone: portrait becomes an in-flow image, type fits without shrinking
   supporting text, work becomes stacked cards or an explicit swipe gallery, and
   all links remain reachable. Optional side navigation becomes a regular top nav.
 - Failure test: replace the name and portrait. If the work, project explanation
@@ -55,7 +55,7 @@ supplied renders, a lightweight model, or generated product art where appropriat
 - Signature: a real configurator, material comparison or functional cutaway. Its
   selected state changes the object and the resulting facts together.
 - Alternative: consistent stills plus a masked detail reveal can outperform 3D.
-- Narrow/reduced: inline product, large choice controls, ordinary document scroll,
+- Phone: inline product, large choice controls, ordinary document scroll,
   poster fallback, no required drag, no canvas-only price/specification text.
 
 ### 3. Software walkthrough / input becomes an inspectable result
@@ -73,7 +73,7 @@ workflow states, or a clearly labelled working local demonstration.
   a backend ran. Scrubbed examples must be identified as demonstrations.
 - Signature: editable input or a real scenario switch updates the result and its
   explanation. Explain one actual tradeoff, not four generic boxes joined by lines.
-- Narrow/reduced: show the same states as a sequence or accessible stepper, with
+- Phone: show the same states as a sequence or accessible stepper, with
   enough text/UI scale to read them. Provide a direct link to the real product.
 
 ### 4. Project screening room / an ordered collection
@@ -92,7 +92,7 @@ workflow states, or a clearly labelled working local demonstration.
   previous/next controls or a direct case index; do not require precision scrubbing.
 - Cut to an unpinned quiet scene after the collection. Pinned galleries everywhere
   make the work harder to browse and erase the sense of a sequence.
-- Narrow/reduced: reflow the cards vertically by default, or use an explicit
+- Phone: reflow the cards vertically by default, or use an explicit
   touch-scroll region with visible navigation. Never retain a desktop-wide pinned
   track while simply reducing font sizes.
 
@@ -110,7 +110,7 @@ workflow states, or a clearly labelled working local demonstration.
   A line must have enough ascender/descender room; inspect its fully settled state.
 - Direct navigation must land on a usable settled scene, not a blank pinned frame.
   Never make a visitor perform a long scroll just to reveal a required button.
-- Narrow/reduced: in-flow chapters, visible headings, ordinary anchors and final
+- Phone: in-flow chapters, visible headings, ordinary anchors and final
   readable states. Identity must survive without scrub, pinning or title splitting.
 
 ### 6. Material/process study / visual change proves the craft
@@ -125,18 +125,23 @@ diagram of the real mechanism.
   process view. Controls change meaningful data; sample quantities are labelled.
 - Pair one strong visual moment with a quiet spec or evidence panel. Do not turn
   every process step into an equal icon card.
-- Narrow/reduced: labelled stills/steps, real controls, no concealed evidence.
+- Phone: labelled stills/steps, real controls, no concealed evidence.
+
+Phone adaptations can retain appropriate native-scroll entrances and state transitions.
+Separately, reduced-motion, missing-library and no-script modes expose complete settled
+content with ordinary navigation; they are not the definition of mobile. For concrete
+geometry, peer ownership and playback evidence use [cinematic-motion.md](cinematic-motion.md).
 
 ## Direct the motion before importing a library
 
 Write a score for each major scene, using this structure:
 
-| Beat | Content/subject | Framing and layers | Timing/scroll span | Ownership | Narrow/reduced state |
+| Beat | Content/subject | Framing and layers | Timing/scroll span | Ownership | Phone; separate reduced/static state |
 | --- | --- | --- | --- | --- | --- |
 | Establish | What the visitor understands immediately | Focal image, title, action, negative space | Visible before animation | CSS/HTML | Same meaning, stable |
-| Enter | The one subject that moves | Element and actual start/end geometry | Usually 0.5–1.0 s; no input gate | GSAP wrapper | Static final state |
+| Enter | The one subject that moves | Element and actual start/end geometry | Usually 0.5–1.0 s; no input gate | GSAP wrapper | Touch entrance; reduced/static final state |
 | Hold | What they need time to read | Stable copy and reachable controls | As long as reading needs | No competing tween | In-flow copy |
-| Transform | What new fact is revealed | One anchored relationship changes | Scroll distance justified by content | One timeline | Labelled states |
+| Transform | What new fact is revealed | One anchored relationship changes | Scroll distance justified by content | One timeline | Native sequence; reduced/static labelled states |
 | Resolve | Where this scene leaves the subject | Clear action/next-scene connection | No invisible dead scroll | Scoped cleanup | Normal anchor target |
 
 These durations are starting points, not a universal tempo. Strong compositions

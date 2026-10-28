@@ -57,7 +57,7 @@ Rules:
 
 Order: (1) `library/components` (16 originals, read `library/components/INDEX.md`); (2) Hallmark recipes in `library/`;
 (3) a registry through `node scripts/component-source.mjs` (shadcn, Magic UI, Aceternity UI, React Bits, Skiper UI,
-Vengeance UI, 21st.dev with the user's own key; see `references/libraries.md`); (4) build it custom.
+Vengeance UI, Kokonut UI, 21st.dev with the user's own key; see `references/libraries.md`); (4) build it custom.
 Whatever the source, run the six-step transform checklist in `library/components/INDEX.md` and write the provenance line.
 Use at most three registry pieces per page, from at least two sources, and no piece twice.
 
@@ -73,3 +73,20 @@ Use at most three registry pieces per page, from at least two sources, and no pi
 
 `node scripts/variety-check.mjs <page.html|folder>` reads each section's form, flags repeats and the banned skeleton, and
 lists demo copy. It is a heuristic: use it to prompt a design decision, not as a score.
+
+If a section is built by script (a track, a timeline, a board), the scanner cannot see its form. Put `data-form="track"` (or `stage`, `instrument`, `specimen`, `ledger`, `quiet`, `faq`, `close`) on the `<section>` and it is used as declared. Declare honestly: it is a self-report, and the specificity tests still apply.
+
+## AI tells (what makes a page look generated) and the fix
+
+`variety-check.mjs` counts the first three.
+
+| Tell | Fix |
+| --- | --- |
+| Every section opens with the same small mono eyebrow, a giant heading and a grey lede | Vary the openings: a sentence that is the control, a heading inside the figure, a caption, or no label at all |
+| Numbered labels 01, 02, 03 | Drop them. Numbering is for real sequences (a timetable), not section headers |
+| Letter-spaced uppercase micro-text everywhere | Keep it for one or two data roles; set the rest in sentence case |
+| Stock vector scenery (a flat skyline, blobs, floating cards) | Draw a specific object from the product: a map of its real routes, a printed form, a ticket, an instrument at the real reading |
+| Aphorism copy ("X is the Y", rule of three) | Say something concrete and a little dry. Use the product's own numbers and nouns |
+| Everything the same size, aligned and tidy | Break the grid on purpose: tilt a paper object a degree, crop a huge element off the edge, offset alternate items |
+| Smooth gradients and glows as the only texture | Add real texture: paper grain, print rules, perforations |
+| A control row of sliders under a heading | Put the controls in the sentence |

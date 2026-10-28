@@ -9,8 +9,11 @@ const strict = process.argv.includes('--strict');
 const skip = new Set(['node_modules', '.next', 'dist', 'build', '.git', 'out', 'coverage', '.turbo']);
 const exts = new Set(['.html', '.css', '.scss', '.js', '.jsx', '.ts', '.tsx', '.vue', '.svelte', '.astro', '.mdx']);
 const files = [];
-if (fs.statSync(root).isFile()) files.push(root);
-else (function walk(d) {
+if (fs.statSync(root).isFile()) {
+  files.push(root);
+  // a single HTML page: also scan the local stylesheets and scripts it links, so their rules count
+  if (root.endsWith('.html')) { const html = fs.readFileSync(root, 'utf8'); for (const m of html.matchAll(/(?:href|src)=["']([^"':?#]+\.(?:css|js))["']/gi)) { const f = path.join(path.dirname(root), m[1]); if (fs.existsSync(f)) files.push(f); } }
+} else (function walk(d) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
     if (skip.has(e.name)) continue;
     const p = path.join(d, e.name);

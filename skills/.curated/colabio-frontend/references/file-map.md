@@ -9,6 +9,7 @@ Every bundled file and what it is for.
 | `references/design-kit.json` | Font pairs, contrast-checked palettes, signature mechanisms, hero compositions |
 | `references/craft-defaults.md` | Type scale, spacing, color, motion and detail numbers |
 | `references/asset-and-copy.md` | Asset phase and copy gate |
+| `references/cinematic-motion.md` | Motion ambition, concrete scene states, component choreography, phone/reduced variants and playback review |
 | `references/motion-recipes.md` | Lenis + GSAP + ScrollTrigger + Motion integration code |
 | `references/libraries.md` | Component-library sites and the mining protocol |
 | `references/cinematic-recipes.md` | Editorial portrait, product close-up, software walkthrough, screening room, title sequence and process-study direction |
@@ -18,7 +19,9 @@ Every bundled file and what it is for.
 | `scripts/pick-direction.mjs` | Brief-aware proposal (`--brief`, `--type`, `--style`, `--theme`); reports fallback; `--validate` checks kit contrast |
 | `scripts/slop-lint.mjs` | Scans source for template tells |
 | `scripts/verify-visual-gates.mjs` | Read-only evidence checks; fails recorded regression, missing comparison, bad viewport matching and unresolved findings |
-| `references/brief-intake.md` | Clarify material gaps and turn a thin prompt into a useful brief |
+| `references/design-memory.md` | Premium cinematic landing defaults and scoped feedback learning through the user profile |
+| `evals/design-memory-evals.md` | Default styles, explicit overrides, accurate feedback memory and cross-host persistence cases |
+| `references/brief-intake.md` | Conversational intake authority: clarify UI type, feel and motion; recommend, then build |
 | `references/site-types.md` | Website-type journeys, proof and interaction options |
 | `references/verify.md` | Serving, real-event browser verification and preview quirks |
 | `references/craft-bar.md` | The level to build at (ten properties, mechanism menu, anti-clone rule); never a design to copy |
@@ -27,7 +30,7 @@ Every bundled file and what it is for.
 | `scripts/scaffold.mjs` | Copy a selected starter into a new output folder |
 | `scripts/serve.mjs` | Local static preview server |
 | `scripts/check-contrast.mjs` | Check foreground/background token contrast |
-| `evals/intake-evals.md` | Manual brief/intake behavior cases |
+| `evals/intake-evals.md` | Conversational intake behavior cases |
 | `references/prompt-enhancer.md` | Turn any idea into a Cinematic Design Prompt (12-part schema, examples) |
 | `scripts/select-build.mjs` | Build selector: type, style, starter, stack, motion level, pages, libraries, reading order |
 | `scripts/finish-gate.mjs` | Static polish gate: meta, landmarks, alt text, focus, reduced motion, social card, favicon, placeholders |
@@ -47,5 +50,12 @@ Every bundled file and what it is for.
 | `references/distinctive-design.md` | Beyond the template: category inventory, one distinctive move, section grammar, component sourcing, specificity tests |
 | `library/components/INDEX.md` | Catalogue of the 16 bundled original components, transform checklist, variants |
 | `library/components/components.html` | Live gallery of the bundled components with extraction markers |
-| `scripts/component-source.mjs` | Read-only component viewer: bundled components and shadcn, Magic UI, Aceternity, React Bits, Skiper UI, Vengeance UI, 21st.dev (user key) |
+| `scripts/component-source.mjs` | Read-only component viewer: bundled components and shadcn, Magic UI, Aceternity, React Bits, Skiper UI, Vengeance UI, Kokonut UI, 21st.dev (user key) |
 | `scripts/variety-check.mjs` | Section-form heuristic: repeats, adjacent repeats, banned skeleton, demo phrases |
+| `references/agency-bar.md` | The studio bar: root causes of generated output, non-negotiables, Lenis + GSAP stack and recipes, the look-and-fix loop |
+| `references/agent-council.md` | Design alternatives, reciprocal discussion, shared plan, representative slice and independent cross-review |
+| `references/ai-orchestration.md` | Shared Codex/Claude execution contract, external orchestrator usage, task packets, dependencies, ownership, recovery and sequential fallback |
+| `evals/orchestration-evals.md` | Behavioral cases for dispatch, host adaptation, parallel edits, blockers, handoff and completion evidence |
+| `agents/*.md` | Council role prompts: design-chair, subject-analyst, art-director, motion-director, copy-chief, experience-architect, slop-auditor, interface-builder, build-critic |
+| `scripts/plan-lint.mjs` | Pre-build slop gate on the plan (council files and design-brief.md): idea, competitor test, planned tells, picture plan, motion stack |
+| `scripts/taste-check.mjs` | Static studio-bar gate on a built page: mono voice, numbering, eyebrows, hairlines, tracked caps, pictures floor, motion stack (`--showpiece`) |

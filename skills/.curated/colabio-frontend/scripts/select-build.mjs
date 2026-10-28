@@ -58,7 +58,7 @@ const motion = {
   level,
   libraries: [...new Set(['gsap + ScrollTrigger', ...(level !== 'light' ? ['lenis'] : []), ...(stack !== 'html' && has(/\b(layout|gesture|drawer|modal|tabs?)\b|presence/) ? ['motion (framer-motion)'] : []), ...(needs3d ? ['three'] : [])])],
   owners: 'Lenis = scroll (driven by the GSAP ticker); GSAP = scroll-linked and choreography; Motion/CSS = component states',
-  mustHave: ['prefers-reduced-motion path', 'skippable or timer-released intro', 'no-library fallback', needs3d ? 'no-WebGL fallback with poster/SVG' : null].filter(Boolean)
+  mustHave: ['prefers-reduced-motion path', 'skippable or timer-released intro', 'complete static page if the CDN fails or motion is reduced (fallback, not a reason to skip libraries)', needs3d ? 'no-WebGL fallback with poster/SVG' : null].filter(Boolean)
 };
 
 // ---- pages ----

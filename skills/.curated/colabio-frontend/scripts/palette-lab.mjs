@@ -61,9 +61,10 @@ if (arg('check')) {
 
 /* ---------- candidate generation ---------- */
 const text = (arg('domain') || '').toLowerCase();
-let swatches = arg('swatches') ? arg('swatches').split(',').map((h, i) => ['custom ' + (i + 1), h.trim().toUpperCase()]) : null, domain = null;
+let swatches = arg('swatches') ? arg('swatches').split(',').map((h, i) => { const m = h.match(/#([0-9a-f]{6})/i); return m ? [h.replace(m[0], '').trim() || 'custom ' + (i + 1), m[0].toUpperCase()] : null; }).filter(Boolean) : null, domain = null;
 if (!swatches) { let best = 0; for (const d of kit) { const n = (text.match(new RegExp(d.keys, 'g')) || []).length; if (n > best) { best = n; domain = d; } } swatches = domain?.swatches; }
 if (!swatches) { console.error('No domain matched. Pass --domain with product words, or --swatches "#hex,#hex,..." taken from the product\'s own materials, photos or brand.'); process.exit(2); }
+if (swatches.length < 3) { console.error('Need at least 3 swatches as #RRGGBB, optionally named: --swatches "brick #9A4A36,slate roof #14171A,brass #B8923A".'); process.exit(2); }
 const withHsl = swatches.map(([n, h]) => ({ n, h, hsl: toHsl(h) }));
 const lightest = [...withHsl].sort((a, b) => b.hsl[2] - a.hsl[2])[0], darkest = [...withHsl].sort((a, b) => a.hsl[2] - b.hsl[2])[0];
 const chromatic = withHsl.filter((x) => x.hsl[1] > .35 && x.hsl[2] > .18 && x.hsl[2] < .75).sort((a, b) => b.hsl[1] - a.hsl[1]);
@@ -90,6 +91,7 @@ function build(id, strategy, scene, o) {
   return { id, strategy, scene, tokens: t, contrast: Object.fromEntries(Object.entries(c).map(([k, v]) => [k, +v.toFixed(2)])), categoryDefaultFlags: fl, domainEvidence: ev, score, why: o.why };
 }
 const bgLight = mix(lightest.h, '#FFFFFF', .3), bgDark = fromHsl(darkest.hsl[0], clamp(darkest.hsl[1], .08, .35), .09);
+if (!chromatic.length) { console.error('None of the swatches is a saturated accent colour; add at least one real brand or material colour with some saturation.'); process.exit(2); }
 const aL = accentFor(bgLight), aD = accentFor(bgDark, [aL.n]);
 const tintHue = (farFrom(225).find((x) => x.n !== aD.n && x.n !== aL.n) || farFrom(225)[0] || aL).hsl[0];
 const bgAway = fromHsl(tintHue, .2, .085), aA = accentFor(bgAway, [aL.n, aD.n]), aI = accentFor(lightest.h, [aL.n]);

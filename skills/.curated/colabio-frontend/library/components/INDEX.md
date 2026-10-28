@@ -53,5 +53,5 @@ A component is "used" only when all six are true. Otherwise it is a template blo
 ## Registries
 
 When this set does not cover the need, `component-source.mjs` reads from shadcn, Magic UI, Aceternity UI, React Bits, Skiper UI,
-Vengeance UI and (with the user's own key) 21st.dev. See [`references/libraries.md`](../../references/libraries.md). Registry
+Vengeance UI, Kokonut UI and (with the user's own key) 21st.dev. See [`references/libraries.md`](../../references/libraries.md). Registry
 components are React; the transform checklist applies to them even more.

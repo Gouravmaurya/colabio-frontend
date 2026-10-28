@@ -1,54 +1,105 @@
 ---
 name: colabio-frontend
 metadata:
-  version: "1.6.0"
+  version: "1.10.0"
 description: >
-  Art-direct, build, and refine distinctive frontend interfaces grounded in the
-  product, audience, and existing brand. Use for websites, landing pages,
-  dashboards, components, redesigns, and visual polish. Combines original
-  composition, typography, usable interactions, purposeful motion, and rendered
-  review. Ships a complete toolkit (style recipes, curated font pairs and
-  palettes, a seeded direction picker, a template-tell scanner, asset, copy and
-  motion guides, component-library mining) so no other skill is required.
-  Includes cinematic composition recipes and rendered baseline/slice/final gates
-  that reject visual regressions rather than treating working code as design proof.
-  Runs an idea-to-site pipeline: enhances a thin idea into a Cinematic Design
-  Prompt, selects the build plan (type, style, starter, stack, motion, pages),
-  builds with scroll and motion systems, then verifies with polish and
-  rendered gates before delivery. One skill, many commands: new, shape, redesign,
-  critique, audit, polish, harden, distill, bolder, quieter, typeset, layout,
-  colorize, animate, onboard, adapt, optimize. A bundled, licensed library
-  (Impeccable playbooks, Hallmark components and page structures, Taste anti-slop
-  references, UI/UX Pro Max decision data, GSAP, Motion, Scroll Craft, Three.js)
-  is routed by one index, so no other frontend skill is needed.
-  Keep small fixes local; exclude unrelated backend work.
+  Art-direct, build, and refine websites, landing pages, dashboards and frontend
+  components. Use for new interfaces, redesigns, visual polish and purposeful
+  scroll or component animation. Grounds composition, type, imagery and motion
+  in the product, with a bundled reference library, motion planning and rendered
+  desktop/mobile verification. Preserve existing brand and behavior; keep small
+  fixes local and exclude unrelated backend work. Clarify ordinary-language UI
+  requests conversationally, recommend, then build. Landing pages default to
+  premium cinematic craft; apply and learn scoped user design preferences.
 ---
 
 # Colabio Frontend
 
-Build a complete, working interface with an identity that belongs to its product.
-Preserve the user's brief, existing brand, behavior, framework, and conventions.
-One concept and token system govern the result. Quality is demonstrated by the
-rendered interface and observed behavior, never by a skill count or self-rating.
-Judge an upgrade against the product's actual needs and the existing experience,
-not against a preference for a quieter or more fashionable visual style.
+Build a complete interface with product-specific identity. Preserve the brief,
+brand, behavior, framework and conventions; use one concept and token system.
+Judge quality against product needs and the existing experience using rendered
+and behavioral evidence, never skill counts, self-ratings or fashion alone.
 
-This is one skill and it is fully standalone: everything it needs ships in this folder
-(`references/`, `scripts/`, `templates/` and a licensed `library/` of reviewed upstream
-guides). It never requires installing another skill; if Impeccable, Taste or Hallmark are
-also installed, do not invoke them separately for the same job. Read a reference only at
-the phase that needs it. The picker, scanner and gate
-verifier are read-only; scaffold/serve write or serve only the requested output.
-Scripts use Node 18+; without Node, perform the applicable checks manually.
+References, templates and licensed guides ship here; do not invoke another design
+skill for the same job. Read by phase. Check scripts are read-only; scaffold/serve
+affect the requested output. Use Node 18+ or perform applicable checks manually.
+
+## Execution contract for Codex, Claude and orchestrators
+
+Read project instructions and inspect the existing interface and stack first.
+Resolve skill files from this folder and project files from the implementation workspace.
+
+- **Focused work:** use the matching command and checks; keep scope local.
+  A critique does not authorize source edits.
+- **Substantial new interface or redesign:** read
+  [ai-orchestration.md](references/ai-orchestration.md), then run the council and
+  pipeline below through implementation and verification.
+- **Delegated role:** read the role and task packet, inspect the governing plan,
+  complete only the assigned scope, and return evidence to the coordinator.
+  Do not restart intake or dispatch more workers unless assigned.
+
+Use actual runtime capabilities. Role files are prompts, not registered tools.
+The guide covers host adaptation, dependencies, ownership, handoffs and recovery;
+use sequential roles when delegation is unavailable. No framework installation is required.
+
+## Describe it, clarify it, build it
+
+First read [design memory](references/design-memory.md) and the current user's
+`~/.colabio/frontend-preferences.md` when present. Landing pages default to premium,
+expressive, cinematic design with distinctive components, type and colour; explicit
+user/brand constraints override this. Keep dashboards and small fixes task-appropriate.
+Follow [intake](references/brief-intake.md): reuse answers, clarify material gaps,
+recommend briefly, then build. Detailed briefs skip repeated questions; "you decide"
+skips optional ones. Save actual scoped feedback to the shared profile; general
+praise approves an example, not every detail. Keep orchestration backstage.
+
+## Motion is part of the composition
+
+For experience-led landing pages and requests for cinematic or animated work, plan
+visible motion across the journey before building. Give each major section an intent:
+a scroll-linked sequence, a component reveal, interaction feedback, or a deliberate
+still moment with a reason. Smooth scrolling, library imports and small image zooms
+alone do not satisfy a motion-rich brief. “No blanket fade-ups” means avoid repeating
+one generic effect; it does not mean omit component reveals or scroll choreography.
+Read [cinematic-motion.md](references/cinematic-motion.md) for motion ambition,
+scene states, component choreography and playback review, then the runtime patterns
+in [motion-recipes.md](references/motion-recipes.md).
+Preserve explicit static requests and the needs of operational or reading surfaces.
+
+## The studio bar (for cinematic, awwwards and explicit showpiece briefs)
+
+Landing pages use the cinematic bar by default unless explicitly overridden.
+Premium alone does not force it on dashboards; use accepted motion and UI type. Selectors provide candidates, not commands.
+A correct page is not a good page. Generated pages share one look: an eyebrow over every heading, mono
+micro-labels, 01/02/03 numbers, hairline rules, a dark ground with one accent, flat vector scenery, fades on
+every block. Those are banned (`library/taste/references/tells.md`). The bar, in
+[agency-bar.md](references/agency-bar.md): a subject-grounded idea (competitor swap test), one live thing
+built from real content, a two-line headline, **at least four real pictures** (SVG does not count), full
+screens, and a **Lenis + GSAP motion stack** with honest fallbacks. For these briefs run
+`finish-gate.mjs <page> --showpiece`: its studio-bar FAILs block delivery. Review the representative slice, then the full journey; fix and recheck actual findings. Skipping the library and designing from instinct is how generic output happens: open
+`library/taste/references/` (tells, type, layout, scenes, imagery, motion) and the GSAP and scroll-craft modules.
+
+Apply the studio bar within the requested scope. Approved regions stay locked;
+existing brand, assets and behavior take precedence over generic image counts or
+stack preferences. A focused body/motion pass does not require a fourth picture,
+a new hero or replacement dependencies. Investigate and document scanner conflicts;
+never add filler or change approved work to satisfy a heuristic.
+
+## The agent council (discuss, plan and cross-review)
+
+For substantial `new`, `redesign` and cinematic work, run the
+[council](references/agent-council.md): compare alternatives, exchange concerns and
+owner replies, reconcile one scene/state plan, then audit and build it. Cross-review
+another author's representative slice and full journey; a strong hero cannot
+approve weak body sections. Preserve approved regions and disclose self-review.
 
 ## Where things are
 
-Open a file only when its phase needs it. Full list: [file-map.md](references/file-map.md).
+Read by phase. File list: [file-map.md](references/file-map.md).
 
-- **Decide:** `references/product-understanding.md`, `prompt-enhancer.md`, `brief-intake.md`, `site-types.md`, `craft-bar.md`, `distinctive-design.md`, `styles.md`, `design-kit.json`, `scripts/select-build.mjs`, `scripts/palette-lab.mjs`
-- **Build:** `references/core-guidance.md` (sections below), `craft-defaults.md`, `asset-and-copy.md`, `motion-recipes.md`, `libraries.md`, `library/components/INDEX.md`, `scripts/component-source.mjs`, `cinematic-recipes.md`, `templates/README.md`, `scripts/scaffold.mjs`
-- **Verify:** `references/verify.md`, `visual-comparison-gates.md`, `award-bar.md`, `scripts/finish-gate.mjs`, `slop-lint.mjs`, `variety-check.mjs`, `check-contrast.mjs`, `serve.mjs`, `capture.mjs`, `verify-visual-gates.mjs`
-- **Commands and library:** `references/commands.md`, `library/INDEX.md`, `library/README.md`, `library/NOTICE.md`, `references/sources.md`, `references/impeccable-bridge.md`
+- **Decide and build:** [core guidance](references/core-guidance.md), mapped below.
+- **Verify:** [verification](references/verify.md) and [comparison gates](references/visual-comparison-gates.md).
+- **Commands and library:** [commands](references/commands.md), [library index](library/INDEX.md) and [library rules](library/README.md).
 
 ## Core guidance map (open `references/core-guidance.md` at the part you need)
 
@@ -65,7 +116,7 @@ Open a file only when its phase needs it. Full list: [file-map.md](references/fi
 
 ## Commands
 
-The user can ask for a command by name (`/colabio-frontend critique src/pages/Home`) or
+Ask for a command by name (`/colabio-frontend critique src/pages/Home`) or
 in plain words. **new** and **redesign** run the pipeline below. Every other command is a
 focused pass on an existing surface: inspect it rendered first, then open
 [`references/commands.md`](references/commands.md) (how each command runs here, and what to
@@ -77,13 +128,13 @@ skip in upstream guides that assume Impeccable's launcher), then the guide it na
 | `new` | Idea to finished site | the pipeline; `library/impeccable/reference/new-work.md` |
 | `shape` | Plan UX and scenes before code | `library/impeccable/reference/shape.md` |
 | `redesign` | Improve an existing site without regressions | `references/visual-comparison-gates.md` |
-| `critique` | Scored UX and visual review | `library/impeccable/reference/critique.md` |
+| `critique` | Evidence-based UX and visual review | `library/impeccable/reference/critique.md` |
 | `audit` | Accessibility, performance, responsive checks | `library/impeccable/reference/audit.md`, `scripts/finish-gate.mjs` |
 | `polish` | Final shipping pass | `library/impeccable/reference/polish.md` |
 | `harden` | Errors, empty states, edge cases, i18n | `library/impeccable/reference/harden.md` |
 | `distill` / `bolder` / `quieter` | Remove, amplify, tone down | `library/impeccable/reference/` |
 | `typeset` / `layout` / `colorize` | Type, spacing and structure, colour | `library/impeccable/reference/`, `scripts/palette-lab.mjs` |
-| `animate` | Purposeful motion | `references/motion-recipes.md`, `library/impeccable/reference/animate.md` |
+| `animate` | Purposeful motion | `references/cinematic-motion.md`, `references/motion-recipes.md`, `library/impeccable/reference/animate.md` |
 | `onboard` / `clarify` / `adapt` / `optimize` | First run, UX copy, devices, speed | `library/impeccable/reference/` |
 
 Rules for the library: Colabio's order and gates win (understand, plan, derive the theme,
@@ -94,16 +145,19 @@ library files per phase; keep one primary style recipe. Details in `library/READ
 ## The pipeline: idea in, finished site out
 
 For a new site or major redesign the user gives an idea, a design wish or a link.
-Run these stages in order, in one pass unless the user asked for questions.
+Follow conversational intake, then complete these stages in order.
 
 1. **Understand, then plan.** Follow [product-understanding.md](references/product-understanding.md)
    and [prompt-enhancer.md](references/prompt-enhancer.md). Write the Understanding
    Sheet first (what it is, who uses it, where and on what device and light, the
    decision they face, the proof that convinces them, domain vocabulary and
    materials, category defaults to avoid, emotional register, first-screen
-   obligation). Ask one round only if three or more material gaps remain. Then plan
-   the scene score and pages from it. **No colour, type or theme decision before
-   these exist.**
+   obligation). Clarify material gaps using `brief-intake.md`. Also list
+   verified subject-specific ingredients (its name, objects, printed things,
+   rituals, constraints and numbers); distinguish real facts from assumptions and write the **idea sentence**
+   ("On this page, [a thing of the subject] becomes [the device]") plus **one live thing**
+   (see agency-bar.md section 2). Then plan the scene score and pages from it.
+   **No colour, type or theme decision before these exist.**
 2. **Select, then decide the theme.** Run `node scripts/select-build.mjs --brief
    "<idea>"` (or `--file design-brief.md --project <app>`) for type, starter, stack,
    motion level, pages and reading order; its style, font and palette picks are
@@ -112,22 +166,27 @@ Run these stages in order, in one pass unless the user asked for questions.
    real material behind each colour, justify light, dark or light-with-a-dark-scene
    from the use context ("cinematic" is framing, not darkness), and reject category
    defaults it flags. Write all of this into the **Cinematic Design Prompt**
-   (`design-brief.md`) and show a 10-line summary.
+   (`design-brief.md`); show the brief recommendation from intake.
 3. **Design.** Write the spec (tokens with contrast, type scale, scene score with a
    section form, motion verb and hand-off per scene, mobile recomposition). Gather real
    assets and copy first. Satisfy the anti-clone rule in `craft-bar.md` and
    [distinctive-design.md](references/distinctive-design.md): name the one distinctive move,
    give each section a different form, and plan component sources (bundled originals first,
    then registries via `component-source.mjs`, always transformed).
-4. **Build.** Vertical slice first (hero, signature, hand-off), rendered at 1440
-   and 390; then every page in the CDP's page list with its states; then motion on
-   one clock with owners and reduced-motion and no-library paths.
-5. **Polish and verify.** Run `finish-gate.mjs` (it also runs the Impeccable detector when
+4. **Build.** Representative slice first (opening hand-off, real body/proof and
+   useful component), rendered at 1440 and 390. Preserve an approved hero and start
+   at the affected body scene when appropriate; then every page in the CDP's page list with its states. **Pictures first for showpiece briefs:**
+   source at least four real pictures or build a rendered scene (canvas or WebGL with
+   depth, light and grain), never flat vector decoration. **Motion:** for default cinematic landings and explicit showpiece
+   or awwwards briefs use Lenis + GSAP (ScrollTrigger, SplitText) on one clock
+   (`agency-bar.md` section 3). "No-library path" means the page is complete and readable
+   if the CDN fails or motion is reduced; it never means skip the libraries.
+5. **Polish and verify.** Run the look-and-fix loop (`agency-bar.md` section 5: capture 1440/768/390
+   and scene frames, inspect playback, fix consequential findings, recheck). Run `finish-gate.mjs` (add
+   `--showpiece` for cinematic landing pages/showpiece briefs; it also runs the Impeccable detector when
    installed, see `impeccable-bridge.md`), `slop-lint.mjs`, `variety-check.mjs`,
-   `palette-lab.mjs --check` and `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; at least
-   two critique rounds against `award-bar.md` and the acceptance criteria.
-6. **Deliver.** The site, `design-brief.md`, what was checked and what was not, and
-   a "next time say" prompt. Never claim an award, a score or measured performance
+   `palette-lab.mjs --check` and `check-contrast.mjs`; serve and drive real events at 1440/1024/768/390; review the representative slice and full journey against the acceptance criteria.
+6. **Deliver.** The site, `design-brief.md`, what was checked and what was not, and remaining limitations. Never claim an award, a score or measured performance
    without evidence.
 
 ## Acceptance contract for substantial creative work
@@ -143,7 +202,7 @@ For cinematic/expressive briefs, or an incumbent with that character, read
 [cinematic recipes](references/cinematic-recipes.md). Choose a content-led recipe
 and write a scene score: establish, enter, hold, transform, resolve. Plan dominant
 type, real imagery, foreground/background relationships, continuity, control and
-narrow/reduced-motion states. Cinematic does not require dark surfaces or WebGL.
+separate phone choreography and reduced/static states. Cinematic does not require dark surfaces or WebGL.
 
 Inspect a representative opening + real proof + transition slice before extending
 the build. Reject a weak slice. Do not substitute an abstract diagram, generic
@@ -152,8 +211,10 @@ orbiting logo or decorative mockup for real work or a product's actual workflow.
 The final comparison must explicitly judge identity, composition, typography,
 assets, motion, clarity, usability and completeness. A regressed/unverified row
 prevents claiming a verified upgrade. At least one target must visibly improve.
-Two review rounds are the minimum for substantial work; reaching a round limit
-never turns a failure into a pass. Deliver an honest candidate if tools or scope
+Review the representative slice and completed journey for substantial work;
+reaching a round limit never turns a failure into a pass. When using the existing
+visual-record verifier, its final stage requires two evidenced critique/recheck rounds;
+record real reviews and do not invent defects to populate them. Deliver an honest candidate if tools or scope
 prevent verification, with the remaining finding stated. Gate decisions do not
 require extra user approval or a new skill installation.
 
@@ -164,19 +225,13 @@ not to score aesthetics. Without Node, check the same fields manually and state
 that limitation. Browser inspection and
 observed interaction remain mandatory for visual/behavioral claims.
 
-## Brief intake and optional working starters
+## Optional starters
 
-For new or vague requests, read `references/brief-intake.md` and the relevant
-journey in `references/site-types.md`. Reuse facts from the repo, the supplied
-live reference and settled answers. Ask only about gaps that materially change
-the result; respect delegated decisions or "no questions" and state assumptions.
-Never make a thin prompt a reason to lower the craft bar or invent proof.
-If the idea names a real company or product, ask whether it is the user's own page, a tool for that audience, or an **unofficial concept**; follow "Real brands and companies" in `references/brief-intake.md` (visible unofficial label, no logo or trade dress, no invented claims).
+Use `templates/README.md` and `scripts/scaffold.mjs` only when a starter's
+mechanisms fit the brief. Preserve the project's framework; derive composition,
+imagery, data and pacing from the user and product. A copied starter is not proof
+of quality. Apply rendered gates to the result.
 
-The three examples in `templates/README.md` provide reusable working mechanisms:
-a configurable product scene, a scroll-directed interactive stage, and a service
-estimator. Use `scripts/scaffold.mjs` when one fits a new standalone build.
-Templates are optional infrastructure: preserve the real project's framework and
-derive composition, imagery, data and pacing from its content. Do not funnel
-every app into a game stage, force a configurator onto every offer, or claim
-quality because a starter was copied. Apply the rendered gates to every result.
+For real companies, follow "Real brands and companies" in
+`references/brief-intake.md`: clarify ownership/context and keep unofficial
+concepts visibly labelled with no invented claims or endorsement.

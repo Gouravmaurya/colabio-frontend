@@ -4,7 +4,8 @@
 //   node component-source.mjs local:list
 //   node component-source.mjs local:<name>                  bundled original component (html + css + js blocks)
 //   node component-source.mjs shadcn:button                 registry item summary (add --files to print sources, --out <dir> to save them for review)
-//   node component-source.mjs magicui:marquee | aceternity:spotlight | reactbits:SplitText-TS-CSS | skiper:skiper40 | vengeance:animated-rays
+//   node component-source.mjs magicui:marquee | aceternity:spotlight | reactbits:SplitText-TS-CSS | skiper:skiper40 | vengeance:animated-rays | kokonut:particle-button
+//   node component-source.mjs --list kokonut [--category backgrounds|cards|navigation|inputs|ai|media|texts|buttons] [--all]   (free items; --all adds paid Pro ones, which are not served)
 //   node component-source.mjs 21st:<username>/<slug> [--files]   (needs the user's API_KEY_21ST; see the message printed without it)
 //   node component-source.mjs --search21 "hero section" [--scope public|mine|team] [--limit 10]
 //   node component-source.mjs --list shadcn                 names in the shadcn registry index
@@ -25,7 +26,8 @@ const REG = {
   aceternity: (n) => `https://ui.aceternity.com/registry/${n}.json`,
   reactbits: (n) => `https://reactbits.dev/r/${n}.json`,
   skiper: (n) => `https://www.skiper-ui.com/registry/${n}.json`,
-  vengeance: (n) => `https://www.vengenceui.com/r/${n}.json`
+  vengeance: (n) => `https://www.vengenceui.com/r/${n}.json`,
+  kokonut: (n) => `https://kokonutui.com/r/${n}.json`
 };
 const safe = /^[A-Za-z0-9._-]+$/;
 class Quit extends Error { constructor(code) { super('quit'); this.code = code; } }
@@ -51,21 +53,30 @@ if (val('search21')) {
   if (!KEY21) fail(NEED21, 3);
   const q = encodeURIComponent(val('search21')), scope = ['public', 'mine', 'team'].includes(val('scope')) ? val('scope') : 'public';
   const j = await call21(`/components/search?q=${q}&scope=${scope}&limit=${Math.min(25, +val('limit') || 10)}`);
-  console.log(JSON.stringify(j, null, 1).slice(0, 12000)); process.exit(0);
+  console.log(JSON.stringify(j, null, 1).slice(0, 12000)); throw new Quit(0);
 }
 
 if (has('list') || val('list')) {
   const which = val('list') || 'shadcn';
-  if (which !== 'shadcn') fail('--list supports shadcn only; browse other catalogues on their sites (see references/libraries.md).');
+  if (which === 'kokonut') {
+    // Kokonut UI has no registry index; its llms.txt lists every component page. Pro items (paid, not served here) are hidden unless --all.
+    const r = await fetch('https://kokonutui.com/llms.txt', { signal: AbortSignal.timeout(20000) });
+    if (!r.ok) fail('Could not read https://kokonutui.com/llms.txt (HTTP ' + r.status + ').', 1);
+    const rows = [...(await r.text()).matchAll(/^- \[([^\]]+)\]\(https:\/\/kokonutui\.com\/docs\/([a-z-]+)\/([a-z0-9-]+)\.md\):\s*(.*)$/gim)]
+      .map((m) => ({ name: m[3], title: m[1], category: m[2], pro: /Part of Kokonut UI Pro/i.test(m[4]), about: m[4].replace(/\s*Part of Kokonut UI Pro\.?/i, '').slice(0, 110) }));
+    const cat = val('category');
+    console.log(JSON.stringify(rows.filter((x) => (has('all') || !x.pro) && (!cat || x.category === cat)), null, 1)); throw new Quit(0);
+  }
+  if (which !== 'shadcn') fail('--list supports shadcn and kokonut; browse other catalogues on their sites (see references/libraries.md).');
   const j = await (await fetch('https://ui.shadcn.com/r/index.json', { signal: AbortSignal.timeout(20000) })).json();
-  console.log(JSON.stringify(j.map((x) => ({ name: x.name, type: x.type })), null, 1)); process.exit(0);
+  console.log(JSON.stringify(j.map((x) => ({ name: x.name, type: x.type })), null, 1)); throw new Quit(0);
 }
 
 if (!target && !val('url')) fail('usage: component-source.mjs local:list | local:<name> | <registry>:<name> [--files] [--out dir] | 21st:<user>/<slug> | --search21 <query> | --list shadcn | --url <json>\nregistries: ' + Object.keys(REG).join(', '));
 
 if (target && target.startsWith('local:')) {
   const name = target.slice(6), file = path.join(here, '../library/components/components.html'), s = fs.readFileSync(file, 'utf8');
-  if (name === 'list') { console.log([...s.matchAll(/@component:html ([a-z0-9-]+)/g)].map((m) => m[1]).join('\n')); process.exit(0); }
+  if (name === 'list') { console.log([...s.matchAll(/@component:html ([a-z0-9-]+)/g)].map((m) => m[1]).join('\n')); throw new Quit(0); }
   if (!safe.test(name)) fail('Invalid component name.');
   const pick = (re) => (s.match(re) || [])[1];
   const html = pick(new RegExp(`<!-- @component:html ${name} -->([\\s\\S]*?)<!-- @end:html ${name} -->`));
@@ -73,7 +84,7 @@ if (target && target.startsWith('local:')) {
   const js = pick(new RegExp(`// @component:js ${name}\\n([\\s\\S]*?)// @end:js ${name}`));
   if (!html) fail(`No bundled component "${name}". Run: component-source.mjs local:list`, 1);
   console.log(`## ${name} (bundled, original; read library/components/INDEX.md for the transform checklist)\n\n### HTML\n${html.trim()}\n\n### CSS\n${(css || '(none)').trim()}\n\n### JS\n${(js || '(none)').trim()}\n`);
-  process.exit(0);
+  throw new Quit(0);
 }
 
 if (target && target.startsWith('21st:')) {
@@ -86,7 +97,7 @@ if (target && target.startsWith('21st:')) {
     licenseNote: 'Community components carry their own licences (shown on the component page). Check before shipping.', next: 'Read, then transform; install only needed dependencies locally.' }, null, 2));
   if (has('files')) for (const f of files) console.log(`\n===== ${f.path || f.target} =====\n${f.content || ''}`);
   if (!files.length) console.log(JSON.stringify(j, null, 1).slice(0, 8000));
-  process.exit(0);
+  throw new Quit(0);
 }
 
 let url, label;
@@ -96,7 +107,7 @@ else { const [reg, name] = target.split(/:(.+)/); if (!REG[reg]) fail('Unknown r
 let res;
 try { res = await fetch(url, { signal: AbortSignal.timeout(20000) }); } catch (e) { fail('Could not reach the registry: ' + e.message, 1); }
 if (!res.ok) { await res.text().catch(() => ''); }
-if (!res.ok) fail(`Registry returned ${res.status} for ${url}. The item name may be wrong, or the registry may need authentication.`, 1);
+if (!res.ok) fail(`Registry returned ${res.status} for ${url}. The item name may be wrong, or the registry may need authentication.` + (/kokonutui\.com/.test(url) ? ' For Kokonut UI, run --list kokonut for valid names; Pro items are paid and are not served here: pick a free one or build it.' : ''), 1);
 let item; try { item = await res.json(); } catch { fail('The registry did not return JSON.', 1); }
 const files = Array.isArray(item.files) ? item.files : [];
 const summary = { item: label, url, name: item.name, type: item.type, title: item.title, description: item.description, dependencies: item.dependencies || [], devDependencies: item.devDependencies || [], registryDependencies: item.registryDependencies || [],

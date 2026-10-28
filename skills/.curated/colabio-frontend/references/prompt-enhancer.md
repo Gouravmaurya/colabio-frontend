@@ -1,8 +1,10 @@
 # Prompt enhancer: idea in, Cinematic Design Prompt out
 
-A thin idea ("a website for my tea ware shop") produces an average site. This
-stage converts any idea, however short, into a **Cinematic Design Prompt (CDP)**:
-a complete brief that the build can follow without guessing. Run it for every new
+Users can start with a short idea. Follow [conversational intake](brief-intake.md)
+to clarify material choices, recommend a direction and build. Record the result
+internally as a **Cinematic Design Prompt (CDP)**:
+a complete internal brief. The legacy CDP name does not require cinematic
+styling or motion for a dashboard, store or other interface. Run it for every new
 site or major redesign. Skip it for small fixes, or when the user already supplied
 a detailed brief (then validate it against the schema and fill gaps as assumptions).
 
@@ -13,15 +15,15 @@ understanding and plan is rejected and redone.
 
 ## Procedure
 
-1. **Read the idea** and anything attached (links, screenshots, repo, brand
-   files). Inspect a supplied live site rendered, not only its source.
+1. **Read the idea**, relevant saved preferences from `design-memory.md`, and
+   anything attached (links, screenshots, repo, brand files). Inspect a supplied live site rendered, not only its source.
 2. **Understand** (`product-understanding.md`, Step 1): write the Understanding
    Sheet: what it is, who uses it, where and on what device, the decision they
    face, the proof that convinces them, the domain's vocabulary and materials,
    category defaults to avoid, emotional register, constraints, first-screen
-   obligation. Ask the user only for gaps that change the build: score them with
-   `brief-intake.md`; three or more material gaps and the user is available means
-   one round of 3-4 questions (recommended option first); otherwise state assumptions.
+   obligation. Ask the user only for gaps that change the build: follow
+   `brief-intake.md`: ask 1-3 relevant questions initially and follow up only for
+   material ambiguity. Reuse detailed briefs; skip optional questions for "you decide".
 3. **Plan** the scene score and page list from the sheet (its question sequence,
    proof and first-screen obligation). No colour or type yet.
 4. **Select** with `node scripts/select-build.mjs --brief "<idea>"` for type, starter,
@@ -34,9 +36,10 @@ understanding and plan is rejected and redone.
    any `categoryDefaultFlags` unless required. Fonts follow register and density.
 6. **Write the CDP** to `design-brief.md` in the project (never the skill folder),
    using the schema below. Keep each section concrete: nouns, numbers, verbs.
-7. **Show a 10-line summary** (logline, understanding, scenes, theme with reasons,
-   signature, pages, stack, assumptions) and continue to the build. Wait only if an
-   assumption changes cost or brand. End the job with a "next time say" prompt.
+7. **Recommend briefly** in about 3-5 lines using the intake contract, then build
+   without another design approval step. Keep the full specification internal;
+   honor explicit approval requests and current permissions. Deliver the result,
+   observed checks and limitations; offer prompting advice only when requested.
 
 ## The schema (written in this order)
 
@@ -49,7 +52,7 @@ CINEMATIC DESIGN PROMPT: <working title>
                   materials · category defaults to avoid · emotional register · constraints ·
                   first-screen obligation.
 3  Visitor        The moment they arrive in. Primary action as a button label. Success measure.
-4  Scene score    5-8 scenes. Each: question it answers · form from the section-grammar menu
+4  Scene score    Scenes or workflow views as needed for the requested scope. Each: question it answers · form from the section-grammar menu
                   (references/distinctive-design.md; no form more than twice, none adjacent) ·
                   composition · dominant asset · motion verb (establish, enter, hold, transform,
                   resolve) · hand-off to the next scene · phone recomposition · component
@@ -57,27 +60,29 @@ CINEMATIC DESIGN PROMPT: <working title>
 5  Signature      The one distinctive move only this product could own (one sentence), as an
                   interaction or object: what changes, what the visitor learns or does, its
                   states, keyboard and touch behaviour, static/reduced-motion equivalent.
-                  Also list the category inventory (what competitors all do) and the three
-                  in-category and three out-of-category references it avoids or borrows from.
+                  For an open creative direction, list useful category patterns and relevant
+                  references; do not force a reference count or displace approved choices.
 6  Pages and UX   Page list with purpose · navigation model · primary flow in steps ·
                   secondary flows · forms with validation and honest results · empty, error,
                   loading and success states.
 7  Art direction  Derived, not chosen. Surface decision (light / dark / light + dark scene) with
-                  the use-context reason · palette: three candidates from palette-lab, the
-                  chosen one, which real material each colour comes from, flags rejected ·
+                  the use-context reason · palette: preserve settled brand colours; for open colour direction compare
+                  candidates from palette-lab, their material sources and flags ·
                   light, material and camera language · type voice tied to register and
                   density · motion character tied to register.
-8  Motion system  Owners (scroll = Lenis, scroll-linked = GSAP, component = Motion or CSS) ·
+8  Motion system  Owners matched to accepted motion level and existing stack
+                  (CSS feedback, GSAP timelines, Motion gestures where appropriate) ·
                   duration/easing tokens · entrance grammar per content role · intro policy
                   (skippable, timer-released) · reduced-motion plan · performance limits.
 9  Content        Supplied vs sample (label samples on the page) · copy voice with 3 example
                   lines. Never invent customers, logos, awards, reviews or statistics.
 10 Stack          Single HTML, React, Next, or existing repo; libraries and why; hosting.
 11 Acceptance     Measurable: viewports 1440/1024/768/390; contrast text 7:1, muted 4.5:1;
-                  no console errors; every interaction driven; reduced-motion and no-library
+                  no console errors; every interaction driven; reduced-motion and CDN-failure
                   paths; scanners clean (slop-lint, check-contrast, palette-lab --check,
                   finish-gate).
-12 Assumptions    Every guess, one line each, so the user can correct in one reply.
+12 Assumptions    Every guess, applied preference and explicit override, so the
+                  user can correct consequential choices in one reply.
 ```
 
 ## Quality rules for the CDP

@@ -1,183 +1,118 @@
-# Brief intake: upgrade the prompt, learn what the user expects
+# Conversational intake: describe it, clarify it, build it
 
-Most weak results come from a thin prompt, not a weak build. "Create a landing
-page for X, a 3D printing website" names a category and nothing else: no
-audience, no action, no look, no proof, no scope. A model fills those gaps with
-the average of every website it has seen. This file turns a thin prompt into a
-brief that produces a specific result, and finds out what the user pictures.
+This is the single source of truth for intake in Codex, Claude and external
+orchestrators. Users can start with what they want and the kind of UI or feeling
+they imagine. They do not need a complete brief, technical vocabulary or agent roles.
+Use this flow for new interfaces, substantial redesigns and ambiguous design
+feedback. Keep small fixes local and preserve supplied answers and approved work.
 
-Run it at the very start of a new site, a redesign, or whenever the user says the
-result feels cheap, generic, or not premium. Skip it for small fixes, for users
-who already gave a detailed brief, and for users who said "no questions" or
-"you decide" (then state assumptions and continue).
+## Design defaults and saved preferences
 
-## Step 1: score the prompt (30 seconds, silent)
+Read [design-memory.md](design-memory.md) and the user's shared preference file
+before intake. Landing pages default to premium, expressive cinematic craft, with
+fresh subject-specific typography, colour, imagery, components and motion. Do not
+re-ask settled preferences; clarify their product-specific interpretation when it
+matters. Explicit quiet/static/minimal requests and brand constraints override the
+default. Operational UI and small fixes retain appropriate motion and scope.
 
-Check which of these the prompt already answers. Each gap is a place the build
-would otherwise guess.
+## 1. Understand before asking
 
-| Gap | What is missing | Cost of guessing |
+Read the request, settled conversation, project instructions, existing interface,
+framework, dependencies, assets and supplied references. Discover the product,
+audience, main task, scope and constraints before asking. Ask only what cannot
+be discovered and would materially change the result; do not turn this into a form.
+
+Keep three independent decisions:
+
+| Decision | Examples | Determines |
 | --- | --- | --- |
-| Product | What it is, what it sells or does, one real fact or number | Generic copy, wrong category cues |
-| Audience | Who visits and what they want right now | Wrong tone and density |
-| Action | The one thing a visitor should do | Weak hierarchy, three equal CTAs |
-| Look | Style character, references, colors, fonts, things to avoid | The usual dark-purple or cream-serif default |
-| Scope | One page or many, which sections, languages | Wrong amount of work |
-| Content | Real copy, logo, photos, prices, testimonials the user owns | Invented or placeholder content |
-| Interaction | A signature moment, motion level, device mix | Decoration instead of a product moment |
-| Stack | Plain HTML, React, Next, existing repo, hosting | Rework, wrong dependencies |
+| UI type | Dashboard, landing page, store, portfolio, editorial, event | Structure, density and user tasks |
+| Feel | Refined, cinematic, playful, minimal, technical, industrial | Composition, typography, imagery and character |
+| Motion | Quiet, moderate, expressive | Feedback, transitions and narrative pacing |
 
-Three or more gaps means ask. Zero or one means build, and list the assumption.
+These can combine. A premium dashboard may be light, precise and quiet; a playful
+store still needs clear browsing; a cinematic page can use daylight imagery.
+Premium means deliberate craft and usability, not mandatory dark surfaces, serif
+fonts, 3D, image quotas or an animation stack. Match this user's needs and preserve
+explicit expressive requests. Never choose the template's look as the user's taste; an approved example is a
+craft reference, not a mandatory palette or component recipe.
 
-## Step 2: ask what kind of website they expect (one round)
+## 2. Ask a small, relevant set of questions
 
-Use one question round of 3-4 questions with the AskUserQuestion tool. Put the
-recommended option first and label it "(Recommended)". Always leave room for
-"Other". Never ask what the repo, the prompt, or the screenshot already answers.
-If the user is in a hurry, ask only questions 1 and 2.
+Ask 1-3 questions initially when important choices remain. Follow up only when
+an answer leaves a material ambiguity. There is no gap-count threshold or fixed
+round quota. Stop interviewing once enough is known to build.
 
-**Q1. What kind of website is this?** (multi-select no)
-- Landing page for a product or service (one action, proof, a form)
-- Studio or portfolio (work first, contact second)
-- Game or entertainment (the product is playable or watchable)
-- Store or catalogue (browse, compare, buy)
-- Software or dashboard (workflow, data, accounts)
-- Editorial or content site (reading, archive)
-- Event or campaign (a date, a place, a sign-up)
+Use the host's available structured question tool, otherwise ordinary chat.
+Offer 2-3 relevant choices, recommended first, with plain-language descriptions.
+Accept custom answers and reference links through free text; if the tool lacks
+that facility, invite a chat reply. Do not assume host-specific tool names,
+option limits or multi-select support. Choose from actual gaps, for example:
 
-The chosen type selects the section order, proof and signature options in
-`site-types.md`; read that section before writing the brief.
+- Purpose: "What should people do first: check inventory, review sales, or manage orders?"
+- Feel: "Should this feel calm and refined, bold and playful, or precise and technical?"
+- Motion: "Quiet feedback, some animated transitions, or a cinematic experience?"
+- Scope: "Is this the public landing page, the working dashboard, or both?"
+- Content: "Do you have product photos, or should I use clearly labelled samples?"
 
-**Q2. Which look is closest to what you picture?** Map the answer to a recipe in
-`styles.md`; offer 3-4 that fit the product, not all eight.
-- Editorial and refined: big serif, hairlines, paper or ink tones -> editorial-print
-- Cinematic and immersive: dark, one 3D object, scroll scenes -> cinematic-immersive
-- Precise and technical: grid, mono labels, real data -> swiss-precision
-- Bold and playful: color, big shapes, physical hover -> playful-kinetic
-- Raw and industrial: thick borders, loud accent, exposed structure -> industrial-brutal
-- Soft and atmospheric: photographic, calm, warm -> atmospheric-soft
-- Fluid and product-led: the object is the hero -> apple-fluid
-- Motion-led and experimental: pinned scenes, scrubbed type -> gsap-experimental
-Add: "Any site you like, or one to avoid?" (links welcome).
+Do not ask all of these automatically. Do not re-ask a supplied style or project
+stack. Clarify the meaning of cinematic or premium only when the interpretation
+would change the work. Users should not need to choose libraries or specialist roles.
 
-**Q3. What should a visitor do?** One answer: buy, book, request a quote, sign up,
-join a waitlist, play, call, read. This becomes the primary button label.
+For a detailed brief, use its answers directly and clarify consequential conflicts
+only. For "you decide" or "no questions", skip optional questions, recommend a
+fitting direction, state assumptions and proceed. Identify genuinely necessary
+missing input without inventing facts or treating silence as approval.
 
-**Q4. How big and in what stack?**
-- One-page site in a single HTML file (Recommended for tests and quick starts)
-- One page in the existing React / Next project
-- Multi-page site (list the pages)
-- Add to an existing site (point to the repo)
+## 3. Recommend, then build
 
-Optional if the answers are thin: do you have a logo, brand colors, photos, real
-prices or copy? how much motion (calm, moderate, showpiece)? languages? Ask them
-in plain words, one line each, not as a form.
+Show a short recommendation, about 3-5 lines: the UI and main task, layout and
+visual character, typography/imagery, motion and important assumptions. Explain
+why it fits. Continue implementation without another design approval step.
+Honor an explicit request for concept choices or approval and current permissions.
 
-## Step 3: write the improved brief and show it
+Example after clarifying a clothing-business dashboard:
 
-Rewrite the user's prompt into this template, fill every field with their words
-first and clearly marked assumptions second, and show it in 8-12 lines before
-building. Do not wait for approval unless an assumption changes cost or brand.
+> I'll use a refined, light dashboard with inventory as the main view, clear
+> typography, compact product thumbnails and subtle state transitions. It should
+> feel polished while keeping daily stock decisions fast. I'll reuse your framework
+> and brand; demonstration inventory will be labelled sample data.
 
-```
-Idea:        <one sentence in the product's own nouns, no adjectives like premium>
-Visitor:     <who, and the moment they arrive in>
-Action:      <the single primary action, as a button label>
-Proof:       <what makes the claim believable: real number, demo, process, work>
-Look:        <one style recipe + at most two borrowed details; type and colour direction>
-Signature:   <one interactive or scroll moment specific to this product>
-Sections:    <ordered, each with its dominant asset or interaction>
-Content:     <what the user supplied / what is sample and labelled as sample>
-Motion:      <level, owner library, reduced-motion behaviour>
-Scope:       <pages, devices, stack, languages>
-Assumptions: <each guess, so the user can correct it in one line>
-```
+Save answers, assumptions and decisions in the project's `design-brief.md`.
+For substantial work use [prompt-enhancer.md](prompt-enhancer.md), the relevant
+journey in [site-types.md](site-types.md) and character in [styles.md](styles.md).
+The brief is an internal specification, not a questionnaire the user must complete.
 
-Pick the direction with the brief's own words so the style matches it:
-`node <colabio>/scripts/pick-direction.mjs --seed "<product>" --brief "<their words>" --type <type>`.
-If the output says `fallback: true`, part of the pick matched nothing; choose by hand.
+Selectors and templates provide candidates and reusable mechanisms. They do not
+impose a dark/cream theme, single HTML file, configurator or showpiece motion.
+Preserve the existing stack. For a new standalone project with no stack preference,
+choose the simplest suitable implementation and state the assumption. Never invent
+customers, awards, reviews, prices or statistics as real. Label sample content
+and simulated behavior. Facts that materially block the task require clarification.
 
-Facts rules: never invent customers, logos, awards, stats, testimonials, or prices
-as real. A fictional or test brand is allowed; say so in the page and in the notes.
+Use [ai-orchestration.md](ai-orchestration.md) where delegation helps. The
+coordinator owns clarification and passes settled answers to workers. Workers
+do not repeat intake. Keep internal role management backstage.
 
-## Step 4: teach the better prompt
+## 4. Interpret feedback in context
 
-End the intake (and the final delivery) with a short "next time say" line, so the
-user's prompts improve. Keep it to one pasteable sentence built from the brief:
+Use the brief and actual renders to interpret "too plain", "more playful", "less
+busy" or "keep the hero". Preserve explicit locks. Ask one focused question only
+when multiple plausible interpretations would cause materially different work.
+For example, playful might mean warmer copy and colour or expressive motion;
+ask which if context does not resolve it. Explain the adjustment briefly, implement
+it and recheck affected states. Update the brief and invalidate affected evidence.
+Do not replay discovery or redesign approved regions for every correction.
+Update actual likes/dislikes in the shared profile using `design-memory.md`, with
+scope and evidence. General praise approves the overall example only; do not
+invent specific likes or dislikes.
 
-> Build a one-page cinematic landing page for Reclone Studio, a 3D printing
-> service that reproduces discontinued parts. Visitor: someone holding a broken
-> knob. Action: "Price my part". Signature: a layer-height estimator. Dark, one
-> orange accent, serif headline. Sample prices, no invented customers.
+## 5. Deliver the result
 
-## Before / after
-
-| Thin prompt | Upgraded brief (shortened) |
-| --- | --- |
-| "create a landing page reclone studio a 3d printing website" | Idea: Reclone Studio prints replacements for parts no longer sold. Visitor: person with a broken part or a CAD file. Action: "Send a file". Proof: a layer-height estimator that shows time vs. surface finish. Look: swiss-precision + industrial details, paper and ink with one filament-orange accent. Content: fictional studio, sample prices labelled. |
-| "now create reclone studio as game studio" | Idea: a small studio whose games turn your finished run into a teammate. Visitor: player or collaborator. Action: "Join the playtest". Signature: a playable two-room prototype in the hero. Look: cinematic-immersive, dark, lime = you, amber = clones. Content: one playable game, other projects labelled concepts. |
-| "make it premium and creative" | Ask what felt cheap (see triage below), then name one signature moment, one type pair, one palette with contrast ratios, and one scroll-driven scene. |
-
-## When the user says it looks cheap, boring, or generic
-
-Do not restyle blindly. Ask (one line, multi-select): "Which of these bothers you
-most?" then fix the cause, not the paint.
-
-| Complaint | Usual cause | Fix |
-| --- | --- | --- |
-| Flat, like a template | Equal boxes, uniform padding, no depth or imagery | One dominant visual, varied section rhythm, real art or a 3D/illustrated object |
-| Cheap type | Heavy default grotesk everywhere, no scale contrast | Editorial pair, huge display against small mono labels, tight tracking |
-| Too plain | No motion story, static sections | One scroll-driven scene that explains the product; mask-line headline reveals |
-| Too busy | Many effects, many accents | One accent, one hero moment per screen, remove ornament |
-| Doesn't feel like us | Wrong style for the product | Re-pick the recipe from the product's nouns; rewrite the signature |
-| Hard to use | Controls unclear, tiny targets, broken mobile | Fix hierarchy and states first; ornament later |
-| Lifeless photos or none | Placeholder art | Build objects in code, generate hero art, or use owned photography |
-
-## Build-time lessons
-
-Verification and rendering lessons from earlier runs live in `verify.md`
-(capture protocol, WebGL blank frames, mask clipping, driving real events).
-
-### When the complaint is "not award-level" or "not cinematic"
-
-Ask what they have seen that they mean (one link or one word), then check these in order.
-Most pages that read as "good but not award-level" fail the first two.
-
-| Gap | Fix |
-| --- | --- |
-| The object is a flat illustration, not a physical thing | Real 3D lit like a product photo (motion-recipes.md, cinematic 3D scene); bake the catalogue from the same engine |
-| No opening moment | Lights ramp up, the object rises and the brand word sits behind it; no loader |
-| Sections are the same mood top to bottom | Alternate dark and light sections with a switched theme; the object travels between sections |
-| Scroll only reveals | Make scroll drive a transformation that explains the product (lump to vase) |
-| Nothing to touch | Drag-to-turn, live configurator tied to size, capacity and price |
-| Type is one size and weight | One huge display moment (outlined wordmark, 28vw) against small tracked labels |
-| It breaks on phones or without WebGL | Slot-based layout for mobile; 2D fallback and a `?no3d` test switch |
-
-## The short-prompt path (default quality, minimal questions)
-
-A prompt such as "build me a shop for handmade ceramics" is complete enough to reach the
-award-level bar (`award-bar.md`) with the template defaults. Treat the missing pieces as
-decisions the skill makes and states, not as questions:
-
-| Missing piece | Default the skill applies and states |
-| --- | --- |
-| Type | From the nouns: shop/store -> product shop; game/studio -> scroll stage; service -> precision |
-| Look | The template's look (dark hero, cream builder, serif display); `pick-direction.mjs --brief` only if the brand needs something else |
-| Signature | The template's configurator or demo, re-modelled for this product |
-| Action | Add to cart / join the playtest / get a price |
-| Content | Fictional sample brand with labelled sample prices; invent nothing as real |
-| Scope and stack | One HTML file, no build step, desktop and phone |
-
-Ask at most these two, with the recommended option first, then proceed:
-1. "Which look?" (3-4 options mapped to style recipes, template default first).
-2. "Which signature moment?" (the template's, plus two alternatives from site-types.md).
-
-State the improved brief (8-12 lines) and the assumptions, then scaffold and build. Do not wait for
-approval. End with the "next time say" sentence so the user can reproduce or vary the result.
-
-Example: "build me a shop for handmade ceramics" -> asks look and signature, picks
-`cinematic-product-shop`, scaffolds it, replaces the object model, copy and process stages, verifies
-with the WebGL snapshot technique, and reports which of the ten bar rows were met.
+Report what was built or changed, observed checks and remaining limitations.
+Do not require "next time say" coaching or ask users to improve their prompts.
+Provide prompting advice only when requested. Use [verify.md](verify.md) and
+[visual-comparison-gates.md](visual-comparison-gates.md) for verification.
 
 ## Real brands and companies
 

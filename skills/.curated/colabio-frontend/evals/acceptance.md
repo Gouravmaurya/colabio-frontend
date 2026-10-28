@@ -1,6 +1,6 @@
 # Acceptance tests (run in a fresh session before a release)
 
-Restart Claude Code so the disabled duplicate skills drop out, then run each case. A case
+Run each case in fresh Codex and Claude sessions where available; mark unavailable hosts unverified. A case
 passes only when every "Pass if" line is observably true; mark anything not observed as
 "not checked". Keep results in the table at the end. These are manual tests of behaviour; the
 repository's `npm test` covers packaging only.
@@ -13,16 +13,22 @@ repository's `npm test` covers packaging only.
    run without errors.
 3. `SKILL.md` is under 16 KB and every file it names exists (`npm test`).
 
+## Conversational coverage
+
+Run all cases in `intake-evals.md` and `design-memory-evals.md`, including premium dashboard, expressive cinematic,
+playful store, detailed brief, delegated choices, follow-up, scoped revision and
+host fallback. Record actual results separately from the historical table below.
+
 ## A. New site from a thin idea
 **Prompt:** `/colabio-frontend a landing page for a small-batch coffee roaster, cinematic`
 **Pass if**
 - It writes an Understanding Sheet (users, device and light, decision, proof, vocabulary and materials, defaults to avoid) before choosing colour.
-- It asks at most one round of questions, or states assumptions.
+- It follows conversational intake: 1-3 relevant initial questions when needed, follow-ups only for material ambiguity, and a short recommendation before building.
 - It runs `select-build.mjs` and `palette-lab.mjs`, compares real candidates, and names the material behind each colour; no navy + yellow, neon on black, purple glow or cream ground unless justified.
 - It saves `design-brief.md` with all 12 sections.
 - The built page works with real events (primary action, form invalid and valid), has no console errors, has a reduced-motion path and a no-library path.
 - `finish-gate.mjs` output is shown; no FAIL left.
-- It ends with a "next time say" prompt and states what was not checked.
+- It delivers the result, observed checks and limitations without a required prompting lesson.
 
 ## B. critique of an existing page
 **Prompt:** `/colabio-frontend critique D:\Coding\selvage-floor` (or any built page)
@@ -52,7 +58,7 @@ repository's `npm test` covers packaging only.
 ## F. Installation
 **Pass if** `npx skills add .../tree/main/skills/.curated/colabio-frontend --skill colabio-frontend -a claude-code --copy -y` in a clean project yields the same folder as the repository (checked by `npm run test:standalone` and `npm run test:npx`).
 
-## Results
+## Historical results (pre-v1.9; not evidence for the revised intake)
 
 Run 2026-10-26 in the working session (not restarted: a restart has to be done by the user, so duplicate-skill isolation was not observed).
 
