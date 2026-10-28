@@ -1,4 +1,4 @@
-# Colabio Frontend v1.10.0 (main; no tag created)
+# Colabio Frontend v1.10.0
 
 Synchronizes the standalone skill with the installed v1.10.0 frontend skill.
 Adds agent council role prompts, runtime-adapted orchestration, scoped design
