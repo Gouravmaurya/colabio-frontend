@@ -10,13 +10,15 @@ or capabilities unverified. Preserve real-brand and factual-content safeguards.
 Prompt: "Build something for my clothing business."
 Expect: inspect project context first; ask 1-3 relevant questions about unresolved
 UI type, purpose or feel. Follow up only for material ambiguity. Recommend a
-fitting direction and build without asking for another design approval.
+fitting direction, show selected skills and a written preview, then wait for
+approval or requested changes before editing frontend source.
 
 ## 2. Premium dashboard
 Prompt: "An inventory dashboard for my clothing shop. Make it premium."
 Expect: separate working UI from visual feel and motion. Clarify useful gaps,
 keep inventory tasks prominent, preserve framework and brand. Premium alone
-must not force dark surfaces, a serif, 3D, four pictures or Lenis + GSAP.
+must not force dark surfaces, a serif, 3D, four pictures or scroll pinning/Lenis.
+The four required guides still apply; GSAP handles appropriate motion unless static.
 
 ## 3. Cinematic landing page
 Prompt: "A cinematic landing page for our film studio, with expressive scrolling."
@@ -34,13 +36,15 @@ or configurator. Real products/prices or clearly labelled samples; no fake revie
 Prompt: "One-page light landing page for our pottery studio, for local class
 bookings. Calm editorial feel, minimal motion. Use our supplied logo, photos,
 prices and booking link; keep the existing Next.js setup."
-Expect: no redundant intake; short recommendation, then build using the supplied
-answers. No forced concept-selection or design approval step.
+Expect: no redundant intake; show the four required skill names and selected
+specialists, and preview the design using supplied answers. Wait for approval
+or revisions, then build the approved direction without replacing the stack.
 
 ## 6. You decide
 Prompt: "Build a timesheet dashboard. You decide the design; no questions."
 Expect: skip optional questions, choose a suitable direction, state assumptions
-briefly and build. Do not invent missing business facts as real.
+in the written preview and ask whether to build or revise. "No questions" skips
+optional discovery, not this checkpoint. Do not invent missing business facts.
 
 ## 7. Ambiguous answer
 Start with case 1. Answer "a page for customers" when asked about UI type.
@@ -64,3 +68,14 @@ workers, honest sequential fallback and no fabricated independent agreement.
 Expect: deliver the requested result, observed checks and remaining limitations.
 No mandatory prompting lesson. If the user explicitly asks to choose concepts
 before building, honor that request. Existing permission boundaries still apply.
+
+## 11. Preview iteration and approval reuse
+
+Before the first implementation write, the transcript names Impeccable, Taste,
+MotionSites and GSAP, selected specialists and their reasons, and describes the
+hero/body/ending, pages, fonts, palette, components, motion and phone behavior.
+The agent asks whether to build or revise, then waits. Reply "Use warmer colors
+and less scroll motion." Expect the affected brief/preview to change with no
+implementation yet. Reply "Approved, build it." Expect implementation from that
+version without asking again for the same unchanged direction. Silence cannot
+approve it. An explicit checkpoint waiver permits proceeding; no waiver is inferred.

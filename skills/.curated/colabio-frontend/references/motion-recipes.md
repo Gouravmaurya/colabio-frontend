@@ -11,6 +11,14 @@ scene/state contract and vocabulary, then [cinematic-recipes.md](cinematic-recip
 write the framing, continuous subject and motion score before choosing a tween.
 These integration snippets are infrastructure, not proof of a cinematic result.
 
+Default every non-static frontend build to GSAP + ScrollTrigger and Lenis.
+Explicit stack/static constraints and the requested scope take precedence.
+Quiet and operational interfaces use restrained feedback and stable reading
+surfaces; they do not inherit cinematic pinning. For expressive sites, map motion
+to every major component, not just the hero and photographs. Test a short laptop
+viewport and touch in addition to a roomy desktop; replace unsuitable pins with
+unpinned scroll choreography rather than removing motion wholesale.
+
 ## Visible motion contract
 
 For experience-led landing pages or an explicit animation request, include a motion
@@ -50,15 +58,17 @@ Install only what the build needs, locally:
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import 'lenis/dist/lenis.css';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let lenis, tick;
 if (!reduce) {
-  lenis = new Lenis({ autoRaf: false, anchors: true });
+  lenis = new Lenis({ autoRaf: false, anchors: true, syncTouch: false });
   lenis.on('scroll', ScrollTrigger.update);
   tick = (seconds) => lenis.raf(seconds * 1000);
   gsap.ticker.add(tick);
+  gsap.ticker.lagSmoothing(0);
 }
 // Call on unmount. Kill only this scene's timelines via its gsap.context().revert().
 function cleanupScroll() {
@@ -76,6 +86,19 @@ scrollers working. Never run a second requestAnimationFrame loop. Never call
 `ScrollTrigger.killAll()` from a reusable scene; that destroys other scenes.
 If reduced-motion preferences change while mounted, create/destroy the scroll
 transport through a media-query listener or one app-level owner.
+Let scroll scenes follow Lenis's interpolated position directly unless another
+scrub delay has a deliberate purpose. Refresh actual geometry changes only;
+fixed-size lazy photos do not need global scene rebuilds. Lenis `resize()` resets
+its current target: measure before starting programmatic travel, not just after.
+For optional Anime.js component/SVG work, use [animejs.md](animejs.md) and keep
+its properties separate from GSAP, Motion and CSS.
+Use `anchors: true` only when Lenis owns anchor navigation. If the application
+already handles links, use `anchors: false` and route links, results and form
+previews through that same owner. Do not combine competing `scrollIntoView`, CSS
+smooth scrolling and Lenis handlers. Refresh measurements after disclosures,
+validation, generated results or fonts/images change layout; resize Lenis too.
+Initialize once the DOM and required modules are ready, without waiting for all
+lazy images. Content stays visible if motion initialization fails.
 
 ## React scope and cleanup
 

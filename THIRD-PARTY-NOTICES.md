@@ -10,6 +10,7 @@ The exact commit, repository, and source path are recorded in sources.lock.json.
 
 | Package | Author / source | License | Bundled notice |
 | --- | --- | --- | --- |
+| MotionSites Web Builder (standalone library) | Motionsites-AI/claude-skill | MIT subset; examples/media excluded | skills/.curated/colabio-frontend/library/modules/motionsites-web-builder/LICENSE |
 | Taste Skill | Leonxlnx/taste-skill | MIT | skills/colabio-frontend/companions/taste/LICENSE |
 | Hallmark | Nutlope/hallmark / Together AI | MIT | skills/colabio-frontend/companions/hallmark/LICENSE |
 | Impeccable | pbakaus/impeccable | Apache-2.0 | skills/colabio-frontend/companions/impeccable/LICENSE |

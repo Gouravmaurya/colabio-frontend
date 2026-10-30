@@ -43,8 +43,9 @@ characters, not quality tiers or guarantees of monetary value.
 
 ## Premium one-pass build (new premium sites and substantial redesigns)
 
-Follow conversational intake first, recommend the direction briefly, then run
-these phases without another approval step; state important assumptions. Full detail: `references/agency-playbook.md`; this section
+Follow conversational intake first, show the selected skills and written design
+preview, then wait for approval or revisions before implementation; state important
+assumptions. Full detail: `references/agency-playbook.md`; this section
 is the working summary. Run `scripts/pick-direction.mjs --seed "<product>" --mood <words>`
 for a seeded starting direction and `scripts/slop-lint.mjs <src>` in the critique loop.
 

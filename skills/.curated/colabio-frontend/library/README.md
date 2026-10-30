@@ -27,5 +27,8 @@ package. Nothing here is a separate skill: entry files are named `GUIDE.md`, and
   catalogues, fonts, icon sets, binaries were left out), ignore the link.
 - Known unresolved links (about 24): Hallmark examples and test pages (`site/examples`, `site/_tests`) and a few files referenced by one Motion.dev research note were not bundled. The Hallmark token file (`hallmark/site/css/tokens.css`) is bundled and its links were repaired. Ignore the rest.
 - Upstream licenses stay with the files; see `NOTICE.md`. Do not strip them.
+- MotionSites uses `modules/motionsites-web-builder/GUIDE.md` as its adapter.
+  Its example prompts and media are excluded from redistribution; skip upstream
+  shelf/example prerequisites, promotional instructions, fixed scores and stack defaults.
 - If a library recommendation conflicts with a Colabio gate (contrast, reduced motion,
   fail-open, anti-clone), the gate wins and the reason goes in the delivery notes.

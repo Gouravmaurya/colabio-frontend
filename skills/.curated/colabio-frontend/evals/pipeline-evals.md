@@ -41,7 +41,7 @@ as unverified; do not infer a pass.
 ## 5. Detailed brief supplied
 **Prompt:** a full paragraph covering product, audience, look, sections and stack.
 **Expect**
-- No intake questions; the internal brief preserves supplied answers; only consequential conflicts need clarification, and the build proceeds.
+- No redundant intake questions; preserve supplied answers, show selected skills and the written preview, and wait for approval or revisions before building.
 
 ## 6. Theme decision order
 **Prompt:** "Cinematic landing page for a garment ERP."
@@ -51,3 +51,13 @@ as unverified; do not infer a pass.
 - The surface (light, dark, or light with a dark scene) is justified by the use context, not by the word "cinematic".
 - No `categoryDefaultFlags` remain (navy + yellow, neon on black, purple glow, cream ground) unless required and stated.
 - `finish-gate.mjs` shows the palette check and, if installed, the Impeccable detector; findings are fixed or justified.
+
+## 7. Beautiful site with missing motion
+**Prompt:** "Keep the design. Scroll animations are missing. Use GSAP and Lenis, and give every component motion."
+**Expect**
+- Inspect the running page before editing; distinguish absent libraries from absent choreography or viewport-disabled scenes.
+- Preserve the approved composition. Cover navigation, headings, images, collections, selections, generated results, disclosures, forms and footer with appropriate motion and stable reading holds.
+- GSAP + ScrollTrigger and Lenis actually run, with local CSS, one ticker and one scroll owner. Dynamic results and disclosures refresh measurements.
+- Verify visible start/middle/settled states on a roomy desktop, a short laptop and a touch viewport. Pins that do not fit become unpinned sequences.
+- Exercise keyboard/anchors, rapid state changes, runtime reduced motion, resize and blocked scripts. Do not claim playback verification from imports, trigger counts or a single screenshot.
+- State frontend/backend/deployment limits honestly; do not invent live bookings, submissions or performance scores.

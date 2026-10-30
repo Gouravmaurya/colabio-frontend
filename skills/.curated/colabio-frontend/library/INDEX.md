@@ -2,6 +2,67 @@
 
 Paths are relative to `library/`. Open the smallest file that answers the question.
 
+## Complete inventory: required core and agent-selected guides
+
+Colabio bundles **35 frontend guidance sources**: the four library collections
+below and 31 modules. They are references inside one skill, not 35 workflows to
+run together. Colabio's own intake, complete prompt, responsive/accessibility and
+verification contract governs every task. Read by phase and keep focused fixes local.
+
+| Use | Source | Job |
+| --- | --- | --- |
+| Required core | Impeccable (`impeccable/`) | Craft/usability floor; matching audit and polish |
+| Required core | Taste Skill (`taste/`) | Reject template tells; typography, color and composition when open |
+| Agent chooses | Hallmark (`hallmark/`) | Page structures, section/component anatomy |
+| Agent chooses | UI/UX Pro Max (`design-data/`) | Design/UX data lookup and grounded candidates |
+| Agent chooses | `animate` | Component animation decisions |
+| Agent chooses | `animation-vocabulary` | Describe and coordinate movement |
+| Agent chooses | `apple-design` | Apple-like interaction/material direction when appropriate |
+| Agent chooses | `brandkit` | Brand/asset concepts |
+| Agent chooses | `design-motion-principles` | Motion intent and review |
+| Agent chooses | `emil-design-eng` | Interaction craft and fine polish |
+| Agent chooses | `find-animation-opportunities` | Identify useful movement in an existing UI |
+| Agent chooses | `framer-motion` | React animation and gesture patterns |
+| Agent chooses | `gpt-taste` | An optional visual style lens |
+| Required core | `gsap-core` | GSAP fundamentals and ownership; runtime for approved animated builds |
+| Agent chooses | `gsap-frameworks` | Framework-specific GSAP integration |
+| Agent chooses | `gsap-performance` | Animation performance |
+| Agent chooses | `gsap-plugins` | A needed GSAP plugin |
+| Agent chooses | `gsap-react` | React ownership and cleanup |
+| Agent chooses | `gsap-scrolltrigger` | Scroll progression, pinning and refresh |
+| Agent chooses | `gsap-timeline` | Coordinated sequences |
+| Agent chooses | `gsap-utils` | A needed GSAP utility |
+| Agent chooses | `high-end-visual-design` | A suitable premium visual direction |
+| Agent chooses | `image-to-code` | Implement supplied visual references |
+| Agent chooses | `imagegen-frontend-web` | Generate website asset concepts |
+| Agent chooses | `improve-animations` | Refine existing animation |
+| Agent chooses | `industrial-brutalist-ui` | An explicitly suitable raw/industrial direction |
+| Agent chooses | `minimalist-ui` | A suitable restrained direction |
+| Agent chooses | `mobile-native` | Touch and native-feeling phone behavior |
+| Agent chooses | `motion-dev-animations` | Motion runtime recipes |
+| Required core | `motionsites-web-builder` | Precise prompts, cinematic media, technique recipes and optional QA |
+| Agent chooses | `prototype` | Asset/interface concept exploration |
+| Agent chooses | `review-animations` | Playback and interaction review |
+| Agent chooses | `scroll-craft` | Scroll-led narrative/world techniques |
+| Agent chooses | `stitch-design-taste` | A requested design-system specification |
+| Agent chooses | `threejs-webgl` | A justified 3D/WebGL feature and its performance/fallbacks |
+
+All module paths are `modules/<name>/GUIDE.md`. Bundled original components in
+`components/` and Colabio's `references/`, `scripts/`, `agents/` and `templates/`
+support these sources; they are not extra upstream skills. Mandatory use means
+apply all four sources within scope, without forcing one style or overriding
+explicit static requests. Use GSAP for approved animated builds and select its
+extensions as needed. Show the source names/reasons and written design preview
+before building; wait for approval or revisions. Record specialist choices and why
+they fit in the governing prompt. Skip unused specialists.
+
+Additional Colabio-authored guides: `references/pinterest-research.md` covers
+Pinterest inspiration and original-source verification; `references/animejs.md`
+covers optional Anime.js component/SVG choreography. These are not extra vendored
+upstream skills and do not change the 35-source inventory. Anime.js is selected
+when requested or already used for a relevant effect; it does not replace GSAP
+and Lenis or become an automatic runtime installation.
+
 ## By command (what the user asks for)
 
 | Command / request | Open | Also use |
@@ -30,6 +91,7 @@ Paths are relative to `library/`. Open the smallest file that answers the questi
 
 | Need | Open |
 | --- | --- |
+| Precise website prompts, media-led composition, builder handoffs and MotionSites techniques | `modules/motionsites-web-builder/GUIDE.md`, then its spec checklist or technique index |
 | Page structure alternatives (21 macrostructures) | `hallmark/references/macrostructures.md`, `macrostructures/` |
 | Component recipes (heroes, navs, footers, sections, proof) | `hallmark/references/component-cookbook.md`, `components/` |
 | Themes and genres | `hallmark/references/themes/`, `hallmark/references/genres/` |

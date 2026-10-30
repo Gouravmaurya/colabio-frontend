@@ -10,6 +10,7 @@ Preserve these notices when redistributing.
 
 | Folder | Source | Repository | License | License file |
 | --- | --- | --- | --- | --- |
+| `library/modules/motionsites-web-builder/` | MotionSites Web Builder | https://github.com/Motionsites-AI/claude-skill | MIT subset; examples/media excluded | `library/modules/motionsites-web-builder/LICENSE` |
 | `library/impeccable/` | Impeccable | https://github.com/pbakaus/impeccable | Apache-2.0 | `library/impeccable/LICENSE` |
 | `library/hallmark/` | Hallmark | https://github.com/Nutlope/hallmark | MIT | `library/hallmark/LICENSE` |
 | `library/taste/` | Taste Skill | https://github.com/Leonxlnx/taste-skill | MIT | `library/taste/LICENSE` |
@@ -50,3 +51,6 @@ and its files are unmodified apart from the entry rename. "Impeccable" is the na
 upstream project; this skill is not endorsed by its authors.
 
 Link repairs: relative links to `site/css/tokens.css` and `docs/recipes.md` inside `library/hallmark/` were rewritten to the bundled paths (8 links). No other upstream text was changed.
+MotionSites references and its optional screenshot script are unchanged; its entrypoint
+is replaced by a Colabio adapter. Its restricted `examples/` and `media/` collections
+and promotional delivery instructions are excluded. See its LICENSE for the complete terms.

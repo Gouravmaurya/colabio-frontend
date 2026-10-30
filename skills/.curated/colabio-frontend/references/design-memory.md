@@ -55,7 +55,7 @@ Keep private local paths out of public page copy and shared deployment artifacts
 
 When the user gives meaningful approval, rejection, correction or an explicit
 "remember this", the coordinator updates the relevant entry. Do not ask for a
-rating after every build or add a new approval step. Read the latest file before
+rating after every build or add checkpoints beyond the intake preview. Read the latest file before
 writing; merge changes, preserve unrelated preferences and use one writer.
 
 - A specific like or dislike becomes a scoped preference. "I like this font for
@@ -78,7 +78,8 @@ writing; merge changes, preserve unrelated preferences and use one writer.
 
 ## Apply and close the loop
 
-Explain only consequential personalization in the brief recommendation, then build.
+Explain consequential personalization in the written preview, then follow the
+intake checkpoint before building.
 Record applied preferences and any deliberate current-request overrides in the
 project brief. Revise the page and recheck affected states when feedback requests
 a change; a memory update alone does not complete a requested design correction.

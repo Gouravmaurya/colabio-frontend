@@ -9,7 +9,29 @@ template-tell scanner, motion recipes, asset/copy gates and component-library
 mining. Existing brands are preserved; small fixes stay local. The larger
 43-route bundle remains available separately.
 
-Version **1.10.0** adds an agent council, host-adapted orchestration, scoped design
+Version **1.11.0** turns the user discussion into a complete, reusable design/build
+prompt before implementation: every agreed route, section, component, motion
+sequence, visual token, asset and responsive state has an actionable specification.
+Prompt-only requests deliver that document without building the website.
+Impeccable, Taste, MotionSites and GSAP are the required core. The agent shows
+the selected skill names and a written website preview, then waits for approval
+or requested changes before implementation.
+The agent selects the other 31 guides by need; the complete 35-source inventory is
+in `skills/.curated/colabio-frontend/library/INDEX.md`.
+It also routes work by layout, fonts, color, components, cinematic media and
+component/scroll animation. Open hero directions require a product-specific
+composition instead of a default text/image split. Non-static builds use GSAP +
+ScrollTrigger and Lenis by default, with component motion coverage, native touch,
+and observed short-laptop/desktop/mobile playback. Static requests omit animation
+runtimes; quiet interfaces retain restrained motion without cinematic pinning.
+The bundled MotionSites adapter adds precise spec and builder-prompt references,
+media composition, motion recipes and an optional screenshot/QA helper. Its
+restricted example-prompt and media collections are not redistributed.
+Pinterest supports visual inspiration with original-source and asset-rights
+checks. Anime.js is an optional specialist for requested or existing component/
+SVG work, with installed-version guidance and separate GSAP property ownership.
+
+Version **1.10.0** added an agent council, host-adapted orchestration, scoped design
 memory, cinematic motion guidance, and plan/taste checks. It retains six cinematic
 composition recipes and strict rendered
 baseline/slice/final gates. A redesign with a recorded visual regression is a
@@ -43,7 +65,7 @@ npx skills add https://github.com/Gouravmaurya/colabio-frontend/tree/main/skills
 When updating, back up customized copies outside scanned skill directories first.
 Check the actual `.agents/skills/colabio-frontend` (Codex) and
 `.claude/skills/colabio-frontend` (Claude Code) files, not just the clone. The new
-entrypoint includes `metadata.version: "1.10.0"`, and both installed folders must
+entrypoint includes `metadata.version: "1.11.0"`, and both installed folders must
 contain `references/cinematic-recipes.md`, `references/visual-comparison-gates.md`
 and `scripts/verify-visual-gates.mjs`. Check project-local and alternate `.codex`
 copies that might shadow the global version. Refresh discovery after replacement.

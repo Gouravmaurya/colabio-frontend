@@ -4,6 +4,9 @@ Every bundled file and what it is for.
 
 | File | Use it for |
 | --- | --- |
+| `references/capability-routing.md` | Choose expertise by website part, integrate one prompt, avoid stock heroes, and plan component/scroll motion |
+| `references/pinterest-research.md` | Pinterest discovery, original-source inspection, product-specific adaptation and blocked-access fallback |
+| `references/animejs.md` | Optional installed-version Anime.js integration, separate property ownership, reduced motion and scope cleanup |
 | `references/agency-playbook.md` | The one-pass premium build pipeline and critique rubric |
 | `references/styles.md` | Eight style recipes: type, color, layout, motion, pitfalls |
 | `references/design-kit.json` | Font pairs, contrast-checked palettes, signature mechanisms, hero compositions |
@@ -21,7 +24,7 @@ Every bundled file and what it is for.
 | `scripts/verify-visual-gates.mjs` | Read-only evidence checks; fails recorded regression, missing comparison, bad viewport matching and unresolved findings |
 | `references/design-memory.md` | Premium cinematic landing defaults and scoped feedback learning through the user profile |
 | `evals/design-memory-evals.md` | Default styles, explicit overrides, accurate feedback memory and cross-host persistence cases |
-| `references/brief-intake.md` | Conversational intake authority: clarify UI type, feel and motion; recommend, then build |
+| `references/brief-intake.md` | Intake authority: ask material questions, show skills and written preview, iterate and obtain approval before building |
 | `references/site-types.md` | Website-type journeys, proof and interaction options |
 | `references/verify.md` | Serving, real-event browser verification and preview quirks |
 | `references/craft-bar.md` | The level to build at (ten properties, mechanism menu, anti-clone rule); never a design to copy |
@@ -31,7 +34,9 @@ Every bundled file and what it is for.
 | `scripts/serve.mjs` | Local static preview server |
 | `scripts/check-contrast.mjs` | Check foreground/background token contrast |
 | `evals/intake-evals.md` | Conversational intake behavior cases |
-| `references/prompt-enhancer.md` | Turn any idea into a Cinematic Design Prompt (12-part schema, examples) |
+| `references/prompt-enhancer.md` | Complete reusable design/build prompt after discussion: 12-part schema, route/section/component detail, motion states, tokens, assets, responsive behavior and acceptance |
+| `evals/prompt-evals.md` | Behavioral cases for complete prompts, prompt-only scope, existing brands, fallbacks and feedback propagation |
+| `library/modules/motionsites-web-builder/GUIDE.md` | MotionSites adapter: precise spec, builder formats, media craft, technique recipes and optional screenshot/QA helper; examples/media excluded |
 | `scripts/select-build.mjs` | Build selector: type, style, starter, stack, motion level, pages, libraries, reading order |
 | `scripts/finish-gate.mjs` | Static polish gate: meta, landmarks, alt text, focus, reduced motion, social card, favicon, placeholders |
 | `evals/pipeline-evals.md` | End-to-end cases for the idea-to-finished-site pipeline |

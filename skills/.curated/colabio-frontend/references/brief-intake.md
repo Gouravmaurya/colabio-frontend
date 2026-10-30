@@ -61,27 +61,63 @@ would change the work. Users should not need to choose libraries or specialist r
 
 For a detailed brief, use its answers directly and clarify consequential conflicts
 only. For "you decide" or "no questions", skip optional questions, recommend a
-fitting direction, state assumptions and proceed. Identify genuinely necessary
+fitting direction, state assumptions and proceed to the preview checkpoint. Identify genuinely necessary
 missing input without inventing facts or treating silence as approval.
 
-## 3. Recommend, then build
+## 3. Show the skills and written preview, iterate, then build
 
-Show a short recommendation, about 3-5 lines: the UI and main task, layout and
-visual character, typography/imagery, motion and important assumptions. Explain
-why it fits. Continue implementation without another design approval step.
-Honor an explicit request for concept choices or approval and current permissions.
+Before frontend implementation, show a written design preview and ask whether
+to build it or change the direction. Wait for the user's response before source
+edits, scaffolding or dependency installation. Planning and read-only inspection
+may continue. This is a design checkpoint, not permission to deploy or publish.
+
+Start with **Skills used**: Impeccable, Taste Skill, MotionSites and GSAP are
+required; list selected additional specialists only, with a short reason for each.
+Use readable source names, not raw paths or internal agent/tool logs.
+
+Then describe **What the website will look like** in concrete, plain language:
+the overall feel; pages and visitor journey; hero composition and why it is
+specific to the product; each major section's form and ordering; font roles,
+palette and imagery; distinctive component anatomy; component/scroll animation
+and the phone/reduced-motion version. Include the ending, key actions and what
+is sample or missing. A short focused fix needs only the affected visual change
+and relevant skills; a full site needs enough detail for the user to picture it.
+Link the complete prompt as well, but do not substitute a file link for the preview.
+
+End with one clear question, such as: "Should I build this direction, or would
+you like to change the layout, colors, fonts, components or motion first?"
+Revise the affected prompt entries and preview when feedback arrives. Start
+implementation after the user approves the current direction. A clear approval
+in this conversation remains valid; do not ask again for the same unchanged plan.
+Silence is not approval. An explicit instruction to skip this design checkpoint
+waives it; "you decide" or "no questions" alone only skips optional discovery.
 
 Example after clarifying a clothing-business dashboard:
 
+> Skills used: Impeccable for usability, Taste for composition, MotionSites for
+> precise visual specification, and GSAP for restrained component transitions.
+>
 > I'll use a refined, light dashboard with inventory as the main view, clear
 > typography, compact product thumbnails and subtle state transitions. It should
 > feel polished while keeping daily stock decisions fast. I'll reuse your framework
 > and brand; demonstration inventory will be labelled sample data.
+>
+> Should I build this direction, or would you like to change it first?
 
-Save answers, assumptions and decisions in the project's `design-brief.md`.
+After discussion, synthesize the answers, assumptions and decisions into the
+project's `design-brief.md`: a complete, reusable design/build prompt using
+`prompt-enhancer.md`. Resolve the page, section, component and motion details
+before implementing them. Share the file's location alongside the short
+recommendation so the user can inspect or reuse the full prompt. When file output
+is unavailable, provide the complete prompt in chat. Keep private preference-file
+paths and internal council exchanges out of the reusable prompt.
 For substantial work use [prompt-enhancer.md](prompt-enhancer.md), the relevant
 journey in [site-types.md](site-types.md) and character in [styles.md](styles.md).
-The brief is an internal specification, not a questionnaire the user must complete.
+The agent writes the specification; the user does not need to complete a template.
+If the request is only to create a prompt, deliver it and stop before source edits,
+dependency installation or deployment. For a build request, implement from the
+completed prompt after the preview checkpoint above. A detailed supplied brief still receives one
+consolidated prompt; do not restart discovery or replace approved decisions.
 
 Selectors and templates provide candidates and reusable mechanisms. They do not
 impose a dark/cream theme, single HTML file, configurator or showpiece motion.
@@ -92,7 +128,7 @@ and simulated behavior. Facts that materially block the task require clarificati
 
 Use [ai-orchestration.md](ai-orchestration.md) where delegation helps. The
 coordinator owns clarification and passes settled answers to workers. Workers
-do not repeat intake. Keep internal role management backstage.
+do not repeat intake. Show selected source names and reasons; keep internal role management backstage.
 
 ## 4. Interpret feedback in context
 

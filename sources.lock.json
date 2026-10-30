@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-22",
+  "reviewed": "2026-10-28",
   "sources": [
     {
       "id": "taste",
@@ -39,6 +39,39 @@
       "sourcePath": ".agents/skills/impeccable",
       "license": "Apache-2.0",
       "files": 62
+    },
+    {
+      "id": "motionsites-web-builder",
+      "repository": "https://github.com/Motionsites-AI/claude-skill",
+      "commit": "faa30d512e3973e58675c72101a7ef42ed37ae83",
+      "sourcePath": "plugins/motionsites-web-builder/skills/motionsites-web-builder",
+      "license": "MIT (instructions, references and scripts only)",
+      "files": 16,
+      "bundledPath": "skills/.curated/colabio-frontend/library/modules/motionsites-web-builder",
+      "entrypoint": "Colabio adapter replaces upstream SKILL.md; references and scripts unchanged.",
+      "excluded": [
+        "examples/",
+        "media/",
+        "plugin configuration",
+        "promotional delivery instructions"
+      ],
+      "unmodifiedFiles": {
+        "references/assets.md": "14a16138f3d1ae75c7ecf0cbd6327a8acb2bde52",
+        "references/builders.md": "82e779e4063878f3744ca84cbf3520b48b0ffe43",
+        "references/craft.md": "be79172c61b2723e7781aef25b31bf1a0a0c9acd",
+        "references/review.md": "064ba781f5d5edb8824e2c464916442de888395a",
+        "references/spec-template.md": "9c65299559ae5b8f863dfa39c63e4206614ef836",
+        "references/techniques/3d-and-webgl.md": "6498725c43df43a1a1f48272a8193e1d77fc6957",
+        "references/techniques/INDEX.md": "e42e5b3b189fda171867171574e21116843a45be",
+        "references/techniques/depth-and-interaction.md": "ef1b1ef1ab2861cda4216d4fd2acabd2fe461ccb",
+        "references/techniques/layout-and-ui.md": "b4993ed295c1aebdc9cd7bf780eb38e69c85fe75",
+        "references/techniques/scroll.md": "307105e60aca9d290518cbefb06bc3df16cc6f39",
+        "references/techniques/surfaces-and-buttons.md": "fa6c8a5c259ac615d70d9e42fce5a36a3eab95d0",
+        "references/techniques/type-and-text-motion.md": "6a820d903e0ffca669963af532eef3f99ffeb182",
+        "references/techniques/video-and-media.md": "22b70cf5c5477988fde6c7f9dc137cacfad2badb",
+        "scripts/shoot.py": "acd6f84f516d573c51858c11ef78047591d92410",
+        "LICENSE": "a3d8ddfaa8798fbd4d12b91b10701e4da1124ac4"
+      }
     }
   ],
   "packaging": {

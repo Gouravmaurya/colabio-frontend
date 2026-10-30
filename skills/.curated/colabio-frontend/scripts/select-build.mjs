@@ -45,20 +45,27 @@ let existing = null;
 if (project && fs.existsSync(path.join(project, 'package.json'))) {
   const pk = JSON.parse(fs.readFileSync(path.join(project, 'package.json'), 'utf8'));
   const dep = { ...pk.dependencies, ...pk.devDependencies };
-  existing = { next: !!dep.next, react: !!dep.react, gsap: !!dep.gsap, lenis: !!dep.lenis, motion: !!(dep.motion || dep['framer-motion']), three: !!dep.three, tailwind: !!dep.tailwindcss };
+  existing = { next: !!dep.next, react: !!dep.react, gsap: !!dep.gsap, lenis: !!dep.lenis, motion: !!(dep.motion || dep['framer-motion']), animejs: !!dep.animejs, three: !!dep.three, tailwind: !!dep.tailwindcss };
   stack = stack || (dep.next ? 'next' : dep.react ? 'react' : 'html');
 }
 stack = stack || (has(/\bnext(\.js)?\b/) ? 'next' : has(/\breact\b/) ? 'react' : 'html');
 
 // ---- motion level and 3D need ----
-const level = has(/\b(showpiece|cinematic|immersive|award|awwwards|webgl|scroll[- ]?(story|driven)|flagship)\b/) ? 'showpiece'
-  : has(/\b(calm|minimal|quiet|simple|subtle|clean)\b/) ? 'light' : 'moderate';
-const needs3d = has(/\b(3d (model|viewer|scene|object|product|jar|piece)s?|webgl|three\.?js|shader|turntable|spin it|rotate the|drag to turn)\b/) || starter === 'cinematic-product-shop';
+const staticMotion = has(/\b(static|no animations?|no motion|without animations?|without motion)\b/);
+const quietMotion = has(/\b(calm|minimal|quiet|simple|subtle)\b/);
+const operational = has(/\b(dashboard|admin|operations|inventory management)\b/) && !has(/\b(landing|hero|marketing|public website)\b/);
+const level = staticMotion ? 'static' : quietMotion ? 'light'
+  : has(/\b(showpiece|cinematic|immersive|award|awwwards|webgl|scroll[- ]?(story|driven)|flagship)\b/) || type === 'landing' || has(/\blanding page\b/) ? 'showpiece' : 'moderate';
+const scrollMotion = !staticMotion && !operational && (level === 'showpiece' || (!quietMotion && has(/\bscroll[- ]?(animation|story|driven|linked)\b/)));
+const needs3d = !staticMotion && !has(/\b(no|without) (3d|webgl)\b/) && has(/\b(3d (model|viewer|scene|object|product|jar|piece)s?|webgl|three\.?js|shader|turntable|spin it|rotate the|drag to turn)\b/);
+const animeMotion = !staticMotion && !has(/\b(no|without|avoid) anime[ .-]?js\b/) && (has(/\banime[ .-]?js\b/) || (existing?.animejs && has(/\b(svg|morph|stagger|timeline|illustration)\b/)));
 const motion = {
   level,
-  libraries: [...new Set(['gsap + ScrollTrigger', ...(level !== 'light' ? ['lenis'] : []), ...(stack !== 'html' && has(/\b(layout|gesture|drawer|modal|tabs?)\b|presence/) ? ['motion (framer-motion)'] : []), ...(needs3d ? ['three'] : [])])],
-  owners: 'Lenis = scroll (driven by the GSAP ticker); GSAP = scroll-linked and choreography; Motion/CSS = component states',
-  mustHave: ['prefers-reduced-motion path', 'skippable or timer-released intro', 'complete static page if the CDN fails or motion is reduced (fallback, not a reason to skip libraries)', needs3d ? 'no-WebGL fallback with poster/SVG' : null].filter(Boolean)
+  libraries: [...(staticMotion ? [] : ['gsap + ScrollTrigger', 'lenis']), ...(animeMotion ? ['animejs'] : []), ...(!staticMotion && stack !== 'html' && (existing?.motion || has(/\b(gesture|drawer|modal|tabs?)\b|presence/)) ? [existing?.motion ? 'existing Motion package' : 'motion (framer-motion)'] : []), ...(needs3d ? ['three'] : [])],
+  owners: staticMotion ? 'Static composition; immediate usable interaction states'
+    : scrollMotion ? 'Lenis = scroll on GSAP ticker; GSAP = scroll choreography; CSS/existing Motion = component feedback'
+    : 'Lenis = root scroll on GSAP ticker with native touch; GSAP = restrained entrance/component choreography; CSS/existing Motion = distinct state properties; no cinematic pins',
+  mustHave: ['complete readable static/reduced-motion states', 'keyboard and touch access throughout', ...(!staticMotion ? ['motion coverage for every major component, with justified reading holds', 'running GSAP/ScrollTrigger and Lenis with CSS, one ticker and one scroll owner', 'observed playback on roomy desktop, short laptop and native-touch screens'] : []), ...(animeMotion ? ['Anime.js owns separate component/SVG properties; scoped cleanup and installed-version API; no competing GSAP transforms'] : []), scrollMotion ? 'authored scroll start/middle/hold/exit states with phone-native scroll equivalents' : null, needs3d ? 'no-WebGL fallback with poster' : null].filter(Boolean)
 };
 
 // ---- pages ----
@@ -93,18 +100,30 @@ let themeCandidates = null; try { const j = JSON.parse(pl.stdout); themeCandidat
 const mine = [
   stack !== 'html' ? 'ui.shadcn.com (foundations), 21st.dev, magicui.design, ui.aceternity.com, reactbits.dev' : 'uiverse.io (CSS-only parts), tympanus.net/codrops (technique source)',
   needs3d ? 'threejs.org docs, tympanus.net/codrops WebGL tutorials' : null,
-  'fonts: fontshare.com or fonts.google.com (use design-kit.json pairs first)'
+  'fonts: fontshare.com or fonts.google.com (use design-kit.json pairs first)',
+  'Pinterest for inspiration; inspect original designer/live sites and verify asset rights (references/pinterest-research.md)'
 ].filter(Boolean);
 
 const R = 'references/';
-const readOrder = [R + 'product-understanding.md', R + 'prompt-enhancer.md', R + 'brief-intake.md', R + 'site-types.md (section: ' + type + ')', R + 'craft-bar.md',
-  R + 'styles.md (' + (direction?.style?.id || 'recipe') + ')', R + 'cinematic-recipes.md', R + 'asset-and-copy.md', R + 'craft-defaults.md',
-  R + 'motion-recipes.md', R + 'libraries.md', R + 'verify.md', R + 'visual-comparison-gates.md', R + 'award-bar.md'];
+const M = 'library/modules/';
+const coreGuides = ['library/impeccable/reference/craft-floor.md', 'library/taste/references/tells.md', M + 'motionsites-web-builder/GUIDE.md', M + 'gsap-core/GUIDE.md'];
+const workstreams = [
+  { id: 'layout', guides: [R + 'pinterest-research.md', R + 'distinctive-design.md', 'library/taste/references/layout.md'], deliverable: 'Inspected inspiration with provenance, product-specific hero alternatives and section composition; no default text/image split' },
+  { id: 'typography', guides: ['library/taste/references/type.md', R + 'craft-defaults.md'], deliverable: 'Subject-grounded font roles, responsive scale, readable metrics and loaded fallbacks' },
+  { id: 'color', guides: ['library/taste/references/colour.md', R + 'product-understanding.md'], deliverable: 'Preserved brand or material-grounded semantic palette with actual contrast pairings' },
+  { id: 'components', guides: ['library/components/INDEX.md', 'library/hallmark/references/component-cookbook.md'], deliverable: 'Distinctive component anatomy, truthful content, keyboard/touch states and source transformations' },
+  { id: 'motion', guides: staticMotion ? [R + 'cinematic-motion.md'] : [R + 'cinematic-motion.md', R + 'motion-recipes.md', M + 'gsap-scrolltrigger/GUIDE.md', ...(animeMotion ? [R + 'animejs.md'] : []), ...(stack !== 'html' ? [M + 'framer-motion/GUIDE.md'] : [])], deliverable: staticMotion ? 'Static composition and immediate controls; no animation libraries' : 'Component, section and scroll choreography matched to the brief; reduced-motion and phone equivalents' },
+  ...(!operational && (level === 'showpiece' || needs3d || has(/\b(video|cinematic|media|prompt)\b/)) ? [{ id: 'cinematic-media', guides: [M + 'motionsites-web-builder/GUIDE.md', R + 'cinematic-recipes.md'], deliverable: 'Focal asset/crop/layers, continuity and precise prompt; open only the matching technique recipe' }] : []),
+  { id: 'verification', guides: [R + 'verify.md', R + 'visual-comparison-gates.md'], deliverable: 'Observed responsive, interaction and playback evidence for the representative slice and full journey' }
+];
+const readOrder = [...new Set([R + 'product-understanding.md', R + 'prompt-enhancer.md', R + 'brief-intake.md', R + 'capability-routing.md',
+  ...coreGuides, ...workstreams.flatMap((stream) => stream.guides)])];
 
 const plan = {
   input: text.slice(0, 200) + (text.length > 200 ? '...' : ''),
   type, starter, starterNote: starter ? `templates/${starter}: take mechanisms and safety only; change type, palette, hero, navigation, signature and copy (anti-clone rule). Copy with scripts/scaffold.mjs.` : 'no starter fits; build from the recipes',
-  stack, existingProject: existing, motion, pages, direction, themeCandidates,
+  stack, existingProject: existing, motion, pages, direction, themeCandidates, coreGuides, workstreams,
+  reviewCheckpoint: { required: true, show: ['selected skill names and reasons', 'written page/section/component design preview', 'fonts, palette, assets, motion and phone behavior', 'assumptions and complete prompt location'], continueWhen: 'User approves the current preview or explicitly waives this checkpoint; otherwise revise and wait before implementation.' },
   order: 'Understand the product and plan scenes/pages first (references/product-understanding.md). Then decide the theme from themeCandidates and the use context. direction.palette and direction.font are only starting points.',
   mine, readOrder,
   checks: ['node scripts/slop-lint.mjs <src>', 'node scripts/palette-lab.mjs --check <page.html>', 'node scripts/check-contrast.mjs <page.html>', 'node scripts/finish-gate.mjs <dir|file>', 'serve + drive real events at 1440/1024/768/390 (references/verify.md)'],

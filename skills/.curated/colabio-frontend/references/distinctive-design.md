@@ -27,6 +27,30 @@ Every page gets exactly one move that only this product could own, stated in one
 It must come from the Understanding Sheet (its objects, vocabulary, workflow). It must change structure,
 not paint. Rotating logos, floating cards and orbiting dots are not a move.
 
+## Hero contract: the subject determines the composition
+
+For a new or unlocked expressive hero, compare two concise structural ideas
+derived from the actual subject. Explain the focal object/content, typography,
+composition, visitor action and first transition for each; choose one for a
+reason. Examples of mechanisms include an order document becoming the interface,
+a full-viewport material specimen with integrated labels, a useful product view
+that transforms into proof, or an editorial title composed through real imagery.
+These are mechanisms to adapt, not another fixed template list.
+
+Reject a generic 50/50 text block beside an image, in either direction. Swapping
+columns, centering a headline over a gradient or changing the palette does not
+establish a distinctive idea. Do not replace it with decorative floating cards
+or an unrelated 3D object. A split composition is appropriate when explicitly
+requested, approved already, or required by a concrete comparison/workflow; state
+that reason rather than applying this rule to redesign locked work.
+
+Specify actual asset crop, type placement/scale, depth/layer relationships,
+negative space, useful action and phone recomposition. For moving heroes, design
+the readable first state, intermediate transformation, settled state and hand-off
+to the body; preserve usable content/actions if motion is reduced or unavailable.
+Review the rendered opening and its body transition at desktop and phone widths.
+If the logo/product could be swapped without breaking the concept, revise it.
+
 ## 4. Section grammar (plan the forms before the copy)
 
 Give each section a form from this menu and write it next to the scene in the score.
@@ -60,6 +84,20 @@ Order: (1) `library/components` (16 originals, read `library/components/INDEX.md
 Vengeance UI, Kokonut UI, 21st.dev with the user's own key; see `references/libraries.md`); (4) build it custom.
 Whatever the source, run the six-step transform checklist in `library/components/INDEX.md` and write the provenance line.
 Use at most three registry pieces per page, from at least two sources, and no piece twice.
+
+## Component design contract
+
+Give each signature component a purpose in the product's own nouns. Specify its
+anatomy, content hierarchy, geometry, type/surface, real data or labelled samples,
+and default/selected/expanded/loading/error states as relevant. Name how visitors
+use it by mouse, keyboard and touch, and what information changes. Adapt a sourced
+component's structure, content and behavior to the product; changing only colors
+and radii leaves a catalogue demo. Routine controls may remain familiar and usable.
+
+For expressive briefs, plan component reveals/assembly and meaningful state
+transitions separately from scroll scenes. Record target, trigger, before/middle/
+settled states, duration/easing, interruption and phone/reduced equivalents in
+the governing prompt. Do not make every card float or every section fade upward.
 
 ## 6. Specificity tests (run before delivery)
 

@@ -1,15 +1,17 @@
 ---
 name: colabio-frontend
 metadata:
-  version: "1.10.0"
+  version: "1.11.0"
 description: >
   Art-direct, build, and refine websites, landing pages, dashboards and frontend
-  components. Use for new interfaces, redesigns, visual polish and purposeful
-  scroll or component animation. Grounds composition, type, imagery and motion
+  components. Use for new interfaces, redesigns, visual polish, purposeful
+  scroll or component animation, and complete website design/build prompts after
+  user discussion. Grounds composition, type, imagery and motion
   in the product, with a bundled reference library, motion planning and rendered
   desktop/mobile verification. Preserve existing brand and behavior; keep small
   fixes local and exclude unrelated backend work. Clarify ordinary-language UI
-  requests conversationally, recommend, then build. Landing pages default to
+  requests conversationally, show selected skills and a written design preview,
+  then build after the user approves it. Landing pages default to
   premium cinematic craft; apply and learn scoped user design preferences.
 ---
 
@@ -44,14 +46,33 @@ use sequential roles when delegation is unavailable. No framework installation i
 
 ## Describe it, clarify it, build it
 
+For substantial work, use [capability routing](references/capability-routing.md)
+with Impeccable, Taste, MotionSites and GSAP as the required core.
+GSAP + ScrollTrigger and Lenis are the default runtime for every non-static build;
+use [motion recipes](references/motion-recipes.md) for integration and coverage.
+Use [Pinterest research](references/pinterest-research.md) for visual inspiration;
+[Anime.js](references/animejs.md) is optional for a selected component/SVG job.
+Select other bundled specialists by task from `library/INDEX.md` for layout, fonts, color, components, media,
+component animation and scroll storytelling. Produce one integrated prompt and
+visual system. Open hero directions must satisfy the product-specific hero
+contract in `references/distinctive-design.md`; a generic text/image split in
+either direction is not the default. Preserve approved or explicitly requested work.
+
 First read [design memory](references/design-memory.md) and the current user's
 `~/.colabio/frontend-preferences.md` when present. Landing pages default to premium,
 expressive, cinematic design with distinctive components, type and colour; explicit
 user/brand constraints override this. Keep dashboards and small fixes task-appropriate.
 Follow [intake](references/brief-intake.md): reuse answers, clarify material gaps,
-recommend briefly, then build. Detailed briefs skip repeated questions; "you decide"
+recommend briefly, then write the complete, reusable design/build prompt in
+`design-brief.md` using [prompt-enhancer.md](references/prompt-enhancer.md) before
+implementation. Cover every agreed page, its sections, component anatomy and states,
+visual tokens, motion choreography, assets, mobile behavior and acceptance checks.
+Share the brief's location; prompt-only requests end with the prompt. Detailed
+briefs skip repeated questions; "you decide"
 skips optional ones. Save actual scoped feedback to the shared profile; general
-praise approves an example, not every detail. Keep orchestration backstage.
+praise approves an example, not every detail. Before implementation, show the
+selected skills and written website preview, ask for approval or revisions, and
+wait as specified in intake. Keep internal dispatch backstage.
 
 ## Motion is part of the composition
 
@@ -137,6 +158,10 @@ skip in upstream guides that assume Impeccable's launcher), then the guide it na
 | `animate` | Purposeful motion | `references/cinematic-motion.md`, `references/motion-recipes.md`, `library/impeccable/reference/animate.md` |
 | `onboard` / `clarify` / `adapt` / `optimize` | First run, UX copy, devices, speed | `library/impeccable/reference/` |
 
+For precise prompts, media-led composition and specific motion techniques, start at
+`library/modules/motionsites-web-builder/GUIDE.md`; it adapts MotionSites' licensed
+spec, craft, media, technique and QA references to this workflow.
+
 Rules for the library: Colabio's order and gates win (understand, plan, derive the theme,
 anti-clone, rendered gates, finish gate); upstream guides are reference for a phase, never a
 second workflow; skip upstream launcher, hook, init and install steps; open about three
@@ -173,7 +198,7 @@ Follow conversational intake, then complete these stages in order.
    [distinctive-design.md](references/distinctive-design.md): name the one distinctive move,
    give each section a different form, and plan component sources (bundled originals first,
    then registries via `component-source.mjs`, always transformed).
-4. **Build.** Representative slice first (opening hand-off, real body/proof and
+4. **Build after preview approval.** Representative slice first (opening hand-off, real body/proof and
    useful component), rendered at 1440 and 390. Preserve an approved hero and start
    at the affected body scene when appropriate; then every page in the CDP's page list with its states. **Pictures first for showpiece briefs:**
    source at least four real pictures or build a rendered scene (canvas or WebGL with

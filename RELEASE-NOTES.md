@@ -1,3 +1,41 @@
+# Colabio Frontend v1.11.0 (unreleased)
+
+Adds Pinterest design research with original-source inspection, attribution and
+blocked-access fallback. Adds optional Anime.js routing for explicit requests or
+relevant existing usage, with version-aware APIs, scoped cleanup and separate
+animation-property ownership. Neither adds an automatic dependency. Incorporates
+Lenis clock, refresh and smoothing guidance from the Dubai motion test.
+
+Defines Impeccable, Taste, MotionSites and GSAP as the required core, with the other
+31 guidance sources selected by task. Adds a complete inventory and exposes
+`coreGuides` separately from specialist workstreams in the build plan.
+
+Adds expertise routing by website part, product-specific hero and component
+contracts, and selector workstreams with matching bundled guides. Honors static
+and quiet motion before cinematic keywords and reuses installed Motion. Every
+non-static build defaults to GSAP + ScrollTrigger and Lenis, including Lenis CSS,
+one ticker/scroll owner and teardown. Require component motion coverage and real
+playback on roomy desktop, short laptop and native-touch layouts. Unsuitable pins
+become unpinned sequences; reduced motion remains complete and still. Add 3D
+only when the brief calls for it.
+
+Integrates the MIT-licensed MotionSites references, technique recipes and optional
+screenshot/QA script through a Colabio adapter, pinned to upstream commit
+`faa30d512e3973e58675c72101a7ef42ed37ae83`. Retains attribution and excludes the
+restricted example-prompt/media collections and promotional workflow.
+
+After user discussion, produce one complete, reusable design/build prompt before
+implementation. Specify every agreed route and its sections, component anatomy
+and interaction states, visual tokens, content/assets, motion choreography,
+responsive/reduced-motion behavior, implementation boundaries and acceptance
+evidence. Share the prompt so the user can inspect or reuse it.
+
+Prompt-only requests stop at the prompt. Detailed briefs reuse settled decisions,
+build requests show selected skills and a written website preview, then wait for
+approval or revisions before implementation. Feedback updates the
+affected specifications together. Council handoffs use the same complete prompt.
+Award-level ambition remains a design goal, not an award guarantee.
+
 # Colabio Frontend v1.10.0
 
 Synchronizes the standalone skill with the installed v1.10.0 frontend skill.

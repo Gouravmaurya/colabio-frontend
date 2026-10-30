@@ -12,6 +12,12 @@ Before locking direction, sketch two concise structural alternatives that differ
 
 For a focused pass, retain approved tokens, type and imagery. Apply only the role tasks needed by the changed scope; the reference/palette/type exercises below do not require redesigning an approved system.
 
+Use `references/capability-routing.md` to choose relevant expertise. An unlocked
+expressive hero must follow the hero contract in `references/distinctive-design.md`:
+compare subject-specific compositions, reject the default 50/50 text/image split
+in either direction, and define its body hand-off and phone recomposition. Specify
+unique component anatomy and meaningful states alongside the page composition.
+
 Produce `council/02-direction.md`:
 1. **Reference study**: three in-category and three out-of-category references (inspect real pages in a browser when you can). For each, one structural principle to borrow and one thing to refuse. Never copy a layout or trade dress.
 2. **Surface decision** with the use-context reason. "Cinematic" and "premium" are not reasons.

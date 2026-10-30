@@ -2,11 +2,12 @@
 
 Users can start with a short idea. Follow [conversational intake](brief-intake.md)
 to clarify material choices, recommend a direction and build. Record the result
-internally as a **Cinematic Design Prompt (CDP)**:
-a complete internal brief. The legacy CDP name does not require cinematic
+as a **Cinematic Design Prompt (CDP)**:
+a complete, copy-ready design and implementation brief. The legacy CDP name does not require cinematic
 styling or motion for a dashboard, store or other interface. Run it for every new
-site or major redesign. Skip it for small fixes, or when the user already supplied
-a detailed brief (then validate it against the schema and fill gaps as assumptions).
+site or major redesign, and when the user requests a website prompt. Skip the full
+process for small fixes. Consolidate a supplied detailed brief into the same
+document without repeating intake; fill safe gaps as explicit assumptions.
 
 **Order is the point:** understand what is being built, plan the scenes and pages
 around it, and only then decide theme, colour, type and motion character
@@ -29,16 +30,25 @@ understanding and plan is rejected and redone.
 4. **Select** with `node scripts/select-build.mjs --brief "<idea>"` for type, starter,
    stack, motion level, libraries, pages and reading order. Treat its style, font and
    palette picks as candidates only.
+   For open visual work, use `pinterest-research.md` alongside original live sites;
+   record inspected principles and their product-specific transformation in the
+   prompt. If Anime.js is selected, specify its bounded job and separate property
+   ownership using `animejs.md`; do not silently add another engine.
 5. **Decide the theme** (`product-understanding.md`, Step 3) with
    `node scripts/palette-lab.mjs --domain "<idea words>"`: pick one of its candidates
    (or your own from real swatches), name which material each colour comes from, justify
    the surface (light, dark, or light with a dark scene) from the use context, and reject
    any `categoryDefaultFlags` unless required. Fonts follow register and density.
-6. **Write the CDP** to `design-brief.md` in the project (never the skill folder),
-   using the schema below. Keep each section concrete: nouns, numbers, verbs.
-7. **Recommend briefly** in about 3-5 lines using the intake contract, then build
-   without another design approval step. Keep the full specification internal;
-   honor explicit approval requests and current permissions. Deliver the result,
+6. **Write the complete CDP** to `design-brief.md` in the project (never the skill folder),
+   using the schema and coverage contract below. Write direct instructions another
+   builder can execute without the conversation, installed skill or council notes.
+   Resolve choices instead of listing alternatives for the builder to guess.
+7. **Share the prompt**, linking the file with the 3-5 line recommendation from
+   intake; provide the full text in chat when file output is unavailable. For a
+   prompt-only request, deliver the prompt and stop. For an authorized build,
+   show the selected skills and a concrete written preview using `brief-intake.md`,
+   then wait for approval or revisions before implementation. Honor an explicit
+   waiver or existing approval of the unchanged preview. Deliver the result,
    observed checks and limitations; offer prompting advice only when requested.
 
 ## The schema (written in this order)
@@ -97,6 +107,125 @@ CINEMATIC DESIGN PROMPT: <working title>
 - Pages exist for visitor tasks, not to look complete.
 - Anti-clone rule (`craft-bar.md`): nothing may be taken from a studied reference or a
   template's identity.
+
+## Coverage contract: a builder should not have to invent the design
+
+For media-led prompts and per-element precision, use the bundled
+[MotionSites adapter](../library/modules/motionsites-web-builder/GUIDE.md), then
+its spec checklist and only the needed technique recipe. Merge concrete style
+lines, layer order, media playback/crop and motion tables into this CDP. For a
+named target builder, use its builder-format reference while preserving the
+agreed stack and scope. Do not create competing specifications.
+
+Keep the twelve sections above as one governing prompt. Expand them with the
+following details wherever relevant to the agreed scope. Do not inflate a single
+landing page into a multipage site or add commerce, accounts, a CMS or a backend
+without a visitor need and authorization. Explicit static or quiet requests win.
+Awwwards-level ambition means specific composition, craft and observed usability;
+a prompt cannot guarantee an award. Do not claim awards, ratings or performance
+that have not been earned or measured.
+
+### Pages and sections (sections 4 and 6)
+
+- List every agreed route with its purpose, audience/arrival context, visitor
+  decision, primary action and destination. Specify shared navigation, footer,
+  current-page treatment, mobile menu and transitions between routes. For public
+  pages include title/description intent and heading hierarchy.
+- Give each route its own ordered section blueprint. Each section needs a stable
+  ID, the question it answers, truthful content/proof, proposed headline and key
+  copy, section form, desktop composition, dominant asset, useful action and next
+  hand-off. Include body, proof and ending with the same care as the hero.
+- Describe the geometry: grid/columns, content width, alignment, image/text
+  balance, focal point, crop, layers/depth, background and negative space. Choose
+  useful sizes or ranges; distinguish precise design targets from measured facts.
+- Specify tablet and phone recomposition: reading order, stacking, crop, spacing,
+  controls, content priority and motion changes. Shrinking the desktop layout is
+  insufficient. Mark intentional shared sections by ID; do not say "repeat Home"
+  for a page with a different task.
+
+### Components and working behavior (sections 5 and 6)
+
+- Inventory shared and bespoke components with stable IDs and the sections that
+  use them. Reuse the project's existing components where appropriate. Describe
+  anatomy, size/variants, typography, surface, border/radius, iconography and
+  content limits; "beautiful cards" is not a component specification.
+- Specify meaningful default, hover, focus-visible, pressed, selected, expanded,
+  disabled, loading, empty, error and success states as applicable. Name triggers,
+  transitions, outputs, keyboard/touch behavior and focus destination. Avoid
+  inventing states for elements that do not have them.
+- Fully describe the signature interaction: real inputs, intermediate and final
+  states, what it teaches, reset/reversal and a usable static equivalent. Forms
+  need fields, labels, validation, submission destination, pending/error/success
+  copy and what actually persists or is sent. Label demonstrations honestly.
+- Record each component's existing/bundled/registry/custom source and the changes
+  that make it belong to this product. A named library does not specify its design.
+
+### Visual system, content and assets (sections 7 and 9)
+
+- Write the chosen idea and why it belongs to this subject. State reference
+  principles to transfer, approved regions to preserve and category defaults to
+  avoid. Resolve the direction after discussion; do not leave a menu of styles.
+- Provide actual semantic color values with intended surfaces/text pairings and
+  contrast targets; font families and available source/fallback, roles, weights,
+  desktop/mobile scale, line-height and tracking. Include spacing scale, container
+  widths, breakpoints, grid/gutters, radii, borders, elevation and icon treatment.
+  Preserve settled brand tokens and installed fonts before adding alternatives.
+- Give an asset plan with IDs, usage/section, supplied/available/to-source status,
+  subject, crop/aspect ratio, focal point, lighting, texture, treatment, alt-text
+  intent and mobile variant. State source/usage rights when known and unresolved
+  needs honestly. References are inspiration, not permission to copy assets.
+- Include an actionable copy deck: headlines, descriptions, navigation and action
+  labels, proof wording and relevant state messages. Distinguish verified facts,
+  proposed copy and labelled samples; never manufacture business claims.
+
+### Motion direction and choreography (sections 4 and 8)
+
+- Give each major section a motion intent or a deliberate still/read state with
+  a reason. Describe page entrance, navigation, section hand-offs, component
+  reveals, microinteractions and the ending as one journey. Avoid applying one
+  generic fade-up to every section.
+- For each moving scene/component, name the target/layer, trigger, start state,
+  intermediate/held state, settled state and exit. Specify duration, delay,
+  stagger/easing or spring values; for scroll-linked scenes, give start/end
+  anchors, progress intervals, pin/hold behavior and release. Include reverse,
+  fast-scroll and interruption behavior where relevant.
+- Map motion to an actual owner in the existing stack, with a single scroll clock
+  where used. Plan mobile/touch, keyboard/focus, reduced-motion and failed-library
+  behavior separately. Content and primary actions remain reachable throughout;
+  no scroll trap, mandatory intro or hover-only task.
+- State asset loading and animation performance budgets appropriate to the target
+  devices, expensive effects to limit, and what will be measured. Favor transform
+  and opacity when they fit the concept; add 3D only when its value is concrete.
+
+### Implementation and acceptance (sections 10-12)
+
+- Name the existing framework, routing, styling and reusable dependencies; retain
+  APIs/data contracts and approved behavior. State what is real, mocked, local or
+  requires missing credentials/assets. Do not put credentials, private profile
+  paths or an unrequested deployment into the prompt.
+- Specify the representative slice and build order, then every remaining agreed
+  route and state. Include responsive, semantic HTML, focus, contrast, readable
+  fallbacks, loading/error handling, image/font loading and SEO needs in scope.
+- Define evidence for acceptance: actual renders at 1440/1024/768/390, full-page
+  and section views, motion start/middle/end and playback, real navigation/forms,
+  keyboard/touch, reduced motion, overflow and console checks. Map checks to
+  concrete route/section/component IDs. Compare against the brief and any supplied
+  incumbent; scanners cannot judge design quality on their own.
+- Finish with confirmed decisions, explicit assumptions, unresolved blockers and
+  exclusions. Resolve material blockers before dependent implementation. When the
+  request is prompt-only, describe these as future checks, never checks already run.
+
+## Completeness pass before hand-off
+
+Read the prompt as a builder who has no chat history. Trace every agreed route to
+its sections, each section to its content/assets/components, and moving components
+to their state/trigger/phone/reduced plans. Check links, destinations and form
+outcomes. Resolve conflicting tokens or behaviors and retain intentional shared
+IDs. Missing evidence remains unverified; missing design decisions need a concrete
+proposal or a clearly identified blocker, not "make it premium" or "add animation".
+Keep optional council notes separate; merge their settled decisions into this
+prompt. When user feedback changes the direction, revise the affected page,
+component, motion and acceptance entries together before building further.
 
 ## Example: idea to CDP (abridged)
 

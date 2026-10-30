@@ -10,6 +10,24 @@ Read for motion-led/cinematic work, a missing-animation complaint or an expressi
 
 These are scope choices, not a quality ladder. Reading and operational surfaces may need stillness or density. A motion-rich request needs visible choreography across the requested journey, not only a hero zoom and static body. Preserve approved regions. Do not force darkness, full-bleed imagery, loaders, pins, 3D or an effect quota.
 
+## Required runtime and component coverage
+
+Every non-static frontend build defaults to GSAP + ScrollTrigger and Lenis, using
+the integration in `motion-recipes.md`. Respect an explicitly different stack,
+scoped fixes and reduced motion. The libraries must run, not merely be imported.
+List every major component in the motion score: header/navigation, hero, body
+sections, collections, controls, generated results, disclosures, forms and footer.
+Give each an entrance, scroll behavior and interaction response where applicable,
+or an explicit reading/operational reason for stillness. Match the mechanism to
+its purpose rather than animating every text node or looping readable content.
+
+Do not disable all scroll animation when a pin will not fit. Provide an unpinned
+sequence on short laptops and native-touch screens, with composed intermediate
+states and a stable reading hold. Verify the actual reveal in both viewport
+heights, not just its presence in source. Runtime checks cover ticker cleanup,
+Lenis CSS, one scroll owner, changing content height, keyboard/anchor navigation,
+breakpoints and live reduced-motion changes before delivery.
+
 ## Compose before tweening
 
 Art and motion jointly choose the actual focal asset, crop bounds, title baseline, foreground/midground/background and persistent anchor. Describe how attention travels and which new fact movement reveals. If an image lacks safe crop space, change framing or asset; stretching a tween cannot fix it.

@@ -14,10 +14,10 @@ signature component stays original.
 | Physical, interactive components (text, buttons, cards, backgrounds, nav, inputs, AI UI) | kokonutui.com (free, MIT; Pro tier is paid and not used) |
 | CSS-only elements and loaders | uiverse.io |
 | WebGL, GSAP, scroll and transition techniques with source | tympanus.net/codrops |
-| Engines | gsap.com/docs, lenis.darkroom.engineering, threejs.org |
+| Engines | gsap.com/docs, lenis.darkroom.engineering, animejs.com/documentation (optional specialist), threejs.org |
 | 3D / interactive runtimes | spline.design, rive.app, lottiefiles.com |
 | Fonts | fonts.google.com, fontshare.com, fontsource.org |
-| Research only, never copy | awwwards.com, godly.website, land-book.com, siteinspire.com |
+| Research only, never copy | pinterest.com (see `pinterest-research.md`), awwwards.com, godly.website, land-book.com, siteinspire.com |
 
 ## Reading registries with `component-source.mjs`
 

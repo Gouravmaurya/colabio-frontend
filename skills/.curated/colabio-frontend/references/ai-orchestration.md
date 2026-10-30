@@ -32,7 +32,8 @@ before invoking it; the model's current working directory is not the skill root.
 
 The coordinator follows [conversational intake](brief-intake.md), retaining the
 user conversation, scope, decisions, integration and final report. Ask useful
-product/design questions, recommend briefly, then build. Pass settled answers to
+product/design questions, show the selected skills and written design preview,
+and wait for approval or revisions before building. Pass settled answers to
 workers; do not repeat intake or require users to select roles or libraries.
 Read [design memory](design-memory.md) before direction selection. The coordinator
 alone merges user feedback into the shared profile after rereading its current

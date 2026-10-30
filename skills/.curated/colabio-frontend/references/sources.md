@@ -9,6 +9,7 @@ omitted because they change daily.
 
 | Source | License | Unique value | Where it lives here | Overlap resolved by |
 | --- | --- | --- | --- | --- |
+| MotionSites Web Builder | MIT instructions/references/scripts; restricted examples/media excluded | Per-element spec precision, media composition, builder prompt formats, motion recipes, optional screenshot/media QA | `library/modules/motionsites-web-builder/` | Colabio adapter keeps one prompt, stack and acceptance workflow; skips ads, scores and forced defaults |
 | Colabio (this skill) | repo | Understanding-first decision order, domain-grounded palette lab, build selector, Cinematic Design Prompt, rendered baseline/slice/final gates, finish gate, anti-clone rule, working starters | `references/`, `scripts/`, `templates/` | It owns the order and the gates |
 | Impeccable (pbakaus) | Apache-2.0 | 24 command playbooks (critique, audit, polish, harden, distill, bolder, quieter, typeset, layout, colorize, animate, onboard, adapt, optimize), persuade/operate/read modes, craft floor, 62-rule deterministic detector | `library/impeccable/reference/` (playbooks); detector binary stays optional (`references/impeccable-bridge.md`) | Playbooks become commands; its launcher, hooks and context-file setup are skipped |
 | Hallmark (Nutlope / Together AI) | MIT | 21 page macrostructures, about 60 component recipes, themes, genres, copy and slop tests | `library/hallmark/` | Used for structure and components, not as a style preset |
